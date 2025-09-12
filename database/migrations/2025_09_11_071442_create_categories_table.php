@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('cat_name')->unique();
-            $table->string('description');
+            $table->string('name')->unique();   // Nama kategori unik
+            $table->text('description')->nullable(); // Deskripsi bisa panjang, boleh kosong
             $table->softDeletes();
             $table->timestamps();
         });

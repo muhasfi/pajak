@@ -4,76 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paham Pajak - Solusi Perpajakan Terpercaya</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --dark-color: #1f2937;
-            --light-gray: #f8fafc;
-            --medium-gray: #64748b;
-            --border-color: #e2e8f0;
-            --white: #ffffff;
-            --success-color: #059669;
-            --warning-color: #d97706;
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #2a5298;
+            --secondary: #667eea;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --text: #495057;
+            --gradient-primary: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            --gradient-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-accent: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --shadow-hover: 0 15px 40px rgba(0,0,0,0.15);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Poppins', sans-serif;
             line-height: 1.6;
-            color: var(--dark-color);
-            background: var(--white);
+            color: var(--text);
+            overflow-x: hidden;
         }
 
         /* Header & Navigation */
         header {
-            background: var(--white);
+            background: var(--gradient-primary);
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
-            border-bottom: 1px solid var(--border-color);
-            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            transition: var(--transition);
         }
 
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 2rem;
+            padding: 1rem 5%;
             max-width: 1400px;
             margin: 0 auto;
         }
 
         .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            text-decoration: none;
         }
 
         .logo i {
-            font-size: 1.8rem;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 0;
+            gap: 1.5rem;
             align-items: center;
         }
 
@@ -82,21 +86,20 @@
         }
 
         .nav-link {
-            color: var(--dark-color);
+            color: #fff;
             text-decoration: none;
-            padding: 0.75rem 1.25rem;
-            border-radius: 8px;
-            transition: all 0.2s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 0.5rem;
             font-weight: 500;
-            font-size: 0.95rem;
         }
 
         .nav-link:hover {
-            background: var(--light-gray);
-            color: var(--primary-color);
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
         }
 
         /* Dropdown */
@@ -104,16 +107,16 @@
             position: absolute;
             top: 100%;
             left: 0;
-            background: var(--white);
+            background: #fff;
             min-width: 220px;
-            box-shadow: var(--shadow-xl);
-            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border-radius: var(--border-radius);
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
-            transition: all 0.2s ease;
+            transition: var(--transition);
             overflow: hidden;
-            border: 1px solid var(--border-color);
+            z-index: 100;
         }
 
         .nav-item:hover .dropdown {
@@ -125,18 +128,18 @@
         .dropdown a {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            padding: 1rem 1.25rem;
-            color: var(--dark-color);
+            gap: 0.8rem;
+            padding: 0.8rem 1.2rem;
+            color: var(--text);
             text-decoration: none;
-            transition: all 0.2s ease;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 0.9rem;
+            transition: var(--transition);
+            border-bottom: 1px solid #eee;
         }
 
         .dropdown a:hover {
-            background: var(--light-gray);
-            color: var(--primary-color);
+            background: var(--light);
+            color: var(--primary);
+            padding-left: 1.5rem;
         }
 
         .dropdown a:last-child {
@@ -144,17 +147,16 @@
         }
 
         .login-btn {
-            background: var(--primary-color);
-            color: var(--white) !important;
-            padding: 0.75rem 1.5rem !important;
-            border-radius: 8px;
+            background: var(--gradient-accent);
+            padding: 0.7rem 1.5rem !important;
+            border-radius: 25px;
             font-weight: 600;
-            margin-left: 1rem;
+            box-shadow: 0 4px 15px rgba(255,107,107,0.3);
         }
 
         .login-btn:hover {
-            background: var(--secondary-color) !important;
-            transform: translateY(-1px);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255,107,107,0.4);
         }
 
         /* Mobile Menu */
@@ -162,64 +164,92 @@
             display: none;
             flex-direction: column;
             cursor: pointer;
-            gap: 4px;
-            padding: 0.5rem;
+            gap: 5px;
+            padding: 5px;
         }
 
         .mobile-menu-btn span {
-            width: 24px;
-            height: 2px;
-            background: var(--dark-color);
+            width: 25px;
+            height: 3px;
+            background: #fff;
             transition: 0.3s;
-            border-radius: 1px;
+            border-radius: 3px;
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
         }
 
         /* Hero Section */
         .hero {
-            background: var(--white);
-            padding: 120px 0 80px;
+            background: var(--gradient-secondary);
+            color: #fff;
+            padding: 160px 0 100px;
             position: relative;
+            overflow: hidden;
         }
 
-        .hero-container {
-            max-width: 1400px;
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            gap: 3rem;
             align-items: center;
         }
 
-        .hero-content h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: var(--dark-color);
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
+        .hero-text {
+            animation: fadeInUp 1s ease-out;
         }
 
-        .hero-content .subtitle {
-            font-size: 1.25rem;
-            color: var(--medium-gray);
-            margin-bottom: 2rem;
-            line-height: 1.6;
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
         }
 
         .cta-buttons {
             display: flex;
             gap: 1rem;
-            margin-bottom: 3rem;
+            flex-wrap: wrap;
         }
 
         .cta-btn {
             padding: 1rem 2rem;
             border: none;
-            border-radius: 12px;
-            font-size: 1rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: var(--transition);
             text-decoration: none;
             display: inline-flex;
             align-items: center;
@@ -227,126 +257,60 @@
         }
 
         .cta-primary {
-            background: var(--primary-color);
-            color: var(--white);
-            box-shadow: var(--shadow-lg);
+            background: #fff;
+            color: var(--primary);
+            box-shadow: 0 8px 25px rgba(255,255,255,0.3);
         }
 
         .cta-primary:hover {
-            background: var(--secondary-color);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-xl);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255,255,255,0.4);
         }
 
         .cta-secondary {
             background: transparent;
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color);
+            color: #fff;
+            border: 2px solid rgba(255,255,255,0.5);
         }
 
         .cta-secondary:hover {
-            background: var(--primary-color);
-            color: var(--white);
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .hero-stat {
-            text-align: center;
-        }
-
-        .hero-stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            display: block;
-        }
-
-        .hero-stat-label {
-            font-size: 0.9rem;
-            color: var(--medium-gray);
+            background: #fff;
+            color: var(--primary);
+            transform: translateY(-3px);
         }
 
         .hero-image {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            animation: fadeInRight 1s ease-out;
+            position: relative;
         }
 
         .hero-image img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 20px;
-            box-shadow: var(--shadow-xl);
+            width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
         }
 
-        /* Stats Section */
-        .stats-section {
-            background: var(--light-gray);
-            padding: 4rem 0;
-        }
-
-        .stats-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-        }
-
-        .stat-card {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: 16px;
-            text-align: center;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .stat-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--light-gray);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-            font-size: 1.5rem;
-            color: var(--primary-color);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--dark-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: var(--medium-gray);
-            font-weight: 500;
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100%;
+            height: 100%;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: var(--border-radius);
+            z-index: -1;
+            animation: pulse 3s infinite;
         }
 
         /* Features Section */
         .features {
-            padding: 6rem 0;
-            background: var(--white);
+            padding: 100px 0;
+            background: var(--light);
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
         }
@@ -358,141 +322,103 @@
 
         .section-title h2 {
             font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--dark-color);
+            color: var(--primary);
             margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-accent);
+            border-radius: 2px;
         }
 
         .section-title p {
             font-size: 1.2rem;
-            color: var(--medium-gray);
+            color: #666;
             max-width: 600px;
-            margin: 0 auto;
+            margin: 1.5rem auto 0;
         }
 
         .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background: var(--white);
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--light-gray);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            font-size: 2rem;
-            color: var(--primary-color);
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--dark-color);
-        }
-
-        .feature-card p {
-            color: var(--medium-gray);
-            line-height: 1.7;
-        }
-
-        /* Services Section */
-        .services {
-            padding: 6rem 0;
-            background: var(--light-gray);
-        }
-
-        .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
 
-        .service-card {
-            background: var(--white);
-            border-radius: 20px;
+        .feature-card {
+            background: #fff;
+            padding: 2.5rem 2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
             overflow: hidden;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
         }
 
-        .service-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-xl);
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-secondary);
+            transition: 0.5s;
         }
 
-        .service-image {
-            height: 200px;
-            background: var(--light-gray);
+        .feature-card:hover::before {
+            left: 0;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-secondary);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
-            color: var(--primary-color);
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: #fff;
+            box-shadow: 0 10px 25px rgba(102,126,234,0.3);
+            transition: var(--transition);
         }
 
-        .service-content {
-            padding: 2rem;
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
         }
 
-        .service-content h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
+        .feature-card h3 {
+            font-size: 1.5rem;
             margin-bottom: 1rem;
-            color: var(--dark-color);
+            color: var(--primary);
         }
 
-        .service-content p {
-            color: var(--medium-gray);
-            margin-bottom: 1.5rem;
+        .feature-card p {
+            color: #666;
             line-height: 1.6;
-        }
-
-        .service-btn {
-            background: var(--primary-color);
-            color: var(--white);
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .service-btn:hover {
-            background: var(--secondary-color);
         }
 
         /* About Section */
         .about {
-            padding: 6rem 0;
-            background: var(--white);
+            padding: 100px 0;
+            background: #fff;
         }
 
         .about-content {
@@ -504,97 +430,307 @@
 
         .about-text h2 {
             font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--dark-color);
+            color: var(--primary);
             margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .about-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-accent);
+            border-radius: 2px;
         }
 
         .about-text p {
             font-size: 1.1rem;
-            color: var(--medium-gray);
+            color: #666;
             margin-bottom: 1.5rem;
             line-height: 1.7;
         }
 
-        .about-features {
+        .about-stats {
             display: grid;
-            gap: 1rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
             margin-top: 2rem;
         }
 
-        .about-feature {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: var(--light-gray);
-            border-radius: 12px;
+        .stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--light);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            box-shadow: var(--shadow);
         }
 
-        .about-feature-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--primary-color);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            flex-shrink: 0;
+        .stat:hover {
+            background: var(--gradient-secondary);
+            color: #fff;
+            transform: translateY(-5px);
+        }
+
+        .stat:hover h4, .stat:hover p {
+            color: #fff;
+        }
+
+        .stat h4 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .stat p {
+            color: #666;
+            transition: var(--transition);
         }
 
         .about-image {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            text-align: center;
+            position: relative;
         }
 
-        .about-image-placeholder {
+        .about-image img {
             width: 100%;
-            max-width: 500px;
-            height: 400px;
-            background: var(--light-gray);
-            border-radius: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-secondary);
+            border-radius: var(--border-radius);
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background: var(--light);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: #fff;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .service-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-image img {
+            transform: scale(1.1);
+        }
+
+        .service-content {
+            padding: 1.5rem;
+        }
+
+        .service-content h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .service-content p {
+            color: #666;
+            margin-bottom: 1.2rem;
+        }
+
+        .service-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .service-link:hover {
+            color: var(--primary);
+            gap: 0.5rem;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 100px 0;
+            background: #fff;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 5rem;
+            color: rgba(0,0,0,0.05);
+            font-family: serif;
+        }
+
+        .testimonial-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+
+        .testimonial-author {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: var(--primary-color);
-            box-shadow: var(--shadow-lg);
+            gap: 1rem;
+        }
+
+        .author-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .author-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            color: var(--primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            background: var(--gradient-primary);
+            color: #fff;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
         }
 
         /* Footer */
         footer {
-            background: var(--dark-color);
-            color: var(--white);
-            padding: 4rem 0 2rem;
+            background: var(--gradient-primary);
+            color: #fff;
+            padding: 3rem 0 1rem;
         }
 
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
 
         .footer-section h3 {
             margin-bottom: 1.5rem;
-            color: var(--white);
-            font-weight: 600;
-            font-size: 1.2rem;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gradient-accent);
+            border-radius: 2px;
         }
 
         .footer-section p,
         .footer-section a {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255,255,255,0.8);
             text-decoration: none;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.8rem;
             display: block;
-            line-height: 1.6;
+            transition: var(--transition);
         }
 
         .footer-section a:hover {
-            color: var(--white);
+            color: #fff;
+            padding-left: 5px;
         }
 
         .social-links {
@@ -604,95 +740,28 @@
         }
 
         .social-links a {
-            width: 44px;
-            height: 44px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s ease;
-            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            margin-bottom: 0;
         }
 
         .social-links a:hover {
-            background: var(--primary-color);
-            transform: translateY(-2px);
+            background: #fff;
+            color: var(--primary);
+            transform: translateY(-3px);
         }
 
         .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.5rem;
+            margin-top: 2rem;
             text-align: center;
-        }
-
-        .footer-bottom p {
-            color: rgba(255, 255, 255, 0.7);
-            margin: 0;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .hero-container {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-                text-align: center;
-            }
-            
-            .hero-content h1 {
-                font-size: 2.8rem;
-            }
-            
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: flex;
-            }
-
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: var(--white);
-                flex-direction: column;
-                padding: 1rem;
-                box-shadow: var(--shadow-lg);
-                border-top: 1px solid var(--border-color);
-            }
-
-            .nav-menu.active {
-                display: flex;
-            }
-
-            .hero-content h1 {
-                font-size: 2.2rem;
-            }
-
-            .hero-stats {
-                justify-content: center;
-                gap: 1rem;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .features-grid,
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stats-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
         }
 
         /* Animations */
@@ -707,15 +776,136 @@
             }
         }
 
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
-        .animate-on-scroll.animated {
-            opacity: 1;
-            transform: translateY(0);
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .cta-buttons {
+                justify-content: center;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--gradient-primary);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                transition: 0.3s;
+                gap: 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-item {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-link {
+                padding: 1rem;
+                justify-content: center;
+            }
+
+            .dropdown {
+                position: static;
+                width: 100%;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                box-shadow: none;
+                border-radius: 0;
+                background: rgba(0,0,0,0.1);
+            }
+
+            .nav-item:hover .dropdown {
+                display: none;
+            }
+
+            .dropdown.active {
+                display: block;
+            }
+
+            .hero {
+                padding: 130px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid,
+            .services-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .cta-content h2 {
+                font-size: 2rem;
+            }
         }
 
         /* Smooth scrolling */
@@ -725,65 +915,65 @@
 
         /* Custom scrollbar */
         ::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
         }
 
         ::-webkit-scrollbar-track {
-            background: var(--light-gray);
+            background: #f1f1f1;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--primary-color);
-            border-radius: 3px;
+            background: var(--gradient-secondary);
+            border-radius: 10px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: var(--secondary-color);
+            background: var(--gradient-primary);
         }
     </style>
 </head>
 <body>
     <header>
         <nav>
-            <h1>update tampilan</h1>
             <a href="#home" class="logo">
-                <i class="fas fa-calculator"></i>
-                <span>Paham Pajak</span>
+                <i class="fas fa-calculator"></i> Paham Pajak
             </a>
             
             <ul class="nav-menu">
                 <li class="nav-item">
                     <a href="#home" class="nav-link">
-                        <i class="fas fa-home"></i> Beranda
+                        <i class="fas fa-home"></i> Home
                     </a>
                 </li>
                 
                 <li class="nav-item">
-                    <a href="#layanan" class="nav-link">
-                        <i class="fas fa-briefcase"></i> Layanan <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
+                    <a href="#produk" class="nav-link">
+                        <i class="fas fa-box"></i> Produk <i class="fas fa-chevron-down"></i>
                     </a>
                     <div class="dropdown">
-                        <a href="#buku"><i class="fas fa-book"></i> Buku & Panduan</a>
-                        <a href="#artikel"><i class="fas fa-newspaper"></i> Artikel & Blog</a>
-                        <a href="#konsultasi"><i class="fas fa-handshake"></i> Konsultasi</a>
+                        <a href="{{ route('book') }}"><i class="fas fa-book"></i> Buku</a>
+                        <a href="#artikel"><i class="fas fa-newspaper"></i> Artikel</a>
+                    </div>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="#kelas" class="nav-link">
+                        <i class="fas fa-graduation-cap"></i> Kelas <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown">
+                        <a href="#bimble-a"><i class="fas fa-users"></i> Bimble A</a>
+                        <a href="#bimble-b"><i class="fas fa-user-graduate"></i> Bimble B</a>
                     </div>
                 </li>
                 
                 <li class="nav-item">
                     <a href="#pelatihan" class="nav-link">
-                        <i class="fas fa-graduation-cap"></i> Pelatihan <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
+                        <i class="fas fa-chalkboard-teacher"></i> Pelatihan <i class="fas fa-chevron-down"></i>
                     </a>
                     <div class="dropdown">
-                        <a href="#kelas"><i class="fas fa-chalkboard-teacher"></i> Kelas Online</a>
+                        <a href="#seminar"><i class="fas fa-microphone"></i> Seminar/Webinar</a>
                         <a href="#workshop"><i class="fas fa-tools"></i> Workshop</a>
-                        <a href="#seminar"><i class="fas fa-microphone"></i> Seminar</a>
                     </div>
-                </li>
-                
-                <li class="nav-item">
-                    <a href="#tentang" class="nav-link">
-                        <i class="fas fa-info-circle"></i> Tentang
-                    </a>
                 </li>
                 
                 <li class="nav-item">
@@ -794,7 +984,7 @@
                 
                 <li class="nav-item">
                     <a href="#login" class="nav-link login-btn">
-                        <i class="fas fa-sign-in-alt"></i> Masuk
+                        <i class="fas fa-sign-in-alt"></i> Login
                     </a>
                 </li>
             </ul>
@@ -810,77 +1000,21 @@
     <main>
         <!-- Hero Section -->
         <section id="home" class="hero">
-            <div class="hero-container">
-                <div class="hero-content">
-                    <h1>Solusi Perpajakan Terpercaya & Profesional</h1>
-                    <p class="subtitle">Dapatkan pemahaman pajak yang mendalam dengan panduan praktis dari ahli berpengalaman. Konsultasi, pelatihan, dan layanan pajak lengkap untuk individu dan perusahaan.</p>
-                    
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Solusi Perpajakan Terpercaya untuk Bisnis Anda</h1>
+                    <p>Konsultasi, pelatihan, dan layanan pajak profesional dengan tim ahli berpengalaman lebih dari 10 tahun.</p>
                     <div class="cta-buttons">
-                        <a href="#layanan" class="cta-btn cta-primary">
+                        <a href="#produk" class="cta-btn cta-primary">
                             <i class="fas fa-rocket"></i> Mulai Sekarang
                         </a>
                         <a href="#kontak" class="cta-btn cta-secondary">
                             <i class="fas fa-phone"></i> Konsultasi Gratis
                         </a>
                     </div>
-                    
-                    <div class="hero-stats">
-                        <div class="hero-stat">
-                            <span class="hero-stat-number">5000+</span>
-                            <span class="hero-stat-label">Klien Terpuaskan</span>
-                        </div>
-                        <div class="hero-stat">
-                            <span class="hero-stat-number">15+</span>
-                            <span class="hero-stat-label">Tahun Pengalaman</span>
-                        </div>
-                        <div class="hero-stat">
-                            <span class="hero-stat-number">99%</span>
-                            <span class="hero-stat-label">Tingkat Kepuasan</span>
-                        </div>
-                    </div>
                 </div>
-                
                 <div class="hero-image">
-                    <div style="width: 100%; max-width: 500px; height: 400px; background: var(--light-gray); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 4rem; color: var(--primary-color); box-shadow: var(--shadow-xl);">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Stats Section -->
-        <section class="stats-section">
-            <div class="stats-container">
-                <div class="stat-card animate-on-scroll">
-                    <div class="stat-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-number">5000+</div>
-                    <div class="stat-label">Klien Terlayani</div>
-                </div>
-                
-                <div class="stat-card animate-on-scroll">
-                    <div class="stat-icon">
-                        <i class="fas fa-award"></i>
-                    </div>
-                    <div class="stat-number">15+</div>
-                    <div class="stat-label">Tahun Pengalaman</div>
-                </div>
-                
-                <div class="stat-card animate-on-scroll">
-                    <div class="stat-icon">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <div class="stat-number">50+</div>
-                    <div class="stat-label">Konsultan Ahli</div>
-                </div>
-                
-                <div class="stat-card animate-on-scroll">
-                    <div class="stat-icon">
-                        <i class="fas fa-thumbs-up"></i>
-                    </div>
-                    <div class="stat-number">99%</div>
-                    <div class="stat-label">Tingkat Kepuasan</div>
+                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Konsultasi Pajak">
                 </div>
             </div>
         </section>
@@ -889,174 +1023,119 @@
         <section class="features">
             <div class="container">
                 <div class="section-title">
-                    <h2>Mengapa Memilih Paham Pajak?</h2>
-                    <p>Kami menyediakan solusi perpajakan terlengkap dengan dukungan teknologi modern dan tim ahli berpengalaman</p>
+                    <h2>Mengapa Pilih Kami?</h2>
+                    <p>Kami menyediakan layanan perpajakan lengkap dengan kualitas terbaik dan dukungan profesional</p>
                 </div>
                 
                 <div class="features-grid">
-                    <div class="feature-card animate-on-scroll">
+                    <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-shield-alt"></i>
                         </div>
-                        <h3>Terpercaya & Tersertifikasi</h3>
-                        <p>Semua layanan kami telah tersertifikasi dan sesuai dengan regulasi perpajakan terbaru. Dijamin aman dan legal untuk semua jenis transaksi perpajakan Anda.</p>
+                        <h3>Terpercaya & Legal</h3>
+                        <p>Semua layanan kami telah tersertifikasi dan sesuai dengan regulasi perpajakan terbaru di Indonesia</p>
                     </div>
                     
-                    <div class="feature-card animate-on-scroll">
+                    <div class="feature-card">
                         <div class="feature-icon">
-                            <i class="fas fa-user-graduate"></i>
+                            <i class="fas fa-users"></i>
                         </div>
                         <h3>Tim Ahli Berpengalaman</h3>
-                        <p>Didukung oleh konsultan pajak profesional dengan sertifikasi resmi dan pengalaman lebih dari 15 tahun dalam menangani berbagai kasus perpajakan.</p>
+                        <p>Didukung oleh konsultan pajak profesional dengan pengalaman lebih dari 10 tahun</p>
                     </div>
                     
-                    <div class="feature-card animate-on-scroll">
+                    <div class="feature-card">
                         <div class="feature-icon">
-                            <i class="fas fa-headset"></i>
+                            <i class="fas fa-clock"></i>
                         </div>
-                        <h3>Dukungan 24/7</h3>
-                        <p>Layanan konsultasi dan dukungan tersedia 24 jam setiap hari melalui berbagai channel komunikasi untuk membantu kebutuhan perpajakan Anda.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Services Section -->
-        <section id="layanan" class="services">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Layanan Unggulan Kami</h2>
-                    <p>Dapatkan solusi perpajakan terlengkap sesuai kebutuhan Anda</p>
-                </div>
-                
-                <div class="services-grid">
-                    <div class="service-card animate-on-scroll">
-                        <div class="service-image">
-                            <i class="fas fa-book-open"></i>
-                        </div>
-                        <div class="service-content">
-                            <h3>Buku & Panduan Pajak</h3>
-                            <p>Koleksi lengkap buku dan panduan perpajakan terkini yang ditulis oleh ahli pajak berpengalaman untuk membantu pemahaman Anda.</p>
-                            <a href="#buku" class="service-btn">
-                                <i class="fas fa-arrow-right"></i> Lihat Detail
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="service-card animate-on-scroll">
-                        <div class="service-image">
-                            <i class="fas fa-chalkboard-teacher"></i>
-                        </div>
-                        <div class="service-content">
-                            <h3>Pelatihan & Workshop</h3>
-                            <p>Program pelatihan komprehensif dengan metode pembelajaran interaktif dan studi kasus nyata dari dunia industri.</p>
-                            <a href="#pelatihan" class="service-btn">
-                                <i class="fas fa-arrow-right"></i> Daftar Sekarang
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="service-card animate-on-scroll">
-                        <div class="service-image">
-                            <i class="fas fa-handshake"></i>
-                        </div>
-                        <div class="service-content">
-                            <h3>Konsultasi Pajak</h3>
-                            <p>Layanan konsultasi personal dengan konsultan pajak bersertifikat untuk menyelesaikan permasalahan perpajakan Anda.</p>
-                            <a href="#konsultasi" class="service-btn">
-                                <i class="fas fa-arrow-right"></i> Konsultasi Gratis
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="service-card animate-on-scroll">
-                        <div class="service-image">
-                            <i class="fas fa-laptop-code"></i>
-                        </div>
-                        <div class="service-content">
-                            <h3>Aplikasi Pajak Digital</h3>
-                            <p>Platform digital terintegrasi untuk memudahkan perhitungan, pelaporan, dan pengelolaan pajak secara online.</p>
-                            <a href="#aplikasi" class="service-btn">
-                                <i class="fas fa-arrow-right"></i> Download App
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="service-card animate-on-scroll">
-                        <div class="service-image">
-                            <i class="fas fa-chart-bar"></i>
-                        </div>
-                        <div class="service-content">
-                            <h3>Audit & Compliance</h3>
-                            <p>Layanan audit pajak profesional dan pendampingan compliance untuk memastikan kepatuhan perpajakan perusahaan Anda.</p>
-                            <a href="#audit" class="service-btn">
-                                <i class="fas fa-arrow-right"></i> Pelajari Lebih
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="service-card animate-on-scroll">
-                        <div class="service-image">
-                            <i class="fas fa-file-alt"></i>
-                        </div>
-                        <div class="service-content">
-                            <h3>Artikel & Berita Pajak</h3>
-                            <p>Update terbaru seputar peraturan perpajakan, tips praktis, dan analisis mendalam dari para ahli pajak terpercaya.</p>
-                            <a href="#artikel" class="service-btn">
-                                <i class="fas fa-arrow-right"></i> Baca Artikel
-                            </a>
-                        </div>
+                        <h3>Layanan 24/7</h3>
+                        <p>Konsultasi dan dukungan tersedia kapan saja untuk membantu kebutuhan perpajakan Anda</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- About Section -->
-        <section id="tentang" class="about">
+        <section id="about" class="about">
             <div class="container">
                 <div class="about-content">
                     <div class="about-text">
                         <h2>Tentang Paham Pajak</h2>
-                        <p>Paham Pajak hadir sebagai solusi terdepan dalam memberikan layanan perpajakan terpadu di Indonesia. Dengan pengalaman lebih dari 15 tahun, kami telah membantu ribuan individu dan perusahaan dalam memahami dan mengelola kewajiban perpajakan mereka.</p>
+                        <p>Paham Pajak hadir sebagai solusi terpercaya dalam menangani berbagai kebutuhan perpajakan di Indonesia. Dengan pengalaman bertahun-tahun, kami telah membantu ribuan klien mulai dari individu hingga perusahaan multinasional.</p>
+                        <p>Visi kami adalah menjadi mitra terbaik dalam memberikan pemahaman dan solusi perpajakan yang mudah dipahami dan diterapkan oleh semua kalangan.</p>
                         
-                        <p>Visi kami adalah menjadi mitra terpercaya yang memberikan solusi perpajakan inovatif, mudah dipahami, dan dapat diakses oleh semua kalangan masyarakat Indonesia.</p>
-                        
-                        <div class="about-features">
-                            <div class="about-feature">
-                                <div class="about-feature-icon">
-                                    <i class="fas fa-check"></i>
-                                </div>
-                                <div>
-                                    <strong>Konsultan Bersertifikat</strong><br>
-                                    <span style="color: var(--medium-gray);">Tim ahli dengan sertifikasi resmi Brevet AB</span>
-                                </div>
+                        <div class="about-stats">
+                            <div class="stat">
+                                <h4>1000+</h4>
+                                <p>Klien Terlayani</p>
                             </div>
-                            
-                            <div class="about-feature">
-                                <div class="about-feature-icon">
-                                    <i class="fas fa-check"></i>
-                                </div>
-                                <div>
-                                    <strong>Teknologi Terdepan</strong><br>
-                                    <span style="color: var(--medium-gray);">Platform digital terintegrasi dengan sistem pajak</span>
-                                </div>
+                            <div class="stat">
+                                <h4>15+</h4>
+                                <p>Tahun Pengalaman</p>
                             </div>
-                            
-                            <div class="about-feature">
-                                <div class="about-feature-icon">
-                                    <i class="fas fa-check"></i>
-                                </div>
-                                <div>
-                                    <strong>Jaminan Keamanan</strong><br>
-                                    <span style="color: var(--medium-gray);">Data terlindungi dengan enkripsi tingkat bank</span>
-                                </div>
+                            <div class="stat">
+                                <h4>50+</h4>
+                                <p>Konsultan Ahli</p>
+                            </div>
+                            <div class="stat">
+                                <h4>99%</h4>
+                                <p>Tingkat Kepuasan</p>
                             </div>
                         </div>
                     </div>
                     
                     <div class="about-image">
-                        <div class="about-image-placeholder">
-                            <i class="fas fa-building"></i>
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Tim Paham Pajak">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="produk" class="services">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Layanan Kami</h2>
+                    <p>Berbagai layanan perpajakan profesional untuk memenuhi kebutuhan Anda</p>
+                </div>
+                
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-image">
+                            <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Konsultasi Pajak">
+                        </div>
+                        <div class="service-content">
+                            <h3>Konsultasi Pajak</h3>
+                            <p>Layanan konsultasi perpajakan profesional untuk individu dan perusahaan dengan solusi terbaik.</p>
+                            <a href="#" class="service-link">
+                                Pelajari Selengkapnya <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-image">
+                            <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Pelatihan Pajak">
+                        </div>
+                        <div class="service-content">
+                            <h3>Pelatihan & Workshop</h3>
+                            <p>Program pelatihan dan workshop perpajakan untuk meningkatkan kompetensi tim keuangan Anda.</p>
+                            <a href="#" class="service-link">
+                                Pelajari Selengkapnya <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-image">
+                            <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Kelas Online">
+                        </div>
+                        <div class="service-content">
+                            <h3>Kelas Online</h3>
+                            <p>Kelas bimbingan pajak online dengan materi terstruktur dan pengajar profesional.</p>
+                            <a href="#" class="service-link">
+                                Pelajari Selengkapnya <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -1064,88 +1143,70 @@
         </section>
 
         <!-- Testimonials Section -->
-        <section class="testimonials" style="padding: 6rem 0; background: var(--light-gray);">
+        <section class="testimonials">
             <div class="container">
                 <div class="section-title">
                     <h2>Apa Kata Klien Kami?</h2>
-                    <p>Testimoni nyata dari klien yang telah merasakan layanan terbaik kami</p>
+                    <p>Testimoni dari klien yang telah menggunakan layanan kami</p>
                 </div>
                 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-top: 3rem;">
-                    <div class="testimonial-card animate-on-scroll" style="background: var(--white); padding: 2rem; border-radius: 20px; box-shadow: var(--shadow-md); border: 1px solid var(--border-color);">
-                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-                            <div style="width: 60px; height: 60px; background: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 1.5rem;">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <div>
-                                <h4 style="color: var(--dark-color); margin: 0; font-weight: 600;">Budi Santoso</h4>
-                                <p style="color: var(--medium-gray); margin: 0; font-size: 0.9rem;">CEO PT. Maju Jaya</p>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">"Layanan konsultasi pajak dari Paham Pajak sangat membantu perusahaan kami dalam mengoptimalkan perencanaan pajak. Tim yang profesional dan responsif."</p>
+                            <div class="testimonial-author">
+                                <div class="author-image">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Budi Santoso">
+                                </div>
+                                <div class="author-info">
+                                    <h4>Budi Santoso</h4>
+                                    <p>Direktur Finansial, PT ABC</p>
+                                </div>
                             </div>
                         </div>
-                        <div style="display: flex; gap: 0.25rem; margin-bottom: 1rem;">
-                            <i class="fas fa-star" style="color: #fbbf24;"></i>
-                            <i class="fas fa-star" style="color: #fbbf24;"></i>
-                            <i class="fas fa-star" style="color: #fbbf24;"></i>
-                            <i class="fas fa-star" style="color: #fbbf24;"></i>
-                            <i class="fas fa-star" style="color: #fbbf24;"></i>
-                        </div>
-                        <p style="color: var(--medium-gray); line-height: 1.6; font-style: italic;">"Layanan Paham Pajak sangat membantu perusahaan kami dalam mengelola pajak. Tim konsultannya profesional dan responsif. Highly recommended!"</p>
                     </div>
                     
-                    <div class="testimonial-card animate-on-scroll" style="background: var(--white); padding: 2rem; border-radius: 20px; box-shadow: var(--shadow-md); border: 1px solid var(--border-color);">
-                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-                            <div style="width: 60px; height: 60px; background: var(--success-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 1.5rem;">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <div>
-                                <h4 style="color: var(--dark-color); margin: 0; font-weight: 600;">Sari Dewi</h4>
-                                <p style="color: var(--medium-gray); margin: 0; font-size: 0.9rem;">Pengusaha UMKM</p>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">"Pelatihan perpajakan yang diselenggarakan sangat informatif dan mudah dipahami. Materi yang disampaikan sesuai dengan kebutuhan praktis sehari-hari."</p>
+                            <div class="testimonial-author">
+                                <div class="author-image">
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Dewi Lestari">
+                                </div>
+                                <div class="author-info">
+                                    <h4>Dewi Lestari</h4>
+                                    <p>Manajer Keuangan, XYZ Corp</p>
+                                </div>
                             </div>
                         </div>
-                        <div style="display: flex; gap: 0.25rem; margin-bottom: 1rem;">
-                            <i class="fas fa-star" style="color: #fbbf24;"></i>
-                            <i class="fas fa-star" style="color: #fbbf24;"></i>
-                            <i class="fas fa-star" style="color: #fbbf24;"></i>
-                            <i class="fas fa-star" style="color: #fbbf24;"></i>
-                            <i class="fas fa-star" style="color: #fbbf24;"></i>
-                        </div>
-                        <p style="color: var(--medium-gray); line-height: 1.6; font-style: italic;">"Sebagai UMKM, saya sangat terbantu dengan panduan pajak yang mudah dipahami. Pelayanannya ramah dan harga terjangkau."</p>
                     </div>
                     
-                    <div class="testimonial-card animate-on-scroll" style="background: var(--white); padding: 2rem; border-radius: 20px; box-shadow: var(--shadow-md); border: 1px solid var(--border-color);">
-                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-                            <div style="width: 60px; height: 60px; background: var(--warning-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 1.5rem;">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <div>
-                                <h4 style="color: var(--dark-color); margin: 0; font-weight: 600;">Ahmad Rahman</h4>
-                                <p style="color: var(--medium-gray); margin: 0; font-size: 0.9rem;">Karyawan Swasta</p>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">"Sebagai freelancer, saya sering bingung dengan perpajakan. Berkat Paham Pajak, sekarang saya bisa mengurus pajak dengan mudah dan benar."</p>
+                            <div class="testimonial-author">
+                                <div class="author-image">
+                                    <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Rizky Pratama">
+                                </div>
+                                <div class="author-info">
+                                    <h4>Rizky Pratama</h4>
+                                    <p>Freelancer</p>
+                                </div>
                             </div>
                         </div>
-                        <div style="display: flex; gap: 0.25rem; margin-bottom: 1rem;">
-                            <i class="fas fa-star" style="color: #fbbf24;"></i>
-                            <i class="fas fa-star" style="color: #fbbf24;"></i>
-                            <i class="fas fa-star" style="color: #fbbf24;"></i>
-                            <i class="fas fa-star" style="color: #fbbf24;"></i>
-                            <i class="fas fa-star" style="color: #fbbf24;"></i>
-                        </div>
-                        <p style="color: var(--medium-gray); line-height: 1.6; font-style: italic;">"Workshop pajaknya sangat informatif dan aplikatif. Sekarang saya lebih paham tentang kewajiban pajak pribadi. Terima kasih Paham Pajak!"</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- CTA Section -->
-        <section class="cta-section" style="padding: 6rem 0; background: var(--primary-color); color: var(--white); text-align: center;">
+        <section class="cta-section">
             <div class="container">
-                <h2 style="font-size: 2.5rem; margin-bottom: 1rem; font-weight: 700;">Siap Mengelola Pajak dengan Lebih Baik?</h2>
-                <p style="font-size: 1.2rem; margin-bottom: 2.5rem; opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto;">Bergabunglah dengan ribuan klien yang telah merasakan kemudahan mengelola pajak bersama Paham Pajak</p>
-                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="#kontak" style="background: var(--white); color: var(--primary-color); padding: 1rem 2rem; border-radius: 12px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s ease;">
-                        <i class="fas fa-phone"></i> Konsultasi Gratis
-                    </a>
-                    <a href="#layanan" style="background: transparent; color: var(--white); padding: 1rem 2rem; border: 2px solid var(--white); border-radius: 12px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s ease;">
-                        <i class="fas fa-eye"></i> Lihat Layanan
+                <div class="cta-content">
+                    <h2>Siap Mengoptimalkan Perpajakan Anda?</h2>
+                    <p>Hubungi kami sekarang untuk konsultasi gratis dan temukan solusi terbaik untuk kebutuhan perpajakan Anda.</p>
+                    <a href="#kontak" class="cta-btn cta-primary">
+                        <i class="fas fa-envelope"></i> Hubungi Kami
                     </a>
                 </div>
             </div>
@@ -1157,46 +1218,34 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Paham Pajak</h3>
-                    <p>Solusi perpajakan terpercaya untuk semua kebutuhan Anda. Kami berkomitmen memberikan layanan terbaik dengan dukungan teknologi modern dan tim ahli berpengalaman.</p>
+                    <p>Solusi perpajakan terpercaya untuk semua kebutuhan Anda. Konsultasi profesional dengan tim ahli berpengalaman.</p>
                     <div class="social-links">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
                 
                 <div class="footer-section">
-                    <h3>Layanan Kami</h3>
-                    <a href="#buku">Buku & Panduan</a>
+                    <h3>Layanan</h3>
+                    <a href="#produk">Buku & Artikel</a>
+                    <a href="#kelas">Kelas Bimbingan</a>
                     <a href="#pelatihan">Pelatihan & Workshop</a>
                     <a href="#konsultasi">Konsultasi Pajak</a>
-                    <a href="#aplikasi">Aplikasi Digital</a>
-                    <a href="#audit">Audit & Compliance</a>
                 </div>
                 
                 <div class="footer-section">
-                    <h3>Perusahaan</h3>
-                    <a href="#tentang">Tentang Kami</a>
-                    <a href="#tim">Tim Ahli</a>
-                    <a href="#karir">Karir</a>
-                    <a href="#berita">Berita & Artikel</a>
-                    <a href="#kebijakan">Kebijakan Privasi</a>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Hubungi Kami</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Jl. Sudirman Kav. 52-53, Jakarta Pusat 10250</p>
-                    <p><i class="fas fa-phone"></i> +62 21 2922 5678</p>
+                    <h3>Kontak</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Jl. Pajak Raya No. 123, Jakarta</p>
+                    <p><i class="fas fa-phone"></i> +62 21 1234 5678</p>
                     <p><i class="fas fa-envelope"></i> info@pahampajak.com</p>
-                    <p><i class="fas fa-whatsapp"></i> +62 812 3456 7890</p>
-                    <p><i class="fas fa-clock"></i> Senin - Jumat: 08:00 - 18:00 WIB</p>
+                    <p><i class="fas fa-clock"></i> Senin - Jumat: 08:00 - 17:00</p>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 Paham Pajak. Hak cipta dilindungi undang-undang. | Dibuat dengan ❤️ untuk kemudahan perpajakan Indonesia</p>
+                <p>&copy; 2024 Paham Pajak. All rights reserved. | Made with ❤️ for better tax understanding</p>
             </div>
         </div>
     </footer>
@@ -1205,86 +1254,58 @@
         // Mobile menu functionality
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
         const navMenu = document.querySelector('.nav-menu');
-        let isMenuOpen = false;
+        const dropdowns = document.querySelectorAll('.dropdown');
 
         mobileMenuBtn.addEventListener('click', () => {
-            isMenuOpen = !isMenuOpen;
             navMenu.classList.toggle('active');
-            
-            // Animate hamburger menu
-            const spans = mobileMenuBtn.querySelectorAll('span');
-            if (isMenuOpen) {
-                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-                spans[1].style.opacity = '0';
-                spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
-            } else {
-                spans[0].style.transform = 'none';
-                spans[1].style.opacity = '1';
-                spans[2].style.transform = 'none';
-            }
+            mobileMenuBtn.classList.toggle('active');
         });
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target) && isMenuOpen) {
-                isMenuOpen = false;
-                navMenu.classList.remove('active');
-                const spans = mobileMenuBtn.querySelectorAll('span');
-                spans[0].style.transform = 'none';
-                spans[1].style.opacity = '1';
-                spans[2].style.transform = 'none';
+        // Mobile dropdown toggle
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.querySelector('.fa-chevron-down')) {
+                link.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        const dropdown = link.nextElementSibling;
+                        dropdown.classList.toggle('active');
+                    }
+                });
             }
         });
 
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    const headerHeight = document.querySelector('header').offsetHeight;
-                    const targetPosition = target.offsetTop - headerHeight - 20;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    if (isMenuOpen) {
-                        isMenuOpen = false;
-                        navMenu.classList.remove('active');
-                        const spans = mobileMenuBtn.querySelectorAll('span');
-                        spans[0].style.transform = 'none';
-                        spans[1].style.opacity = '1';
-                        spans[2].style.transform = 'none';
+                if (this.getAttribute('href') !== '#login') {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        // Close mobile menu if open
+                        if (navMenu.classList.contains('active')) {
+                            navMenu.classList.remove('active');
+                            mobileMenuBtn.classList.remove('active');
+                        }
+                        
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
                     }
                 }
             });
         });
 
         // Header background change on scroll
-        let lastScrollY = window.scrollY;
-        const header = document.querySelector('header');
-
         window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
             if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.backdropFilter = 'blur(20px)';
-                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+                header.style.background = 'rgba(30, 60, 114, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
             } else {
-                header.style.background = 'var(--white)';
+                header.style.background = 'var(--gradient-primary)';
                 header.style.backdropFilter = 'none';
-                header.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
             }
-            
-            // Hide/show header on scroll
-            if (window.scrollY > lastScrollY && window.scrollY > 100) {
-                header.style.transform = 'translateY(-100%)';
-            } else {
-                header.style.transform = 'translateY(0)';
-            }
-            lastScrollY = window.scrollY;
         });
 
         // Animation on scroll
@@ -1296,99 +1317,52 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('animated');
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
         }, observerOptions);
 
-        // Observe all elements with animate-on-scroll class
-        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        document.querySelectorAll('.feature-card, .stat, .service-card, .testimonial-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease';
             observer.observe(el);
         });
 
         // Counter animation for stats
         function animateCounters() {
-            const counters = document.querySelectorAll('.stat-number, .hero-stat-number');
-            const speed = 200; // The lower the slower
-
+            const counters = document.querySelectorAll('.stat h4');
             counters.forEach(counter => {
-                const updateCount = () => {
-                    const target = +counter.textContent.replace(/[^\d]/g, '');
-                    const count = +counter.getAttribute('data-count') || 0;
-                    const inc = target / speed;
-
-                    if (count < target) {
-                        counter.setAttribute('data-count', count + inc);
-                        if (counter.textContent.includes('+')) {
-                            counter.textContent = Math.ceil(count + inc) + '+';
-                        } else if (counter.textContent.includes('%')) {
-                            counter.textContent = Math.ceil(count + inc) + '%';
-                        } else {
-                            counter.textContent = Math.ceil(count + inc).toLocaleString();
-                        }
-                        setTimeout(updateCount, 1);
+                const target = parseInt(counter.textContent);
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.ceil(current) + (counter.textContent.includes('+') ? '+' : '') + (counter.textContent.includes('%') ? '%' : '');
+                        setTimeout(updateCounter, 20);
                     } else {
-                        if (counter.textContent.includes('+')) {
-                            counter.textContent = target.toLocaleString() + '+';
-                        } else if (counter.textContent.includes('%')) {
-                            counter.textContent = target + '%';
-                        } else {
-                            counter.textContent = target.toLocaleString();
-                        }
+                        counter.textContent = target + (counter.textContent.includes('+') ? '+' : '') + (counter.textContent.includes('%') ? '%' : '');
                     }
                 };
-
+                
                 // Start animation when element is visible
-                const counterObserver = new IntersectionObserver((entries) => {
+                const statObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
-                        if (entry.isIntersecting && !counter.getAttribute('data-animated')) {
-                            counter.setAttribute('data-animated', 'true');
-                            counter.setAttribute('data-count', '0');
-                            updateCount();
+                        if (entry.isIntersecting) {
+                            updateCounter();
+                            statObserver.unobserve(entry.target);
                         }
                     });
                 });
-
-                counterObserver.observe(counter);
+                
+                statObserver.observe(counter.parentElement);
             });
         }
 
         animateCounters();
-
-        // Lazy loading for images (when you add real images)
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src;
-                    img.classList.remove('lazy');
-                    observer.unobserve(img);
-                }
-            });
-        });
-
-        document.querySelectorAll('img[data-src]').forEach(img => {
-            imageObserver.observe(img);
-        });
-
-        // Add hover effects for service cards
-        document.querySelectorAll('.service-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-8px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-
-        // Add click to call functionality
-        document.querySelectorAll('a[href*="tel:"], a[href*="mailto:"]').forEach(link => {
-            link.addEventListener('click', (e) => {
-                // Add analytics tracking here if needed
-                console.log('Contact method clicked:', link.href);
-            });
-        });
     </script>
 </body>
 </html>
