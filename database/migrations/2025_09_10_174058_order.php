@@ -17,9 +17,10 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->integer('subtotal');
             $table->integer('tax');
-            $table->integer('grandtotal');
-            $table->enum('status', ['pending', 'settlement','cancel']);
+            $table->integer('grand_total');
+            $table->enum('status', ['pending', 'success', 'failed', 'expired'])->default('pending');
             $table->text('note')->nullable();
+            $table->text('payment_method')->nullable();
             $table->softDeletes();
             $table->timestamps();
 
