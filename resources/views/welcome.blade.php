@@ -530,6 +530,7 @@
 <body>
     <header>
         <nav>
+            <h1>awdawdad</h1>
             <a href="#home" class="logo">
                 <i class="fas fa-calculator"></i> Paham Pajak
             </a>
