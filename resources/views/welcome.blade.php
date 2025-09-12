@@ -115,7 +115,7 @@
                     </div>
                     <h5 class="fw-bold">Buku</h5>
                     <p class="text-muted">Koleksi lengkap buku dan panduan perpajakan terkini yang ditulis oleh ahli pajak berpengalaman untuk membantu pemahaman Anda.</p>
-                    <a href="#buku" class="btn btn-outline-primary mt-auto">
+                    <a href="/book" class="btn btn-outline-primary mt-auto">
                         <i class="fas fa-arrow-right me-1"></i> Lihat Detail
                     </a>
                 </div>
@@ -129,12 +129,12 @@
                     </div>
                     <h5 class="fw-bold">Seminar & Bimbingan Belajar</h5>
                     <p class="text-muted">Program pelatihan komprehensif dengan metode pembelajaran interaktif dan studi kasus nyata dari dunia industri.</p>
-                    <a href="#pelatihan" class="btn btn-outline-primary mt-auto">
+                    <a href="/pelatihan" class="btn btn-outline-primary mt-auto">
                         <i class="fas fa-arrow-right me-1"></i> Daftar Sekarang
                     </a>
                 </div>
             </div>
-            <h1>adwaawadwwd</h1>
+            {{-- <h1>adwaawadwwd</h1> --}}
 
             <!-- Card 3 -->
             {{-- <div class="col-md-6 col-lg-4">
@@ -186,7 +186,7 @@
                     </div>
                     <h5 class="fw-bold">Artikel</h5>
                     <p class="text-muted">Update terbaru seputar peraturan perpajakan, tips praktis, dan analisis mendalam dari para ahli pajak terpercaya.</p>
-                    <a href="#artikel" class="btn btn-outline-primary mt-auto">
+                    <a href="/artikel" class="btn btn-outline-primary mt-auto">
                         <i class="fas fa-arrow-right me-1"></i> Baca Artikel
                     </a>
                 </div>

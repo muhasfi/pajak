@@ -23,7 +23,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/book"><i class="fas fa-book me-2"></i>Buku</a></li>
-                        <li><a class="dropdown-item" href="#artikel"><i class="fas fa-newspaper me-2"></i>Artikel</a></li>
+                        <li><a class="dropdown-item" href="/artikel"><i class="fas fa-newspaper me-2"></i>Artikel</a></li>
                     </ul>
                 </li>
                 

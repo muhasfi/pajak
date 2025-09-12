@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\BimbinganController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\SeminarController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +21,14 @@ Route::get('/', [\App\Http\Controllers\SiteController::class, 'index'])
     ->name('index');
 Route::get('/book', [\App\Http\Controllers\BookController::class, 'index'])
     ->name('book');
+
+    // artikel
+    Route::get('/artikel ', [ArtikelController::class, 'index'])->name('product.artikel');
+    // bimbel
+    Route::get('/bimbel ', [BimbinganController::class, 'index'])->name('product.bimbel');
+    // seminar
+    Route::get('/seminar ', [SeminarController::class, 'index'])->name('product.seminar');
+
 
 Route::get('/cart', [\App\Http\Controllers\BookController::class, 'cart'])->name('cart');
 Route::post('/cart/add', [\App\Http\Controllers\BookController::class, 'addToCart'])->name('cart.add');
