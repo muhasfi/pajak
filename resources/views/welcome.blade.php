@@ -745,7 +745,7 @@
 <body>
     <header>
         <nav>
-            <h1>update tampiladawdawdan awdadw</h1>
+            <h1>update tampiladawdawdan awdadwawdawdad</h1>
             <a href="#home" class="logo">
                 <i class="fas fa-calculator"></i>
                 <span>Paham Pajak</span>
