@@ -1,77 +1,91 @@
-@extends('product.layouts.master')
+@extends('layouts.app')
+
+@section('title', 'Paham Pajak - Solusi Perpajakan Terpercaya')
 
 @section('content')
-<!-- Single Page Header start -->
-<div class="container-fluid page-header py-5">
-    <h1 class="text-center text-white display-6">Menu</h1>
-    <ol class="breadcrumb justify-content-center mb-0">
-        <li class="breadcrumb-item active text-primary">Berbagai pilihan menu terbaik</li>
-    </ol>
+<!-- Page Header -->
+<div class="container-fluid page-header py-5 position-relative" 
+     style="background: url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f') center/cover no-repeat;">
+    <!-- Overlay hitam transparan -->
+    <div class="position-absolute top-0 start-0 w-100 h-100" 
+         style="background: rgba(0, 0, 0, 0.5);"></div>
+
+    <div class="position-relative text-center text-white">
+        <h1 class="fw-bold display-5">Menu</h1>
+        <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item active text-light">Berbagai pilihan menu terbaik</li>
+        </ol>
+    </div>
 </div>
-<!-- Single Page Header End -->
-<!-- Fruits Shop Start-->
-<div class="container-fluid fruite py-5">
-    <div class="container py-5">
+
+<!-- End Page Header -->
+
+<!-- Menu Section -->
+<div class="container-fluid py-5 bg-white">
+    <div class="container">
         <div class="row g-4">
             <div class="col-lg-12">
-                <div class="row g-3">
-                    <div class="col-lg">
-                        <div class="row g-4 justify-content-center">
-                            @foreach ($items as $item)
-                            <div class="col-md-6 col-lg-6 col-xl-4">
-                                <div class="rounded position-relative fruite-item">
-                                    <div class="fruite-img">
-                                        <img src="{{ asset('img_item_upload/'. $item->img) }}" class="img-fluid w-100 rounded-top" alt="" onerror="this.onerror=null;this.src='{{  $item->img }}';">
-                                    </div>
-                                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute
-                                        @if ($item->category->cat_name == 'Book')
-                                            bg-warning
-                                        @elseif ($item->category->cat_name == 'artikel')
-                                            bg-info
-                                        @else
-                                            bg-primary
-                                        @endif" style="top: 10px; left: 10px;">
-                                            {{ $item->category->cat_name }}
-                                    </div>
-                                    <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                        <h4>{{ $item->name }}</h4>
-                                        <p class="text-limited">{{ $item->description }}</p>
-                                        <div class="d-flex justify-content-between flex-lg-wrap">
-                                            <p class="text-dark fs-5 fw-bold mb-0">{{ 'Rp'. number_format($item->price, 0, ',','.') }}</p>
-                                            <a href="#" onclick="addToCart({{ $item->id }})" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Tambah Keranjang</a>
-                                        </div>
-                                    </div>
+                <div class="row g-4 justify-content-center">
+                    @foreach ($items as $item)
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card shadow-sm border-0 h-100 rounded-3 overflow-hidden">
+                            <div class="position-relative">
+                                <img src="{{ asset('img_item_upload/'. $item->img) }}" 
+                                     class="img-fluid w-100" 
+                                     alt="{{ $item->name }}" 
+                                     onerror="this.onerror=null;this.src='{{  $item->img }}';">
+                                <span class="badge position-absolute top-0 start-0 m-3 
+                                    @if ($item->category->cat_name == 'Book')
+                                        bg-warning text-dark
+                                    @elseif ($item->category->cat_name == 'artikel')
+                                        bg-info
+                                    @else
+                                        bg-primary
+                                    @endif
+                                    px-3 py-2 rounded-pill shadow-sm">
+                                    {{ $item->category->cat_name }}
+                                </span>
+                            </div>
+                            <div class="card-body p-4 d-flex flex-column">
+                                <h5 class="fw-bold text-dark">{{ $item->name }}</h5>
+                                <p class="text-muted small flex-grow-1">{{ $item->description }}</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="text-primary fw-bold fs-5">{{ 'Rp'. number_format($item->price, 0, ',','.') }}</span>
+                                    <button onclick="addToCart({{ $item->id }})" 
+                                            class="btn btn-primary btn-sm rounded-pill px-3">
+                                        <i class="fa fa-shopping-bag me-2"></i>Tambah
+                                    </button>
                                 </div>
                             </div>
-                            @endforeach
                         </div>
                     </div>
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Fruits Shop End-->
+<!-- End Menu Section -->
 @endsection
 
 @section('script')
-    <script>
-        function addToCart(menuId) {
-            fetch("{{ secure_url(route('cart.add', [], false)) }}", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({ id: menuId })
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message)
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        }
-    </script>
+<script>
+    function addToCart(menuId) {
+        fetch("{{ secure_url(route('cart.add', [], false)) }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ id: menuId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+</script>
 @endsection
