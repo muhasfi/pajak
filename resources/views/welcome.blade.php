@@ -809,7 +809,6 @@
                 statObserver.observe(counter.parentElement);
             });
         }
-
         animateCounters();
     </script>
 </body>
