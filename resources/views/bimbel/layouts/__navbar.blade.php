@@ -258,12 +258,9 @@
                     <i class="fas fa-chalkboard-teacher"></i> Pelatihan <i class="fas fa-chevron-down"></i>
                 </a>
                 <div class="dropdown">
-                    {{-- Bimble A → Halaman index bimbel --}}
                     <a href="{{ route('bimbel.index') }}">
                         <i class="fas fa-users"></i> Bimble A
                     </a>
-
-                    {{-- Bimble B → Halaman courses bimbel --}}
                     <a href="{{ route('bimbel.courses.index') }}">
                         <i class="fas fa-user-graduate"></i> Bimble B
                     </a>
