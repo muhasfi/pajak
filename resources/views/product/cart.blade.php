@@ -57,9 +57,10 @@
                         </td>
                         <td>
                             <button class="btn btn-md rounded-circle bg-light border mt-4" 
-                                    onclick="if(confirm('Apakah anda yakin ingin menghapus item ini?')) { removeItemFromCart('{{ $item['id'] }}') }">
+                                    onclick="confirmDelete('{{ $item['id'] }}')">
                                 <i class="fa fa-times text-danger"></i>
                             </button>
+
                         </td>
                     </tr>
                     @endforeach
@@ -72,7 +73,9 @@
             $total = $subTotal + $tax;
         @endphp
         <div class="d-flex justify-content-end">
-            <a href="{{ route('cart.clear') }}" class="btn btn-danger" onclick=" return confirm('Apakah Anda yakin ingin mengosongkan keranjang?')">Kosongkan Keranjang</a>
+            <a href="#" class="btn btn-danger" id="clear-cart-btn" data-url="{{ route('cart.clear') }}">
+                Kosongkan Keranjang
+            </a>
         </div>
         <div class="row g-4 justify-content-end mt-1">
             <div class="col-8"></div>
@@ -110,6 +113,8 @@
 @endsection
 
 @section('script')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('assets/customer/js/cart.js') }}"></script>
     <script>
         function updateQuantity(itemId, change) {
             var qtyInput = document.getElementById('qty-' + itemId);
@@ -147,8 +152,9 @@
         }
 
         function removeItemFromCart(itemId) {
-            
-            fetch("{{ route('cart.remove') }}", {
+
+            // fetch("{{ route('cart.remove') }}"
+            fetch("{{ secure_url(route('cart.remove', [], false)) }}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -162,6 +162,8 @@
 
         let formData = new FormData(form);
 
+        // fetch("{{ secure_url(route('checkout.store', [], false)) }}"
+        // fetch("{{ route('checkout.store') }}"
         fetch("{{ secure_url(route('checkout.store', [], false)) }}", {
             method: "POST",
             body: formData,
@@ -191,7 +193,7 @@
             if (data.snap_token) {
                 snap.pay(data.snap_token, {
                     onSuccess: function(result) {
-                        window.location.href = "{{ route('book') }}";
+                       window.location.href = "/checkout/success/" + data.order_code;
                     },
                     onPending: function(result) {
                         alert("Menunggu Pembayaran");

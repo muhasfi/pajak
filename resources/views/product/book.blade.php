@@ -55,8 +55,11 @@
 @endsection
 
 @section('script')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function addToCart(menuId) {
+            // fetch("{{ secure_url(route('cart.add', [], false)) }}"
+            // fetch("{{ route('cart.add') }}"
             fetch("{{ secure_url(route('cart.add', [], false)) }}", {
                 method: 'POST',
                 headers: {
@@ -67,7 +70,21 @@
             })
             .then(response => response.json())
             .then(data => {
-                alert(data.message)
+                if (data.status === 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: data.message,
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: data.message
+                    });
+                }
             })
             .catch((error) => {
                 console.error('Error:', error);

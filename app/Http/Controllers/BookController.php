@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\OrderItem;
+use Illuminate\Support\Str;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Unique;
 
 class BookController extends Controller
 {
@@ -128,6 +131,15 @@ class BookController extends Controller
         return view('product.checkout', compact('cart'));
     }
 
+    private function generateOrderCode()
+    {
+        do {
+            $code = 'ORD-' . now()->format('Ymd') . '-' . strtoupper(Str::random(6));
+        } while (Order::where('order_code', $code)->exists());
+        
+        return $code;
+    }
+
     public function storeOrder(Request $request)
     {
         $cart = Session::get('cart');
@@ -169,16 +181,12 @@ class BookController extends Controller
             ];
         }
 
-        $user = User::firstOrCreate([
-            'name' => $request->input('fullname'),
+        $order = Order::create([
+            'order_code' => $this->generateOrderCode(),
+            'user_id' => Auth::id(),
             'fullname' => $request->input('fullname'),
             'phone' => $request->input('phone'),
-            'role_id' => 4
-        ]);
-
-        $order = Order::create([
-            'order_code' => 'ORD-'.'-'. time(),
-            'user_id' => $user->id,
+            'email' => $request->input('email'),
             'subtotal' => $totalAmount,
             'tax' => 0.1 * $totalAmount,
             'grand_total' => $totalAmount + (0.1 * $totalAmount),
@@ -206,7 +214,7 @@ class BookController extends Controller
             \Midtrans\Config::$serverKey = config('midtrans.server_key');
             \Midtrans\Config::$isProduction = config('midtrans.is_production');
             \Midtrans\Config::$isSanitized = true;
-            \Midtrans\Config::$is3ds = true;
+            \Midtrans\Config::$is3ds = true;    
 
             $params = [
                     'transaction_details' => [
@@ -215,8 +223,9 @@ class BookController extends Controller
                 ],
                     'item_details' => $itemDetails,
                     'customer_details' => [
-                        'first_name' => $user->fullname ?? 'Guest',
-                        'phone' => $user->phone,
+                        'first_name' => $order->fullname ?? 'Guest',
+                        'phone' => $order->phone,
+                        'email' => $order->email,
                 ],
                     'payment_type' => 'qris',
             ];
@@ -242,8 +251,11 @@ class BookController extends Controller
         $order = Order::where('order_code', $orderId)->first();
 
         if (!$order) {
-            return redirect()->route('book')->with('error', 'Pesanan tidak ditemukan');
+            // return redirect()->route('book')->with('error', 'Pesanan tidak ditemukan');
+            return response()->view('errors.order-not-found', [], 404);
         }
+
+        $orderItems = OrderItem::where('order_id', $order->id)->get();
 
         if ($order->payment_method == 'qris') {
             $order->status  = 'settlement';
@@ -261,7 +273,7 @@ class BookController extends Controller
 }
 
 
-public function handleNotification(Request $request)
+public function handleNotification()
 {
     \Midtrans\Config::$serverKey = config('midtrans.server_key');
     \Midtrans\Config::$isProduction = config('midtrans.is_production');
@@ -270,8 +282,8 @@ public function handleNotification(Request $request)
 
     $notif = new \Midtrans\Notification();
 
-    $orderId = $notif->order_id;
     $transactionStatus = $notif->transaction_status;
+    $orderId = $notif->order_id;
     $fraudStatus = $notif->fraud_status;
 
     $order = Order::where('order_code', $orderId)->first();
@@ -302,6 +314,8 @@ public function handleNotification(Request $request)
 
     return response()->json(['message' => 'Notifikasi diproses']);
 }
+
+
 
     
 }
