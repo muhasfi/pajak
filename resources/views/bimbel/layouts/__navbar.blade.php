@@ -258,8 +258,12 @@
                     <i class="fas fa-chalkboard-teacher"></i> Pelatihan <i class="fas fa-chevron-down"></i>
                 </a>
                 <div class="dropdown">
-                    <a href="#seminar"><i class="fas fa-microphone"></i> Seminar/Webinar</a>
-                    <a href="#workshop"><i class="fas fa-tools"></i> Workshop</a>
+                    <a href="{{ route('bimbel.index') }}">
+                        <i class="fas fa-users"></i> Bimble A
+                    </a>
+                    <a href="{{ route('bimbel.courses.index') }}">
+                        <i class="fas fa-user-graduate"></i> Bimble B
+                    </a>
                 </div>
             </li>
             

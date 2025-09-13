@@ -248,8 +248,12 @@
                     <i class="fas fa-graduation-cap"></i> Kelas <i class="fas fa-chevron-down"></i>
                 </a>
                 <div class="dropdown">
-                    <a href="#bimble-a"><i class="fas fa-users"></i> Bimble A</a>
-                    <a href="#bimble-b"><i class="fas fa-user-graduate"></i> Bimble B</a>
+                    <a href="{{ route('bimbel.index') }}">
+                        <i class="fas fa-users"></i> Bimble A
+                    </a>
+                    <a href="{{ route('bimbel.courses.index') }}">
+                        <i class="fas fa-user-graduate"></i> Bimble B
+                    </a>
                 </div>
             </li>
             
