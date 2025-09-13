@@ -20,8 +20,8 @@
             --secondary: #667eea;
             --accent: #ff6b6b;
             --light: #f8f9fa;
-            --dark: #343a40;
-            --text: #495057;
+            --dark: #e8e8e8;
+            --text: #d6d6d6;
             --gradient-primary: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             --gradient-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-accent: linear-gradient(45deg, #ff6b6b, #ee5a24);
@@ -78,12 +78,14 @@
 
         .hero-text {
             animation: fadeInUp 1s ease-out;
+            
         }
 
         .hero h1 {
             font-size: 3.2rem;
             margin-bottom: 1.5rem;
             line-height: 1.2;
+            color: #ffffff;
         }
 
         .hero p {
@@ -591,6 +593,7 @@
         .cta-content h2 {
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
+            color: #ffffff; /* contoh warna kuning */
         }
 
         .cta-content p {
