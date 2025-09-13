@@ -1,154 +1,63 @@
-{{-- Footer Styles --}}
-<style>
-:root {
-    --primary: #007bff; /* sama seperti navbar */
-    --gradient-primary: linear-gradient(135deg, #1e3c72, #2a5298); /* gradient navbar */
-    --gradient-accent: linear-gradient(135deg, #ffd700, #ffb400);
-    --transition: all 0.3s ease;
-}
-
-/* Footer */
-footer {
-    background: var(--gradient-primary); /* sama dengan navbar */
-    color: #ddd;
-    padding: 4rem 0 2rem;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2.5rem;
-    margin-bottom: 2.5rem;
-}
-
-.footer-section h3 {
-    font-size: 1.3rem;
-    margin-bottom: 1.5rem;
-    color: #fff;
-    position: relative;
-    display: inline-block;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-}
-
-.footer-section h3::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 45px;
-    height: 3px;
-    background: var(--gradient-accent); /* aksen sama navbar */
-    border-radius: 2px;
-}
-
-.footer-section p,
-.footer-section a {
-    color: rgba(255,255,255,0.8);
-    text-decoration: none;
-    margin-bottom: 0.7rem;
-    display: block;
-    line-height: 1.6;
-    font-size: 0.95rem;
-    transition: var(--transition);
-}
-
-.footer-section a:hover {
-    color: #fff;
-    transform: translateX(4px);
-}
-
-/* Social Links */
-.social-links {
-    display: flex;
-    gap: 0.8rem;
-    margin-top: 1.5rem;
-}
-
-.social-links a {
-    width: 42px;
-    height: 42px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 1rem;
-    transition: var(--transition);
-}
-
-.social-links a:hover {
-    background: #fff;
-    color: var(--primary);
-    transform: translateY(-3px);
-}
-
-/* Icons in contact */
-.footer-section p i {
-    margin-right: 8px;
-    color: var(--gradient-accent);
-    width: 18px;
-    text-align: center;
-}
-
-/* Footer Bottom */
-.footer-bottom {
-    border-top: 1px solid rgba(255,255,255,0.15);
-    padding-top: 1.5rem;
-    text-align: center;
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.7);
-}
-
-/* Responsive tweak */
-@media (max-width: 600px) {
-    .footer-section h3 {
-        font-size: 1.2rem;
-    }
-    .social-links a {
-        width: 38px;
-        height: 38px;
-        font-size: 0.9rem;
-    }
-}
-</style>
-
-{{-- Footer HTML --}}
-<footer id="kontak">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Paham Pajak</h3>
-                <p>Solusi perpajakan terpercaya untuk semua kebutuhan Anda. Konsultasi profesional dengan tim ahli berpengalaman.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+<div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
+    <div class="container py-5">
+        <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5) ;">
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <a href="#">
+                        <h1 class="text-primary mb-0">Penjualan</h1>
+                        <p class="text-secondary mb-0">Pilihan mu!</p>
+                    </a>
+                </div>
+                <div class="col-lg-6">
+                    <div class="d-flex justify-content-end pt-3">
+                        <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href="https://www.instagram.com/codepolitan/"><i class="fab fa-instagram"></i></a>
+                        <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href="https://tiktok.com/@codepolitan.com"><i class="fab fa-tiktok"></i></a>
+                        <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href="https://www.youtube.com/@codepolitan"><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-secondary btn-md-square rounded-circle" href="https://id.linkedin.com/company/codepolitan"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
                 </div>
             </div>
-            
-            <div class="footer-section">
-                <h3>Layanan</h3>
-                <a href="#produk">Buku & Artikel</a>
-                <a href="#kelas">Kelas Bimbingan</a>
-                <a href="#pelatihan">Pelatihan & Workshop</a>
-                <a href="#konsultasi">Konsultasi Pajak</a>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Kontak</h3>
-                <p><i class="fas fa-map-marker-alt"></i> Jl. Pajak Raya No. 123, Jakarta</p>
-                <p><i class="fas fa-phone"></i> +62 21 1234 5678</p>
-                <p><i class="fas fa-envelope"></i> info@pahampajak.com</p>
-                <p><i class="fas fa-clock"></i> Senin - Jumat: 08:00 - 17:00</p>
-            </div>
         </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2024 Paham Pajak. All rights reserved. | Made with ❤️ for better tax understanding</p>
+        <div class="row g-5">
+            <div class="col-lg-4 col-md-6">
+                <div class="footer-item">
+                    <h4 class="text-light mb-3">Mengapa orang suka!</h4>
+                    <p class="mb-4">Kami menghadirkan kemudahan, pilihan menu terbaik, dan layanan cepat yang membuat pengalaman kuliner Anda lebih menyenangkan!</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="footer-item">
+                    <h4 class="text-light mb-3">Hubungi Kami</h4>
+                    <p>Alamat: Jl. Sangkuriang No.8, Padasuka, Kec. Cimahi Tengah, Kota Cimahi, Jawa Barat 40526</p>
+                    <p>Email: info@codepolitan.com</p>
+                    <p>Telp: 0899-9488-990</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="d-flex flex-column text-start footer-item">
+                    <h4 class="text-light mb-3">Metode Pembayaran</h4>
+                    <a class="btn-link" href="">QRIS</a>
+                    <a class="btn-link" href="">Tunai</a>
+                </div>
+            </div>
         </div>
     </div>
-</footer>
+</div>
+
+<!-- Copyright Start -->
+<div class="container-fluid copyright bg-dark py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Penjualan</a> <span id="currentYear"></span>. All right reserved.</span>
+            </div>
+            <div class="col-md-6 my-auto text-center text-md-end text-white">
+                <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
+                <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+                <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+                Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Copyright End -->
