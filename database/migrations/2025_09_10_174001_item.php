@@ -17,13 +17,15 @@ return new class extends Migration
             $table->text('description');
             $table->integer('price');
             $table->string('img')->nullable();
-            $table->unsignedBigInteger('category_id');
+            
+            // Relasi ke categories (lebih ringkas pakai foreignId)
+            $table->foreignId('category_id')
+                  ->constrained('categories')
+                  ->onDelete('cascade');
+
             $table->boolean('is_active')->default(true);
             $table->softDeletes();
             $table->timestamps();
-
-            $table->foreign('category_id')->references('id')->on('categories');
-
         });
     }
 
@@ -33,6 +35,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('items');
-        //
     }
 };

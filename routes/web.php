@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BimbelController;
+use App\Http\Controllers\BookController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +31,13 @@ Route::get('/checkout', [\App\Http\Controllers\BookController::class, 'checkout'
 Route::post('/checkout/store', [\App\Http\Controllers\BookController::class, 'storeOrder'])->name('checkout.store');
 Route::get('/checkout/success/{orderId}', [\App\Http\Controllers\BookController::class, 'checkoutSuccess'])->name('checkout.success');
 
+
+Route::prefix('bimbel')->group(function () {
+    Route::get('/', [BimbelController::class, 'index'])->name('bimbel.index');
+    Route::get('/courses', [BimbelController::class, 'courses'])->name('bimbel.courses.index');
+    Route::get('/courses/{id}', [BimbelController::class, 'show'])->name('bimbel.courses.show');
+    Route::post('/courses/{id}/enroll', [BimbelController::class, 'enroll'])->name('bimbel.courses.enroll');
+});
 
 require __DIR__.'/auth.php';
 
