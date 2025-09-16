@@ -29,6 +29,7 @@ Route::get('/cart/clear', [\App\Http\Controllers\BookController::class, 'clearCa
 
 Route::get('/checkout', [\App\Http\Controllers\BookController::class, 'checkout'])->name('checkout');
 Route::post('/checkout/store', [\App\Http\Controllers\BookController::class, 'storeOrder'])->name('checkout.store');
+Route::get('/checkout/order-pay/{order_code}', [\App\Http\Controllers\BookController::class, 'orderPay'])->name('checkout.orderPay');
 Route::get('/checkout/success/{orderId}', [\App\Http\Controllers\BookController::class, 'checkoutSuccess'])->name('checkout.success');
 
 

@@ -121,45 +121,11 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('assets/customer/js/cart.js') }}"></script>
     <script>
-        function updateQuantity(itemId, change) {
-            var qtyInput = document.getElementById('qty-' + itemId);
-            var currentQty = parseInt(qtyInput.value);
-            var newQty = currentQty + change;
-
-            if (newQty <= 0 ) {
-                if(confirm('Apakah anda yakin ingin menghapus item ini?')) {
-                    removeItemFromCart(itemId);
-                }
-                return;
-            }
-
-            fetch("{{ route('cart.update') }}", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({ id: itemId, qty: newQty })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    qtyInput.value = newQty;
-                    location.reload();
-                } else {
-                    alert(data.message);
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                alert('Terjadi kesalahan saat mengupdate keranjang');
-            });
-        }
 
         function removeItemFromCart(itemId) {
             // fetch("{{ route('cart.remove') }}"
             // fetch("{{ secure_url(route('cart.remove', [], false)) }}"
-            fetch("{{ secure_url(route('cart.remove', [], false)) }}", {
+            fetch("{{ route('cart.remove', [], false) }}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

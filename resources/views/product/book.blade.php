@@ -58,7 +58,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function addToCart(menuId) {
-            fetch("{{ secure_url(route('cart.add', [], false)) }}", {
+            fetch("{{ route('cart.add', [], false) }}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

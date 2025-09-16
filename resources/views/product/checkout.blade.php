@@ -135,7 +135,6 @@
     </div>
 </div>
 
-<script  src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
     const payButton = document.getElementById("pay-button");
@@ -164,7 +163,7 @@
 
         // fetch("{{ secure_url(route('checkout.store', [], false)) }}"
         // fetch("{{ route('checkout.store') }}"
-        fetch("{{ secure_url(route('checkout.store', [], false)) }}", {
+        fetch("{{ route('checkout.store', [], false) }}", {
             method: "POST",
             body: formData,
             headers: {
@@ -174,7 +173,6 @@
         .then(async response => {
             let data = await response.json();
 
-            // Jika validasi gagal (422) → tampilkan pesan error
             if (response.status === 422) {
                 let messages = Object.values(data.errors)
                                     .flat()
@@ -183,25 +181,14 @@
                 return;
             }
 
-            // Jika ada error lain (misalnya cart kosong)
             if (data.status === "error") {
                 alert(data.message || "Terjadi kesalahan.");
                 return;
             }
 
-            // Kalau sukses → jalankan Midtrans Snap
-            if (data.snap_token) {
-                snap.pay(data.snap_token, {
-                    onSuccess: function(result) {
-                       window.location.href = "/checkout/success/" + data.order_code;
-                    },
-                    onPending: function(result) {
-                        alert("Menunggu Pembayaran");
-                    },
-                    onError: function(result) {
-                        alert("Pembayaran Gagal");
-                    }
-                });
+            if (data.status === "success") {
+                // redirect ke halaman orderPay
+                window.location.href = "{{ url('/checkout/order-pay') }}/" + data.order_code;
             }
         })
         .catch(error => {

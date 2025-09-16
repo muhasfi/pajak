@@ -9,6 +9,8 @@ use App\Models\OrderItem;
 use Illuminate\Support\Str;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Unique;
@@ -41,8 +43,8 @@ class BookController extends Controller
 
         if (!$menu) {
             return response()->json([
-                'status' => 'error',
-                'message' => 'Menu tidak ditemukan'
+                'status'    => 'error',
+                'message'   => 'Menu tidak ditemukan'
             ]);
         }
 
@@ -51,27 +53,27 @@ class BookController extends Controller
         // Cek apakah item sudah ada di cart
         if (isset($cart[$menuId])) {
             return response()->json([
-                'status' => 'error',
-                'message' => 'Item sudah ada di keranjang',
-                'cart' => $cart
+                'status'    => 'error',
+                'message'   => 'Item sudah ada di keranjang',
+                'cart'      => $cart
             ]);
         }
 
         // Kalau belum ada, tambahkan dengan qty = 1
         $cart[$menuId] = [
-            'id' => $menu->id,
-            'name' => $menu->name,
+            'id'    => $menu->id,
+            'name'  => $menu->name,
             'price' => $menu->price,
             'image' => $menu->img,
-            'qty' => 1
+            'qty'   => 1
         ];
 
         Session::put('cart', $cart);
 
         return response()->json([
-            'status' => 'success',
-            'message' => 'Berhasil ditambahkan ke keranjang',
-            'cart' => $cart
+            'status'    => 'success',
+            'message'   => 'Berhasil ditambahkan ke keranjang',
+            'cart'      => $cart
         ]);
 
     }
@@ -144,106 +146,142 @@ class BookController extends Controller
     {
         $cart = Session::get('cart');
 
-        if(empty($cart)) {
+        if (empty($cart)) {
             return redirect()->route('cart')->with('error', 'Keranjang masih kosong');
         }
 
+        // Validasi
         $validator = Validator::make($request->all(), [
             'fullname' => 'required|string|max:255',
-            'phone' => 'required|string|max:15',
-            'email' => 'nullable|email|max:255',
+            'phone'    => 'required|string|max:15',
+            'email'    => 'required|email|max:255',
         ]);
-        if ($validator->fails()) {
-        return response()->json([
-            'status' => 'error',
-            'errors' => $validator->errors()
-        ], 422); // kode HTTP 422 untuk validasi gagal
-    }
 
         if ($validator->fails()) {
-            return redirect()->route('checkout')->withErrors($validator);
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors()
+            ], 422);
         }
 
-        $total = 0;
-        foreach ($cart as $item) {
-            $total += $item['price'] * $item['qty'];
-        }
-
+        // Hitung total
         $totalAmount = 0;
+        $itemDetails = [];
+
         foreach ($cart as $item) {
             $totalAmount += $item['qty'] * $item['price'];
 
             $itemDetails[] = [
-                'id' => $item['id'],
-                'price' => (int) ($item['price'] + ($item['price'] * 0.1)),
+                'id'       => $item['id'],
+                'price'    => (int) ($item['price'] + ($item['price'] * 0.1)), // +10% PPN
                 'quantity' => $item['qty'],
-                'name' => substr($item['name'], 0, 50),
+                'name'     => substr($item['name'], 0, 50),
             ];
         }
 
+        // Simpan order
         $order = Order::create([
-            'order_code' => $this->generateOrderCode(),
-            'user_id' => Auth::id(),
-            'fullname' => $request->input('fullname'),
-            'phone' => $request->input('phone'),
-            'email' => $request->input('email'),
-            'subtotal' => $totalAmount,
-            'tax' => 0.1 * $totalAmount,
-            'grand_total' => $totalAmount + (0.1 * $totalAmount),
-            'status' => 'pending',
-            'payment_method' => $request->payment_method,
-            'note' => $request->note,
+            'order_code'     => $this->generateOrderCode(),
+            'user_id'        => Auth::id(),
+            'fullname'       => $request->fullname,
+            'phone'          => $request->phone,
+            'email'          => $request->email,
+            'subtotal'       => $totalAmount,
+            'tax'            => 0.1 * $totalAmount,
+            'grand_total'    => $totalAmount + (0.1 * $totalAmount),
+            'status'         => 'pending',
+            'payment_method' => 'midtrans',   // selalu midtrans
+            'note'           => $request->note,
         ]);
 
-        foreach ($cart as $itemId => $item) {
+        // Simpan order item
+        foreach ($cart as $item) {
             OrderItem::create([
-                'order_id' => $order->id,
-                'item_id' => $item['id'],
-                'quantity' => $item['qty'],
-                'price' => $item['price'] * $item['qty'],
-                'tax' => 0.1 * $item['price'] * $item['qty'],
+                'order_id'    => $order->id,
+                'item_id'     => $item['id'],
+                'quantity'    => $item['qty'],
+                'price'       => $item['price'] * $item['qty'],
+                'tax'         => 0.1 * $item['price'] * $item['qty'],
                 'total_price' => ($item['price'] * $item['qty']) + (0.1 * $item['price'] * $item['qty']),
             ]);
         }
 
+        // Hapus cart session
         Session::forget('cart');
 
-        if($request->payment_method == 'tunai') {
-            return redirect()->route('checkout.success', ['orderId' => $order->order_code])->with('success', 'Pesanan berhasil dibuat');
-        } else {
-            \Midtrans\Config::$serverKey = config('midtrans.server_key');
-            \Midtrans\Config::$isProduction = config('midtrans.is_production');
-            \Midtrans\Config::$isSanitized = true;
-            \Midtrans\Config::$is3ds = true;    
+        // Konfigurasi Midtrans
+        \Midtrans\Config::$serverKey    = config('midtrans.server_key');
+        \Midtrans\Config::$isProduction = config('midtrans.is_production');
+        \Midtrans\Config::$isSanitized  = true;
+        \Midtrans\Config::$is3ds        = true;
 
+        // Parameter Snap
+        $params = [
+            'transaction_details' => [
+                'order_id'     => $order->order_code,
+                'gross_amount' => (int) $order->grand_total,
+            ],
+            'item_details' => $itemDetails,
+            'customer_details'  => [
+                'first_name'    => $order->fullname ?? 'Guest',
+                'phone'         => $order->phone,
+                'email'         => $order->email,
+            ],
+        ];
+
+        try {
+            $snapToken = \Midtrans\Snap::getSnapToken($params);
+            $order->update([
+            'snap_token' => $snapToken
+        ]);
+
+            return response()->json([
+                'status'     => 'success',
+                'snap_token' => $snapToken,
+                'order_code' => $order->order_code,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Gagal membuat pesanan. Silakan coba lagi.',
+                'error'   => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function orderPay($orderCode)
+    {
+        $order = Order::where('order_code', $orderCode)->firstOrFail();
+
+        // Konfigurasi Midtrans
+        \Midtrans\Config::$serverKey    = config('midtrans.server_key');
+        \Midtrans\Config::$isProduction = config('midtrans.is_production');
+        \Midtrans\Config::$isSanitized  = true;
+        \Midtrans\Config::$is3ds        = true;
+
+        // Kalau belum ada snap_token → buat
+        if (!$order->snap_token) {
             $params = [
-                    'transaction_details' => [
-                        'order_id' => $order->order_code,
-                        'gross_amount' =>  (int) $order->grand_total,
+                'transaction_details' => [
+                    'order_id'     => $order->order_code,
+                    'gross_amount' => (int) $order->grand_total,
                 ],
-                    'item_details' => $itemDetails,
-                    'customer_details' => [
-                        'first_name' => $order->fullname ?? 'Guest',
-                        'phone' => $order->phone,
-                        'email' => $order->email,
+                'customer_details' => [
+                    'first_name' => $order->fullname,
+                    'phone'      => $order->phone,
+                    'email'      => $order->email,
                 ],
-                    'payment_type' => 'qris',
             ];
 
-            try {
-                $snapToken = \Midtrans\Snap::getSnapToken($params);
-                return response()->json([
-                    'status' => 'success',
-                    'snap_token' => $snapToken,
-                    'order_code' => $order->order_code,
-                ]);
-            } catch (\Exception $e) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Gagal membuat pesanan. Silakan coba lagi.'
-                ]);
-            }
+            $snapToken = \Midtrans\Snap::getSnapToken($params);
+            $order->update(['snap_token' => $snapToken]);
         }
+
+        if ($order->status !== 'pending') {
+        return redirect('/book')->with('info', 'Pesanan sudah diproses.');
+    }
+
+        return view('product.order_pay', compact('order'));
     }
 
     public function checkoutSuccess($orderId)
@@ -251,70 +289,65 @@ class BookController extends Controller
         $order = Order::where('order_code', $orderId)->first();
 
         if (!$order) {
-            // return redirect()->route('book')->with('error', 'Pesanan tidak ditemukan');
             return response()->view('errors.order-not-found', [], 404);
         }
-
         $orderItems = OrderItem::where('order_id', $order->id)->get();
-
-        if ($order->payment_method == 'qris') {
-            $order->status  = 'settlement';
-            $order->save();
-        }
-
+        
         return view('product.success', compact('order', 'orderItems'));
-
     }
 
-    public function clear()
-{
-    Session::forget('cart');
-    return response()->json(['status' => 'ok']);
-}
+    public function handleNotification()
+    {
+            \Midtrans\Config::$serverKey = config('midtrans.server_key');
+            \Midtrans\Config::$isProduction = config('midtrans.is_production');
+            \Midtrans\Config::$isSanitized = true;
+            \Midtrans\Config::$is3ds = true;
 
+            $notif = new \Midtrans\Notification();
 
-public function handleNotification()
-{
-    \Midtrans\Config::$serverKey = config('midtrans.server_key');
-    \Midtrans\Config::$isProduction = config('midtrans.is_production');
-    \Midtrans\Config::$isSanitized = true;
-    \Midtrans\Config::$is3ds = true;
+            $transactionStatus  = $notif->transaction_status;
+            $orderId            = $notif->order_id;
+            $fraudStatus        = $notif->fraud_status;
+            $paymentType        = $notif->payment_type;
 
-    $notif = new \Midtrans\Notification();
+            $order = Order::where('order_code', $orderId)->first();
 
-    $transactionStatus = $notif->transaction_status;
-    $orderId = $notif->order_id;
-    $fraudStatus = $notif->fraud_status;
+            if (!$order) {
+                return response()->json(['message' => 'Order tidak ditemukan'], 404);
+            }
+            $order->payment_method = $paymentType;
 
-    $order = Order::where('order_code', $orderId)->first();
+            if ($transactionStatus == 'capture') {
+                if ($fraudStatus == 'challenge') {
+                    $order->status = 'challenge';
+                } else {
+                    $order->status = 'success';
+                    
+                }
+            } else if ($transactionStatus == 'settlement') {
+                $order->status = 'success';
+            } else if ($transactionStatus == 'pending') {
+                $order->status = 'pending';
+            } else if ($transactionStatus == 'deny') {
+                $order->status = 'denied';
+            } else if ($transactionStatus == 'expire') {
+                $order->status = 'expired';
+            } else if ($transactionStatus == 'cancel') {
+                $order->status = 'canceled';
+            }
 
-    if (!$order) {
-        return response()->json(['message' => 'Order tidak ditemukan'], 404);
-    }
+            $order->save();
 
-    if ($transactionStatus == 'capture') {
-        if ($fraudStatus == 'challenge') {
-            $order->status = 'challenge';
-        } else {
-            $order->status = 'settlement';
+            if ($order->status === 'success') {
+            try {
+                Mail::to($order->email)->send(new \App\Mail\OrderPaidMail($order));
+            } catch (\Exception $e) {
+                Log::error("Gagal kirim email ke {$order->email}: " . $e->getMessage());
+            }
         }
-    } else if ($transactionStatus == 'settlement') {
-        $order->status = 'success';
-    } else if ($transactionStatus == 'pending') {
-        $order->status = 'pending';
-    } else if ($transactionStatus == 'deny') {
-        $order->status = 'denied';
-    } else if ($transactionStatus == 'expire') {
-        $order->status = 'expired';
-    } else if ($transactionStatus == 'cancel') {
-        $order->status = 'canceled';
+
+            return response()->json(['message' => 'Notifikasi diproses']);
     }
-
-    $order->save();
-
-    return response()->json(['message' => 'Notifikasi diproses']);
-}
-
 
 
     

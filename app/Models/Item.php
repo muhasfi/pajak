@@ -22,4 +22,9 @@ class Item extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+
+    public function detail()
+    {
+        return $this->hasOne(ItemDetail::class);
+    }
 }
