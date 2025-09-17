@@ -16,7 +16,7 @@
                         <i class="fa fa-shopping-bag fa-2x"></i>
                     </a>
                 </div>
-            </div>
-        </nav>
+        </div>
+    </nav>
     </div>
 </div>
