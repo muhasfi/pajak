@@ -13,7 +13,7 @@ class BimbelController extends Controller
         $categories = []; 
         $courses = [];    
 
-        return view('bimbel.bimbel', compact('categories', 'courses'));
+        return view('product.bimbel.bimbel', compact('categories', 'courses'));
     }
 
     // Halaman daftar kursus

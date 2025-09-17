@@ -27,13 +27,13 @@ class BookController extends Controller
             ->orderBy('name', 'asc')
             ->get();
 
-        return view('product.book', compact('items'));
+        return view('product.book.book', compact('items'));
     }
 
     public function cart()
     {
         $cart = Session::get('cart');
-        return view('product.cart', compact('cart'));
+        return view('product.book.cart', compact('cart'));
     }
 
     public function addToCart(Request $request)
@@ -130,7 +130,7 @@ class BookController extends Controller
 
         // $tableNumber = Session::get('tableNumber');
 
-        return view('product.checkout', compact('cart'));
+        return view('product.book.checkout', compact('cart'));
     }
 
     private function generateOrderCode()
@@ -281,7 +281,7 @@ class BookController extends Controller
         return redirect('/book')->with('info', 'Pesanan sudah diproses.');
     }
 
-        return view('product.order_pay', compact('order'));
+        return view('product.book.order_pay', compact('order'));
     }
 
     public function checkoutSuccess($orderId)
@@ -293,7 +293,7 @@ class BookController extends Controller
         }
         $orderItems = OrderItem::where('order_id', $order->id)->get();
         
-        return view('product.success', compact('order', 'orderItems'));
+        return view('product.book.success', compact('order', 'orderItems'));
     }
 
     public function handleNotification()
