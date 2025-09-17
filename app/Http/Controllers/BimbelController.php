@@ -7,21 +7,28 @@ use Illuminate\Http\Request;
 class BimbelController extends Controller
 {
     // Halaman utama e-learning / bimbel
- public function index()
-{
-    $categories = []; // Kosong, agar tidak error
-    $courses = [];    // Kosong, agar tidak error
+    public function index()
+    {
+        // Contoh data kosong supaya tidak error
+        $categories = []; 
+        $courses = [];    
 
-    return view('bimbel.bimbel', compact('categories', 'courses'));
-}
+        return view('bimbel.bimbel', compact('categories', 'courses'));
+    }
 
     // Halaman daftar kursus
     public function courses(Request $request)
     {
-        // Contoh: pakai pagination atau filter
-        // $courses = Course::paginate(12);
+        // Ambil query string 'class' dari tombol
+        $class = $request->query('class'); // 'A' atau 'B'
 
-        return view('bimbel.courses.index'); // resources/views/bimbel/courses/index.blade.php
+        // Contoh data dummy sesuai class (nanti bisa ganti dengan DB)
+        // if ($class === 'A') $courses = Course::where('class', 'A')->get();
+        // else $courses = Course::where('class', 'B')->get();
+        $courses = []; // kosong dulu
+
+        // kirim $class ke view supaya bisa tampil judul “Bimbel A” / “Bimbel B”
+        return view('bimbel.courses.index', compact('class', 'courses'));
     }
 
     // Halaman detail kursus
@@ -30,7 +37,7 @@ class BimbelController extends Controller
         // Ambil kursus berdasarkan id
         // $course = Course::findOrFail($id);
 
-        return view('bimbel.courses.show'); // resources/views/bimbel/courses/show.blade.php
+        return view('bimbel.courses.show'); 
     }
 
     // Proses pendaftaran kursus
@@ -38,8 +45,9 @@ class BimbelController extends Controller
     {
         // Proses logika mendaftar kursus
         // Cek login, simpan ke tabel pivot user_course dsb.
-        
-        return redirect()->route('bimbel.courses.show', $id)
+
+        return redirect()
+            ->route('bimbel.courses.show', $id)
             ->with('success', 'Berhasil mendaftar kursus');
     }
 }
