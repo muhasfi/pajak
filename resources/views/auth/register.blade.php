@@ -1,85 +1,169 @@
-<x-guest-layout>
-    <div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
-        <div class="w-full max-w-md">
-            <div class="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl p-8">
-                
-                {{-- Logo --}}
-                <div class="flex justify-center mb-6">
-                    <a href="/">
-                        <x-application-logo class="w-20 h-20 text-indigo-600" />
-                    </a>
+@extends('layouts.master')
+
+@section('title', 'Daftar Akun Baru')
+
+@section('style')
+<style>
+    body {
+        background: linear-gradient(120deg, #4e54c8 0%, #fdfdff 100%);
+        min-height: 100vh;
+        font-family: 'Inter', Arial, sans-serif;
+    }
+
+    .register-container {
+        max-width: 700px; /* lebih lebar biar muat 2 kolom */
+        margin: 120px auto;
+        padding: 40px 32px;
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 12px 32px rgba(78, 84, 200, 0.15);
+    }
+
+    .register-logo {
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 18px;
+        background: linear-gradient(135deg, #4e54c8 60%, #8f94fb 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .register-logo i {
+        color: #fff;
+        font-size: 2rem;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #4e54c8;
+        margin-bottom: 6px;
+    }
+
+    .input-group {
+        position: relative;
+    }
+
+    .input-icon {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6b7280;
+        font-size: 0.95rem;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid #e0e3ea;
+        padding: 10px 14px 10px 40px;
+        font-size: 0.95rem;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-control:focus {
+        border-color: #4e54c8;
+        box-shadow: 0 0 0 2px rgba(78, 84, 200, 0.15);
+    }
+
+    .btn-primary {
+        background: linear-gradient(90deg, #4e54c8, #8f94fb);
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        padding: 12px 0;
+        margin-top: 8px;
+        transition: background 0.2s, box-shadow 0.2s;
+        box-shadow: 0 4px 12px rgba(78, 84, 200, 0.10);
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(90deg, #8f94fb, #4e54c8);
+        box-shadow: 0 6px 18px rgba(78, 84, 200, 0.18);
+    }
+
+    .alert {
+        border-radius: 8px;
+        margin-bottom: 16px;
+    }
+</style>
+<link rel="stylesheet" 
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+@endsection
+
+@section('content')
+<div class="register-container">
+    <div class="register-logo">
+        <i class="fas fa-user-plus"></i>
+    </div>
+    <h3 class="text-center mb-2" style="color:#4e54c8;font-weight:700;">Daftar Akun Baru</h3>
+    <p class="text-muted text-center mb-4" style="font-size: 0.95rem;">Silakan isi data untuk membuat akun baru.</p>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0 ps-3">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form method="POST" action="{{ route('register') }}">
+        @csrf
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="name" class="form-label">Nama Lengkap</label>
+                <div class="input-group">
+                    <span class="input-icon"><i class="fa fa-user"></i></span>
+                    <input id="name" type="text" name="name" 
+                           class="form-control" value="{{ old('name') }}" 
+                           required autofocus placeholder="Masukkan nama lengkap">
                 </div>
+            </div>
 
-                {{-- Title --}}
-                <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Daftar Akun Baru</h1>
+            <div class="col-md-6 mb-3">
+                <label for="email" class="form-label">Email</label>
+                <div class="input-group">
+                    <span class="input-icon"><i class="fa fa-envelope"></i></span>
+                    <input id="email" type="email" name="email" 
+                           class="form-control" value="{{ old('email') }}" 
+                           required placeholder="Masukkan email">
+                </div>
+            </div>
 
-                {{-- Validation Errors --}}
-                <x-auth-validation-errors class="mb-4" :errors="$errors" />
+            <div class="col-md-6 mb-3">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-group">
+                    <span class="input-icon"><i class="fa fa-lock"></i></span>
+                    <input id="password" type="password" name="password" 
+                           class="form-control" required autocomplete="new-password" 
+                           placeholder="Masukkan password">
+                </div>
+            </div>
 
-                <form method="POST" action="{{ route('register') }}">
-                    @csrf
-
-                    {{-- Name --}}
-                    <div class="mb-4">
-                        <label for="name" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
-                        <div class="relative mt-1">
-                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                                <i class="fa fa-user"></i>
-                            </span>
-                            <x-input id="name" class="pl-10 block w-full rounded-lg border-gray-300 focus:ring-indigo-500 focus:border-indigo-500" 
-                                     type="text" name="name" :value="old('name')" required autofocus />
-                        </div>
-                    </div>
-
-                    {{-- Email --}}
-                    <div class="mb-4">
-                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                        <div class="relative mt-1">
-                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                                <i class="fa fa-envelope"></i>
-                            </span>
-                            <x-input id="email" class="pl-10 block w-full rounded-lg border-gray-300 focus:ring-indigo-500 focus:border-indigo-500" 
-                                     type="email" name="email" :value="old('email')" required />
-                        </div>
-                    </div>
-
-                    {{-- Password --}}
-                    <div class="mb-4">
-                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                        <div class="relative mt-1">
-                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                                <i class="fa fa-lock"></i>
-                            </span>
-                            <x-input id="password" class="pl-10 block w-full rounded-lg border-gray-300 focus:ring-indigo-500 focus:border-indigo-500" 
-                                     type="password" name="password" required autocomplete="new-password" />
-                        </div>
-                    </div>
-
-                    {{-- Confirm Password --}}
-                    <div class="mb-4">
-                        <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Konfirmasi Password</label>
-                        <div class="relative mt-1">
-                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                                <i class="fa fa-lock"></i>
-                            </span>
-                            <x-input id="password_confirmation" class="pl-10 block w-full rounded-lg border-gray-300 focus:ring-indigo-500 focus:border-indigo-500" 
-                                     type="password" name="password_confirmation" required />
-                        </div>
-                    </div>
-
-                    {{-- Sudah punya akun --}}
-                    <div class="flex items-center justify-between mb-6">
-                        <a class="text-sm text-indigo-600 hover:underline" href="{{ route('login') }}">
-                            Sudah punya akun?
-                        </a>
-                    </div>
-
-                    {{-- Button --}}
-                    <button type="submit" class="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-md transition ease-in-out duration-150">
-                        <i class="fa fa-user-plus mr-2"></i>Daftar
-                    </button>
-                </form>
+            <div class="col-md-6 mb-3">
+                <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
+                <div class="input-group">
+                    <span class="input-icon"><i class="fa fa-lock"></i></span>
+                    <input id="password_confirmation" type="password" 
+                           name="password_confirmation" class="form-control" required 
+                           placeholder="Konfirmasi password">
+                </div>
             </div>
         </div>
-    </div>
-</x-guest-layout>
+
+        <div class="mb-3 text-end">
+            <a class="text-sm text-indigo-600 hover:underline" href="{{ route('login') }}">
+                Sudah punya akun?
+            </a>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">
+            <i class="fa fa-user-plus me-2"></i>Daftar
+        </button>
+    </form>
+</div>
+@endsection

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BimbelController;
 use App\Http\Controllers\BookController;
-
+use App\Http\Controllers\PelatihanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,11 +34,15 @@ Route::post('/cart/clear', [\App\Http\Controllers\BookController::class, 'clear'
 
 Route::prefix('bimbel')->group(function () {
     Route::get('/', [BimbelController::class, 'index'])->name('bimbel.index');
+   Route::view('/bimbel/a', 'bimbel.bimbel-a')->name('bimbel.a');
+    Route::view('/b', 'bimbel.bimbel-b')->name('bimbel.b');
     Route::get('/courses', [BimbelController::class, 'courses'])->name('bimbel.courses.index');
     Route::get('/courses/{id}', [BimbelController::class, 'show'])->name('bimbel.courses.show');
     Route::post('/courses/{id}/enroll', [BimbelController::class, 'enroll'])->name('bimbel.courses.enroll');
 });
 
+Route::get('/pelatihan', [App\Http\Controllers\PelatihanController::class, 'index'])->name('pelatihan');
+Route::view('/kontak', 'kontak')->name('kontak');
 require __DIR__.'/auth.php';
 
 Route::middleware(['auth', 'verified'])->group(function () {
