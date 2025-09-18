@@ -54,10 +54,11 @@
                             @endphp
                             <div class="cart-item">
                                 <div class="cart-item-image">
-                                    <img 
-                                        src="{{ asset('img_item_upload/'. $item['image']) }}" 
-                                        alt="{{ $item['name'] }}"
-                                        onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';">
+                                    <img src="{{ asset('img_item_upload/'. $item['image']) }}" 
+                                    class="img-fluid me-5 rounded-circle" 
+                                    style="width: 80px; height: 80px;" 
+                                    alt="" 
+                                    onerror="this.onerror=null;this.src='{{ $item['image'] }}';">
                                 </div>
                                 
                                 <div class="cart-item-content">
@@ -66,7 +67,7 @@
                                     
                                     <div class="cart-item-actions">
                                         
-                                        <button class="remove-btn" onclick="removeItemFromCart('{{ $item['id'] }}')">
+                                        <button class="remove-btn" onclick="confirmDelete('{{ $item['id'] }}')">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </div>
@@ -75,9 +76,12 @@
                         @endforeach
                     </div>
 
-                    <button class="clear-cart-btn animate-fade-in" onclick="clearCart()">
-                        <i class="fas fa-trash-alt"></i> Kosongkan Keranjang
-                    </button>
+                    <button id="clear-cart-btn"
+                    class="btn btn-danger"
+                    {{-- "{{ route('cart.remove') }}" --}}
+                    data-url="{{ secure_url(route('cart.clear', [], false)) }}">
+                    Kosongkan Keranjang
+                </button>
                 </div>
 
                 <div class="col-lg-4">
@@ -117,146 +121,32 @@
 @endsection
 
 @section('script')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{ asset('assets/customer/js/cart.js') }}"></script>
 <script>
-    function updateQuantity(itemId, change) {
-        var qtyInput = document.getElementById('qty-' + itemId);
-        var currentQty = parseInt(qtyInput.value);
-        var newQty = currentQty + change;
-
-        if (newQty <= 0) {
-            if(confirm('Hapus item ini dari keranjang?')) {
-                removeItemFromCart(itemId);
-            }
-            return;
-        }
-
-        fetch("{{ route('cart.update') }}", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({ id: itemId, qty: newQty })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                qtyInput.value = newQty;
-                location.reload();
-            } else {
-                showNotification(data.message, 'error');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showNotification('Gagal update keranjang', 'error');
-        });
-    }
-
     function removeItemFromCart(itemId) {
-        if (!confirm('Apakah Anda yakin ingin menghapus item ini dari keranjang?')) {
-            return;
-        }
-
-        fetch("{{ route('cart.remove') }}", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({ id: itemId })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                showNotification('Item berhasil dihapus dari keranjang', 'success');
-                setTimeout(() => {
+            // fetch("{{ route('cart.remove') }}"
+            // fetch("{{ secure_url(route('cart.remove', [], false)) }}"
+            fetch("{{ route('cart.remove', [], false) }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ id: itemId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
                     location.reload();
-                }, 1000);
-            } else {
-                showNotification(data.message, 'error');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showNotification('Gagal menghapus item', 'error');
-        });
-    }
-
-    function clearCart() {
-        if (!confirm('Apakah Anda yakin ingin mengosongkan seluruh keranjang?')) {
-            return;
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan saat menghapus item dari keranjang');
+            });
         }
-
-        window.location.href = "{{ route('cart.clear') }}";
-    }
-
-    function showNotification(message, type) {
-        // Create notification element
-        const notification = document.createElement('div');
-        notification.className = `alert-${type} animate-fade-in`;
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            color: ${type === 'success' ? '#065f46' : '#7f1d1d'};
-            background: ${type === 'success' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)'};
-            border: 1px solid ${type === 'success' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)'};
-            font-weight: 极;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            z-index: 10000;
-            box-shadow: var(--shadow-lg);
-            animation: slideIn 0.3s ease-out;
-        `;
-        
-        notification.innerHTML = `
-            <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
-            <span>${message}</span>
-        `;
-        
-        // Add to body
-        document.body.appendChild(notification);
-        
-        // Remove after 3 seconds
-        setTimeout(() => {
-            notification.style.animation = 'slideOut 0.3s ease-in';
-            setTimeout(() => {
-                document.body.removeChild(notification);
-            }, 300);
-        }, 3000);
-    }
-
-    // Add CSS for notifications
-    document.addEventListener('DOMContentLoaded', function() {
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
-            
-            @keyframes slideOut {
-                from {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                to {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    });
 </script>
 @endsection

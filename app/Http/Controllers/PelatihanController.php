@@ -8,6 +8,6 @@ class PelatihanController extends Controller
 {
     public function index()
     {
-        return view('pelatihan.pelatihan');
+        return view('product.pelatihan.pelatihan');
     }
 }

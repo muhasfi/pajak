@@ -1,10 +1,6 @@
 :root {
-    --primary: #007bff; /* sama seperti navbar */
-    --gradient-primary: linear-gradient(
-        135deg,
-        #1e3c72,
-        #2a5298
-    ); /* gradient navbar */
+    --primary: #007bff;
+    --gradient-primary: linear-gradient(135deg, #4688ff, #2a5298);
     --gradient-accent: linear-gradient(135deg, #ffd700, #ffb400);
     --transition: all 0.3s ease;
 }

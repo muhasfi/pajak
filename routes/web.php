@@ -42,8 +42,8 @@ Route::prefix('bimbel')->group(function () {
 
 Route::prefix('bimbel')->group(function () {
     Route::get('/', [BimbelController::class, 'index'])->name('bimbel.index');
-    Route::view('/bimbel/a', 'bimbel.bimbel-a')->name('bimbel.a');
-    Route::view('/b', 'bimbel.bimbel-b')->name('bimbel.b');
+    Route::view('/bimbel/a', 'product.bimbel.bimbel-a')->name('bimbel.a');
+    Route::view('/bimbel/b', 'product.bimbel.bimbel-b')->name('bimbel.b');
     Route::get('/courses', [BimbelController::class, 'courses'])->name('bimbel.courses.index');
     Route::get('/courses/{id}', [BimbelController::class, 'show'])->name('bimbel.courses.show');
     Route::post('/courses/{id}/enroll', [BimbelController::class, 'enroll'])->name('bimbel.courses.enroll');
