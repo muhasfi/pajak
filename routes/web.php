@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BimbelController;
 use App\Http\Controllers\BookController;
-
+use App\Http\Controllers\ExamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +38,24 @@ Route::prefix('bimbel')->group(function () {
     Route::get('/courses/{id}', [BimbelController::class, 'show'])->name('bimbel.courses.show');
     Route::post('/courses/{id}/enroll', [BimbelController::class, 'enroll'])->name('bimbel.courses.enroll');
 });
+
+Route::prefix('bimbel')->group(function () {
+    Route::get('/', [BimbelController::class, 'index'])->name('bimbel.index');
+    Route::get('/courses', [BimbelController::class, 'courses'])->name('bimbel.courses.index');
+    Route::get('/courses/{id}', [BimbelController::class, 'show'])->name('bimbel.courses.show');
+    Route::post('/courses/{id}/enroll', [BimbelController::class, 'enroll'])->name('bimbel.courses.enroll');
+});
+// Route::get('/', [ExamController::class, 'index'])->name('exam.index');
+// Route::get('/exam/start', [ExamController::class, 'index'])->name('exam.start');
+// Route::get('/exam/{id}', [ExamController::class, 'show'])->name('exam.show');
+// Route::post('/exam/{id}/answer', [ExamController::class, 'answer'])->name('exam.answer');
+// Route::get('/exam/results', [ExamController::class, 'results'])->name('exam.results');
+
+Route::get('/', [ExamController::class, 'index'])->name('exam.index');
+Route::get('/exam/start', [ExamController::class, 'index'])->name('exam.start');
+Route::get('/exam/{id}', [ExamController::class, 'show'])->name('exam.show');
+Route::post('/exam/{id}/answer', [ExamController::class, 'answer'])->name('exam.answer');
+Route::get('/exam/results', [ExamController::class, 'results'])->name('exam.results');
 
 require __DIR__.'/auth.php';
 
