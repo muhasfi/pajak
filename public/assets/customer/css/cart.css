@@ -1,4 +1,4 @@
-:root {
+/* :root {
     --primary: #2563eb;
     --primary-light: #3b82f6;
     --primary-dark: #1d4ed8;
@@ -17,7 +17,7 @@
         0 10px 10px -5px rgba(0, 0, 0, 0.04);
     --radius: 12px;
     --transition: all 0.3s ease;
-}
+} */
 
 /* Hero Section */
 .cart-hero {

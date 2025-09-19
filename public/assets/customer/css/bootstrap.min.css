@@ -4301,7 +4301,7 @@ fieldset:disabled .btn {
 .page-link {
     position: relative;
     display: block;
-    color: #81c408;
+    color: #0d6efd;
     background-color: #fff;
     border: 1px solid #dee2e6;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
@@ -4314,16 +4314,16 @@ fieldset:disabled .btn {
 }
 .page-link:hover {
     z-index: 2;
-    color: #679d06;
-    background-color: #e9ecef;
-    border-color: #dee2e6;
+    color: #0d6efd; /* biru muda Bootstrap */
+    background-color: #e7f1ff; /* latar biru muda */
+    border-color: #b6d4fe;
 }
 .page-link:focus {
     z-index: 3;
     color: #679d06;
     background-color: #e9ecef;
     outline: 0;
-    box-shadow: 0 0 0 0.25rem rgba(129, 196, 8, 0.25);
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.5);
 }
 .page-item:not(:first-child) .page-link {
     margin-left: -1px;
@@ -4331,8 +4331,8 @@ fieldset:disabled .btn {
 .page-item.active .page-link {
     z-index: 3;
     color: #fff;
-    background-color: #81c408;
-    border-color: #81c408;
+    background-color: #0d6efd; /* biru */
+    border-color: #0d6efd;
 }
 .page-item.disabled .page-link {
     color: #6c757d;

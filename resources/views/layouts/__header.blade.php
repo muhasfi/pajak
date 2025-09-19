@@ -25,4 +25,6 @@
 <!-- Template Stylesheet -->
 <link href="{{ asset('assets/customer/css/style.css') }}" rel="stylesheet">
 
-<link rel="icon" href="https://apps.codepolitan.com/sites/learn/uploads/original/2/logo-codepolitan-originals.png" type="image/x-icon">
+<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2331/2331941.png" type="image/svg+xml">
+
+{{-- //codepolitan --}}

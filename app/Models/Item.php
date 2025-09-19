@@ -10,7 +10,7 @@ class Item extends Model
 {
     use SoftDeletes, HasFactory;
 
-    protected $fillable = ['name', 'description', 'price', 'img', 'is_active', 'created_at', 'updated_at'];
+    protected $fillable = ['name', 'description', 'price', 'img','category_id', 'is_active', 'created_at', 'updated_at'];
     protected $dates = ['deleted_at'];
 
      public function category()

@@ -7,7 +7,6 @@ use App\Models\Item;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Support\Str;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -22,7 +21,7 @@ class BookController extends Controller
         $items = Item::with('category')
             ->where('is_active', 1)
             ->orderBy('name', 'asc')
-            ->get();
+            ->paginate(10);
 
         return view('product.book.book', compact('items'));
     }
@@ -104,9 +103,7 @@ class BookController extends Controller
         if (isset($cart[$itemId])) {
             unset($cart[$itemId]);
             Session::put('cart', $cart);
-
             Session::flash('success', 'Item berhasil dihapus dari keranjang');
-
             return response()->json(['success' => true]);
         }
     }
@@ -278,7 +275,7 @@ class BookController extends Controller
         }
 
         if ($order->status !== 'pending') {
-        return redirect('/book')->with('info', 'Pesanan sudah diproses.');
+        return redirect()->route('checkout.success', $order->order_code);
     }
 
         return view('product.book.order_pay', compact('order'));
