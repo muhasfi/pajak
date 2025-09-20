@@ -1,5 +1,5 @@
 @extends('admin.layouts.master')
-@section('title', 'Daftar Menu')
+@section('title', 'Daftar item')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets/admin/extensions/simple-datatables/style.css') }}">
@@ -11,10 +11,10 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Daftar Menu</h3>
+                <h3>Item Bimbel</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
-                <a href="{{ route('book.create') }}" class="btn btn-primary float-start float-lg-end">
+                <a href="{{ route('bimbel.create') }}" class="btn btn-primary float-start float-lg-end">
                     <i class="bi bi-plus"></i>
                     Tambah Menu
                 </a>
@@ -30,67 +30,58 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
+
                 <table class="table table-striped" id="table1">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Gambar</th>
-                            <th>Nama Item</th>
+                            <th>Judul</th>
                             <th>Deskripsi</th>
                             <th>Harga</th>
-                            <th>Kategori</th>
                             <th>Status</th>
-                            <th colspan="2">Aksi</th>
+                            <th width="20%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($items as $item)
+                        @forelse ($items as $index => $item)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $item->judul }}</td>
+                            <td>{{ Str::limit($item->deskripsi, 50) }}</td>
+                            <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
                             <td>
-                                <img src="{{ Str::startsWith($item->img, ['http://', 'https://']) 
-                                            ? $item->img 
-                                            : asset('storage/' . $item->img) }}"
-                                    width="60"
-                                    class="img-fluid rounded-top"
-                                    alt="Gambar {{ $item->name }}"
-                                    onerror="this.onerror=null;this.src='{{ asset('images/default.png') }}';">
-
-                            </td>
-                            <td>{{ $item->name }}</td>
-                            <td>{{ Str::limit($item->description,15) }}</td>
-                            <td>{{ 'Rp'. number_format($item->price, 0, ',','.') }}</td>
-                            <td>
-                                <span class="badge {{ $item->category->cat_name == 'Artikel' ? 'bg-warning' : 'bg-info' }}">
-                                    {{ $item->category->cat_name }}
-                                </span>
+                                @if ($item->is_active)
+                                    <span class="badge bg-success">Aktif</span>
+                                @else
+                                    <span class="badge bg-danger">Nonaktif</span>
+                                @endif
                             </td>
                             <td>
-                                <span class="badge {{ $item->is_active == 1 ? 'bg-success' : 'bg-danger' }}">
-                                    {{ $item->is_active == 1 ? 'Aktif' : 'Tidak Aktif' }}
-                                </span>
-                            </td>
-                            <td>
-                                <a href="{{ route('book.edit', $item->id) }}" class="btn btn-warning btn-sm">
+                                <a href="{{ route('bimbel.show', $item->id) }}" class="btn btn-sm btn-info">
+                                    <i class="bi bi-eye"></i> Lihat
+                                </a>
+                                <a href="{{ route('bimbel.edit', $item->id) }}" class="btn btn-warning btn-sm">
                                     <i class="bi bi-pencil"></i> Ubah
                                 </a>
-                                <form action="{{ route('book.destroy', $item->id) }}" method="POST" class="d-inline delete-form">
+                                <form action="{{ route('bimbel.destroy', $item->id) }}" 
+                                      method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm delete-btn">
+                                    <button type="submit" class="btn btn-sm btn-danger delete-btn">
                                         <i class="bi bi-trash"></i> Hapus
                                     </button>
                                 </form>
-
                             </td>
                         </tr>
-
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="6" class="text-center">Belum ada data</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
         </div>
-
     </section>
 </div>
 @endsection
@@ -102,13 +93,12 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // Ambil semua tombol delete
     const deleteButtons = document.querySelectorAll('.delete-btn');
 
     deleteButtons.forEach(button => {
         button.addEventListener('click', function (e) {
-            e.preventDefault(); // cegah submit langsung
-            let form = this.closest('form'); // ambil form terdekat
+            e.preventDefault();
+            let form = this.closest('form');
 
             Swal.fire({
                 title: 'Yakin ingin menghapus?',
@@ -121,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    form.submit(); // submit form kalau user setuju
+                    form.submit();
                 }
             });
         });

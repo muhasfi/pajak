@@ -70,6 +70,13 @@
                             </ul>
                         </li>
 
+                        <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                            <a href="{{ route('bimbel.index') }}" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Bimbel</span>
+                            </a>
+                        </li>
+
                     </ul>
                 </div>
             </div>
