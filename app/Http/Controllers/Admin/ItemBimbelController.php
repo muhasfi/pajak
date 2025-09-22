@@ -112,7 +112,7 @@ class ItemBimbelController extends Controller
         return view('admin.bimbel.edit', compact('bimbel'));
     }
 
-    public function update(Request $request, ItemBimbel $itemBimbel)
+    public function update(Request $request, ItemBimbel $bimbel)
     {
         $request->validate([
             'judul' => 'required|string|max:255',
@@ -123,7 +123,7 @@ class ItemBimbelController extends Controller
         ]);
 
         // update master
-        $itemBimbel->update([
+        $bimbel->update([
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
             'harga' => $request->harga,
@@ -131,7 +131,7 @@ class ItemBimbelController extends Controller
         ]);
 
         // hapus detail lama (biar tidak numpuk data)
-        $itemBimbel->details()->delete();
+        $bimbel->details()->delete();
 
         // simpan detail baru
         foreach ($request->details as $detail) {
@@ -148,7 +148,7 @@ class ItemBimbelController extends Controller
                 $pdfPath = $detail['materi_pdf']->store('materi', 'public');
             }
 
-            $itemBimbel->details()->create([
+            $bimbel->details()->create([
                 'judul'      => $detail['judul'],
                 'deskripsi'  => $detail['deskripsi'] ?? null,
                 'materi_pdf' => $pdfPath,

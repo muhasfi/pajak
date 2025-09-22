@@ -24,7 +24,7 @@ class ItemBimbel extends Model
      */
     public function details()
     {
-        return $this->hasMany(ItemBimbelDetail::class, 'item_bimbel_id');
+        return $this->hasMany(ItemBimbelDetail::class, 'item_bimbel_id', 'id');
     }
 
     protected static function boot()

@@ -33,7 +33,7 @@
                         <a href="{{ route('book') }}" class="dropdown-item">
                             <i class="fas fa-book"></i> Buku
                         </a>
-                        <a href="#artikel" class="dropdown-item">
+                        <a href="{{ route('artikel.index') }}" class="dropdown-item">
                             <i class="fas fa-newspaper"></i> Artikel
                         </a>
                     </div>

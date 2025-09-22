@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ArtikelController;
 use App\Http\Controllers\Admin\ItemBimbelController;
 use App\Http\Controllers\Admin\ItemBookController;
 use Illuminate\Routing\Route as RoutingRoute;
@@ -45,6 +46,9 @@ Route::prefix('admin')->group(static function () {
         Route::get('/', [\App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.index');
         Route::resource('/book', ItemBookController::class);
         Route::resource('/bimbel', ItemBimbelController::class);
+        Route::resource('/adminartikel', ArtikelController::class);
+        Route::post('/artikel/upload', [ArtikelController::class, 'upload'])->name('ckeditor.upload');
+
         // Route::get('/book', [\App\Http\Controllers\Admin\ItemBookController::class, 'index'])->name('book.index');
     });
 });

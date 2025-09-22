@@ -49,7 +49,8 @@
                             </a>
                         </li>
                         
-                       <li class="sidebar-item has-sub {{ request()->routeIs('book.*') || request()->routeIs('artikel.*') ? 'active' : '' }}">
+                       {{-- <li class="sidebar-item has-sub {{ request()->routeIs('book.*') || request()->routeIs('artikel.*') ? 'active' : '' }}"> --}}
+                       <li class="sidebar-item has-sub {{ request()->routeIs('book.*') ? 'active' : '' }}">
                             <a href="#" class="sidebar-link">
                                 <i class="bi bi-card-list"></i>
                                 <span>Daftar Menu</span>
@@ -61,12 +62,12 @@
                                         <span>Book</span>
                                     </a>
                                 </li>
-                                <li class="submenu-item {{ request()->routeIs('artikel.*') ? 'active' : '' }}">
+                                {{-- <li class="submenu-item {{ request()->routeIs('artikel.*') ? 'active' : '' }}">
                                     <a href="{{ route('book.index') }}">
                                         <i class="bi bi-file-earmark-text-fill"></i>
                                         <span>Artikel</span>
                                     </a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
 
@@ -74,6 +75,13 @@
                             <a href="{{ route('bimbel.index') }}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Bimbel</span>
+                            </a>
+                        </li>
+                        
+                        <li class="sidebar-item {{ request()->routeIs('adminartikel.*') ? 'active' : '' }}">
+                            <a href="{{ route('adminartikel.index') }}" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Artikel</span>
                             </a>
                         </li>
 

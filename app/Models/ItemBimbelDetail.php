@@ -26,6 +26,6 @@ class ItemBimbelDetail extends Model
      */
     public function itemBimbel()
     {
-        return $this->belongsTo(ItemBimbel::class, 'item_bimbel_id');
+        return $this->belongsTo(ItemBimbel::class, 'item_bimbel_id', 'id');
     }
 }
