@@ -71,12 +71,23 @@
                         </li>
 
                         <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
-                            <a href="{{ route('bimbel.index') }}" class='sidebar-link'>
+                            <a href="{{ route('item-bimbel.index') }}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Bimbel</span>
                             </a>
                         </li>
-
+                        <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                            <a href="{{ route('item-seminars.index') }}" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Seminar</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                            <a href="{{ route('item-layanan.index') }}" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Layanan</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

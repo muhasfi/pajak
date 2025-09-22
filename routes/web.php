@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\ItemBimbelController;
+use App\Http\Controllers\Admin\ItemLayananController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BimbelController;
 use App\Http\Controllers\BookController;
@@ -15,11 +17,13 @@ use App\Http\Controllers\PelatihanController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// Route::get('layanan', [ItemLayananController::class, 'customerIndex'])->name('layanan.customer');
 Route::get('/', [\App\Http\Controllers\SiteController::class, 'index'])
     ->name('index');
 Route::get('/book', [\App\Http\Controllers\BookController::class, 'index'])
     ->name('book');
+    Route::get('layanan', [\App\Http\Controllers\Admin\ItemLayananController::class, 'customerIndex'])
+    ->name('layanan.index');
 
 Route::get('/cart', [\App\Http\Controllers\BookController::class, 'cart'])->name('cart');
 Route::post('/cart/add', [\App\Http\Controllers\BookController::class, 'addToCart'])->name('cart.add');
@@ -48,6 +52,11 @@ Route::prefix('bimbel')->group(function () {
     Route::get('/courses/{id}', [BimbelController::class, 'show'])->name('bimbel.courses.show');
     Route::post('/courses/{id}/enroll', [BimbelController::class, 'enroll'])->name('bimbel.courses.enroll');
 });
+Route::prefix('bimbel')->name('customer.')->group(function () {
+    Route::get('/', [ItemBimbelController::class, 'index'])->name('item_bimbel.index');
+    Route::get('/{item_bimbel}', [ItemBimbelController::class, 'show'])->name('item_bimbel.show');
+});
+
 
 Route::get('/pelatihan', [App\Http\Controllers\PelatihanController::class, 'index'])->name('pelatihan');
 Route::view('/kontak', 'kontak')->name('kontak');

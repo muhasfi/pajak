@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ItemBimbel;
-use App\Models\ItemBimbelDetail;
+// use App\Models\ItemBimbelDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -14,8 +14,7 @@ class ItemBimbelController extends Controller
     // Tampilan Admin
     public function index()
     {
-        $items = ItemBimbel::orderBy('judul', 'asc')->get();
-
+        $items = ItemBimbel::all();
         return view('admin.bimbel.index', compact('items'));
     }
 
@@ -25,168 +24,122 @@ class ItemBimbelController extends Controller
     }
 
     public function store(Request $request)
-    {
-        // Validasi input
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string',
-            'harga' => 'required|numeric|min:0',
-            'is_active' => 'boolean',
+{
+    $request->validate([
+        'judul' => 'required|string|max:255',
+        'deskripsi' => 'required|string',
+        'materi_pdf' => 'nullable|file|mimes:pdf|max:2048',
+        'video' => 'nullable|file|mimes:mp4,mov,avi|max:51200', // Maksimal 50MB
+        'harga' => 'required|numeric|min:0',
+        'is_active' => 'boolean'
+    ]);
 
-            // untuk detail (array)
-            'details.*.judul' => 'required|string|max:255',
-            'details.*.deskripsi' => 'nullable|string',
-            'details.*.materi_pdf' => 'nullable|file|mimes:pdf|max:2048',
-            'details.*.video_type' => 'nullable|string|in:upload,youtube',
-            'details.*.video_upload' => 'nullable|file|mimes:mp4,mov,avi,wmv|max:51200', // max 50MB misal
-            'details.*.video_link' => 'nullable|url|max:255',
-            'details.*.urutan' => 'nullable|integer',
-            'details.*.is_active' => 'boolean',
+    $data = $request->all();
 
-        ]);
-
-        DB::beginTransaction();
-        try {
-            // Simpan master item_bimbel
-            $itemBimbel = ItemBimbel::create([
-                'judul' => $request->judul,
-                'deskripsi' => $request->deskripsi,
-                'harga' => $request->harga,
-                'is_active' => $request->is_active ?? true,
-            ]);
-
-            // Simpan detail jika ada
-            if ($request->has('details')) {
-                foreach ($request->details as $detail) {
-                    // upload pdf jika ada
-                    $materiPdf = null;
-                    if (isset($detail['materi_pdf']) && $detail['materi_pdf'] instanceof \Illuminate\Http\UploadedFile) {
-                        $materiPdf = $detail['materi_pdf']->store('materi_pdf', 'public');
-                    }
-
-
-
-                    $videoPath = null;
-                    if (isset($detail['video_type']) && $detail['video_type'] === 'upload' && isset($detail['video_upload'])) {
-                        $videoPath = $detail['video_upload']->store('videos', 'public');
-                    } elseif (isset($detail['video_type']) && $detail['video_type'] === 'youtube') {
-                        $videoPath = $detail['video_link']; // simpan langsung link yt
-                    } else {
-                        $videoPath = null;
-                    }
-
-                    ItemBimbelDetail::create([
-                        'item_bimbel_id' => $itemBimbel->id,
-                        'judul' => $detail['judul'],
-                        'deskripsi' => $detail['deskripsi'] ?? null,
-                        'materi_pdf' => $materiPdf,
-                        'video' => $videoPath,
-                        'urutan' => $detail['urutan'] ?? null,
-                        'is_active' => $detail['is_active'] ?? true,
-                    ]);
-                }
-            }
-
-            DB::commit();
-            // dd();
-            return redirect()->route('bimbel.index')->with('success', 'Paket bimbel berhasil ditambahkan.');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return back()->withErrors(['error' => $e->getMessage()]);
-        }
+    // Upload PDF
+    if ($request->hasFile('materi_pdf')) {
+        $file = $request->file('materi_pdf');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $path = $file->storeAs('materi_pdf', $filename, 'public');
+        $data['materi_pdf'] = $path;
     }
 
-    public function show(ItemBimbel $bimbel)
-    {
-        // pastikan relasi details ikut di-load
-        $bimbel->load('details');
-
-        return view('admin.bimbel.show', [
-            'item' => $bimbel
-        ]);
+    // Upload Video
+    if ($request->hasFile('video')) {
+        $video = $request->file('video');
+        $videoName = time() . '_' . $video->getClientOriginalName();
+        $videoPath = $video->storeAs('videos', $videoName, 'public');
+        $data['video'] = $videoPath;
     }
 
-    public function edit(ItemBimbel $bimbel)
+    ItemBimbel::create($data);
+
+    return redirect()->route('item-bimbel.index')
+        ->with('success', 'Item bimbel berhasil ditambahkan.');
+}
+
+    public function show(ItemBimbel $itemBimbel)
     {
-        $bimbel->load('details');
-        return view('admin.bimbel.edit', compact('bimbel'));
+        return view('admin.bimbel.show', compact('itemBimbel'));
+    }
+
+    public function edit(ItemBimbel $itemBimbel)
+    {
+        return view('admin.bimbel.edit', compact('itemBimbel'));
     }
 
     public function update(Request $request, ItemBimbel $itemBimbel)
-    {
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string',
-            'harga' => 'required|numeric',
-            'details' => 'required|array',
-            'details.*.judul' => 'required|string|max:255',
-        ]);
+{
+    $request->validate([
+        'judul' => 'required|string|max:255',
+        'deskripsi' => 'required|string',
+        'materi_pdf' => 'nullable|file|mimes:pdf|max:2048',
+        'video' => 'nullable|file|mimes:mp4,mov,avi|max:51200', // Maksimal 50MB
+        'harga' => 'required|numeric|min:0',
+        'is_active' => 'boolean'
+    ]);
 
-        // update master
-        $itemBimbel->update([
-            'judul' => $request->judul,
-            'deskripsi' => $request->deskripsi,
-            'harga' => $request->harga,
-            'is_active' => $request->is_active ?? true,
-        ]);
+    $data = $request->all();
 
-        // hapus detail lama (biar tidak numpuk data)
-        $itemBimbel->details()->delete();
-
-        // simpan detail baru
-        foreach ($request->details as $detail) {
-            $videoPath = null;
-
-            if (isset($detail['video_type']) && $detail['video_type'] === 'upload' && isset($detail['video_upload'])) {
-                $videoPath = $detail['video_upload']->store('videos', 'public');
-            } elseif (isset($detail['video_type']) && $detail['video_type'] === 'youtube') {
-                $videoPath = $detail['video_link'];
-            }
-
-            $pdfPath = null;
-            if (isset($detail['materi_pdf'])) {
-                $pdfPath = $detail['materi_pdf']->store('materi', 'public');
-            }
-
-            $itemBimbel->details()->create([
-                'judul'      => $detail['judul'],
-                'deskripsi'  => $detail['deskripsi'] ?? null,
-                'materi_pdf' => $pdfPath,
-                'video'      => $videoPath,
-                'urutan'     => $detail['urutan'] ?? 0,
-                'is_active'  => $detail['is_active'] ?? true,
-            ]);
+    // Upload PDF baru (jika ada)
+    if ($request->hasFile('materi_pdf')) {
+        // Hapus file lama jika ada
+        if ($itemBimbel->materi_pdf) {
+            Storage::disk('public')->delete($itemBimbel->materi_pdf);
         }
 
-        return redirect()->route('bimbel.index')->with('success', 'Data berhasil diperbarui');
+        $file = $request->file('materi_pdf');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $path = $file->storeAs('materi_pdf', $filename, 'public');
+        $data['materi_pdf'] = $path;
     }
 
-    public function destroy(ItemBimbel $bimbel)
+    // Upload Video baru (jika ada)
+    if ($request->hasFile('video')) {
+        // Hapus video lama jika ada
+        if ($itemBimbel->video) {
+            Storage::disk('public')->delete($itemBimbel->video);
+        }
+
+        $video = $request->file('video');
+        $videoName = time() . '_' . $video->getClientOriginalName();
+        $videoPath = $video->storeAs('videos', $videoName, 'public');
+        $data['video'] = $videoPath;
+    }
+
+    $itemBimbel->update($data);
+
+    return redirect()->route('item-bimbel.index')
+        ->with('success', 'Item bimbel berhasil diperbarui.');
+}
+
+    public function destroy(ItemBimbel $itemBimbel)
     {
-        // kalau pakai cascade DB, cukup:
-        $bimbel->delete();
+        // Hapus file PDF jika ada
+        if ($itemBimbel->materi_pdf) {
+            Storage::disk('public')->delete($itemBimbel->materi_pdf);
+        }
 
-        // kalau pakai Eloquent boot deleting, juga cukup ini:
-        // $bimbel->delete();
+        $itemBimbel->delete();
 
-        return redirect()->route('bimbel.index')
-            ->with('success', 'Item bimbel dan semua modulnya berhasil dihapus.');
+        return redirect()->route('item-bimbel.index')
+            ->with('success', 'Item bimbel berhasil dihapus.');
     }
 
+    // Tampilan Customer
+    public function customerIndex()
+    {
+        $items = ItemBimbel::where('is_active', true)->get();
+        return view('customer.item_bimbel.index', compact('items'));
+    }
 
-    // // Tampilan Customer
-    // public function customerIndex()
-    // {
-    //     $items = ItemBimbel::where('is_active', true)->get();
-    //     return view('customer.item_bimbel.index', compact('items'));
-    // }
-
-    // public function customerShow(ItemBimbel $itemBimbel)
-    // {
-    //     if (!$itemBimbel->is_active) {
-    //         abort(404);
-    //     }
+    public function customerShow(ItemBimbel $itemBimbel)
+    {
+        if (!$itemBimbel->is_active) {
+            abort(404);
+        }
         
-    //     return view('customer.item_bimbel.show', compact('itemBimbel'));
-    // }
+        return view('customer.item_bimbel.show', compact('itemBimbel'));
+    }
+    
 }
