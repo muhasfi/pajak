@@ -32,6 +32,7 @@
                         <i class="fas fa-laptop-code"></i>Produk<i class="fas fa-chevron-down"></i>
                     </a>
                     <div class="dropdown">
+<<<<<<< HEAD
                         <div class="dropdown-grid two-columns">
                             <div class="dropdown-column">
                                 <a href="{{ route('book') }}" class="dropdown-item">
@@ -56,6 +57,31 @@
                                 </a>
                             </div>
                         </div>
+=======
+                        <a href="{{ route('book') }}" class="dropdown-item">
+                            <i class="fas fa-book"></i> Buku
+                        </a>
+                        <a href="{{ route('artikel.index') }}" class="dropdown-item">
+                            <i class="fas fa-newspaper"></i> Artikel
+                        </a>
+                    </div>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="{{ route('bimbel.index') }}" class="nav-link">
+                        <i class="fas fa-graduation-cap"></i> Kelas <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown">
+                        <a href="{{ route('bimbel.a') }}" class="dropdown-item">
+                            <i class="fas fa-users"></i> Bimbel A
+                        </a>
+                        <a href="{{ route('bimbel.b') }}" class="dropdown-item">
+                            <i class="fas fa-user-graduate"></i> Bimbel B
+                        </a>
+                        <a href="{{ route('bimbel.a') }}" class="dropdown-item">
+                            <i class="fas fa-clipboard-list"></i> Ujian Tryout
+                        </a>
+>>>>>>> ba349360a00ab11cd19d2be99968025aa6592a33
                     </div>
                 </li>
                 

@@ -38,8 +38,13 @@
                 <button class="filter-button" data-filter="artikel">Artikel</button>
                 <button class="filter-button" data-filter="other">Lainnya</button>
                 <a href="{{ route('cart') }}" class="position-relative me-4 my-auto">
+<<<<<<< HEAD
                     <i class="fa fa-shopping-bag fa-2x" style="color:#2563eb; opacity:1;"></i>
                 </a>
+=======
+                        <i class="fa fa-shopping-bag fa-2x"></i>
+                    </a>
+>>>>>>> ba349360a00ab11cd19d2be99968025aa6592a33
             </div>
         </div>
         
@@ -48,12 +53,13 @@
             @forelse ($items as $item)
             <div class="product-card animate-fade-in" data-category="{{ strtolower($item->category->cat_name) }}">
                 <div class="product-image">
-                    <img 
-                            src="{{ asset('img_item_upload/'. $item->img) }}" 
-                            class="card-img-top rounded-top-4 img-fluid object-fit-cover"
-                            style="height: 250px;"
-                            alt="{{ $item->name }}"
-                            onerror="this.onerror=null;this.src='{{ $item->img }}';">
+                    <img src="{{ Str::startsWith($item->img, ['http://', 'https://']) 
+                                            ? $item->img 
+                                            : asset('storage/' . $item->img) }}"
+                                    width="60"
+                                    class="img-fluid rounded-top"
+                                    alt="Gambar {{ $item->name }}"
+                                    onerror="this.onerror=null;this.src='{{ asset('images/default.png') }}';">
                     
                     <span class="product-badge 
                         @if ($item->category->cat_name == 'Book') badge-book
@@ -82,6 +88,8 @@
                 <p>Silakan kembali lagi nanti untuk menemukan sumber pengetahuan perpajakan terbaru</p>
             </div>
             @endforelse
+        </div>
+        <div class="mt-4 d-flex justify-content-center"> {{ $items->links('pagination::bootstrap-5') }} 
         </div>
     </div>
 </section>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArtikelController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BimbelController;
 use App\Http\Controllers\BookController;
@@ -32,6 +33,12 @@ Route::post('/checkout/store', [\App\Http\Controllers\BookController::class, 'st
 Route::get('/checkout/order-pay/{order_code}', [\App\Http\Controllers\BookController::class, 'orderPay'])->name('checkout.orderPay');
 Route::get('/checkout/success/{orderId}', [\App\Http\Controllers\BookController::class, 'checkoutSuccess'])->name('checkout.success');
 
+Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel.index');
+Route::get('/artikel/{slug}', [ArtikelController::class, 'show'])->name('artikel.user.show');
+
+Route::fallback(function () {
+    return response()->view('errors.404', [], 404);
+});
 
 Route::prefix('bimbel')->group(function () {
     Route::get('/', [BimbelController::class, 'index'])->name('bimbel.index');

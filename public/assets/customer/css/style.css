@@ -461,11 +461,11 @@
 /*** testimonial End ***/
 
 /*** Single Page Start ***/
-.pagination {
+/* .pagination {
     display: inline-block;
-}
+} */
 
-.pagination a {
+/* .pagination a {
     color: var(--bs-dark);
     padding: 10px 16px;
     text-decoration: none;
@@ -482,7 +482,7 @@
 
 .pagination a:hover:not(.active) {
     background-color: var(--bs-primary);
-}
+} */
 
 .nav.nav-tabs .nav-link.active {
     border-bottom: 2px solid var(--bs-secondary) !important;
