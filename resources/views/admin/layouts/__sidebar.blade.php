@@ -49,42 +49,51 @@
                             </a>
                         </li>
                         
-                       <li class="sidebar-item has-sub {{ request()->routeIs('book.*') || request()->routeIs('artikel.*') ? 'active' : '' }}">
+                        <li class="sidebar-item has-sub {{ request()->routeIs('book.*') || request()->routeIs('artikel.*') ? 'active' : '' }}">
                             <a href="#" class="sidebar-link">
-                                <i class="bi bi-card-list"></i>
-                                <span>Daftar Menu</span>
+                                <i class="bi bi-box-seam"></i> <!-- Ikon produk -->
+                                <span>Produk dan Aplikasi</span>
                             </a>
                             <ul class="submenu">
                                 <li class="submenu-item {{ request()->routeIs('book.*') ? 'active' : '' }}">
                                     <a href="{{ route('book.index') }}">
-                                        <i class="bi bi-book-fill"></i>
+                                        <i class="bi bi-journal-bookmark"></i> <!-- Ikon buku yang lebih spesifik -->
                                         <span>Book</span>
                                     </a>
                                 </li>
                                 <li class="submenu-item {{ request()->routeIs('artikel.*') ? 'active' : '' }}">
-                                    <a href="{{ route('book.index') }}">
-                                        <i class="bi bi-file-earmark-text-fill"></i>
+                                    <a href="{{ route('book.index') }}"> <!-- Perhatikan: ini masih route book.index, mungkin harus diubah -->
+                                        <i class="bi bi-file-earmark-text"></i> <!-- Ikon artikel -->
                                         <span>Artikel</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-
-                        <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
-                            <a href="{{ route('item-bimbel.index') }}" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Bimbel</span>
+                        
+                        <li class="sidebar-item has-sub">
+                            <a href="#" class="sidebar-link">
+                                <i class="bi bi-mortarboard"></i> <!-- Ikon pelatihan/edukasi -->
+                                <span>Pelatihan dan Workshop</span>
                             </a>
+                            <ul class="submenu">
+                                <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                                    <a href="{{ route('item-bimbel.index') }}" class='sidebar-link'>
+                                        <i class="bi bi-backpack"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>Bimbel</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                                    <a href="{{ route('item-seminars.index') }}" class='sidebar-link'>
+                                        <i class="bi bi-mic"></i> <!-- Ikon seminar/presentasi -->
+                                        <span>Seminar</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
-                            <a href="{{ route('item-seminars.index') }}" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Seminar</span>
-                            </a>
-                        </li>
+                        
                         <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
                             <a href="{{ route('item-layanan.index') }}" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
+                                <i class="bi bi-gear"></i> <!-- Ikon layanan/settings -->
                                 <span>Layanan</span>
                             </a>
                         </li>

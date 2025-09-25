@@ -40,7 +40,7 @@
                 </li>
                 
                 <li class="nav-item">
-                    <a href="{{ route('bimbel.index') }}" class="nav-link">
+                    <a href="/bimbel" class="nav-link">
                         <i class="fas fa-graduation-cap"></i> Kelas <i class="fas fa-chevron-down"></i>
                     </a>
                     <div class="dropdown">
