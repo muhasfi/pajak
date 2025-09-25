@@ -3,48 +3,46 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ItemBimbel;
+use App\Models\ItemBook;
+use App\Models\ItemLayanan;
 use Illuminate\Http\Request;
+use App\Models\Order;
+use App\Models\ItemSeminar;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
-    // public function index()
-    // {
-    //     return view('admin.index');
-    // }
     public function index()
     {
-        // Total semua pesanan sukses
-        $totalOrders = \App\Models\Order::where('status', 'success')->count();
+        // Hitung total seminar
+        $totalSeminars = ItemSeminar::count();
 
-        // Total item terjual dari order sukses
-        $totalItems = \App\Models\OrderItem::whereHas('order', function ($q) {
-            $q->where('status', 'success');
-        })->sum('quantity');
+        // Hitung total layanan
+        $totalLayanan = ItemLayanan::count();
 
-        // Total pendapatan dari order sukses
-        $totalRevenue = \App\Models\Order::where('status', 'success')->sum('grand_total');
+        // Hitung total bimbe
+        $totalBimbel = ItemBimbel::count();
+        
+        // Hitung total buku
+        $totalBook = ItemBook::count();
+        // Hitung total pesanan hari ini (jumlah order, bukan harga)
+        $todayOrders = Order::whereDate('created_at', Carbon::today())->count();
 
-        // Total pesanan hari ini (hanya sukses)
-        $todayOrders = \App\Models\Order::where('status', 'success')
-            ->whereDate('created_at', today())
-            ->sum('grand_total');
+        // Hitung total pesanan (semua order)
+        $totalOrders = Order::count();
 
-        $today = \App\Models\Order::where('status', 'success')
-            ->whereDate('created_at', today())
-            ->count();
+        // Hitung total pendapatan (anggap ada kolom total_harga di tabel orders)
+        // $totalRevenue = Order::sum('total_harga');
 
         return view('admin.index', compact(
-            'totalOrders',
-            'totalItems',
-            'totalRevenue',
+            'totalSeminars',
             'todayOrders',
-            'today'
+            'totalOrders',
+            'totalLayanan',
+            'totalBimbel',
+            'totalBook',
+            // 'totalRevenue'
         ));
-    }
-
-
-    public function profile()
-    {
-        return view('admin.profile');
     }
 }
