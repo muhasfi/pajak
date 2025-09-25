@@ -87,7 +87,7 @@ Route::prefix('admin')->group(static function () {
         Route::put('/books/{id}', [ItemBookController::class, 'update'])->name('item-books.update');
         Route::delete('/books/{id}', [ItemBookController::class, 'destroy'])->name('item-books.destroy');
         Route::get('/books/{id}', [ItemBookController::class, 'show'])->name('item-books.show');
-
+        
 });
 
 
