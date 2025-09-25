@@ -210,7 +210,7 @@ a {
     text-decoration: none;
 }
 a:hover {
-    color: #679d06;
+    color: #f3f3f3;
 }
 a:not([href]):not([class]),
 a:not([href]):not([class]):hover {
@@ -6840,7 +6840,7 @@ fieldset:disabled .btn {
     word-break: break-word !important;
 }
 .text-primary {
-    color: #81c408 !important;
+    color: #000000 !important;
 }
 .text-secondary {
     color: #ffb524 !important;

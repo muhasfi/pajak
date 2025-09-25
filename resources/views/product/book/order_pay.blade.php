@@ -4,10 +4,10 @@
 <br>
 <p>d</p>
 <div class="container py-5">
-    <p>Bayar Pesanan #{{ $order->order_code }}<p>
-    <p>Total: Rp{{ number_format($order->grand_total, 0, ',', '.') }}</p>
-    <p>Tanggal Pesanan: {{ $order->created_at->format('d M Y, H:i') }}</p>
-    <p>Status: {{ ucfirst($order->status) }}</p>
+    <td>Bayar Pesanan #{{ $order->order_code }}<td>
+    <td>Total: Rp{{ number_format($order->grand_total, 0, ',', '.') }}</td>
+    <td>Tanggal Pesanan: {{ $order->created_at->format('d M Y, H:i') }}</td>
+    <td>Status: {{ ucfirst($order->status) }}</td>
 
     <button id="pay-button" class="btn btn-primary">Bayar Sekarang</button>
 </div>

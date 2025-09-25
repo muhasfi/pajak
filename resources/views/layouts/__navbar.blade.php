@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paham Pajak - Navbar Modern</title>
+    <title>Paham Pajak - Modern Navbar</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Header & Navigation -->
@@ -19,63 +19,144 @@
             </a>
             
             <ul class="nav-menu">
+                <!-- Peraturan & Artikel -->
                 <li class="nav-item">
-                    <a href="/" class="nav-link active">
-                        <i class="fas fa-home"></i> Home
+                    <a href="/blog" class="nav-link active">
+                        <i class="fas fa-file-alt"></i> Peraturan
                     </a>
                 </li>
                 
+                <!-- Produk & Aplikasi (6 items - 2 columns) -->
                 <li class="nav-item">
                     <a href="#produk" class="nav-link">
-                        <i class="fas fa-box"></i> Produk <i class="fas fa-chevron-down"></i>
+                        <i class="fas fa-laptop-code"></i>Produk<i class="fas fa-chevron-down"></i>
                     </a>
                     <div class="dropdown">
-                        <a href="{{ route('book') }}" class="dropdown-item">
-                            <i class="fas fa-book"></i> Buku
-                        </a>
-                        <a href="#artikel" class="dropdown-item">
-                            <i class="fas fa-newspaper"></i> Artikel
-                        </a>
+                        <div class="dropdown-grid two-columns">
+                            <div class="dropdown-column">
+                                <a href="{{ route('book') }}" class="dropdown-item">
+                                    <i class="fas fa-book"></i> Buku USKP
+                                </a>
+                                <a href="#aplikasi-pembukuan" class="dropdown-item">
+                                    <i class="fas fa-calculator"></i> Aplikasi Pembukuan
+                                </a>
+                                <a href="#kertas-kerja-pph21" class="dropdown-item">
+                                    <i class="fas fa-file-invoice-dollar"></i> Kertas Kerja PPH 21
+                                </a>
+                            </div>
+                            <div class="dropdown-column">
+                                <a href="#kertas-kerja-spt-tahunan" class="dropdown-item">
+                                    <i class="fas fa-file-contract"></i> Kertas Kerja SPT Tahunan
+                                </a>
+                                <a href="#kertas-kerja-ppn" class="dropdown-item">
+                                    <i class="fas fa-receipt"></i> Kertas Kerja PPN
+                                </a>
+                                <a href="#kertas-kerja-spt-masa-unifikasi" class="dropdown-item">
+                                    <i class="fas fa-file-alt"></i> Kertas Kerja SPT Masa Unifikasi
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 
-                <li class="nav-item">
-                    <a href="{{ route('bimbel.index') }}" class="nav-link">
-                        <i class="fas fa-graduation-cap"></i> Kelas <i class="fas fa-chevron-down"></i>
-                    </a>
-                    <div class="dropdown">
-                        <a href="{{ route('bimbel.a') }}" class="dropdown-item">
-                            <i class="fas fa-users"></i> Bimbel A
-                        </a>
-                        <a href="{{ route('bimbel.b') }}" class="dropdown-item">
-                            <i class="fas fa-user-graduate"></i> Bimbel B
-                        </a>
-                        <a href="{{ route('bimbel.a') }}" class="dropdown-item">
-                            <i class="fas fa-clipboard-list"></i> Ujian Tryout
-                        </a>
-                    </div>
-                </li>
-                
+                <!-- Pelatihan & Workshop (5 items - 2 columns) -->
                 <li class="nav-item">
                     <a href="{{ route('pelatihan') }}" class="nav-link">
-                        <i class="fas fa-chalkboard-teacher"></i> Pelatihan <i class="fas fa-chevron-down"></i>
+                        <i class="fas fa-chalkboard-teacher"></i>Pelatihan<i class="fas fa-chevron-down"></i>
                     </a>
                     <div class="dropdown">
-                        <a href="#seminar" class="dropdown-item">
-                            <i class="fas fa-microphone"></i> Seminar/Webinar
-                        </a>
-                        <a href="#workshop" class="dropdown-item">
-                            <i class="fas fa-tools"></i> Workshop
-                        </a>
+                        <div class="dropdown-grid two-columns">
+                            <div class="dropdown-column">
+                                <a href="#brevet-ab" class="dropdown-item">
+                                    <i class="fas fa-user-graduate"></i> Brevet A&B
+                                </a>
+                                <a href="#brevet-c" class="dropdown-item">
+                                    <i class="fas fa-user-graduate"></i> Brevet C
+                                </a>
+                                <a href="#webinar" class="dropdown-item">
+                                    <i class="fas fa-microphone"></i> Webinar
+                                </a>
+                            </div>
+                            <div class="dropdown-column">
+                                <a href="#seminar-offline" class="dropdown-item">
+                                    <i class="fas fa-users"></i> Seminar Offline
+                                </a>
+                                <a href="#in-house-training" class="dropdown-item">
+                                    <i class="fas fa-building"></i> In house Training
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 
+                <!-- Bimbel USKP (2 items - 1 column) -->
                 <li class="nav-item">
-                    <a href="/kontak" class="nav-link">
-                        <i class="fas fa-envelope"></i> Kontak
+                    <a href="{{ route('bimbel.index') }}" class="nav-link">
+                        <i class="fas fa-graduation-cap"></i>Bimbel USKP<i class="fas fa-chevron-down"></i>
                     </a>
+                    <div class="dropdown">
+                        <div class="dropdown-grid">
+                            <a href="{{ route('bimbel.index') }}" class="dropdown-item">
+                                <i class="fas fa-users"></i> Bimbel USKP
+                            </a>
+                            <a href="#tryout-uskp-online" class="dropdown-item">
+                                <i class="fas fa-clipboard-list"></i> TryOut USKP Online
+                            </a>
+                        </div>
+                    </div>
                 </li>
                 
+                <!-- Layanan Akuntansi & Perpajakan (6 items - 2 columns) -->
+                <li class="nav-item">
+                    <a href="#layanan" class="nav-link">
+                        <i class="fas fa-balance-scale"></i>Layanan<i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown">
+                        <div class="dropdown-grid two-columns">
+                            <div class="dropdown-column">
+                                <a href="#pembuatan-pt" class="dropdown-item">
+                                    <i class="fas fa-building"></i> Pembuatan PT, NIB, & NPWP
+                                </a>
+                                <a href="#jasa-akuntansi" class="dropdown-item">
+                                    <i class="fas fa-chart-line"></i> Jasa Akuntansi & Pembukuan
+                                </a>
+                                <a href="#jasa-perpajakan" class="dropdown-item">
+                                    <i class="fas fa-calculator"></i> Jasa Perpajakan
+                                </a>
+                            </div>
+                            <div class="dropdown-column">
+                                <a href="#litigasi" class="dropdown-item">
+                                    <i class="fas fa-gavel"></i> Litigasi & Sengketa Perpajakan
+                                </a>
+                                <a href="#audit" class="dropdown-item">
+                                    <i class="fas fa-search-dollar"></i> Audit Laporan Keuangan
+                                </a>
+                                <a href="#transfer-pricing" class="dropdown-item">
+                                    <i class="fas fa-exchange-alt"></i> Transfer Pricing Doc
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                
+                <!-- Konsultasi Kasus (2 items - 1 column) -->
+                <li class="nav-item">
+                    <a href="#konsultasi" class="nav-link">
+                        <i class="fas fa-comments"></i>Konsultasi Kasus<i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown">
+                        <div class="dropdown-grid">
+                            <a href="#forum" class="dropdown-item">
+                                <i class="fas fa-comments"></i> Forum
+                            </a>
+                            <a href="#konsultasi-private" class="dropdown-item">
+                                <i class="fas fa-comment-dots"></i> Konsultasi Private
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                
+                <!-- Login Button -->
                 <li class="nav-item">
                     <a href="/login" class="login-btn">
                         <i class="fas fa-sign-in-alt"></i> Login
@@ -90,103 +171,62 @@
             </div>
         </div>
     </header>
-
     <script>
-        // Mobile menu functionality
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navMenu = document.querySelector('.nav-menu');
+    const mobileBtn = document.querySelector('.mobile-menu-btn');
+    const navMenu = document.querySelector('.nav-menu');
 
-        if (mobileMenuBtn && navMenu) {
-            mobileMenuBtn.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-                mobileMenuBtn.classList.toggle('active');
-                
-                // Close all dropdowns when menu is toggled
-                document.querySelectorAll('.dropdown').forEach(dropdown => {
-                    dropdown.classList.remove('active');
-                });
-            });
+    // toggle mobile menu
+    mobileBtn.addEventListener('click', function () {
+        this.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
+    // toggle dropdown di mobile
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function (e) {
+        if (window.innerWidth <= 768) {
+            const dropdown = this.nextElementSibling;
+            if (dropdown && dropdown.classList.contains('dropdown')) {
+            e.preventDefault();        // cegah scroll ke atas
+            e.stopPropagation();       // cegah klik sampai ke document
+            dropdown.classList.toggle('active');
+            }
         }
-
-        // Mobile dropdown toggle
-        document.querySelectorAll('.nav-link').forEach(link => {
-            if (link.querySelector('.fa-chevron-down')) {
-                link.addEventListener('click', (e) => {
-                    if (window.innerWidth <= 1024) {
-                        e.preventDefault();
-                        const dropdown = link.nextElementSibling;
-                        
-                        // Close other dropdowns
-                        document.querySelectorAll('.dropdown').forEach(d => {
-                            if (d !== dropdown) {
-                                d.classList.remove('active');
-                            }
-                        });
-                        
-                        if (dropdown) {
-                            dropdown.classList.toggle('active');
-                        }
-                    }
-                });
-            }
         });
+    });
 
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.nav-item') && window.innerWidth <= 1024) {
-                document.querySelectorAll('.dropdown').forEach(dropdown => {
-                    dropdown.classList.remove('active');
-                });
-            }
+    // tutup mobile menu setelah klik dropdown-item
+    document.querySelectorAll('.dropdown-item').forEach(link => {
+        link.addEventListener('click', () => {
+        mobileBtn.classList.remove('active');
+        navMenu.classList.remove('active');
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
         });
+        });
+    });
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                if (this.getAttribute('href') !== '#login') {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        // Close mobile menu if open
-                        if (navMenu && navMenu.classList.contains('active')) {
-                            navMenu.classList.remove('active');
-                            if (mobileMenuBtn) {
-                                mobileMenuBtn.classList.remove('active');
-                            }
-                        }
-                        
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                }
-            });
+    // tutup dropdown kalau klik di luar nav-menu pada mobile
+    document.addEventListener('click', function (e) {
+        if (window.innerWidth <= 768 && !navMenu.contains(e.target)) {
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
         });
+        }
+    });
 
-        // Highlight active menu item on scroll
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-link');
-            
-            let current = '';
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                
-                if (pageYOffset >= sectionTop - 100) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
+    // handle resize
+    window.addEventListener('resize', function () {
+        if (window.innerWidth > 768) {
+        mobileBtn.classList.remove('active');
+        navMenu.classList.remove('active');
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
         });
+        }
+    });
     </script>
-</body>
+
+
+    </body>
 </html>

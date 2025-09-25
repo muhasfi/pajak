@@ -579,7 +579,7 @@
                 </div>
                 
                 <div class="about-text">
-                    <h2>Solusi Perpajakan Terpercaya Sejak 2010</h2>
+                    <h2>Solusi Perpajakan Terpercaya </h2>
                     <p>Paham Pajak didirikan dengan misi untuk membantu pelaku usaha dan individu dalam mengelola kewajiban perpajakan mereka dengan cara yang mudah, transparan, dan sesuai dengan regulasi yang berlaku.</p>
                     
                     <p>Dengan pengalaman lebih dari satu dekade, kami telah membantu ribuan klien dari berbagai sektor industri untuk memastikan kepatuhan pajak sekaligus mengoptimalkan potensi penghematan pajak yang legal dan etis.</p>

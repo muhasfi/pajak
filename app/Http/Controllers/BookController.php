@@ -21,9 +21,6 @@ class BookController extends Controller
     {
         $items = Item::with('category')
             ->where('is_active', 1)
-            ->whereHas('category', function ($q) {
-                $q->where('cat_name', 'Book');
-            })
             ->orderBy('name', 'asc')
             ->get();
 

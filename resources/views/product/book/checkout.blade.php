@@ -107,30 +107,6 @@
                             <span class="total-value">Rp{{ number_format($subTotal + ($subTotal * 0.1), 0, ',', '.') }}</span>
                         </div>
                         
-                        <!-- Payment Methods -->
-                        <div class="payment-methods">
-                            <h3 class="payment-title">Metode Pembayaran</h3>
-                            <div class="payment-options">
-                                <label class="payment-option" id="qris-option">
-                                    <input type="radio" name="payment_method" value="qris" required>
-                                    <div class="payment-icon">
-                                        <i class="fas fa-qrcode"></i>
-                                    </div>
-                                    <div class="payment-name">QRIS</div>
-                                    <div class="payment-desc">Bayar dengan QRIS</div>
-                                </label>
-                                
-                                <label class="payment-option" id="cash-option">
-                                    <input type="radio" name="payment_method" value="tunai" required>
-                                    <div class="payment-icon">
-                                        <i class="fas fa-money-bill-wave"></i>
-                                    </div>
-                                    <div class="payment-name">Tunai</div>
-                                    <div class="payment-desc">Bayar di tempat</div>
-                                </label>
-                            </div>
-                        </div>
-                        
                         <button type="button" id="pay-button" class="checkout-btn">
                             <i class="fas fa-credit-card"></i> Konfirmasi Pesanan
                         </button>
@@ -153,17 +129,6 @@
         const form = document.getElementById("checkout-form");
         const paymentOptions = document.querySelectorAll('.payment-option');
 
-        // Style payment options on selection
-        paymentOptions.forEach(option => {
-            const radio = option.querySelector('input[type="radio"]');
-            radio.addEventListener('change', function() {
-                paymentOptions.forEach(opt => opt.classList.remove('selected'));
-                if (this.checked) {
-                    option.classList.add('selected');
-                }
-            });
-        });
-
         if (!sessionStorage.getItem("cart_saved")) {
             sessionStorage.setItem("cart_saved", "true");
         }
@@ -171,17 +136,12 @@
         // Clear cart when leaving page
         window.addEventListener("beforeunload", function (e) {
             if (!window.location.href.includes("checkout")) {
-                navigator.sendBeacon("{{ route('cart.clear') }}");
+                navigator.sendBeacon("{{ secure_url(route('cart.clear', [], false)) }}");
                 sessionStorage.removeItem("cart_saved");
             }
         });
 
         payButton.addEventListener("click", function () {
-            let paymentMethod = document.querySelector('input[name="payment_method"]:checked');
-            if (!paymentMethod) {
-                showNotification("Pilih metode pembayaran terlebih dahulu!", "error");
-                return;
-            }
 
             // Validate form
             const requiredFields = form.querySelectorAll('[required]');
@@ -242,50 +202,6 @@
                 showNotification("Terjadi kesalahan, silakan coba lagi.", "error");
             });
         });
-
-        function showNotification(message, type) {
-            // Create notification element
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                padding: 1rem 1.5rem;
-                border-radius: 8px;
-                color: ${type === 'success' ? '#065f46' : type === 'error' ? '#7f1d1d' : '#1e40af'};
-                background: ${type === 'success' ? 'rgba(16, 185, 129, 0.1)' : type === 'error' ? 'rgba(239, 68, 68, 0.1)' : 'rgba(37, 99, 235, 0.1)'};
-                border: 1px solid ${type === 'success' ? 'rgba(16, 185, 129, 0.2)' : type === 'error' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(37, 99, 235, 0.2)'};
-                font-weight: 600;
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                z-index: 10000;
-                box-shadow: var(--shadow-lg);
-                animation: slideIn 0.3s ease-out;
-                max-width: 400px;
-            `;
-            
-            const icon = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle';
-            
-            notification.innerHTML = `
-                <i class="fas ${icon}"></i>
-                <span>${message}</span>
-            `;
-            
-            // Add to body
-            document.body.appendChild(notification);
-            
-            // Remove after 5 seconds
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease-in';
-                setTimeout(() => {
-                    if (document.body.contains(notification)) {
-                        document.body.removeChild(notification);
-                    }
-                }, 300);
-            }, 5000);
-        }
     });
 
     // Add CSS for notifications
