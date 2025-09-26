@@ -8,14 +8,14 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('item_layanan', function (Blueprint $table) {
-            $table->id();
-            $table->string('judul');
-            $table->text('deskripsi')->nullable();
-            $table->integer('harga')->default(0);
-            $table->boolean('is_active')->default(true);
-            $table->timestamps();
-        });
+        // Schema::create('item_layanan', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('judul');
+        //     $table->text('deskripsi')->nullable();
+        //     $table->integer('harga')->default(0);
+        //     $table->boolean('is_active')->default(true);
+        //     $table->timestamps();
+        // });
     }
 
     public function down(): void

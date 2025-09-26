@@ -53,12 +53,12 @@
                                 </td>
                                 <td>
                                     <form action="{{ route('item-books.destroy', $itemBook->id) }}" method="POST">
-                                        <a class="btn btn-info btn-sm" href="{{ route('item-books.show', $itemBook->id) }}">
+                                        {{-- <a class="btn btn-info btn-sm" href="{{ route('item-books.show', $itemBook->id) }}">
                                             <i class="bi bi-eye"></i> Show
-                                        </a>
-                                        {{-- <a class="btn btn-primary btn-sm" href="{{ route('item-books.edit', $itemBook->id) }}">
-                                            <i class="bi bi-pencil"></i> Edit
                                         </a> --}}
+                                        <a class="btn btn-primary btn-sm" href="{{ route('item-books.edit', $itemBook->id) }}">
+                                            <i class="bi bi-pencil"></i> Edit
+                                        </a>
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?')">

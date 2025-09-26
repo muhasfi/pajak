@@ -1,10 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\BrevetABController;
+use App\Http\Controllers\Admin\BrevetCController;
+use App\Http\Controllers\Admin\InHouseTrainingController;
 use App\Http\Controllers\Admin\ItemBimbelController;
 use App\Http\Controllers\Admin\ItemBookController;
 use App\Http\Controllers\Admin\ItemLayananController;
 use App\Http\Controllers\Admin\ItemSeminarController;
-
+use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\WebinarController;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +45,13 @@ Route::prefix('admin')->group(static function () {
     // Authenticated routes
     Route::middleware(['auth:admin', 'verified'])->group(static function () {
 
+        Route::resource('brevet-ab', BrevetABController::class);
+        // Route::delete('/brevet-ab/{id}', [BrevetABController::class, 'destroy'])->name('brevet-ab.destroy');
+        Route::resource('brevetc', BrevetCController::class);
+        Route::resource('webinars', WebinarController::class);
+        Route::resource('in_house_trainings', InHouseTrainingController::class);
+        // 
+        Route::resource('services', ServiceController::class);
         Route::get('/layanan', [ItemLayananController::class, 'index'])->name('item-layanan.index');
         Route::get('/layanan/create', [ItemLayananController::class, 'create'])->name('item-layanan.create');
         Route::post('/layanan', [ItemLayananController::class, 'store'])->name('item-layanan.store');
@@ -48,6 +59,7 @@ Route::prefix('admin')->group(static function () {
         Route::put('/layanan/{id}', [ItemLayananController::class, 'update'])->name('item-layanan.update');
         Route::delete('/layanan/{id}', [ItemLayananController::class, 'destroy'])->name('item-layanan.destroy');
         Route::get('/layanan/{id}', [ItemLayananController::class, 'show'])->name('item-layanan.show');
+        
         Route::resource('item_layanan', ItemLayananController::class);
 
         Route::resource('item-seminars', ItemSeminarController::class);

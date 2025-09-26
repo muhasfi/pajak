@@ -11,22 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('item_details', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('item_id')
-                ->constrained('items')
-                ->onDelete('cascade');
+        // Schema::create('item_details', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->foreignId('item_id')
+        //         ->constrained('items')
+        //         ->onDelete('cascade');
 
             // Field opsional sesuai kebutuhan jenis produk
-            $table->string('file_path')->nullable();    // untuk ebook / artikel (pdf/doc)
-            $table->string('video_url')->nullable();    // untuk course (video streaming)
-            $table->string('zoom_link')->nullable();    // untuk seminar
-            $table->timestamp('event_date')->nullable(); // tanggal & jam seminar
+            // $table->string('file_path')->nullable();    // untuk ebook / artikel (pdf/doc)
+            // $table->string('video_url')->nullable();    // untuk course (video streaming)
+            // $table->string('zoom_link')->nullable();    // untuk seminar
+            // $table->timestamp('event_date')->nullable(); // tanggal & jam seminar
             
-            $table->integer('duration_days')->nullable(); // masa berlaku akses (misal 30 hari)
+            // $table->integer('duration_days')->nullable(); // masa berlaku akses (misal 30 hari)
 
-            $table->timestamps();
-        });
+            // $table->timestamps();
+        // });
     }
 
     /**

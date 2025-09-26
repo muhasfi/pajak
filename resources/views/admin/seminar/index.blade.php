@@ -43,7 +43,7 @@
                 <td>{{ $s->is_active ? 'Aktif' : 'Nonaktif' }}</td>
                 <td>
                     <a href="{{ route('item-seminars.edit', $s->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                    <form action="{{ route('item-layanan.destroy', $s->id) }}" method="POST" class="d-inline">
+                    <form action="{{ route('item-seminars.destroy', $s->id) }}" method="POST" class="d-inline">
                         @csrf @method('DELETE')
                         <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus?')">Hapus</button>
                     </form>

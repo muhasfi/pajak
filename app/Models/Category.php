@@ -2,19 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
-    use HasFactory, SoftDeletes;
+    protected $fillable = ['nama_kategori'];
 
-    protected $fillable = ['cat_name', 'description', 'created_at', 'updated_at'];
-    protected $dates = ['deleted_at'];
-
-    public function items()
+    public function services()
     {
-        return $this->hasMany(Item::class);
+        return $this->hasMany(Service::class);
     }
 }

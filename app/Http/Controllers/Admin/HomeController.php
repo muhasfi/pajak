@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BrevetAB;
+use App\Models\BrevetC;
+use App\Models\InHouseTraining;
 use App\Models\ItemBimbel;
 use App\Models\ItemBook;
 use App\Models\ItemLayanan;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\ItemSeminar;
+use App\Models\Webinar;
 use Carbon\Carbon;
 
 class HomeController extends Controller
@@ -26,6 +30,14 @@ class HomeController extends Controller
         
         // Hitung total buku
         $totalBook = ItemBook::count();
+        // Hitung total buku
+        $totalBrevetAB = BrevetAB::count();
+        // Hitung total buku
+        $totalBrevetC = BrevetC::count();
+        // Hitung total Webinar
+        $totalwebinar = Webinar::count();
+            // Hitung total buku
+        $totalInHouseTraining = InHouseTraining::count();
         // Hitung total pesanan hari ini (jumlah order, bukan harga)
         $todayOrders = Order::whereDate('created_at', Carbon::today())->count();
 
@@ -42,6 +54,10 @@ class HomeController extends Controller
             'totalLayanan',
             'totalBimbel',
             'totalBook',
+            'totalBrevetAB',
+            'totalBrevetC',
+            'totalwebinar',
+            'totalInHouseTraining',
             // 'totalRevenue'
         ));
     }

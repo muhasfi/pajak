@@ -62,7 +62,7 @@ class ItemBookController extends Controller
     public function show($id)
     {
         $itemBook = ItemBook::findOrFail($id);
-        return view('admin.product.book.show', compact('itemBook'));
+        return view('admin.book.show', compact('itemBook'));
     }
 
     /**
@@ -71,7 +71,7 @@ class ItemBookController extends Controller
     public function edit($id)
     {
         $itemBook = ItemBook::findOrFail($id);
-        return view('admin.product.book.edit', compact('itemBook'));
+        return view('admin.book.edit', compact('itemBook'));
     }
 
     /**

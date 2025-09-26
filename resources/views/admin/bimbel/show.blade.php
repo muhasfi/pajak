@@ -1,84 +1,93 @@
 @extends('admin.layouts.master')
-@section('title', 'Detail Item Bimbel')
 
 @section('content')
-<div class="page-heading">
-    <div class="page-title">
-        <div class="row">
-            <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Detail Item Bimbel</h3>
-                <p class="text-subtitle text-muted">Meninjau informasi lengkap dari paket bimbel</p>
-            </div>
-            <div class="col-12 col-md-6 order-md-2 order-first text-end">
-                <a href="{{ route('bimbel.index') }}" class="btn btn-secondary">
-                    <i class="bi bi-arrow-left"></i> Kembali
-                </a>
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">{{ $itemBimbel->judul }}</h2>
+                <p class="text-muted">Harga: <span class="h4 text-primary">Rp {{ number_format($itemBimbel->harga, 0, ',', '.') }}</span></p>
+                
+                <h4>Deskripsi</h4>
+                <p>{{ $itemBimbel->deskripsi }}</p>
+                
+                @if($itemBimbel->materi_pdf)
+                <div class="mt-4">
+                    <h4>Materi PDF</h4>
+                    <a href="{{ Storage::url($itemBimbel->materi_pdf) }}" class="btn btn-outline-primary" target="_blank">
+                        <i class="bi bi-file-earmark-pdf"></i> Download Materi
+                    </a>
+                </div>
+                @endif
+                
+                @if($itemBimbel->video)
+                <div class="detail-item">
+                    <div class="detail-label">Video Pembelajaran</div>
+                    <div class="file-preview">
+                        <i class="bi bi-play-btn-fill text-primary me-2"></i>
+                        <span>{{ basename($itemBimbel->video) }}</span>
+                        <div class="mt-2">
+                            <video class="video-preview" controls>
+                                <source src="{{ Storage::url($itemBimbel->video) }}" type="video/mp4">
+                                Browser Anda tidak mendukung pemutaran video.
+                            </video>
+                            <div class="mt-2">
+                                <a href="{{ Storage::url($itemBimbel->video) }}" download class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-download"></i> Download Video
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>
+</div>
+@endsection@extends('admin.layouts.master')
 
-    <section class="section mt-3">
+@section('content')
+<div class="row">
+    <div class="col-md-8">
         <div class="card">
-            <div class="card-header">
-                <h4>{{ $item->judul }}</h4>
-            </div>
             <div class="card-body">
-                <p><strong>Deskripsi:</strong> {{ $item->deskripsi ?? '-' }}</p>
-                <p><strong>Harga:</strong> Rp {{ number_format($item->harga, 0, ',', '.') }}</p>
-                <p><strong>Status:</strong> 
-                    @if($item->is_active)
-                        <span class="badge bg-success">Aktif</span>
-                    @else
-                        <span class="badge bg-danger">Nonaktif</span>
-                    @endif
-                </p>
-            </div>
-        </div>
-
-        <div class="card mt-3">
-            <div class="card-header">
-                <h5>Daftar Modul</h5>
-            </div>
-            <div class="card-body">
-                @forelse ($item->details as $detail)
-                    <div class="border rounded p-3 mb-3">
-                        <h6>{{ $detail->urutan }}. {{ $detail->judul }}</h6>
-                        <p>{{ $detail->deskripsi ?? '-' }}</p>
-
-                        @if($detail->materi_pdf)
-                            <p>
-                                📄 <a href="{{ asset('storage/'.$detail->materi_pdf) }}" target="_blank">Lihat Materi PDF</a>
-                            </p>
-                        @endif
-
-                        @if($detail->video)
-                            @if(Str::contains($detail->video, 'youtube.com') || Str::contains($detail->video, 'youtu.be'))
-                                {{-- Embed YouTube --}}
-                                <div class="ratio ratio-16x9 mb-2">
-                                    <iframe src="{{ $detail->video }}" frameborder="0" allowfullscreen></iframe>
-                                </div>
-                            @else
-                                {{-- Video upload --}}
-                                <video class="w-100 mb-2" controls>
-                                    <source src="{{ asset('storage/'.$detail->video) }}" type="video/mp4">
-                                    Browser anda tidak mendukung video.
-                                </video>
-                            @endif
-                        @endif
-
-                        <p><strong>Status:</strong> 
-                            @if($detail->is_active)
-                                <span class="badge bg-success">Aktif</span>
-                            @else
-                                <span class="badge bg-danger">Nonaktif</span>
-                            @endif
-                        </p>
+                <h2 class="card-title">{{ $itemBimbel->judul }}</h2>
+                <p class="text-muted">Harga: <span class="h4 text-primary">Rp {{ number_format($itemBimbel->harga, 0, ',', '.') }}</span></p>
+                
+                <h4>Deskripsi</h4>
+                <p>{{ $itemBimbel->deskripsi }}</p>
+                
+                @if($itemBimbel->materi_pdf)
+                <div class="mt-4">
+                    <h4>Materi PDF</h4>
+                    <a href="{{ Storage::url($itemBimbel->materi_pdf) }}" class="btn btn-outline-primary" target="_blank">
+                        <i class="bi bi-file-earmark-pdf"></i> Download Materi
+                    </a>
+                </div>
+                @endif
+                
+                @if($itemBimbel->video)
+                <div class="detail-item">
+                    <div class="detail-label">Video Pembelajaran</div>
+                    <div class="file-preview">
+                        <i class="bi bi-play-btn-fill text-primary me-2"></i>
+                        <span>{{ basename($itemBimbel->video) }}</span>
+                        <div class="mt-2">
+                            <video class="video-preview" controls>
+                                <source src="{{ Storage::url($itemBimbel->video) }}" type="video/mp4">
+                                Browser Anda tidak mendukung pemutaran video.
+                            </video>
+                            <div class="mt-2">
+                                <a href="{{ Storage::url($itemBimbel->video) }}" download class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-download"></i> Download Video
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                @empty
-                    <p class="text-muted">Belum ada modul untuk item ini.</p>
-                @endforelse
+                </div>
+                @endif
             </div>
         </div>
-    </section>
+    </div>
 </div>
 @endsection

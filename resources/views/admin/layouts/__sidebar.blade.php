@@ -72,29 +72,53 @@
                         
                         <li class="sidebar-item has-sub">
                             <a href="#" class="sidebar-link">
-                                <i class="bi bi-mortarboard"></i> <!-- Ikon pelatihan/edukasi -->
+                                <i class="bi bi-mortarboard-fill"></i> <!-- Ikon pelatihan/edukasi -->
                                 <span>Pelatihan dan Workshop</span>
                             </a>
                             <ul class="submenu">
                                 <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                                    <a href="/admin/brevet-ab" class='sidebar-link'>
+                                        <i class="bi bi-journal-medical"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>Brevet A & B</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                                    <a href="/admin/brevetc" class='sidebar-link'>
+                                        <i class="bi bi-journal-text"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>Brevet C</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                                    <a href="/admin/webinars" class='sidebar-link'>
+                                        <i class="bi bi-camera-video-fill"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>Webinar</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
                                     <a href="{{ route('item-bimbel.index') }}" class='sidebar-link'>
-                                        <i class="bi bi-backpack"></i> <!-- Ikon bimbel/siswa -->
+                                        <i class="bi bi-backpack-fill"></i> <!-- Ikon bimbel/siswa -->
                                         <span>Bimbel</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
                                     <a href="{{ route('item-seminars.index') }}" class='sidebar-link'>
-                                        <i class="bi bi-mic"></i> <!-- Ikon seminar/presentasi -->
+                                        <i class="bi bi-mic-fill"></i> <!-- Ikon seminar/presentasi -->
                                         <span>Seminar</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                                    <a href="/admin/in_house_trainings" class='sidebar-link'>
+                                        <i class="bi bi-file-earmark-bar-graph-fill"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>In House Training</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         
                         <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
-                            <a href="{{ route('item-layanan.index') }}" class='sidebar-link'>
+                            <a href="/admin/services" class='sidebar-link'>
                                 <i class="bi bi-gear"></i> <!-- Ikon layanan/settings -->
-                                <span>Layanan</span>
+                                <span>Layanan Pajak & Akuntansi</span>
                             </a>
                         </li>
                     </ul>

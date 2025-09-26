@@ -80,6 +80,6 @@ class ItemSeminarController extends Controller
             Storage::disk('public')->delete($item_seminar->img);
         }
         $item_seminar->delete();
-        return redirect()->route('admin.seminar.index')->with('success', 'Seminar berhasil dihapus.');
+        return redirect()->route('item-seminars.index')->with('success', 'Seminar berhasil dihapus.');
     }
 }

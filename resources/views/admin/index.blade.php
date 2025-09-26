@@ -51,7 +51,7 @@
                             <div class="row align-items-center">
                                 <div class="col-auto">
                                     <div class="stats-icon red">
-                                        <i class="bi bi-easel-fill"></i>
+                                        <i class="bi bi-easel-fill"></i> <!-- Seminar = papan presentasi -->
                                     </div>
                                 </div>
                                 <div class="col">
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                 </div>
-
+            
                 <!-- Total Layanan -->
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card shadow-sm rounded-3">
@@ -70,7 +70,7 @@
                             <div class="row align-items-center">
                                 <div class="col-auto">
                                     <div class="stats-icon blue">
-                                        <i class="bi bi-gear-fill"></i>
+                                        <i class="bi bi-tools"></i> <!-- Layanan = tools -->
                                     </div>
                                 </div>
                                 <div class="col">
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                 </div>
-
+            
                 <!-- Total Bimbel -->
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card shadow-sm rounded-3">
@@ -89,7 +89,7 @@
                             <div class="row align-items-center">
                                 <div class="col-auto">
                                     <div class="stats-icon yellow">
-                                        <i class="bi bi-journal-bookmark-fill"></i>
+                                        <i class="bi bi-journal-bookmark-fill"></i> <!-- Bimbel = buku catatan -->
                                     </div>
                                 </div>
                                 <div class="col">
@@ -100,7 +100,7 @@
                         </div>
                     </div>
                 </div>
-
+            
                 <!-- Total Buku -->
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card shadow-sm rounded-3">
@@ -108,7 +108,7 @@
                             <div class="row align-items-center">
                                 <div class="col-auto">
                                     <div class="stats-icon purple">
-                                        <i class="bi bi-book-fill"></i>
+                                        <i class="bi bi-book-fill"></i> <!-- Buku = icon buku -->
                                     </div>
                                 </div>
                                 <div class="col">
@@ -119,9 +119,85 @@
                         </div>
                     </div>
                 </div>
-
+            
+                <!-- Total Brevet AB -->
+                <div class="col-6 col-lg-3 col-md-6">
+                    <div class="card shadow-sm rounded-3">
+                        <div class="card-body px-4 py-4-5">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <div class="stats-icon green">
+                                        <i class="bi bi-mortarboard-fill"></i> <!-- Brevet AB = pendidikan pajak -->
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <h6 class="text-muted font-semibold mb-1">Total Brevet AB</h6>
+                                    <h4 class="font-extrabold mb-0">{{ $totalBrevetAB }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Total Brevet C -->
+                <div class="col-6 col-lg-3 col-md-6">
+                    <div class="card shadow-sm rounded-3">
+                        <div class="card-body px-4 py-4-5">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <div class="stats-icon teal">
+                                        <i class="bi bi-mortarboard"></i> <!-- Brevet C = mirip AB tapi beda icon -->
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <h6 class="text-muted font-semibold mb-1">Total Brevet C</h6>
+                                    <h4 class="font-extrabold mb-0">{{ $totalBrevetC }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Total Webinar -->
+                <div class="col-6 col-lg-3 col-md-6">
+                    <div class="card shadow-sm rounded-3">
+                        <div class="card-body px-4 py-4-5">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <div class="stats-icon orange">
+                                        <i class="bi bi-camera-video-fill"></i> <!-- Webinar = video -->
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <h6 class="text-muted font-semibold mb-1">Total Webinar</h6>
+                                    <h4 class="font-extrabold mb-0">{{ $totalwebinar }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Total In House Training -->
+                <div class="col-6 col-lg-3 col-md-6">
+                    <div class="card shadow-sm rounded-3">
+                        <div class="card-body px-4 py-4-5">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <div class="stats-icon pink">
+                                        <i class="bi bi-people-fill"></i> <!-- In House Training = orang berkumpul -->
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <h6 class="text-muted font-semibold mb-1">Total In House Training</h6>
+                                    <h4 class="font-extrabold mb-0">{{ $totalInHouseTraining }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
             </div>
-
+            
             <!-- Grafik -->
             <div class="row mt-4">
                 <div class="col-12">
