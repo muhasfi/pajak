@@ -76,11 +76,32 @@
                     </a>
                 </li>
                 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="/login" class="login-btn">
                         <i class="fas fa-sign-in-alt"></i> Login
                     </a>
+                </li> --}}
+
+                <li class="nav-item">
+                    @guest
+                        {{-- Kalau belum login --}}
+                        <a href="{{ route('login') }}" class="login-btn">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                    @endguest
+
+                    @auth
+                        {{-- Kalau sudah login --}}
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="btn btn-link nav-link" style="border: none; background: none;">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </form>
+                    @endauth
                 </li>
+
+
             </ul>
 
             <div class="mobile-menu-btn">

@@ -14,7 +14,7 @@
                 <h3>Item Bimbel</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
-                <a href="{{ route('bimbel.create') }}" class="btn btn-primary float-start float-lg-end">
+                <a href="{{ route('admin.bimbel.create') }}" class="btn btn-primary float-start float-lg-end">
                     <i class="bi bi-plus"></i>
                     Tambah Menu
                 </a>
@@ -57,13 +57,13 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('bimbel.show', $item->id) }}" class="btn btn-sm btn-info">
+                                <a href="{{ route('admin.bimbel.show', $item->id) }}" class="btn btn-sm btn-info">
                                     <i class="bi bi-eye"></i> Lihat
                                 </a>
-                                <a href="{{ route('bimbel.edit', $item->id) }}" class="btn btn-warning btn-sm">
+                                <a href="{{ route('admin.bimbel.edit', $item->id) }}" class="btn btn-warning btn-sm">
                                     <i class="bi bi-pencil"></i> Ubah
                                 </a>
-                                <form action="{{ route('bimbel.destroy', $item->id) }}" 
+                                <form action="{{ route('admin.bimbel.destroy', $item->id) }}" 
                                       method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')

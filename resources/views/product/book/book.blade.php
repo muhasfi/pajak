@@ -46,7 +46,7 @@
         <!-- Products Grid -->
         <div class="catalog-grid">
             @forelse ($items as $item)
-            <div class="product-card animate-fade-in" data-category="{{ strtolower($item->category->cat_name) }}">
+            <div class="product-card animate-fade-in">
                 <div class="product-image">
                     <img src="{{ Str::startsWith($item->img, ['http://', 'https://']) 
                                             ? $item->img 
@@ -54,14 +54,7 @@
                                     width="60"
                                     class="img-fluid rounded-top"
                                     alt="Gambar {{ $item->name }}"
-                                    onerror="this.onerror=null;this.src='{{ asset('images/default.png') }}';">
-                    
-                    <span class="product-badge 
-                        @if ($item->category->cat_name == 'Book') badge-book
-                        @elseif ($item->category->cat_name == 'Artikel') badge-article
-                        @else badge-other @endif">
-                        {{ $item->category->cat_name }}
-                    </span>
+                                    onerror="this.onerror=null;this.src='{{ asset('images/default.png') }}';">  
                 </div>
                 
                 <div class="product-content">
@@ -70,7 +63,7 @@
                     
                     <div class="product-footer">
                         <div class="product-price">{{ 'Rp'. number_format($item->price, 0, ',','.') }}</div>
-                        <button onclick="addToCart({{ $item->id }})" class="add-to-cart-btn">
+                        <button onclick="addToCart({{ $item->id }}, 'Item')" class="add-to-cart-btn">
                             <i class="fas fa-shopping-bag me-1"></i> Tambah
                         </button>
                     </div>
@@ -93,16 +86,16 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    function addToCart(menuId) {
-        fetch("{{ route('cart.add', [], false) }}", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({ id: menuId })
-        })
-        .then(response => response.json())
+    function addToCart(id, type) {
+    fetch("{{ route('cart.add', [], false) }}", {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id, type: type }),
+    })
+    .then(response => response.json())
             .then(data => {
             if (data.status === 'success') {
                 Swal.fire({
@@ -124,6 +117,7 @@
                 console.error('Error:', error);
             });
     }
+
     // Filter functionality
     document.addEventListener('DOMContentLoaded', function() {
         const filterButtons = document.querySelectorAll('.filter-button');

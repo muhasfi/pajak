@@ -8,7 +8,9 @@
     <link href="{{ asset('assets/customer/css/cart.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/customer/css/checkout.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/customer/css/book.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/customer/css/artikel.css') }}" rel="stylesheet">
     @yield('style')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
 

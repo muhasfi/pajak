@@ -14,7 +14,7 @@
                 <h3>Daftar Menu</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
-                <a href="{{ route('book.create') }}" class="btn btn-primary float-start float-lg-end">
+                <a href="{{ route('admin.book.create') }}" class="btn btn-primary float-start float-lg-end">
                     <i class="bi bi-plus"></i>
                     Tambah Menu
                 </a>
@@ -71,10 +71,10 @@
                                 </span>
                             </td>
                             <td>
-                                <a href="{{ route('book.edit', $item->id) }}" class="btn btn-warning btn-sm">
+                                <a href="{{ route('admin.book.edit', $item->id) }}" class="btn btn-warning btn-sm">
                                     <i class="bi bi-pencil"></i> Ubah
                                 </a>
-                                <form action="{{ route('book.destroy', $item->id) }}" method="POST" class="d-inline delete-form">
+                                <form action="{{ route('admin.book.destroy', $item->id) }}" method="POST" class="d-inline delete-form">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm delete-btn">

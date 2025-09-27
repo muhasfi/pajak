@@ -89,7 +89,7 @@ class ItemBimbelController extends Controller
 
             DB::commit();
             // dd();
-            return redirect()->route('bimbel.index')->with('success', 'Paket bimbel berhasil ditambahkan.');
+            return redirect()->route('admin.bimbel.index')->with('success', 'Paket bimbel berhasil ditambahkan.');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->withErrors(['error' => $e->getMessage()]);
@@ -124,9 +124,9 @@ class ItemBimbelController extends Controller
 
         // update master
         $bimbel->update([
-            'judul' => $request->judul,
+            'judul'     => $request->judul,
             'deskripsi' => $request->deskripsi,
-            'harga' => $request->harga,
+            'harga'     => $request->harga,
             'is_active' => $request->is_active ?? true,
         ]);
 
@@ -135,14 +135,15 @@ class ItemBimbelController extends Controller
 
         // simpan detail baru
         foreach ($request->details as $detail) {
+            // video
             $videoPath = null;
-
             if (isset($detail['video_type']) && $detail['video_type'] === 'upload' && isset($detail['video_upload'])) {
                 $videoPath = $detail['video_upload']->store('videos', 'public');
             } elseif (isset($detail['video_type']) && $detail['video_type'] === 'youtube') {
                 $videoPath = $detail['video_link'];
             }
 
+            // pdf
             $pdfPath = null;
             if (isset($detail['materi_pdf'])) {
                 $pdfPath = $detail['materi_pdf']->store('materi', 'public');
@@ -158,7 +159,8 @@ class ItemBimbelController extends Controller
             ]);
         }
 
-        return redirect()->route('bimbel.index')->with('success', 'Data berhasil diperbarui');
+
+        return redirect()->route('admin.bimbel.index')->with('success', 'Data berhasil diperbarui');
     }
 
     public function destroy(ItemBimbel $bimbel)
@@ -169,24 +171,8 @@ class ItemBimbelController extends Controller
         // kalau pakai Eloquent boot deleting, juga cukup ini:
         // $bimbel->delete();
 
-        return redirect()->route('bimbel.index')
+        return redirect()->route('admin.bimbel.index')
             ->with('success', 'Item bimbel dan semua modulnya berhasil dihapus.');
     }
 
-
-    // // Tampilan Customer
-    // public function customerIndex()
-    // {
-    //     $items = ItemBimbel::where('is_active', true)->get();
-    //     return view('customer.item_bimbel.index', compact('items'));
-    // }
-
-    // public function customerShow(ItemBimbel $itemBimbel)
-    // {
-    //     if (!$itemBimbel->is_active) {
-    //         abort(404);
-    //     }
-        
-    //     return view('customer.item_bimbel.show', compact('itemBimbel'));
-    // }
 }

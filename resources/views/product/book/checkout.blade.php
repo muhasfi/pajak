@@ -136,7 +136,7 @@
         // Clear cart when leaving page
         window.addEventListener("beforeunload", function (e) {
             if (!window.location.href.includes("checkout")) {
-                navigator.sendBeacon("{{ secure_url(route('cart.clear', [], false)) }}");
+                navigator.sendBeacon("{{ route('cart.clear', [], false) }}");
                 sessionStorage.removeItem("cart_saved");
             }
         });

@@ -4,7 +4,9 @@ use App\Http\Controllers\ArtikelController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BimbelController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PelatihanController;
+use App\Http\Controllers\SiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,21 +19,19 @@ use App\Http\Controllers\PelatihanController;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\SiteController::class, 'index'])
-    ->name('index');
-Route::get('/book', [\App\Http\Controllers\BookController::class, 'index'])
-    ->name('book');
+Route::get('/', [\App\Http\Controllers\SiteController::class, 'index'])->name('index');
+Route::get('/book', [\App\Http\Controllers\BookController::class, 'index'])->name('book');
 
-Route::get('/cart', [\App\Http\Controllers\BookController::class, 'cart'])->name('cart');
-Route::post('/cart/add', [\App\Http\Controllers\BookController::class, 'addToCart'])->name('cart.add');
+Route::get('/cart', [OrderController::class, 'cart'])->name('cart');
+Route::post('/cart/add', [OrderController::class, 'addToCart'])->name('cart.add');
 Route::post('/cart/update', [\App\Http\Controllers\BookController::class, 'updateCart'])->name('cart.update');
-Route::post('/cart/remove', [\App\Http\Controllers\BookController::class, 'removeCart'])->name('cart.remove');
-Route::get('/cart/clear', [\App\Http\Controllers\BookController::class, 'clearCart'])->name('cart.clear');
+Route::post('/cart/remove', [OrderController::class, 'removeCart'])->name('cart.remove');
+Route::get('/cart/clear', [OrderController::class, 'clearCart'])->name('cart.clear');
 
-Route::get('/checkout', [\App\Http\Controllers\BookController::class, 'checkout'])->name('checkout');
-Route::post('/checkout/store', [\App\Http\Controllers\BookController::class, 'storeOrder'])->name('checkout.store');
-Route::get('/checkout/order-pay/{order_code}', [\App\Http\Controllers\BookController::class, 'orderPay'])->name('checkout.orderPay');
-Route::get('/checkout/success/{orderId}', [\App\Http\Controllers\BookController::class, 'checkoutSuccess'])->name('checkout.success');
+Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
+Route::post('/checkout/store', [OrderController::class, 'storeOrder'])->name('checkout.store');
+Route::get('/checkout/order-pay/{order_code}', [OrderController::class, 'orderPay'])->name('checkout.orderPay');
+Route::get('/checkout/success/{orderId}', [OrderController::class, 'checkoutSuccess'])->name('checkout.success');
 
 Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel.index');
 Route::get('/artikel/{slug}', [ArtikelController::class, 'show'])->name('artikel.user.show');
@@ -58,14 +58,18 @@ Route::prefix('bimbel')->group(function () {
 
 Route::get('/pelatihan', [App\Http\Controllers\PelatihanController::class, 'index'])->name('pelatihan');
 Route::view('/kontak', 'kontak')->name('kontak');
+
 require __DIR__.'/auth.php';
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
 
     Route::get('profile', [\App\Http\Controllers\SiteController::class, 'profile'])
         ->middleware('password.confirm')
         ->name('profile');
+
+    Route::get('/bimbel/my-courses', [BimbelController::class, 'list'])->name('bimbel.courses.list');
+    Route::get('/bimbel/{id}', [BimbelController::class, 'show'])->name('bimbel.show');
+       
+    Route::get('/transactions', [SiteController::class, 'transaction'])->name('transactions.transaction');
+    Route::get('/transactions/{id}', [SiteController::class, 'show'])->name('transactions.show');
 });

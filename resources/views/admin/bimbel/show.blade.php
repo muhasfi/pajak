@@ -10,7 +10,7 @@
                 <p class="text-subtitle text-muted">Meninjau informasi lengkap dari paket bimbel</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first text-end">
-                <a href="{{ route('bimbel.index') }}" class="btn btn-secondary">
+                <a href="{{ route('admin.bimbel.index') }}" class="btn btn-secondary">
                     <i class="bi bi-arrow-left"></i> Kembali
                 </a>
             </div>

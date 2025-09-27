@@ -50,56 +50,44 @@
                         </li>
                         
                        {{-- <li class="sidebar-item has-sub {{ request()->routeIs('book.*') || request()->routeIs('artikel.*') ? 'active' : '' }}"> --}}
-                       <li class="sidebar-item has-sub {{ request()->routeIs('book.*') ? 'active' : '' }}">
+                       {{-- <li class="sidebar-item has-sub {{ request()->routeIs('book.*') ? 'active' : '' }}">
                             <a href="#" class="sidebar-link">
                                 <i class="bi bi-card-list"></i>
                                 <span>Daftar Menu</span>
                             </a>
                             <ul class="submenu">
-                                <li class="submenu-item {{ request()->routeIs('book.*') ? 'active' : '' }}">
-                                    <a href="{{ route('book.index') }}">
+                                <li class="submenu-item {{ request()->routeIs('admin.book.*') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.book.index') }}">
                                         <i class="bi bi-book-fill"></i>
                                         <span>Book</span>
                                     </a>
                                 </li>
-                                {{-- <li class="submenu-item {{ request()->routeIs('artikel.*') ? 'active' : '' }}">
-                                    <a href="{{ route('book.index') }}">
-                                        <i class="bi bi-file-earmark-text-fill"></i>
-                                        <span>Artikel</span>
-                                    </a>
-                                </li> --}}
                             </ul>
+                        </li> --}}
+
+                        <li class="sidebar-item {{ request()->routeIs('admin.book.*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.book.index') }}" class='sidebar-link'>
+                                <i class="bi bi-book-fill"></i>
+                                <span>Book</span>
+                            </a>
                         </li>
 
-                        <li class="sidebar-item {{ request()->routeIs('bimbel.*') ? 'active' : '' }}">
-                            <a href="{{ route('bimbel.index') }}" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
+                        <li class="sidebar-item {{ request()->routeIs('admin.bimbel.*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.bimbel.index') }}" class='sidebar-link'>
+                                <i class="bi bi-journal-bookmark-fill"></i>
                                 <span>Bimbel</span>
                             </a>
                         </li>
-                        
-                        <li class="sidebar-item {{ request()->routeIs('adminartikel.*') ? 'active' : '' }}">
-                            <a href="{{ route('adminartikel.index') }}" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
+
+                        <li class="sidebar-item {{ request()->routeIs('admin.artikel.*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.artikel.index') }}" class='sidebar-link'>
+                                <i class="bi bi-file-text-fill"></i>
                                 <span>Artikel</span>
                             </a>
                         </li>
+
 
                     </ul>
                 </div>
             </div>
         </div>
-
-        {{-- <li class="sidebar-item">
-                            <a href="order-management.html" class='sidebar-link'>
-                                <i class="bi bi-cart-fill"></i>
-                                <span>Kelola Pesanan</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a href="user-management.html" class='sidebar-link'>
-                                <i class="bi bi-person-fill"></i>
-                                <span>Manajemen Karyawan</span>
-                            </a>
-                        </li> --}}

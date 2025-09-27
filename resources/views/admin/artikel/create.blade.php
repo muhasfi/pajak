@@ -56,7 +56,7 @@
             </div>
         @endif
 
-        <form class="form" action="{{ route('adminartikel.store') }}" enctype="multipart/form-data" method="POST">
+        <form class="form" action="{{ route('admin.artikel.store') }}" enctype="multipart/form-data" method="POST">
             @csrf
             <div class="form-body">
                 <div class="row">
@@ -107,7 +107,7 @@
 
                     <!-- Submit -->
                     <div class="col-12 d-flex justify-content-end">
-                        <a href="{{ route('adminartikel.index') }}" class="btn btn-light-secondary me-2">Batal</a>
+                        <a href="{{ route('admin.artikel.index') }}" class="btn btn-light-secondary me-2">Batal</a>
                         <button type="submit" class="btn btn-primary">Simpan Artikel</button>
                     </div>
                 </div>

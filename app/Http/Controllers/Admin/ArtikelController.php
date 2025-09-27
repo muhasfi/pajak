@@ -87,7 +87,7 @@ class ArtikelController extends Controller
         ]);
 
         // 5. Redirect dengan pesan sukses
-        return redirect()->route('adminartikel.index')
+        return redirect()->route('admin.artikel.index')
             ->with('success', 'Artikel berhasil ditambahkan!');
     }
 
@@ -141,7 +141,7 @@ class ArtikelController extends Controller
         ]);
 
         // 5. Redirect
-        return redirect()->route('adminartikel.index')
+        return redirect()->route('admin.artikel.index')
             ->with('success', 'Artikel berhasil diperbarui!');
     }
 
@@ -162,7 +162,7 @@ class ArtikelController extends Controller
 
     $artikel->delete();
 
-    return redirect()->route('adminartikel.index')
+    return redirect()->route('admin.artikel.index')
         ->with('success', 'Artikel berhasil dihapus!');
 }
 
