@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+<<<<<<< HEAD
     @include('layouts.__header') {{-- meta, title, favicon, dsb --}}
 
     {{-- CSS Global --}}
@@ -23,7 +24,17 @@
     <link rel="stylesheet" href="{{ asset('assets/customer/css/pph.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/customer/css/order_ppn.css') }}">
     {{-- CSS Tambahan Per Halaman --}}
+=======
+    @include('layouts.__header')
+    {{-- Tempat CSS tambahan dari halaman --}}
+    <link href="{{ asset('assets/customer/css/navbar.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/customer/css/cart.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/customer/css/checkout.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/customer/css/book.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/customer/css/artikel.css') }}" rel="stylesheet">
+>>>>>>> 0a071cbb10510b796f9ab6287b32944a7fe218b5
     @yield('style')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
 

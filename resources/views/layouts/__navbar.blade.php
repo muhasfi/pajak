@@ -123,6 +123,7 @@
                     </div>
                 </li>
                 
+<<<<<<< HEAD
                 <!-- Layanan Akuntansi & Perpajakan (6 items - 2 columns) -->
                 <li class="nav-item">
                     <a href="#layanan" class="nav-link">
@@ -175,10 +176,34 @@
                 
                 <!-- Login Button -->
                 <li class="nav-item">
+=======
+                {{-- <li class="nav-item">
+>>>>>>> 0a071cbb10510b796f9ab6287b32944a7fe218b5
                     <a href="/login" class="login-btn">
                         <i class="fas fa-sign-in-alt"></i> Login
                     </a>
+                </li> --}}
+
+                <li class="nav-item">
+                    @guest
+                        {{-- Kalau belum login --}}
+                        <a href="{{ route('login') }}" class="login-btn">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                    @endguest
+
+                    @auth
+                        {{-- Kalau sudah login --}}
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="btn btn-link nav-link" style="border: none; background: none;">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </form>
+                    @endauth
                 </li>
+
+
             </ul>
 
             <div class="mobile-menu-btn">

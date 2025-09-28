@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,5 +18,5 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('/midtrans/notification', [\App\Http\Controllers\BookController::class, 'handleNotification']);
+Route::post('/midtrans/notification', [OrderController::class, 'handleNotification']);
 

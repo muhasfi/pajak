@@ -21,7 +21,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-        <form class="form" action="{{ route('book.update', $item->id) }}" enctype="multipart/form-data" method="POST">
+        <form class="form" action="{{ route('admin.book.update', $item->id) }}" enctype="multipart/form-data" method="POST">
             @csrf
             @method('PUT')
             <div class="form-body">
@@ -53,21 +53,6 @@
                                 name="price" required 
                                 value="{{ old('price', $item->price) }}">
                         </div>
-
-                        {{-- Kategori --}}
-                        <div class="form-group">
-                            <label for="category">Kategori</label>
-                            <select class="form-select" id="category" name="category_id" required>
-                                <option value="" disabled>Pilih Menu</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}" 
-                                        {{ old('category_id', $item->category_id) == $category->id ? 'selected' : '' }}>
-                                        {{ $category->cat_name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
                         {{-- Gambar --}}
                         <div class="form-group">
                             <label for="image">Gambar</label>
@@ -153,7 +138,7 @@
                         <div class="form-group d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
                             <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
-                            <a href="{{ route('book.index') }}" class="btn btn-light-secondary me-1 mb-1">Batal</a>
+                            <a href="{{ route('admin.book.index') }}" class="btn btn-light-secondary me-1 mb-1">Batal</a>
                         </div>
                     </div>
                 </div>

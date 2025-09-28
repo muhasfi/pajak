@@ -14,7 +14,7 @@
                 <h3>Artikel</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
-                <a href="{{ route('adminartikel.create') }}" class="btn btn-primary float-start float-lg-end">
+                <a href="{{ route('admin.artikel.create') }}" class="btn btn-primary float-start float-lg-end">
                     <i class="bi bi-plus"></i>
                     Tambah Artikel
                 </a>
@@ -57,13 +57,13 @@
                             </td>
                             <td>{{ $item->created_at->format('d-m-Y') }}</td>
                             <td>
-                                <a href="{{ route('adminartikel.show', $item->id) }}" class="btn btn-sm btn-info">
+                                <a href="{{ route('admin.artikel.show', $item->id) }}" class="btn btn-sm btn-info">
                                     <i class="bi bi-eye"></i> Lihat
                                 </a>
-                                <a href="{{ route('adminartikel.edit', $item->id) }}" class="btn btn-warning btn-sm">
+                                <a href="{{ route('admin.artikel.edit', $item->id) }}" class="btn btn-warning btn-sm">
                                     <i class="bi bi-pencil"></i> Ubah
                                 </a>
-                                <form action="{{ route('adminartikel.destroy', $item->id) }}" 
+                                <form action="{{ route('admin.artikel.destroy', $item->id) }}" 
                                       method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')

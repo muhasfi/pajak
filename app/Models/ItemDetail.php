@@ -23,8 +23,13 @@ class ItemDetail extends Model
     /**
      * Relasi ke Item
      */
-    public function item()
+    // public function item()
+    // {
+    //     return $this->belongsTo(Item::class);
+    // }
+
+    public function orderItems()
     {
-        return $this->belongsTo(Item::class);
+        return $this->morphMany(OrderItem::class, 'product');
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ItemBimbel;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 
 class BimbelController extends Controller
@@ -9,12 +11,41 @@ class BimbelController extends Controller
     // Halaman utama e-learning / bimbel
     public function index()
     {
-        // Contoh data kosong supaya tidak error
-        $categories = []; 
-        $courses = [];    
-
-        return view('product.bimbel.bimbel', compact('categories', 'courses'));
+        $categories = [];
+        $courses = [];
+        $bimbels = ItemBimbel::with('details')->where('is_active', 1)->get();
+        return view('product.bimbel.bimbel', compact('bimbels', 'categories', 'courses'));
     }
+
+    public function list()
+    {
+        $myBimbels = OrderItem::with('product', 'order')
+            ->whereHas('order', function ($q) {
+                $q->where('user_id', auth()->id())
+                ->where('status', 'success');   
+            })
+            ->where('product_type', 'bimbel') // karena pakai morphMap
+            ->get();
+
+
+        return view('product.bimbel.bimbel-list', compact('myBimbels'));
+    }
+
+    // Halaman detail kursus
+    public function show($id)
+{
+    $orderItem = OrderItem::with(['product.details', 'order'])
+        ->whereHas('order', function ($q) {
+            $q->where('user_id', auth()->id())
+              ->where('status', 'success');
+        })
+        ->findOrFail($id);
+
+    $bimbel = $orderItem->product;
+
+    return view('product.bimbel.show', compact('bimbel', 'orderItem'));
+}
+
 
     // Halaman daftar kursus
     public function courses(Request $request)
@@ -29,15 +60,6 @@ class BimbelController extends Controller
 
         // kirim $class ke view supaya bisa tampil judul “Bimbel A” / “Bimbel B”
         return view('bimbel.courses.index', compact('class', 'courses'));
-    }
-
-    // Halaman detail kursus
-    public function show($id)
-    {
-        // Ambil kursus berdasarkan id
-        // $course = Course::findOrFail($id);
-
-        return view('bimbel.courses.show'); 
     }
 
     // Proses pendaftaran kursus

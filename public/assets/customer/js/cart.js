@@ -1,4 +1,4 @@
-function confirmDelete(itemId) {
+function confirmDelete(id, type) {
     Swal.fire({
         title: "Apakah Anda yakin?",
         text: "Item ini akan dihapus dari keranjang!",
@@ -10,7 +10,7 @@ function confirmDelete(itemId) {
         cancelButtonText: "Batal",
     }).then((result) => {
         if (result.isConfirmed) {
-            removeItemFromCart(itemId);
+            removeItemFromCart(id, type);
         }
     });
 }

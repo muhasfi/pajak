@@ -36,7 +36,6 @@ class ItemBookController extends Controller
             'description'   => 'nullable|string',
             'price'         => 'required|integer',
             'img'           => 'nullable|image|mimes:jpg,jpeg,png',
-            'category_id'   => 'required|integer|exists:categories,id',
             'is_active'     => 'boolean',
 
             // item_details
@@ -62,7 +61,6 @@ class ItemBookController extends Controller
                 'description' => $validated['description'] ?? null,
                 'price'       => $validated['price'],
                 'img'         => $imgPath,
-                'category_id' => $validated['category_id'],
                 'is_active'   => $validated['is_active'] ?? 1,
             ]);
 
@@ -78,7 +76,7 @@ class ItemBookController extends Controller
 
             DB::commit();
 
-            return redirect()->route('book.index')
+            return redirect()->route('admin.book.index')
                 ->with('success', 'Item berhasil ditambahkan.');
         } catch (\Exception $e) {
             DB::rollBack();
@@ -103,7 +101,6 @@ class ItemBookController extends Controller
             'name'          => 'required|string|max:255',
             'description'   => 'nullable|string',
             'price'         => 'required|numeric|min:0',
-            'category_id'   => 'required|exists:categories,id',
             'img'           => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_active'     => 'required|boolean',
 
@@ -129,7 +126,6 @@ class ItemBookController extends Controller
             'name'        => $validatedData['name'],
             'description' => $validatedData['description'] ?? null,
             'price'       => $validatedData['price'],
-            'category_id' => $validatedData['category_id'],
             'img'         => $validatedData['img'] ?? $item->img,
             'is_active'   => $validatedData['is_active'],
         ]);
@@ -154,7 +150,7 @@ class ItemBookController extends Controller
             $detailData
         );
 
-        return redirect()->route('book.index')->with('success', 'Item updated successfully.');
+        return redirect()->route('admin.book.index')->with('success', 'Item updated successfully.');
     }
 
      public function destroy(string $id)
@@ -164,7 +160,7 @@ class ItemBookController extends Controller
         $item->delete();
 
         // Redirect to the items index with a success message
-        return redirect()->route('book.index')->with('success', 'Item deleted successfully.');
+        return redirect()->route('admin.book.index')->with('success', 'Item deleted successfully.');
     }
 
 

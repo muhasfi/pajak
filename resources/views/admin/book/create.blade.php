@@ -21,7 +21,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-        <form class="form" action="{{ route('book.store') }}" enctype="multipart/form-data" method="POST">
+        <form class="form" action="{{ route('admin.book.store') }}" enctype="multipart/form-data" method="POST">
             @csrf
             <div class="form-body">
                 <div class="row">
@@ -41,17 +41,6 @@
                             <label for="price">Harga</label>
                             <input type="number" class="form-control" id="price" name="price" placeholder="Masukkan Harga" required>
                         </div>
-
-                        <div class="form-group">
-                            <label for="category">Kategori</label>
-                            <select class="form-select" id="category" name="category_id" required>
-                                <option value="" disabled selected>Pilih Menu</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->cat_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
                         <div class="form-group">
                             <label for="image">Gambar</label>
                             <input type="file" class="form-control" id="image" name="img" required>
@@ -98,7 +87,7 @@
                         <div class="form-group d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
                             <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
-                            <a href="{{ route('book.index') }}" class="btn btn-light-secondary me-1 mb-1">Batal</a>
+                            <a href="{{ route('admin.book.index') }}" class="btn btn-light-secondary me-1 mb-1">Batal</a>
                         </div>
                     </div>
                 </div>

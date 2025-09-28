@@ -44,9 +44,10 @@ Route::prefix('admin')->group(static function () {
         // General routes
         Route::get('profile', [\App\Http\Controllers\Admin\HomeController::class, 'profile'])->middleware('password.confirm.admin')->name('admin.profile');
         Route::get('/', [\App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.index');
-        Route::resource('/book', ItemBookController::class);
-        Route::resource('/bimbel', ItemBimbelController::class);
-        Route::resource('/adminartikel', ArtikelController::class);
+        
+        Route::resource('/book', ItemBookController::class)->names('admin.book');
+        Route::resource('/bimbel', ItemBimbelController::class)->names('admin.bimbel');
+        Route::resource('/artikel', ArtikelController::class)->names('admin.artikel');
         Route::post('/artikel/upload', [ArtikelController::class, 'upload'])->name('ckeditor.upload');
 
         // Route::get('/book', [\App\Http\Controllers\Admin\ItemBookController::class, 'index'])->name('book.index');

@@ -35,4 +35,9 @@ class ItemBimbel extends Model
             $item->details()->delete();
         });
     }
+
+    // public function orderItems()
+    // {
+    //     return $this->morphMany(OrderItem::class, 'product');
+    // }
 }

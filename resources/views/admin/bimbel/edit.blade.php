@@ -10,7 +10,7 @@
                 <p class="text-subtitle text-muted">Perbarui informasi paket bimbel dan modul-modulnya</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first text-end">
-                <a href="{{ route('bimbel.index') }}" class="btn btn-secondary">
+                <a href="{{ route('admin.bimbel.index') }}" class="btn btn-secondary">
                     <i class="bi bi-arrow-left"></i> Kembali
                 </a>
             </div>
@@ -18,7 +18,7 @@
     </div>
 
     <section class="section mt-3">
-        <form action="{{ route('bimbel.update', $bimbel->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.bimbel.update', $bimbel->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -78,14 +78,22 @@
                             <div class="mb-2">
                                 <label>Video</label>
                                 <div class="input-group">
-                                    <select name="bimbels[{{ $i }}][video_type]" class="form-select" style="max-width: 150px;">
+                                    <select name="details[{{ $i }}][video_type]" class="form-select" style="max-width: 150px;">
                                         <option value="upload" {{ $bimbel->video && !Str::contains($bimbel->video,'youtu') ? 'selected' : '' }}>Upload</option>
                                         <option value="youtube" {{ $bimbel->video && Str::contains($bimbel->video,'youtu') ? 'selected' : '' }}>YouTube</option>
                                     </select>
-                                    <input type="file" name="bimbels[{{ $i }}][video_upload]" class="form-control {{ $bimbel->video && Str::contains($bimbel->video,'youtu') ? 'd-none' : '' }}" accept="video/*">
-                                    <input type="text" name="bimbels[{{ $i }}][video_link]" class="form-control {{ $bimbel->video && !Str::contains($bimbel->video,'youtu') ? 'd-none' : '' }}" placeholder="https://youtube.com/..." value="{{ $bimbel->video }}">
+
+                                    <input type="file" name="details[{{ $i }}][video_upload]" 
+                                        class="form-control {{ $bimbel->video && Str::contains($bimbel->video,'youtu') ? 'd-none' : '' }}" 
+                                        accept="video/*">
+
+                                    <input type="text" name="details[{{ $i }}][video_link]" 
+                                        class="form-control {{ $bimbel->video && !Str::contains($bimbel->video,'youtu') ? 'd-none' : '' }}" 
+                                        placeholder="https://youtube.com/..." 
+                                        value="{{ $bimbel->video }}">
                                 </div>
                             </div>
+
                             <div class="mb-2">
                                 <label>Urutan</label>
                                 <input type="number" name="bimbels[{{ $i }}][urutan]" class="form-control"

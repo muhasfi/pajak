@@ -22,7 +22,11 @@
             <tbody>
                 @foreach ($orderItems as $orderItem)
                     <tr>
-                        <td>{{ Str::limit($orderItem->item->name, 25)}} ({{ $orderItem->quantity }})</td>
+                        <td>
+                            {{ Str::limit($orderItem->product->name ?? $orderItem->product->judul, 25) }}
+                            ({{ $orderItem->quantity }})
+                        </td>
+
                         <td class="text-end">{{ 'Rp'. number_format($orderItem->price, 0, ',','.') }}</td>
                     </tr>
                 @endforeach
@@ -50,7 +54,7 @@
             <p class="small text-center">Yeay! Pembayaran sukses</p>
         @endif
         <hr>
-        <a href="{{ route('book') }}" class="btn btn-primary w-100">Kembali ke menu</a>
+        <a href="{{ route('index') }}" class="btn btn-primary w-100">Kembali ke menu</a>
     </div>
 
 </div>

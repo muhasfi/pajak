@@ -54,11 +54,11 @@
                             @endphp
                             <div class="cart-item">
                                 <div class="cart-item-image">
-                                    <img src="{{ asset('img_item_upload/'. $item['image']) }}" 
+                                    <img src="{{ asset('img_item_upload/'. $item['image'] ?? 'default.jpg') }}" 
                                     class="img-fluid me-5 rounded-circle" 
                                     style="width: 80px; height: 80px;" 
                                     alt="" 
-                                    onerror="this.onerror=null;this.src='{{ $item['image'] }}';">
+                                    onerror="this.onerror=null;this.src='{{ $item['image'] ?? 'default.jpg' }}';">
                                 </div>
                                 
                                 <div class="cart-item-content">
@@ -67,7 +67,7 @@
                                     
                                     <div class="cart-item-actions">
                                         
-                                        <button class="remove-btn" onclick="confirmDelete('{{ $item['id'] }}')">
+                                        <button class="remove-btn" onclick="confirmDelete('{{ $item['id'] }}', '{{ $item['type'] }}')">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </div>
@@ -79,7 +79,7 @@
                     <button id="clear-cart-btn"
                     class="btn btn-danger"
                     {{-- "{{ route('cart.remove') }}" --}}
-                    data-url="{{ secure_url(route('cart.clear', [], false)) }}">
+                    data-url="{{ route('cart.clear', [], false) }}">
                     Kosongkan Keranjang
                 </button>
                 </div>
@@ -124,29 +124,25 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('assets/customer/js/cart.js') }}"></script>
 <script>
-    function removeItemFromCart(itemId) {
-            // fetch("{{ route('cart.remove') }}"
-            // fetch("{{ secure_url(route('cart.remove', [], false)) }}"
-            fetch("{{ route('cart.remove', [], false) }}", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({ id: itemId })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    location.reload();
-                } else {
-                    alert(data.message);
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                alert('Terjadi kesalahan saat menghapus item dari keranjang');
-            });
+    function removeItemFromCart(id, type) {
+    fetch("{{ route('cart.remove', [], false) }}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({ id: id, type: type })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert(data.message);
         }
+    });
+}
+
+
 </script>
 @endsection
