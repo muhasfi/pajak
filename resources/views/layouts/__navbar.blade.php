@@ -122,8 +122,6 @@
                         </div>
                     </div>
                 </li>
-                
-<<<<<<< HEAD
                 <!-- Layanan Akuntansi & Perpajakan (6 items - 2 columns) -->
                 <li class="nav-item">
                     <a href="#layanan" class="nav-link">

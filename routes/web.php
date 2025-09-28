@@ -61,7 +61,7 @@ Route::prefix('bimbel')->group(function () {
 
 Route::get('/pelatihan', [App\Http\Controllers\PelatihanController::class, 'index'])->name('pelatihan');
 Route::view('/kontak', 'kontak')->name('kontak');
-<<<<<<< HEAD
+
 Route::view('/seminar', 'product.pelatihan.seminar')->name('seminar');
 Route::view('/webinar', 'product.pelatihan.webinar')->name('webinar');
 Route::view('/spt', 'product.kertas_kerja.kertas_spt')->name('spt');
@@ -69,9 +69,7 @@ Route::view('/ppn', 'product.kertas_kerja.kertas_ppn')->name('ppn');
 Route::view('/order-ppn', 'product.kertas_kerja.order_ppn')->name('order.ppn');
 Route::view('/pph21', 'product.kertas_kerja.kertas_pph')->name('pph21');
 // Route::view('/blog', 'product.blog.blog')->name('blog');
-=======
 
->>>>>>> 0a071cbb10510b796f9ab6287b32944a7fe218b5
 require __DIR__.'/auth.php';
 
 Route::middleware(['auth', 'verified'])->group(function () {
