@@ -1,0 +1,168 @@
+
+    .category-card, .course-card {
+        transition: transform .25s ease, box-shadow .25s ease;
+        border-radius: 1rem;
+    }
+    .category-card:hover, .course-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 1rem 2rem rgba(0,0,0,.08);
+    }
+    .text-truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    /* Class Selection Styles */
+    .class-card {
+        border-radius: 1.5rem;
+        transition: all 0.3s ease;
+        background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+    }
+    
+    .class-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 2rem 4rem rgba(0,0,0,.1);
+    }
+    
+    .premium-card, .expert-card {
+        position: relative;
+    }
+    
+    .premium-badge, .expert-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        z-index: 10;
+    }
+    
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    }
+    
+    .bg-gradient-success {
+        background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+    }
+    
+    .bg-gradient-warning {
+        background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+    }
+    
+    .wave-decoration {
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        right: 0;
+        height: 20px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' fill='%23ffffff'%3E%3C/path%3E%3C/svg%3E") no-repeat center;
+        background-size: cover;
+    }
+    
+    .feature-item {
+        padding: 0.5rem 0;
+        border-radius: 0.5rem;
+        transition: background-color 0.2s ease;
+    }
+    
+    .feature-item:hover {
+        background-color: rgba(0,123,255,0.05);
+        padding-left: 0.5rem;
+    }
+    
+    .stat-item {
+        padding: 1rem;
+        border-radius: 0.75rem;
+        background: rgba(0,0,0,0.02);
+        transition: all 0.2s ease;
+    }
+    
+    .stat-item:hover {
+        background: rgba(0,123,255,0.08);
+        transform: scale(1.05);
+    }
+    
+    .price-section {
+        background: linear-gradient(135deg, rgba(0,123,255,0.05) 0%, rgba(40,167,69,0.05) 100%);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin: 0 -0.5rem;
+    }
+    
+    .comparison-table {
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.08);
+    }
+    
+    .comparison-table th {
+        padding: 1rem;
+        border: none;
+    }
+    
+    .comparison-table td {
+        padding: 1rem;
+        border: none;
+        vertical-align: middle;
+    }
+    
+    .comparison-section {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 2rem;
+        padding: 3rem 2rem;
+        margin: 3rem 0;
+    }
+    
+    .smooth-scroll {
+        scroll-behavior: smooth;
+    }
+    
+    /* Expert card specific styles */
+    .expert-card .price-section {
+        background: linear-gradient(135deg, rgba(255,193,7,0.05) 0%, rgba(224,168,0,0.05) 100%);
+        
+    }
+    
+    .expert-card .feature-item:hover {
+        background-color: rgba(255,193,7,0.05);
+    }
+    
+    .expert-card .stat-item:hover {
+        background: rgba(255,193,7,0.08);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .class-card {
+            margin-bottom: 2rem;
+        }
+        
+        .comparison-section {
+            padding: 2rem 1rem;
+        }
+        
+        .price-section {
+            margin: 0;
+        }
+        
+        .stat-item {
+            padding: 0.75rem 0.5rem;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .text-truncate {
+            white-space: normal;
+        }
+        
+        .display-4 {
+            font-size: 2rem;
+        }
+        
+        .display-5 {
+            font-size: 1.75rem;
+        }
+        
+        .class-card:hover {
+            transform: none;
+        }
+    }

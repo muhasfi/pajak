@@ -11,8 +11,8 @@ class ArtikelController extends Controller
     {
         // ambil artikel yang status publish
         $artikels = Artikel::where('status', 'publish')
-            ->orderBy('publish_date', 'desc')
-            ->paginate(6); // biar ada pagination
+            ->orderBy('created_at', 'desc') // gunakan created_at untuk urutan tanggal
+            ->paginate(6);
 
         return view('artikel.index_user', compact('artikels'));
     }

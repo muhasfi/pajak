@@ -21,7 +21,7 @@
             <ul class="nav-menu">
                 <!-- Peraturan & Artikel -->
                 <li class="nav-item">
-                    <a href="/blog" class="nav-link active">
+                    <a href="/artikel" class="nav-link active">
                         <i class="fas fa-file-alt"></i> Peraturan
                     </a>
                 </li>
@@ -32,7 +32,6 @@
                         <i class="fas fa-laptop-code"></i>Produk<i class="fas fa-chevron-down"></i>
                     </a>
                     <div class="dropdown">
-<<<<<<< HEAD
                         <div class="dropdown-grid two-columns">
                             <div class="dropdown-column">
                                 <a href="{{ route('book') }}" class="dropdown-item">
@@ -41,15 +40,15 @@
                                 <a href="#aplikasi-pembukuan" class="dropdown-item">
                                     <i class="fas fa-calculator"></i> Aplikasi Pembukuan
                                 </a>
-                                <a href="#kertas-kerja-pph21" class="dropdown-item">
+                                <a href="/pph21" class="dropdown-item">
                                     <i class="fas fa-file-invoice-dollar"></i> Kertas Kerja PPH 21
                                 </a>
                             </div>
                             <div class="dropdown-column">
-                                <a href="#kertas-kerja-spt-tahunan" class="dropdown-item">
+                                <a href="/spt" class="dropdown-item">
                                     <i class="fas fa-file-contract"></i> Kertas Kerja SPT Tahunan
                                 </a>
-                                <a href="#kertas-kerja-ppn" class="dropdown-item">
+                                <a href="/ppn" class="dropdown-item">
                                     <i class="fas fa-receipt"></i> Kertas Kerja PPN
                                 </a>
                                 <a href="#kertas-kerja-spt-masa-unifikasi" class="dropdown-item">
@@ -57,17 +56,10 @@
                                 </a>
                             </div>
                         </div>
-=======
-                        <a href="{{ route('book') }}" class="dropdown-item">
-                            <i class="fas fa-book"></i> Buku
-                        </a>
-                        <a href="{{ route('artikel.index') }}" class="dropdown-item">
-                            <i class="fas fa-newspaper"></i> Artikel
-                        </a>
                     </div>
                 </li>
                 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('bimbel.index') }}" class="nav-link">
                         <i class="fas fa-graduation-cap"></i> Kelas <i class="fas fa-chevron-down"></i>
                     </a>
@@ -81,9 +73,8 @@
                         <a href="{{ route('bimbel.a') }}" class="dropdown-item">
                             <i class="fas fa-clipboard-list"></i> Ujian Tryout
                         </a>
->>>>>>> ba349360a00ab11cd19d2be99968025aa6592a33
                     </div>
-                </li>
+                </li> --}}
                 
                 <!-- Pelatihan & Workshop (5 items - 2 columns) -->
                 <li class="nav-item">
@@ -94,17 +85,17 @@
                         <div class="dropdown-grid two-columns">
                             <div class="dropdown-column">
                                 <a href="#brevet-ab" class="dropdown-item">
-                                    <i class="fas fa-user-graduate"></i> Brevet A&B
+                                    <i class="fas fa-user-graduate"></i> Brevet A & B
                                 </a>
                                 <a href="#brevet-c" class="dropdown-item">
                                     <i class="fas fa-user-graduate"></i> Brevet C
                                 </a>
-                                <a href="#webinar" class="dropdown-item">
+                                <a href="/webinar" class="dropdown-item">
                                     <i class="fas fa-microphone"></i> Webinar
                                 </a>
                             </div>
                             <div class="dropdown-column">
-                                <a href="#seminar-offline" class="dropdown-item">
+                                <a href="/seminar" class="dropdown-item">
                                     <i class="fas fa-users"></i> Seminar Offline
                                 </a>
                                 <a href="#in-house-training" class="dropdown-item">
@@ -122,7 +113,7 @@
                     </a>
                     <div class="dropdown">
                         <div class="dropdown-grid">
-                            <a href="{{ route('bimbel.index') }}" class="dropdown-item">
+                            <a href="/bimbel" class="dropdown-item">
                                 <i class="fas fa-users"></i> Bimbel USKP
                             </a>
                             <a href="#tryout-uskp-online" class="dropdown-item">

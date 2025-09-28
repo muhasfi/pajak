@@ -4,12 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 class Artikel extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory; // 🚀 hapus SoftDeletes
 
     protected $table = 'artikels';
 
@@ -25,7 +24,7 @@ class Artikel extends Model
     ];
 
     // auto generate slug dari title
-    public static function boot()
+    protected static function boot()
     {
         parent::boot();
 

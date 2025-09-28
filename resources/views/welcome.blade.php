@@ -351,31 +351,34 @@
         opacity: 0.3;
     }
 
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 2rem;
-        text-align: center;
-        position: relative;
-        z-index: 2;
-    }
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    text-align: center;
+}
 
-    .stat-item {
-        padding: 1.5rem;
-    }
 
-    .stat-item h3 {
-        font-size: 2.8rem;
-        font-weight: 800;
-        margin-bottom: 0.5rem;
-        color: #ffffff;
-    }
+.stat-item {
+    padding: 1.5rem;
+    background: transparent;  
+    box-shadow: none;          
+    border: none;              
+}
 
-    .stat-item p {
-        opacity: 0.9;
-        font-size: 1.1rem;
-        font-weight: 600;
-    }
+.stat-item h3 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: #ffffff; /* tetap putih */
+}
+
+.stat-item p {
+    opacity: 0.9;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff; /* tambahkan supaya teks p putih juga */
+}
 
     /* Consultation Section */
     .consultation {
@@ -528,7 +531,7 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
-            <div class="hero-content">
+            <div class="hero-content mt-5">
                 <div class="hero-text">
                     <h1>Solusi Permasalahan Akuntansi & Perpajakan Anda</h1>
                     <p>Layanan profesional untuk membantu bisnis Anda tumbuh dengan dukungan konsultan berpengalaman.</p>

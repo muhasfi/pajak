@@ -38,13 +38,8 @@
                 <button class="filter-button" data-filter="artikel">Artikel</button>
                 <button class="filter-button" data-filter="other">Lainnya</button>
                 <a href="{{ route('cart') }}" class="position-relative me-4 my-auto">
-<<<<<<< HEAD
                     <i class="fa fa-shopping-bag fa-2x" style="color:#2563eb; opacity:1;"></i>
                 </a>
-=======
-                        <i class="fa fa-shopping-bag fa-2x"></i>
-                    </a>
->>>>>>> ba349360a00ab11cd19d2be99968025aa6592a33
             </div>
         </div>
         

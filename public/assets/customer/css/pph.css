@@ -1,0 +1,656 @@
+/* Variabel Warna PPh 21 */
+:root {
+    --primary-indigo: #4f46e5;
+    --secondary-indigo: #6366f1;
+    --light-indigo: #eef2ff;
+    --accent-indigo: #8b5cf6;
+    --dark-indigo: #3730a3;
+    --text-dark: #333333;
+    --text-light: #666666;
+    --white: #ffffff;
+    --gray-light: #f8fafc;
+    --border-color: #e2e8f0;
+}
+
+/* Reset dan Base Styles */
+.pph21-page * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.pph21-page body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--white);
+}
+
+.pph21-page .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Hero Section */
+.pph21-page .hero-section {
+    background: linear-gradient(135deg, var(--primary-indigo) 0%, var(--secondary-indigo) 100%);
+    color: var(--white);
+    padding: 100px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.pph21-page .hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="rgba(255,255,255,0.05)"><circle cx="50" cy="50" r="2"/><circle cx="20" cy="20" r="1"/><circle cx="80" cy="80" r="1.5"/></svg>');
+    background-size: 200px 200px;
+}
+
+.pph21-page .hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.pph21-page .hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    color: var(--white);
+}
+
+.pph21-page .hero-content p {
+    font-size: 1.3rem;
+    max-width: 700px;
+    margin: 0 auto 30px;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.pph21-page .hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.pph21-page .btn-primary, .pph21-page .btn-secondary {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 1.05rem;
+}
+
+.pph21-page .btn-primary {
+    background-color: var(--white);
+    color: var(--primary-indigo);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.pph21-page .btn-primary:hover {
+    background-color: var(--light-indigo);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.pph21-page .btn-secondary {
+    background-color: transparent;
+    color: var(--white);
+    border: 2px solid var(--white);
+}
+
+.pph21-page .btn-secondary:hover {
+    background-color: var(--white);
+    color: var(--primary-indigo);
+    transform: translateY(-2px);
+}
+
+/* Section Header */
+.pph21-page .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.pph21-page .section-header h2 {
+    font-size: 2.5rem;
+    color: var(--primary-indigo);
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.pph21-page .section-header p {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Description Section */
+.pph21-page .description-section {
+    padding: 80px 0;
+    background-color: var(--white);
+}
+
+.pph21-page .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+}
+
+.pph21-page .benefit-item {
+    text-align: center;
+    padding: 40px 25px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    background: var(--white);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.pph21-page .benefit-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.pph21-page .benefit-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-indigo) 0%, var(--secondary-indigo) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    color: var(--white);
+    font-size: 2rem;
+}
+
+.pph21-page .benefit-item h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: var(--primary-indigo);
+    font-weight: 600;
+}
+
+.pph21-page .benefit-item p {
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* Catalog Section */
+.pph21-page .catalog-section {
+    padding: 80px 0;
+    background-color: var(--gray-light);
+}
+
+.pph21-page .catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.pph21-page .service-card {
+    background-color: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.pph21-page .service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.pph21-page .service-card.featured {
+    border: 3px solid var(--accent-indigo);
+    transform: scale(1.05);
+}
+
+.pph21-page .service-card.featured:hover {
+    transform: scale(1.05) translateY(-10px);
+}
+
+.pph21-page .card-badge {
+    position: absolute;
+    top: 20px;
+    right: -35px;
+    background: linear-gradient(135deg, var(--accent-indigo) 0%, #7c3aed 100%);
+    color: var(--white);
+    padding: 8px 40px;
+    transform: rotate(45deg);
+    font-size: 0.85rem;
+    font-weight: 700;
+    z-index: 10;
+}
+
+.pph21-page .card-header {
+    padding: 30px;
+    background: linear-gradient(135deg, var(--primary-indigo) 0%, var(--secondary-indigo) 100%);
+    color: var(--white);
+    text-align: center;
+    position: relative;
+}
+
+.pph21-page .card-header h3 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.pph21-page .price {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.pph21-page .starting-from {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    margin-bottom: 5px;
+}
+
+.pph21-page .amount {
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+.pph21-page .employee-count {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.pph21-page .card-body {
+    padding: 30px;
+}
+
+.pph21-page .feature-list {
+    list-style: none;
+}
+
+.pph21-page .feature-list li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 18px;
+    color: var(--text-light);
+    line-height: 1.5;
+}
+
+.pph21-page .feature-list i {
+    margin-right: 12px;
+    margin-top: 3px;
+    font-size: 1.1rem;
+    min-width: 20px;
+}
+
+.pph21-page .feature-list .fa-check {
+    color: var(--accent-indigo);
+}
+
+.pph21-page .feature-list .fa-times {
+    color: #ef4444;
+}
+
+.pph21-page .card-footer {
+    padding: 0 30px 30px;
+    text-align: center;
+}
+
+.pph21-page .btn-order {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--primary-indigo) 0%, var(--secondary-indigo) 100%);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-bottom: 12px;
+    font-size: 1.05rem;
+}
+
+.pph21-page .btn-order:hover {
+    background: linear-gradient(135deg, var(--dark-indigo) 0%, var(--primary-indigo) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+}
+
+.pph21-page .btn-outline {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    color: var(--primary-indigo);
+    text-decoration: none;
+    border: 2px solid var(--primary-indigo);
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.pph21-page .btn-outline:hover {
+    background-color: var(--primary-indigo);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+/* Features Section */
+.pph21-page .features-section {
+    padding: 80px 0;
+    background-color: var(--white);
+}
+
+.pph21-page .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.pph21-page .feature-card {
+    text-align: center;
+    padding: 40px 25px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    background: var(--white);
+    border: 1px solid var(--light-indigo);
+}
+
+.pph21-page .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent-indigo);
+}
+
+.pph21-page .feature-card .feature-icon {
+    width: 70px;
+    height: 70px;
+    background-color: var(--light-indigo);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: var(--primary-indigo);
+    font-size: 1.8rem;
+}
+
+.pph21-page .feature-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: var(--primary-indigo);
+    font-weight: 600;
+}
+
+.pph21-page .feature-card p {
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* Workflow Section */
+.pph21-page .workflow-section {
+    padding: 80px 0;
+    background-color: var(--gray-light);
+}
+
+.pph21-page .workflow-steps {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.pph21-page .workflow-steps::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 50px;
+    right: 50px;
+    height: 3px;
+    background: linear-gradient(to right, var(--primary-indigo), var(--accent-indigo));
+    z-index: 1;
+}
+
+.pph21-page .step {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+}
+
+.pph21-page .step-number {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-indigo) 0%, var(--secondary-indigo) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 auto 20px;
+    border: 4px solid var(--white);
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+}
+
+.pph21-page .step-content h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: var(--primary-indigo);
+    font-weight: 600;
+}
+
+.pph21-page .step-content p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Additional Info Section */
+.pph21-page .additional-info {
+    padding: 80px 0;
+    background-color: var(--white);
+}
+
+.pph21-page .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 50px;
+}
+
+.pph21-page .info-item h3 {
+    font-size: 1.5rem;
+    color: var(--primary-indigo);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--light-indigo);
+    font-weight: 600;
+}
+
+.pph21-page .info-item ul {
+    padding-left: 20px;
+}
+
+.pph21-page .info-item li {
+    margin-bottom: 12px;
+    color: var(--text-light);
+    line-height: 1.6;
+    position: relative;
+}
+
+.pph21-page .info-item li::before {
+    content: '•';
+    color: var(--accent-indigo);
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+/* CTA Section */
+.pph21-page .cta-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--primary-indigo) 0%, var(--secondary-indigo) 100%);
+    color: var(--white);
+    text-align: center;
+}
+
+.pph21-page .cta-content h2 {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.pph21-page .cta-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pph21-page .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.pph21-page .btn-whatsapp, .pph21-page .btn-call {
+    display: inline-flex;
+    align-items: center;
+    padding: 14px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 1.05rem;
+}
+
+.pph21-page .btn-whatsapp {
+    background-color: #25D366;
+    color: var(--white);
+}
+
+.pph21-page .btn-whatsapp:hover {
+    background-color: #128C7E;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.pph21-page .btn-call {
+    background-color: transparent;
+    color: var(--white);
+    border: 2px solid var(--white);
+}
+
+.pph21-page .btn-call:hover {
+    background-color: var(--white);
+    color: var(--primary-indigo);
+    transform: translateY(-2px);
+}
+
+.pph21-page .btn-whatsapp i, .pph21-page .btn-call i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .pph21-page .hero-content h1 {
+        font-size: 2.2rem;
+    }
+    
+    .pph21-page .hero-content p {
+        font-size: 1.1rem;
+    }
+    
+    .pph21-page .section-header h2 {
+        font-size: 2rem;
+    }
+    
+    .pph21-page .service-card.featured {
+        transform: scale(1);
+    }
+    
+    .pph21-page .service-card.featured:hover {
+        transform: translateY(-10px);
+    }
+    
+    .pph21-page .info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .pph21-page .cta-content h2 {
+        font-size: 1.8rem;
+    }
+    
+    .pph21-page .hero-actions, .pph21-page .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .pph21-page .btn-primary, .pph21-page .btn-secondary, 
+    .pph21-page .btn-whatsapp, .pph21-page .btn-call {
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    .pph21-page .workflow-steps {
+        flex-direction: column;
+        gap: 40px;
+    }
+    
+    .pph21-page .workflow-steps::before {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .pph21-page .hero-section {
+        padding: 60px 0;
+    }
+    
+    .pph21-page .hero-content h1 {
+        font-size: 1.8rem;
+    }
+    
+    .pph21-page .catalog-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .pph21-page .card-badge {
+        right: -30px;
+        padding: 6px 35px;
+        font-size: 0.8rem;
+    }
+    
+    .pph21-page .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .pph21-page .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .pph21-page .info-grid {
+        grid-template-columns: 1fr;
+    }
+}

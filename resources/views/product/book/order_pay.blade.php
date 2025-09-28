@@ -4,17 +4,16 @@
 <br>
 <p>d</p>
 <div class="container py-5">
-<<<<<<< HEAD
+
     <td>Bayar Pesanan #{{ $order->order_code }}<td>
     <td>Total: Rp{{ number_format($order->grand_total, 0, ',', '.') }}</td>
     <td>Tanggal Pesanan: {{ $order->created_at->format('d M Y, H:i') }}</td>
     <td>Status: {{ ucfirst($order->status) }}</td>
-=======
+{{-- =======
     <td>Bayar Pesanan #{{ $order->order_code }}<td> <br>
     <td>Total: Rp{{ number_format($order->grand_total, 0, ',', '.') }}</td><br>
     <td>Tanggal Pesanan: {{ $order->created_at->format('d M Y, H:i') }}</td><br>
-    <td>Status: {{ ucfirst($order->status) }}</td><br>
->>>>>>> ba349360a00ab11cd19d2be99968025aa6592a33
+    <td>Status: {{ ucfirst($order->status) }}</td><br> --}}
 
     <button id="pay-button" class="btn btn-primary">Bayar Sekarang</button>
 </div>
