@@ -1,24 +1,33 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    /**
+     * Run the migrations.
+     */
+  // database/migrations/xxxx_xx_xx_create_trainings_table.php
+public function up()
 {
-    Schema::create('webinars', function (Blueprint $table) {
+    Schema::create('trainings', function (Blueprint $table) {
         $table->id();
-        $table->string('gambar')->nullable(); // Untuk menyimpan path/nama file gambar
         $table->string('judul');
         $table->text('deskripsi');
-        $table->dateTime('tanggal');
+        $table->date('tanggal');
         $table->decimal('harga', 10, 2);
+        $table->string('gambar')->nullable();
         $table->timestamps();
     });
 }
+
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('webinars');
+        Schema::dropIfExists('trainings');
     }
 };

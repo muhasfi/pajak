@@ -1,4 +1,5 @@
 <?php
+// app/Models/BrevetC.php
 
 namespace App\Models;
 
@@ -9,6 +10,8 @@ class BrevetC extends Model
 {
     use HasFactory;
 
+    protected $table = 'brevet_c';
+    
     protected $fillable = [
         'gambar',
         'judul',
@@ -18,4 +21,16 @@ class BrevetC extends Model
         'tanggal_selesai',
         'harga'
     ];
+
+    protected $casts = [
+        'tanggal_mulai' => 'date',
+        'tanggal_selesai' => 'date',
+        'harga' => 'decimal:2'
+    ];
+
+    // Relasi ke detail
+    public function details()
+    {
+        return $this->hasMany(DetailBrevetC::class, 'brevet_c_id');
+    }
 }

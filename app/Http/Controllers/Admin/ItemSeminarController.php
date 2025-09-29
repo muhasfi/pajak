@@ -3,25 +3,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetailSeminar;
 use App\Models\ItemSeminar;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 // use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ItemSeminarController extends Controller
 {
-    public function index(Request $request)
-    {
-        $query = ItemSeminar::query();
+   // app/Http/Controllers/ItemSeminarController.php
 
-        // Filter tanggal
-        if ($request->filled('tanggal')) {
-            $query->whereDate('tanggal', $request->tanggal);
-        }
-
-        $seminars = $query->latest()->paginate(10);
-        return view('admin.seminar.index', compact('seminars'));
-    }
+public function index()
+{
+    $seminars = ItemSeminar::with('detailSeminar')
+        ->latest()
+        ->paginate(10); // 10 items per page
+    
+    return view('admin.seminar.index', compact('seminars'));
+}
 
     public function create()
     {
@@ -31,55 +32,127 @@ class ItemSeminarController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'harga' => 'required|numeric',
             'tanggal' => 'required|date',
-            'img' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'harga' => 'required|numeric',
+            'pembicara' => 'required|string|max:255',
+            'lokasi' => 'required|string|max:255',
+            'kuota_peserta' => 'required|integer',
+            'kategori' => 'required|string|max:255',
+            'level' => 'required|in:Beginner,Intermediate,Advanced',
+            'fasilitas' => 'required|string',
+            'kontak_person' => 'required|string|max:255'
         ]);
 
-        $data = $request->all();
-        if ($request->hasFile('img')) {
-            $data['img'] = $request->file('img')->store('seminars', 'public');
+        // Upload gambar
+        $gambarPath = null;
+        if ($request->hasFile('gambar')) {
+            $gambarPath = $request->file('gambar')->store('seminar-images', 'public');
         }
 
-        ItemSeminar::create($data);
-        return redirect()->route('item-seminars.index')->with('success', 'Seminar berhasil ditambahkan.');
+        // Create ItemSeminar
+        $itemSeminar = ItemSeminar::create([
+            'gambar' => $gambarPath,
+            'judul' => $request->judul,
+            'deskripsi' => $request->deskripsi,
+            'tanggal' => $request->tanggal,
+            'harga' => $request->harga
+        ]);
+
+        // Create DetailSeminar
+        DetailSeminar::create([
+            'item_seminar_id' => $itemSeminar->id,
+            'pembicara' => $request->pembicara,
+            'lokasi' => $request->lokasi,
+            'kuota_peserta' => $request->kuota_peserta,
+            'kategori' => $request->kategori,
+            'level' => $request->level,
+            'fasilitas' => $request->fasilitas,
+            'kontak_person' => $request->kontak_person
+        ]);
+
+        return redirect()->route('item-seminar.index')
+            ->with('success', 'Seminar berhasil ditambahkan.');
     }
 
-    public function edit(ItemSeminar $item_seminar)
+    public function show($id)
     {
-        return view('admin.seminar.edit', compact('item_seminar'));
+        $seminar = ItemSeminar::with('detailSeminar')->findOrFail($id);
+        return view('item_seminar.show', compact('seminar'));
     }
 
-    public function update(Request $request, ItemSeminar $item_seminar)
+    public function edit($id)
+    {
+        $seminar = ItemSeminar::with('detailSeminar')->findOrFail($id);
+        return view('admin.seminar.edit', compact('seminar'));
+    }
+
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'harga' => 'required|numeric',
             'tanggal' => 'required|date',
-            'img' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'harga' => 'required|numeric',
+            'pembicara' => 'required|string|max:255',
+            'lokasi' => 'required|string|max:255',
+            'kuota_peserta' => 'required|integer',
+            'kategori' => 'required|string|max:255',
+            'level' => 'required|in:Beginner,Intermediate,Advanced',
+            'fasilitas' => 'required|string',
+            'kontak_person' => 'required|string|max:255'
         ]);
 
-        $data = $request->all();
-        if ($request->hasFile('img')) {
-            if ($item_seminar->img) {
-                Storage::disk('public')->delete($item_seminar->img);
+        $itemSeminar = ItemSeminar::with('detailSeminar')->findOrFail($id);
+
+        // Update gambar jika ada
+        if ($request->hasFile('gambar')) {
+            // Hapus gambar lama jika ada
+            if ($itemSeminar->gambar) {
+                Storage::disk('public')->delete($itemSeminar->gambar);
             }
-            $data['img'] = $request->file('img')->store('seminars', 'public');
+            $gambarPath = $request->file('gambar')->store('seminar-images', 'public');
+            $itemSeminar->gambar = $gambarPath;
         }
 
-        $item_seminar->update($data);
-        return redirect()->route('admin.seminar.index')->with('success', 'Seminar berhasil diperbarui.');
+        // Update ItemSeminar
+        $itemSeminar->update([
+            'judul' => $request->judul,
+            'deskripsi' => $request->deskripsi,
+            'tanggal' => $request->tanggal,
+            'harga' => $request->harga
+        ]);
+
+        // Update DetailSeminar
+        $itemSeminar->detailSeminar->update([
+            'pembicara' => $request->pembicara,
+            'lokasi' => $request->lokasi,
+            'kuota_peserta' => $request->kuota_peserta,
+            'kategori' => $request->kategori,
+            'level' => $request->level,
+            'fasilitas' => $request->fasilitas,
+            'kontak_person' => $request->kontak_person
+        ]);
+
+        return redirect()->route('item-seminar.index')
+            ->with('success', 'Seminar berhasil diperbarui.');
     }
 
-    public function destroy(ItemSeminar $item_seminar)
+    public function destroy($id)
     {
-        if ($item_seminar->img) {
-            Storage::disk('public')->delete($item_seminar->img);
+        $itemSeminar = ItemSeminar::findOrFail($id);
+        
+        // Hapus gambar jika ada
+        if ($itemSeminar->gambar) {
+            Storage::disk('public')->delete($itemSeminar->gambar);
         }
-        $item_seminar->delete();
-        return redirect()->route('item-seminars.index')->with('success', 'Seminar berhasil dihapus.');
+        
+        $itemSeminar->delete();
+
+        return redirect()->route('item-seminar.index')
+            ->with('success', 'Seminar berhasil dihapus.');
     }
 }

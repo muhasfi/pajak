@@ -1,4 +1,5 @@
 <?php
+// database/migrations/2024_01_01_create_brevet_c_table.php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -8,7 +9,7 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('brevetAB', function (Blueprint $table) {
+        Schema::create('brevet_c', function (Blueprint $table) {
             $table->id();
             $table->string('gambar')->nullable();
             $table->string('judul');
@@ -16,13 +17,13 @@ return new class extends Migration
             $table->string('hari');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
-            $table->decimal('harga', 10, 2);
+            $table->decimal('harga', 15, 2);
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('brevetAB');
+        Schema::dropIfExists('brevet_c');
     }
 };

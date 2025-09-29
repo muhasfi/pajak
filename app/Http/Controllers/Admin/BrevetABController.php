@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BrevetAB;
+use App\Models\DetailBrevetab;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,91 +12,159 @@ class BrevetABController extends Controller
 {
     public function index()
     {
-        $brevetAB = BrevetAB::all();
-        return view('admin.brevet-ab.index', compact('brevetAB'));
+        $brevetabs = BrevetAB::with('detail')->latest()->get();
+        return view('admin.brevetab.index', compact('brevetabs'));
     }
 
     public function create()
     {
-        return view('admin.brevet-ab.create');
+        return view('admin.brevetab.create');
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'hari' => 'required|string|max:100',
             'tanggal_mulai' => 'required|date',
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
-            'harga' => 'required|numeric|min:0'
+            'harga' => 'required|numeric|min:0',
+            'fasilitas' => 'required|string|max:255',
+            'deskripsi_fasilitas' => 'nullable|string',
+            'durasi_jam' => 'nullable|integer|min:1',
+            'instruktur' => 'nullable|string|max:255',
+            'lokasi' => 'required|string|max:255',
+            'kuota_peserta' => 'required|integer|min:1',
+            'level' => 'required|in:Beginner,Intermediate,Advanced',
+            'syarat_peserta' => 'nullable|string',
+            'materi_pelatihan' => 'nullable|string'
         ]);
 
-        $data = $request->all();
-
+        // Upload gambar
+        $gambarPath = null;
         if ($request->hasFile('gambar')) {
-            $imageName = time() . '.' . $request->gambar->extension();
-            $request->gambar->storeAs('public/brevet-ab', $imageName);
-            $data['gambar'] = $imageName;
+            $gambarPath = $request->file('gambar')->store('brevetab', 'public');
         }
 
-        BrevetAB::create($data);
+        // Create brevetab
+        $brevetab = BrevetAB::create([
+            'gambar' => $gambarPath,
+            'judul' => $request->judul,
+            'deskripsi' => $request->deskripsi,
+            'hari' => $request->hari,
+            'tanggal_mulai' => $request->tanggal_mulai,
+            'tanggal_selesai' => $request->tanggal_selesai,
+            'harga' => $request->harga,
+        ]);
 
-        return redirect()->route('brevet-ab.index')
-            ->with('success', 'Data brevet AB berhasil ditambahkan.');
+        // Create detail
+        DetailBrevetab::create([
+            'brevetab_id' => $brevetab->id,
+            'fasilitas' => $request->fasilitas,
+            'deskripsi_fasilitas' => $request->deskripsi_fasilitas,
+            'durasi_jam' => $request->durasi_jam,
+            'instruktur' => $request->instruktur,
+            'lokasi' => $request->lokasi,
+            'kuota_peserta' => $request->kuota_peserta,
+            'level' => $request->level,
+            'syarat_peserta' => $request->syarat_peserta,
+            'materi_pelatihan' => $request->materi_pelatihan,
+        ]);
+
+        return redirect()->route('brevetab.index')->with('success', 'Data brevet AB berhasil ditambahkan.');
     }
 
-    // public function show(BrevetAB $brevetAB)
-    // {
-    //     return view('admin.brevet-ab.show', compact('brevetAB'));
-    // }
-
-    public function edit(BrevetAB $brevet_ab) // Ganti parameter menjadi $brevet_ab
-{
-    return view('admin.brevet-ab.edit', compact('brevet_ab'));
-}
-
-    public function update(Request $request, BrevetAB $brevet_ab)
+    public function show(BrevetAB $brevetab)
     {
-        $request->validate([
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'judul' => 'required|string|max:255',
-            'deskripsi' => 'required|string',
-            'hari' => 'required|string|max:100',
-            'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
-            'harga' => 'required|numeric|min:0'
-        ]);
+        $brevetab->load('detail');
+        return view('admin.brevetab.show', compact('brevetab'));
+    }
 
-        $data = $request->all();
+    public function edit(BrevetAB $brevetab)
+    {
+        $brevetab->load('detail');
+        return view('admin.brevetab.edit', compact('brevetab'));
+    }
 
-        if ($request->hasFile('gambar')) {
-            // Hapus gambar lama jika ada
-            if ($brevet_ab->gambar) {
-                Storage::delete('public/brevet-ab/' . $brevet_ab->gambar);
-            }
-            
-            $imageName = time() . '.' . $request->gambar->extension();
-            $request->gambar->storeAs('public/brevet-ab', $imageName);
-            $data['gambar'] = $imageName;
+    // app/Http/Controllers/BrevetABController.php
+
+public function update(Request $request, BrevetAB $brevetab)
+{
+    $request->validate([
+        'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        'judul' => 'required|string|max:255',
+        'deskripsi' => 'required|string',
+        'hari' => 'required|string|max:100',
+        'tanggal_mulai' => 'required|date',
+        'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+        'harga' => 'required|numeric|min:0',
+        'fasilitas' => 'required|string|max:255',
+        'deskripsi_fasilitas' => 'nullable|string',
+        'durasi_jam' => 'nullable|integer|min:1',
+        'instruktur' => 'nullable|string|max:255',
+        'lokasi' => 'required|string|max:255',
+        'kuota_peserta' => 'required|integer|min:1',
+        'level' => 'required|in:Beginner,Intermediate,Advanced',
+        'syarat_peserta' => 'nullable|string',
+        'materi_pelatihan' => 'nullable|string'
+    ]);
+
+    // Handle hapus gambar
+    if ($request->has('hapus_gambar')) {
+        if ($brevetab->gambar) {
+            Storage::disk('public')->delete($brevetab->gambar);
+        }
+        $brevetab->gambar = null;
+    }
+
+    // Update gambar jika ada file baru
+    if ($request->hasFile('gambar')) {
+        // Hapus gambar lama jika ada
+        if ($brevetab->gambar) {
+            Storage::disk('public')->delete($brevetab->gambar);
+        }
+        $gambarPath = $request->file('gambar')->store('brevetab', 'public');
+        $brevetab->gambar = $gambarPath;
+    }
+
+    // Update brevetab
+    $brevetab->update([
+        'judul' => $request->judul,
+        'deskripsi' => $request->deskripsi,
+        'hari' => $request->hari,
+        'tanggal_mulai' => $request->tanggal_mulai,
+        'tanggal_selesai' => $request->tanggal_selesai,
+        'harga' => $request->harga,
+        'gambar' => $brevetab->gambar, // Include the updated gambar value
+    ]);
+
+    // Update detail
+    $brevetab->detail->update([
+        'fasilitas' => $request->fasilitas,
+        'deskripsi_fasilitas' => $request->deskripsi_fasilitas,
+        'durasi_jam' => $request->durasi_jam,
+        'instruktur' => $request->instruktur,
+        'lokasi' => $request->lokasi,
+        'kuota_peserta' => $request->kuota_peserta,
+        'level' => $request->level,
+        'syarat_peserta' => $request->syarat_peserta,
+        'materi_pelatihan' => $request->materi_pelatihan,
+    ]);
+
+    return redirect()->route('brevetab.index')->with('success', 'Data brevet AB berhasil diperbarui.');
+}
+
+    public function destroy(BrevetAB $brevetab)
+    {
+        // Hapus gambar
+        if ($brevetab->gambar) {
+            Storage::disk('public')->delete($brevetab->gambar);
         }
 
-        $brevet_ab->update($request->all());
-        return redirect()->route('brevet-ab.index')->with('success', 'Data berhasil diupdate.');
+        $brevetab->delete();
+
+        return redirect()->route('brevetab.index')->with('success', 'Data brevet AB berhasil dihapus.');
     }
-
-    // Menggunakan Route Model Binding
-public function destroy(BrevetAB $brevet_ab)
-{
-    // Hapus gambar dari storage jika ada (opsional)
-    if ($brevet_ab->gambar) {
-        Storage::delete('public/brevet-ab/' . $brevet_ab->gambar);
-    }
-
-    $brevet_ab->delete(); // Hapus data dari database
-
-    return redirect()->route('brevet-ab.index')
-        ->with('success', 'Data berhasil dihapus.');
-}
 }

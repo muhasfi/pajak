@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ItemBookController;
 use App\Http\Controllers\Admin\ItemLayananController;
 use App\Http\Controllers\Admin\ItemSeminarController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\TrainingController;
 use App\Http\Controllers\Admin\WebinarController;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
@@ -45,11 +46,14 @@ Route::prefix('admin')->group(static function () {
     // Authenticated routes
     Route::middleware(['auth:admin', 'verified'])->group(static function () {
 
-        Route::resource('brevet-ab', BrevetABController::class);
+        
+        Route::resource('brevetab', BrevetABController::class);
         // Route::delete('/brevet-ab/{id}', [BrevetABController::class, 'destroy'])->name('brevet-ab.destroy');
-        Route::resource('brevetc', BrevetCController::class);
+        Route::resource('brevet-c', BrevetCController::class);
         Route::resource('webinars', WebinarController::class);
         Route::resource('in_house_trainings', InHouseTrainingController::class);
+        Route::resource('item-seminar', ItemSeminarController::class);
+        Route::resource('trainings', TrainingController::class);
         // 
         Route::resource('services', ServiceController::class);
         Route::get('/layanan', [ItemLayananController::class, 'index'])->name('item-layanan.index');
@@ -61,15 +65,6 @@ Route::prefix('admin')->group(static function () {
         Route::get('/layanan/{id}', [ItemLayananController::class, 'show'])->name('item-layanan.show');
         
         Route::resource('item_layanan', ItemLayananController::class);
-
-        Route::resource('item-seminars', ItemSeminarController::class);
-        Route::get('/seminar', [ItemSeminarController::class, 'index'])->name('item-seminars.index');
-        Route::get('/seminar/create', [ItemSeminarController::class, 'create'])->name('item-seminars.create');
-        Route::post('/seminar', [ItemSeminarController::class, 'store'])->name('item_seminar.store');
-        Route::get('/seminar/{id}/edit', [ItemSeminarController::class, 'edit'])->name('item-seminars.edit');
-        Route::put('/seminar/{id}', [ItemSeminarController::class, 'update'])->name('item-seminars.update');
-        Route::delete('/seminar/{id}', [ItemSeminarController::class, 'destroy'])->name('item-seminars.destroy');
-        Route::get('/seminar/{id}', [ItemSeminarController::class, 'show'])->name('item-seminars.show');
         // Confirm password routes
         Route::get('confirm-password', [\App\Http\Controllers\Admin\Auth\ConfirmablePasswordController::class, 'show'])->name('admin.password.confirm');
         Route::post('confirm-password', [\App\Http\Controllers\Admin\Auth\ConfirmablePasswordController::class, 'store']);
@@ -79,8 +74,7 @@ Route::prefix('admin')->group(static function () {
         Route::get('profile', [\App\Http\Controllers\Admin\HomeController::class, 'profile'])->middleware('password.confirm.admin')->name('admin.profile');
         Route::get('/', [\App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.index');
         Route::resource('/book', ItemBookController::class);
-        // Route::resource('/bimbel', ItemBimbelController::class);
-        // Route::get('/book', [\App\Http\Controllers\Admin\ItemBookController::class, 'index'])->name('book.index');
+        
         Route::resource('item_bimbel', ItemBimbelController::class);
         // admin.bimbel.index
         Route::resource('bimbel', ItemBimbelController::class)->except(['show']); 

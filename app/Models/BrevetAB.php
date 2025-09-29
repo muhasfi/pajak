@@ -1,4 +1,5 @@
 <?php
+// app/Models/BrevetAB.php
 
 namespace App\Models;
 
@@ -9,21 +10,20 @@ class BrevetAB extends Model
 {
     use HasFactory;
 
-    protected $table = 'brevetAB';
-
-    protected $fillable = [
+    protected $table = 'brevet_a_b';
+    
+    protected $casts = [
         'gambar',
         'judul',
         'deskripsi',
         'hari',
-        'tanggal_mulai',
-        'tanggal_selesai',
+        'tanggal_mulai' => 'datetime',
+        'tanggal_selesai' => 'datetime',
         'harga'
     ];
 
-    protected $casts = [
-        'tanggal_mulai' => 'date',
-        'tanggal_selesai' => 'date',
-        'harga' => 'decimal:2'
-    ];
+    public function detail()
+    {
+        return $this->hasOne(DetailBrevetab::class, 'brevetab_id');
+    }
 }

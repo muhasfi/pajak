@@ -1,51 +1,145 @@
 @extends('admin.layouts.master')
+@section('title', 'Tambah Brevet C')
+
 @section('content')
-    <h2>Tambah Data Brevet C Baru</h2>
-    <a class="btn btn-secondary mb-3" href="{{ route('brevetc.index') }}">Kembali</a>
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0">Tambah Data Brevet C</h5>
+    </div>
+    <div class="card-body">
+        <form action="{{ route('brevet-c.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="gambar" class="form-label">Gambar</label>
+                        <input type="file" class="form-control @error('gambar') is-invalid @enderror" id="gambar" name="gambar">
+                        @error('gambar')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <strong>Whoops!</strong> Terdapat masalah dengan inputan Anda.<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+                    <div class="mb-3">
+                        <label for="judul" class="form-label">Judul *</label>
+                        <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" name="judul" value="{{ old('judul') }}" required>
+                        @error('judul')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
 
-    <form action="{{ route('brevetc.store') }}" method="POST">
-        @csrf
-        <div class="mb-3">
-            <label for="gambar" class="form-label">Gambar</label>
-            <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*">
-        </div>
-        <div class="mb-3">
-            <label for="judul" class="form-label">Judul:</label>
-            <input type="text" class="form-control" id="judul" name="judul" value="{{ old('judul') }}">
-        </div>
-        <div class="mb-3">
-            <label for="deskripsi" class="form-label">Deskripsi:</label>
-            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3">{{ old('deskripsi') }}</textarea>
-        </div>
-        <div class="mb-3">
-            <label for="hari" class="form-label">Hari (e.g., Senin-Jumat):</label>
-            <input type="text" class="form-control" id="hari" name="hari" value="{{ old('hari') }}">
-        </div>
-        <div class="row mb-3">
-            <div class="col">
-                <label for="tanggal_mulai" class="form-label">Tanggal Mulai:</label>
-                <input type="date" class="form-control" id="tanggal_mulai" name="tanggal_mulai" value="{{ old('tanggal_mulai') }}">
+                    <div class="mb-3">
+                        <label for="hari" class="form-label">Hari *</label>
+                        <input type="text" class="form-control @error('hari') is-invalid @enderror" id="hari" name="hari" value="{{ old('hari') }}" required>
+                        @error('hari')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="tanggal_mulai" class="form-label">Tanggal Mulai *</label>
+                                <input type="date" class="form-control @error('tanggal_mulai') is-invalid @enderror" id="tanggal_mulai" name="tanggal_mulai" value="{{ old('tanggal_mulai') }}" required>
+                                @error('tanggal_mulai')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="tanggal_selesai" class="form-label">Tanggal Selesai *</label>
+                                <input type="date" class="form-control @error('tanggal_selesai') is-invalid @enderror" id="tanggal_selesai" name="tanggal_selesai" value="{{ old('tanggal_selesai') }}" required>
+                                @error('tanggal_selesai')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="harga" class="form-label">Harga *</label>
+                        <input type="number" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" value="{{ old('harga') }}" min="0" step="0.01" required>
+                        @error('harga')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="deskripsi" class="form-label">Deskripsi *</label>
+                        <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="5" required>{{ old('deskripsi') }}</textarea>
+                        @error('deskripsi')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
             </div>
-            <div class="col">
-                <label for="tanggal_selesai" class="form-label">Tanggal Selesai:</label>
-                <input type="date" class="form-control" id="tanggal_selesai" name="tanggal_selesai" value="{{ old('tanggal_selesai') }}">
+
+            <!-- Fasilitas Section -->
+            <div class="card mt-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0">Fasilitas</h6>
+                    <button type="button" class="btn btn-sm btn-success" id="addFasilitas">
+                        <i class="fas fa-plus"></i> Tambah Fasilitas
+                    </button>
+                </div>
+                <div class="card-body" id="fasilitas-container">
+                    <div class="row fasilitas-item mb-3">
+                        <div class="col-md-5">
+                            <label class="form-label">Fasilitas *</label>
+                            <input type="text" class="form-control" name="fasilitas[]" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Keterangan</label>
+                            <input type="text" class="form-control" name="keterangan[]">
+                        </div>
+                        <div class="col-md-1">
+                            <label class="form-label">&nbsp;</label>
+                            <button type="button" class="btn btn-danger btn-sm remove-fasilitas" style="display: none;">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="mb-3">
-            <label for="harga" class="form-label">Harga (Rp):</label>
-            <input type="number" step="0.01" class="form-control" id="harga" name="harga" value="{{ old('harga') }}">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Simpan
+                </button>
+                <a href="{{ route('brevet-c.index') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
 @endsection
+
+@push('scripts')
+<script>
+document.getElementById('addFasilitas').addEventListener('click', function() {
+    const container = document.getElementById('fasilitas-container');
+    const newItem = container.firstElementChild.cloneNode(true);
+    
+    // Clear values
+    newItem.querySelector('input[name="fasilitas[]"]').value = '';
+    newItem.querySelector('input[name="keterangan[]"]').value = '';
+    
+    // Show remove button
+    newItem.querySelector('.remove-fasilitas').style.display = 'block';
+    
+    container.appendChild(newItem);
+});
+
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('remove-fasilitas')) {
+        if (document.querySelectorAll('.fasilitas-item').length > 1) {
+            e.target.closest('.fasilitas-item').remove();
+        }
+    }
+});
+</script>
+@endpush

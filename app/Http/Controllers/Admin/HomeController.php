@@ -12,6 +12,7 @@ use App\Models\ItemLayanan;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\ItemSeminar;
+use App\Models\Training;
 use App\Models\Webinar;
 use Carbon\Carbon;
 
@@ -37,7 +38,7 @@ class HomeController extends Controller
         // Hitung total Webinar
         $totalwebinar = Webinar::count();
             // Hitung total buku
-        $totalInHouseTraining = InHouseTraining::count();
+        $totalTraining = Training::count();
         // Hitung total pesanan hari ini (jumlah order, bukan harga)
         $todayOrders = Order::whereDate('created_at', Carbon::today())->count();
 
@@ -57,7 +58,8 @@ class HomeController extends Controller
             'totalBrevetAB',
             'totalBrevetC',
             'totalwebinar',
-            'totalInHouseTraining',
+            'totalTraining',
+            // 'totalInHouseTraining',
             // 'totalRevenue'
         ));
     }

@@ -77,13 +77,13 @@
                             </a>
                             <ul class="submenu">
                                 <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
-                                    <a href="/admin/brevet-ab" class='sidebar-link'>
+                                    <a href="/admin/brevetab" class='sidebar-link'>
                                         <i class="bi bi-journal-medical"></i> <!-- Ikon bimbel/siswa -->
                                         <span>Brevet A & B</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
-                                    <a href="/admin/brevetc" class='sidebar-link'>
+                                    <a href="/admin/brevet-c" class='sidebar-link'>
                                         <i class="bi bi-journal-text"></i> <!-- Ikon bimbel/siswa -->
                                         <span>Brevet C</span>
                                     </a>
@@ -95,19 +95,14 @@
                                     </a>
                                 </li>
                                 <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
-                                    <a href="{{ route('item-bimbel.index') }}" class='sidebar-link'>
-                                        <i class="bi bi-backpack-fill"></i> <!-- Ikon bimbel/siswa -->
-                                        <span>Bimbel</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
-                                    <a href="{{ route('item-seminars.index') }}" class='sidebar-link'>
+                                    <a href="/admin/item-seminar
+                                    " class='sidebar-link'>
                                         <i class="bi bi-mic-fill"></i> <!-- Ikon seminar/presentasi -->
                                         <span>Seminar</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
-                                    <a href="/admin/in_house_trainings" class='sidebar-link'>
+                                    <a href="/admin/trainings" class='sidebar-link'>
                                         <i class="bi bi-file-earmark-bar-graph-fill"></i> <!-- Ikon bimbel/siswa -->
                                         <span>In House Training</span>
                                     </a>
