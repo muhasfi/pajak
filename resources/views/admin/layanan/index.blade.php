@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 @section('content')
 <div class="container mt-4">
-    <h3 class="mb-4">Daftar Layanan</h3>
+    <h3 class="mb-4">Daftar Layanan Halo</h3>
     <a href="{{ route('item_layanan.create') }}" class="btn btn-primary mb-3">+ Tambah Layanan</a>
 
     @if(session('success'))
