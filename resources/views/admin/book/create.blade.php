@@ -59,12 +59,21 @@
                         <h5>Detail Item</h5>
 
                         <!-- ITEM DETAILS -->
-                        <div class="form-group">
-                            <label for="file_path">File (PDF/Doc, dll)</label>
-                            <input type="file" class="form-control" id="file_path" name="file_path">
+                        <div class="mb-3">
+                            <label class="form-label">E-Book</label>
+                            <div class="input-group">
+                                <select name="file_type" class="form-select" style="max-width: 150px;" onchange="toggleFileInput(this)">
+                                    <option value="upload">Upload</option>
+                                    <option value="link">Link</option>
+                                </select>
+
+                                <input type="file" name="file_upload" class="form-control" accept=".pdf,.doc,.docx">
+                                <input type="text" name="file_link" class="form-control d-none" placeholder="https://drive.google.com/...">
+                            </div>
                         </div>
 
-                        <div class="form-group">
+
+                        {{-- <div class="form-group">
                             <label for="video_url">Video URL</label>
                             <input type="url" class="form-control" id="video_url" name="video_url" placeholder="https://...">
                         </div>
@@ -82,7 +91,7 @@
                         <div class="form-group">
                             <label for="duration_days">Durasi (Hari)</label>
                             <input type="number" class="form-control" id="duration_days" name="duration_days" placeholder="Masukkan Durasi">
-                        </div>
+                        </div> --}}
 
                         <div class="form-group d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
@@ -98,3 +107,19 @@
     </div>
 </div>
 @endsection
+
+<script>
+    function toggleFileInput(select) {
+    let fileInput = select.closest('.input-group').querySelector('[name="file_upload"]');
+    let linkInput = select.closest('.input-group').querySelector('[name="file_link"]');
+    
+    if (select.value === 'upload') {
+        fileInput.classList.remove('d-none');
+        linkInput.classList.add('d-none');
+    } else {
+        fileInput.classList.add('d-none');
+        linkInput.classList.remove('d-none');
+    }
+}
+
+</script>

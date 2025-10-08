@@ -9,11 +9,31 @@ Detail akses item Anda:
 ### {{ Str::limit($orderItem->product->name ?? $orderItem->product->judul, 25) }}
 
 {{-- Link ke file (misal ebook/pdf) --}}
-@if($orderItem->product->detail && $orderItem->product->detail->file_path)
+{{-- @if($orderItem->product->detail && $orderItem->product->detail->file_path)
 @component('mail::button', ['url' => asset('storage/'.$orderItem->product->detail->file_path)])
 Download File
 @endcomponent
+@endif --}}
+{{-- Link ke file (misal ebook/pdf) --}}
+@if($orderItem->product->detail && $orderItem->product->detail->file_path)
+    @php
+        $filePath = $orderItem->product->detail->file_path;
+        $isLink = Str::startsWith($filePath, ['http://', 'https://']);
+    @endphp
+
+    @if($isLink)
+        {{-- Kalau admin isi link (Google Drive, Dropbox, dll) --}}
+        @component('mail::button', ['url' => $filePath])
+        Download E-Book
+        @endcomponent
+    @else
+        {{-- Kalau admin upload file ke storage --}}
+        @component('mail::button', ['url' => asset('storage/'.$filePath)])
+        Download E-Book
+        @endcomponent
+    @endif
 @endif
+
 
 {{-- Link video (misalnya YouTube) --}}
 @if($orderItem->product->detail && $orderItem->product->detail->video_url)

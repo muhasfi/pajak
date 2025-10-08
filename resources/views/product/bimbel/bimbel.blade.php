@@ -432,26 +432,30 @@
 <script>
 
     function addToCart(id, type) {
-    fetch("{{ route('cart.add', [], false) }}", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        },
-        body: JSON.stringify({ id: id, type: type })
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.status === 'success') {
-            alert(data.message);
-            // reload atau update cart count
-            location.reload();
-        } else {
-            alert(data.message);
-        }
-    })
-    .catch(err => console.error(err));
-}
+        fetch("{{ route('cart.add', [], false) }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ id: id, type: type })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert(data.message);
+                // reload atau update cart count
+                location.reload();
+            } else if (data.status === 'redirect') {
+                // kalau sudah pernah beli dan masih aktif → langsung ke halaman bimbel
+                window.location.href = data.url;
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(err => console.error(err));
+    }
+
 
     // Smooth scrolling for anchor links
     document.addEventListener('DOMContentLoaded', function() {

@@ -86,6 +86,34 @@
                             </a>
                         </li>
 
+                        <li class="sidebar-item {{ request()->routeIs('admin.paper.*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.paper.index') }}" class='sidebar-link'>
+                                <i class="bi bi-file-text-fill"></i>
+                                <span>Kertas Kerja</span>
+                            </a>
+                        </li>
+
+                        {{-- <li class="sidebar-item has-sub {{ request()->routeIs('admin.artikel.*') ? 'active' : '' }}">
+                            <a href="#" class="sidebar-link">
+                                <i class="bi bi-file-text-fill"></i>
+                                <span>Kertas Kerja</span>
+                            </a>
+                            <ul class="submenu {{ request()->routeIs('admin.artikel.*') ? 'active' : '' }}">
+                                <li class="submenu-item {{ request()->routeIs('admin.artikel.index') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.artikel.index') }}">PPh21</a>
+                                </li>
+                                <li class="submenu-item {{ request()->routeIs('admin.artike.indexl') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.artikel.index') }}">PPN</a>
+                                </li>
+                                <li class="submenu-item {{ request()->routeIs('admin.artikel.index') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.artikel.index') }}">SPT Tahunan</a>
+                                </li>
+                                <li class="submenu-item {{ request()->routeIs('admin.artikel.index') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.artikel.index') }}">SPT Masa Unifikasi</a>
+                                </li>
+                            </ul>
+                        </li> --}}
+
 
                     </ul>
                 </div>

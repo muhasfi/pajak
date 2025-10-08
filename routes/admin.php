@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ArtikelController;
 use App\Http\Controllers\Admin\ItemBimbelController;
 use App\Http\Controllers\Admin\ItemBookController;
+use App\Http\Controllers\Admin\ItemPaperController;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +49,7 @@ Route::prefix('admin')->group(static function () {
         Route::resource('/book', ItemBookController::class)->names('admin.book');
         Route::resource('/bimbel', ItemBimbelController::class)->names('admin.bimbel');
         Route::resource('/artikel', ArtikelController::class)->names('admin.artikel');
+        Route::resource('/paper', ItemPaperController::class)->names('admin.paper');
         Route::post('/artikel/upload', [ArtikelController::class, 'upload'])->name('ckeditor.upload');
 
         // Route::get('/book', [\App\Http\Controllers\Admin\ItemBookController::class, 'index'])->name('book.index');

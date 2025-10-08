@@ -1,5 +1,5 @@
 @extends('admin.layouts.master')
-@section('title', 'Daftar Menu')
+@section('title', 'Daftar Paper')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets/admin/extensions/simple-datatables/style.css') }}">
@@ -11,12 +11,12 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Daftar Menu</h3>
+                <h3>Daftar Paper</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
-                <a href="{{ route('admin.book.create') }}" class="btn btn-primary float-start float-lg-end">
+                <a href="{{ route('admin.paper.create') }}" class="btn btn-primary float-start float-lg-end">
                     <i class="bi bi-plus"></i>
-                    Tambah Menu
+                    Tambah Paper
                 </a>
             </div>
         </div>
@@ -30,12 +30,29 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
+                <form method="GET" action="{{ route('admin.paper.index') }}" class="mb-3 row g-2 align-items-end">
+    <div class="col-auto">
+        <label for="category_id" class="form-label">Filter Kategori</label>
+        <select name="category_id" class="form-select">
+            <option value="">-- Semua Kategori --</option>
+            @foreach($categories as $cat)
+                <option value="{{ $cat->id }}" {{ request('category_id') == $cat->id ? 'selected' : '' }}>
+                    {{ $cat->name }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-3">Filter</button>
+    </div>
+</form>
+
                 <table class="table table-striped" id="table1">
                     <thead>
                         <tr>
                             <th>No</th>
                             <th>Gambar</th>
-                            <th>Nama Item</th>
+                            <th>Nama Paper</th>
                             <th>Deskripsi</th>
                             <th>Harga</th>
                             <th>Kategori</th>
@@ -44,53 +61,49 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($items as $item)
+                        @foreach ($papers as $paper)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>
-                                <img src="{{ Str::startsWith($item->img, ['http://', 'https://']) 
-                                            ? $item->img 
-                                            : asset('storage/' . $item->img) }}"
+                                <img src="{{ Str::startsWith($paper->img, ['http://', 'https://']) 
+                                            ? $paper->img 
+                                            : asset('storage/' . $paper->img) }}"
                                     width="60"
                                     class="img-fluid rounded-top"
-                                    alt="Gambar {{ $item->name }}"
+                                    alt="Gambar {{ $paper->name }}"
                                     onerror="this.onerror=null;this.src='{{ asset('images/default.png') }}';">
-
                             </td>
-                            <td>{{ $item->name }}</td>
-                            <td>{{ Str::limit($item->description,15) }}</td>
-                            <td>{{ 'Rp'. number_format($item->price, 0, ',','.') }}</td>
+                            <td>{{ $paper->name }}</td>
+                            <td>{{ Str::limit($paper->description, 15) }}</td>
+                            <td>{{ 'Rp'. number_format($paper->price, 0, ',','.') }}</td>
                             <td>
-                                {{-- <span class="badge {{ $item->category->cat_name == 'Artikel' ? 'bg-warning' : 'bg-info' }}">
-                                    {{ $item->category->cat_name }}
-                                </span> --}}
-                            </td>
-                            <td>
-                                <span class="badge {{ $item->is_active == 1 ? 'bg-success' : 'bg-danger' }}">
-                                    {{ $item->is_active == 1 ? 'Aktif' : 'Tidak Aktif' }}
+                                <span class="">
+                                    {{ $paper->categoryPaper->name ?? '-' }}
                                 </span>
                             </td>
                             <td>
-                                <a href="{{ route('admin.book.edit', $item->id) }}" class="btn btn-warning btn-sm">
+                                <span class="badge {{ $paper->is_active ? 'bg-success' : 'bg-danger' }}">
+                                    {{ $paper->is_active ? 'Aktif' : 'Tidak Aktif' }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="{{ route('admin.paper.edit', $paper->id) }}" class="btn btn-warning btn-sm">
                                     <i class="bi bi-pencil"></i> Ubah
                                 </a>
-                                <form action="{{ route('admin.book.destroy', $item->id) }}" method="POST" class="d-inline delete-form">
+                                <form action="{{ route('admin.paper.destroy', $paper->id) }}" method="POST" class="d-inline delete-form">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm delete-btn">
                                         <i class="bi bi-trash"></i> Hapus
                                     </button>
                                 </form>
-
                             </td>
                         </tr>
-
                         @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
-
     </section>
 </div>
 @endsection
@@ -102,14 +115,11 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // Ambil semua tombol delete
     const deleteButtons = document.querySelectorAll('.delete-btn');
-
     deleteButtons.forEach(button => {
         button.addEventListener('click', function (e) {
-            e.preventDefault(); // cegah submit langsung
-            let form = this.closest('form'); // ambil form terdekat
-
+            e.preventDefault();
+            let form = this.closest('form');
             Swal.fire({
                 title: 'Yakin ingin menghapus?',
                 text: "Data yang sudah dihapus tidak bisa dikembalikan!",
@@ -121,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    form.submit(); // submit form kalau user setuju
+                    form.submit();
                 }
             });
         });

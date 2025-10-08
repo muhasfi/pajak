@@ -11,9 +11,13 @@ class OrderItem extends Model
     use SoftDeletes, HasFactory;
 
     // protected $fillable = ['order_id', 'quantity', 'price', 'tax','total_price', 'created_at', 'updated_at'];
-    protected $fillable = ['order_id', 'product_id', 'product_type', 'quantity', 'price', 'tax','total_price'];
+    protected $fillable = ['order_id', 'product_id', 'product_type', 'quantity', 'price', 'tax','total_price','start_date', 'end_date'];
 
     protected $dates = ['deleted_at'];
+     protected $casts = [
+        'start_date' => 'datetime',
+        'end_date'   => 'datetime',
+    ];
 
     public function order()
     {
