@@ -1,120 +1,401 @@
 @extends('layouts.master')
 
-@section('title', 'Katalog Kertas Kerja PPN')
+@section('title', 'Kertas Kerja PPN')
 
 @section('content')
-<div class="ppn-page">
+<section class="ppn-service">
     <!-- Hero Section -->
-    <section class="hero-section">
+    <div class="modern-hero">
+        <div class="hero-background">
+            <div class="hero-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>
+        </div>
         <div class="container">
             <div class="hero-content">
-                <h1>Katalog Kertas Kerja PPN</h1>
-                <p>Solusi profesional untuk penyusunan kertas kerja Pajak Pertambahan Nilai (PPN) dengan standar akuntansi terbaru. Kelola kewajiban PPN bisnis Anda dengan lebih efisien.</p>
-                <div class="hero-actions">
-                    <a href="#katalog" class="btn-primary">Lihat Katalog</a>
-                    <a href="#kontak" class="btn-secondary">Konsultasi Gratis</a>
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="title-line">Kertas Kerja</span>
+                        <span class="title-line highlight">PPN & PPnBM</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Template profesional untuk penyusunan SPT Masa PPN dengan sistem <span class="text-highlight">terintegrasi</span>, 
+                        <span class="text-highlight">akurat</span>, dan <span class="text-highlight">sesuai PER-03/PJ/2022</span>
+                    </p>
+                    <p class="hero-description">
+                        Optimalkan proses pelaporan PPN Anda dengan kertas kerja excel yang telah terstruktur, 
+                        mengurangi risiko kesalahan, dan memastikan kepatuhan regulasi terbaru.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#features" class="btn btn-primary">
+                            <span>Lihat Fitur</span>
+                            <i class="fas fa-arrow-down"></i>
+                        </a>
+                        <a href="#pricing" class="btn btn-outline-light">
+                            <span>Beli Sekarang</span>
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="excel-preview">
+                        <div class="excel-window">
+                            <div class="excel-header">
+                                <div class="excel-controls">
+                                    <span class="control red"></span>
+                                    <span class="control yellow"></span>
+                                    <span class="control green"></span>
+                                </div>
+                                <div class="excel-filename">Kertas Kerja PPN.xlsx</div>
+                            </div>
+                            <div class="excel-sheet">
+                                <div class="sheet-tabs">
+                                    <div class="tab active">Formulir 1101</div>
+                                    <div class="tab">Rekonsiliasi</div>
+                                    <div class="tab">Faktur Pajak</div>
+                                </div>
+                                <div class="sheet-content">
+                                    <div class="excel-grid">
+                                        <div class="grid-header">
+                                            <div class="cell">A</div>
+                                            <div class="cell">B</div>
+                                            <div class="cell">C</div>
+                                            <div class="cell">D</div>
+                                        </div>
+                                        <div class="grid-row">
+                                            <div class="cell header">1</div>
+                                            <div class="cell formula">=SUM(B2:B10)</div>
+                                            <div class="cell value">PPN Keluaran</div>
+                                            <div class="cell number">25.000.000</div>
+                                        </div>
+                                        <div class="grid-row">
+                                            <div class="cell header">2</div>
+                                            <div class="cell formula">=SUM(C2:C10)</div>
+                                            <div class="cell value">PPN Masukan</div>
+                                            <div class="cell number">18.500.000</div>
+                                        </div>
+                                        <div class="grid-row">
+                                            <div class="cell header">3</div>
+                                            <div class="cell formula">=B1-C1</div>
+                                            <div class="cell value">Kurang/Lebih Bayar</div>
+                                            <div class="cell number highlight">6.500.000</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">7.500+</span>
+                    <span class="stat-label">PKP Aktif</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">99.8%</span>
+                    <span class="stat-label">Akurasi Laporan</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">75%</span>
+                    <span class="stat-label">Penghematan Waktu</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">PPN Support</span>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Deskripsi Layanan -->
-    <section class="description-section">
+    <!-- Features Section -->
+    <div id="features" class="features-section">
         <div class="container">
             <div class="section-header">
-                <h2>Mengapa Kertas Kerja PPN Penting?</h2>
-                <p>Kertas kerja PPN membantu Pengusaha Kena Pajak (PKP) dalam mengelola kewajiban perpajakan secara sistematis dan terstruktur.</p>
+                <h2 class="section-title">Fitur Unggulan Kertas Kerja PPN</h2>
+                <p class="section-subtitle">Dirancang khusus untuk memudahkan penyusunan SPT Masa PPN dengan akurasi maksimal</p>
             </div>
-            <div class="benefits-grid">
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-receipt"></i>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calculator"></i>
                     </div>
-                    <h3>Kelola Faktur Pajak</h3>
-                    <p>Dokumentasi lengkap untuk faktur pajak keluaran dan masukan secara terstruktur.</p>
+                    <h4>Auto Calculation PPN</h4>
+                    <p>Perhitungan otomatis PPN Keluaran, Masukan, dan kurang/lebih bayar dengan formula Excel terintegrasi</p>
                 </div>
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-balance-scale"></i>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
                     </div>
-                    <h3>Kepatuhan Regulasi</h3>
-                    <p>Memastikan kepatuhan terhadap peraturan perpajakan yang berlaku.</p>
+                    <h4>Formulir 1101 Lengkap</h4>
+                    <p>Template lengkap Formulir 1101 PUT dan semua lampiran yang diperlukan sesuai PER-03/PJ/2022</p>
                 </div>
-                <div class="benefit-item">
-                    <div class="benefit-icon">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h4>Rekonsiliasi Otomatis</h4>
+                    <p>Rekonsiliasi otomatis antara buku pembukuan dengan faktur pajak dan dokumen pendukung</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-check-double"></i>
+                    </div>
+                    <h4>Compliance Ready</h4>
+                    <p>Sudah disesuaikan dengan PER-03/PJ/2022 dan update regulasi terbaru Direktorat Jenderal Pajak</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
                         <i class="fas fa-search"></i>
                     </div>
-                    <h3>Audit Ready</h3>
-                    <p>Persiapan dokumen yang lengkap untuk menghadapi pemeriksaan pajak.</p>
+                    <h4>Audit Faktur Pajak</h4>
+                    <p>Fitur validasi dan audit faktur pajak masukan untuk mencegah pengkreditan yang tidak memenuhi syarat</p>
                 </div>
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-chart-line"></i>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
                     </div>
-                    <h3>Optimasi PPN</h3>
-                    <p>Analisis untuk mengoptimalkan pengelolaan PPN bisnis Anda.</p>
+                    <h4>Easy to Use</h4>
+                    <p>User interface yang intuitif dengan panduan langkah demi langkah dalam Bahasa Indonesia</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Katalog Layanan -->
-    <section id="katalog" class="catalog-section">
+    <!-- Worksheet Structure -->
+    <div class="structure-section">
         <div class="container">
             <div class="section-header">
-                <h2>Paket Layanan Kertas Kerja PPN</h2>
-                <p>Pilih paket yang sesuai dengan kebutuhan bisnis Anda</p>
+                <h2 class="section-title">Struktur Kertas Kerja PPN</h2>
+                <p class="section-subtitle">Organisasi worksheet yang terstruktur untuk efisiensi maksimal</p>
+            </div>
+            <div class="structure-tabs">
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="formulir">Formulir 1101</button>
+                    <button class="tab-button" data-tab="faktur">Faktur Pajak</button>
+                    <button class="tab-button" data-tab="rekonsiliasi">Rekonsiliasi</button>
+                    <button class="tab-button" data-tab="supporting">Dokumen Pendukung</button>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="formulir">
+                        <div class="pane-content">
+                            <div class="pane-text">
+                                <h4>Formulir SPT Masa PPN 1101</h4>
+                                <p>Worksheet utama yang berisi formulir 1101 PUT lengkap dengan semua lampiran yang diperlukan</p>
+                                <ul>
+                                    <li>Induk SPT Masa PPN</li>
+                                    <li>Lampiran I - PKP Pedagang Eceran</li>
+                                    <li>Lampiran II - Ekspor BKP Berwujud</li>
+                                    <li>Lampiran III - Perhitungan PPN</li>
+                                    <li>Lampiran IV - Faktur Pajak</li>
+                                    <li>Lampiran V - PPnBM</li>
+                                </ul>
+                            </div>
+                            <div class="pane-visual">
+                                <div class="form-preview">
+                                    <div class="form-header">FORMULIR 1101 PUT</div>
+                                    <div class="form-field">
+                                        <label>Masa Pajak</label>
+                                        <div class="field-value">Maret 2024</div>
+                                    </div>
+                                    <div class="form-field">
+                                        <label>PPN Keluaran</label>
+                                        <div class="field-value">25.000.000</div>
+                                    </div>
+                                    <div class="form-field">
+                                        <label>PPN Masukan</label>
+                                        <div class="field-value">18.500.000</div>
+                                    </div>
+                                    <div class="form-field highlight">
+                                        <label>PPN Kurang Bayar</label>
+                                        <div class="field-value">6.500.000</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="faktur">
+                        <div class="pane-content">
+                            <div class="pane-text">
+                                <h4>Manajemen Faktur Pajak</h4>
+                                <p>Worksheet untuk pencatatan dan manajemen faktur pajak masukan dan keluaran</p>
+                                <ul>
+                                    <li>Daftar Faktur Pajak Masukan</li>
+                                    <li>Daftar Faktur Pajak Keluaran</li>
+                                    <li>Validasi Status Faktur</li>
+                                    <li>Monitoring Masa Kadaluarsa</li>
+                                    <li>Analisis Pengkreditan</li>
+                                </ul>
+                            </div>
+                            <div class="pane-visual">
+                                <div class="faktur-preview">
+                                    <div class="faktur-item">
+                                        <i class="fas fa-file-invoice"></i>
+                                        <div>
+                                            <strong>Faktur Masukan</strong>
+                                            <span>45 faktur - Rp 18.500.000</span>
+                                        </div>
+                                    </div>
+                                    <div class="faktur-item">
+                                        <i class="fas fa-file-export"></i>
+                                        <div>
+                                            <strong>Faktur Keluaran</strong>
+                                            <span>38 faktur - Rp 25.000.000</span>
+                                        </div>
+                                    </div>
+                                    <div class="faktur-item">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        <div>
+                                            <strong>Perlu Validasi</strong>
+                                            <span>3 faktur - Rp 2.100.000</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="rekonsiliasi">
+                        <div class="pane-content">
+                            <div class="pane-text">
+                                <h4>Rekonsiliasi Fiskal</h4>
+                                <p>Worksheet untuk rekonsiliasi antara laporan komersial dengan fiskal</p>
+                                <ul>
+                                    <li>Rekonsiliasi Pendapatan</li>
+                                    <li>Rekonsiliasi Beban</li>
+                                    <li>Koreksi Fiskal PPN</li>
+                                    <li>Penyesuaian Pengkreditan</li>
+                                    <li>Analisis Selisih</li>
+                                </ul>
+                            </div>
+                            <div class="pane-visual">
+                                <div class="reconciliation-preview">
+                                    <div class="recon-item">
+                                        <span>Penjualan Komersial</span>
+                                        <span>185.000.000</span>
+                                    </div>
+                                    <div class="recon-item">
+                                        <span>Koreksi PPN (+)</span>
+                                        <span>15.000.000</span>
+                                    </div>
+                                    <div class="recon-item">
+                                        <span>Koreksi PPN (-)</span>
+                                        <span class="negative">-8.500.000</span>
+                                    </div>
+                                    <div class="recon-item total">
+                                        <span>Penjualan Fiskal</span>
+                                        <span>191.500.000</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="supporting">
+                        <div class="pane-content">
+                            <div class="pane-text">
+                                <h4>Dokumen Pendukung</h4>
+                                <p>Worksheet untuk dokumentasi pendukung dan arsip digital</p>
+                                <ul>
+                                    <li>Daftar Faktur Pajak Masukan</li>
+                                    <li>Daftar Faktur Pajak Keluaran</li>
+                                    <li>Dokumen Ekspor/Impor</li>
+                                    <li>Arsip Digital Faktur</li>
+                                    <li>Checklist Compliance</li>
+                                </ul>
+                            </div>
+                            <div class="pane-visual">
+                                <div class="supporting-preview">
+                                    <div class="doc-item">
+                                        <i class="fas fa-file-contract"></i>
+                                        <span>Faktur Pajak Masukan</span>
+                                        <span class="count">45 dokumen</span>
+                                    </div>
+                                    <div class="doc-item">
+                                        <i class="fas fa-file-export"></i>
+                                        <span>Faktur Pajak Keluaran</span>
+                                        <span class="count">38 dokumen</span>
+                                    </div>
+                                    <div class="doc-item">
+                                        <i class="fas fa-receipt"></i>
+                                        <span>Dokumen Ekspor</span>
+                                        <span class="count">12 dokumen</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing Section -->
+    <div id="pricing" class="pricing-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Paket Layanan Kertas Kerja PPN</h2>
+                <p class="section-subtitle">Pilih paket yang sesuai dengan kebutuhan pelaporan PPN perusahaan Anda</p>
             </div>
             
-            <div class="catalog-grid">
+            <div class="pricing-grid">
                 <!-- Paket Basic -->
                 <div class="service-card">
                     <div class="card-header">
                         <h3>Paket Basic</h3>
                         <div class="price">
                             <span class="starting-from">mulai dari</span>
-                            <span class="amount">Rp 450.000</span>
+                            <span class="amount">Rp 350.000</span>
                         </div>
+                        <div class="package-info">Untuk UMKM & Startup</div>
                     </div>
                     <div class="card-body">
                         <ul class="feature-list">
-                            <li><i class="fas fa-check"></i> Kertas kerja PPN Bulanan</li>
-                            <li><i class="fas fa-check"></i> Dokumentasi faktur pajak 3 bulan</li>
-                            <li><i class="fas fa-check"></i> Formulir SPT Masa PPN</li>
-                            <li><i class="fas fa-check"></i> Konsultasi via email</li>
-                            <li><i class="fas fa-times"></i> Rekonsiliasi faktur pajak</li>
-                            <li><i class="fas fa-times"></i> Analisis potensi restitusi</li>
+                            <li><i class="fas fa-check"></i> Template Excel SPT Masa PPN</li>
+                            <li><i class="fas fa-check"></i> Formulir 1101 PUT Lengkap</li>
+                            <li><i class="fas fa-check"></i> Auto Calculation Basic</li>
+                            <li><i class="fas fa-check"></i> Panduan penggunaan</li>
+                            <li><i class="fas fa-times"></i> Rekonsiliasi Otomatis</li>
+                            <li><i class="fas fa-times"></i> Validasi Faktur Pajak</li>
+                            <li><i class="fas fa-times"></i> Update Regulasi</li>
                         </ul>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="btn-order">Pesan Sekarang</a>
-                        <a href="#" class="btn-outline">Hubungi Admin</a>
+                        <a href="/order-ppn" class="btn-order">Pesan Sekarang</a>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn-outline-kk">Hubungi Kami</a>
                     </div>
                 </div>
 
                 <!-- Paket Professional -->
                 <div class="service-card featured">
-                    <div class="card-badge">Rekomendasi</div>
+                    <div class="card-badge">Best Seller</div>
                     <div class="card-header">
                         <h3>Paket Professional</h3>
                         <div class="price">
                             <span class="starting-from">mulai dari</span>
-                            <span class="amount">Rp 850.000</span>
+                            <span class="amount">Rp 750.000</span>
                         </div>
+                        <div class="package-info">Untuk Perusahaan Menengah</div>
                     </div>
                     <div class="card-body">
                         <ul class="feature-list">
-                            <li><i class="fas fa-check"></i> Kertas kerja PPN Triwulan</li>
-                            <li><i class="fas fa-check"></i> Dokumentasi faktur pajak 1 tahun</li>
-                            <li><i class="fas fa-check"></i> Formulir SPT Masa PPN lengkap</li>
-                            <li><i class="fas fa-check"></i> Konsultasi via WhatsApp</li>
-                            <li><i class="fas fa-check"></i> Rekonsiliasi faktur pajak</li>
-                            <li><i class="fas fa-check"></i> Analisis potensi restitusi</li>
+                            <li><i class="fas fa-check"></i> Semua Fitur Basic</li>
+                            <li><i class="fas fa-check"></i> Rekonsiliasi Otomatis</li>
+                            <li><i class="fas fa-check"></i> Validasi Faktur Pajak</li>
+                            <li><i class="fas fa-check"></i> Priority Email Support</li>
+                            <li><i class="fas fa-check"></i> Update 1 Tahun</li>
+                            <li><i class="fas fa-check"></i> Backup Documentation</li>
+                            <li><i class="fas fa-times"></i> Customization Service</li>
                         </ul>
                     </div>
                     <div class="card-footer">
                         <a href="#" class="btn-order">Pesan Sekarang</a>
-                        <a href="#" class="btn-outline">Hubungi Admin</a>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn-outline-kk">Hubungi Kami</a>
                     </div>
                 </div>
 
@@ -126,91 +407,1495 @@
                             <span class="starting-from">mulai dari</span>
                             <span class="amount">Rp 1.500.000</span>
                         </div>
+                        <div class="package-info">Untuk Perusahaan Besar</div>
                     </div>
                     <div class="card-body">
                         <ul class="feature-list">
-                            <li><i class="fas fa-check"></i> Kertas kerja PPN Tahunan</li>
-                            <li><i class="fas fa-check"></i> Dokumentasi faktur pajak lengkap</li>
-                            <li><i class="fas fa-check"></i> Semua formulir SPT PPN</li>
-                            <li><i class="fas fa-check"></i> Konsultasi langsung</li>
-                            <li><i class="fas fa-check"></i> Rekonsiliasi mendalam</li>
-                            <li><i class="fas fa-check"></i> Strategi optimasi PPN</li>
+                            <li><i class="fas fa-check"></i> Semua Fitur Professional</li>
+                            <li><i class="fas fa-check"></i> Customization Service</li>
+                            <li><i class="fas fa-check"></i> Dedicated PPN Support</li>
+                            <li><i class="fas fa-check"></i> Lifetime Updates</li>
+                            <li><i class="fas fa-check"></i> Training Session</li>
+                            <li><i class="fas fa-check"></i> Multiple User License</li>
+                            <li><i class="fas fa-check"></i> Audit Trail Feature</li>
                         </ul>
                     </div>
                     <div class="card-footer">
-                       <a href="{{ route('order.ppn') }}" class="btn-order">Pesan Sekarang</a>
-                        <a href="#" class="btn-outline">Hubungi Admin</a>
+                        <a href="#" class="btn-order">Pesan Sekarang</a>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn-outline-kk">Hubungi Kami</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Info -->
+            <div class="pricing-info">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <i class="fas fa-sync-alt"></i>
+                        <h4>Update Berkala</h4>
+                        <p>Selalu update dengan regulasi terbaru PER-03/PJ/2022</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>Garansi Kepuasan</h4>
+                        <p>Uang kembali 100% jika tidak sesuai kebutuhan</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-headset"></i>
+                        <h4>PPN Support 24/7</h4>
+                        <p>Tim ahli PPN siap membantu kapan saja</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Fitur Layanan -->
-    <section class="features-section">
+    <!-- Testimonials -->
+    <div class="testimonials-section">
         <div class="container">
             <div class="section-header">
-                <h2>Apa yang Anda Dapatkan?</h2>
-                <p>Fitur lengkap dalam kertas kerja PPN kami</p>
+                <h2 class="section-title">Apa Kata Pengguna?</h2>
+                <p class="section-subtitle">Testimoni dari PKP dan perusahaan yang telah menggunakan kertas kerja PPN kami</p>
             </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-file-invoice"></i>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Kertas kerja PPN ini sangat membantu tim kami dalam menyusun SPT Masa PPN. Proses yang biasanya memakan waktu 3 hari sekarang bisa selesai dalam 1 hari saja."</p>
                     </div>
-                    <h3>Faktur Pajak Digital</h3>
-                    <p>Pengelolaan faktur pajak keluaran dan masukan dalam format digital yang terorganisir.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="author-info">
+                            <h5>Budi Santoso</h5>
+                            <span>Konsultan Pajak, Jakarta</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-calculator"></i>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Auto calculation dan rekonsiliasi otomatis sangat menghemat waktu. Error dalam perhitungan PPN berkurang drastis sejak menggunakan template ini."</p>
                     </div>
-                    <h3>Perhitungan Akurat</h3>
-                    <p>Perhitungan PPN terutang, PM yang dapat dikreditkan, dan restitusi secara akurat.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user-cog"></i>
+                        </div>
+                        <div class="author-info">
+                            <h5>Sarah Wijaya</h5>
+                            <span>Accountant, PT Maju Jaya</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-clock"></i>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Template yang sangat user-friendly bahkan untuk yang belum berpengalaman. Panduan langkah demi langkah sangat membantu tim baru."</p>
                     </div>
-                    <h3>Timeline Jelas</h3>
-                    <p>Jadwal penyetoran dan pelaporan PPN yang terencana dengan baik.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="author-info">
+                            <h5>Andi Pratama</h5>
+                            <span>Finance Manager, Startup Tech</span>
+                        </div>
                     </div>
-                    <h3>Compliance Check</h3>
-                    <p>Pemeriksaan kepatuhan terhadap peraturan perpajakan terbaru.</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Informasi Tambahan -->
-    <section class="additional-info">
+    <!-- FAQ Section -->
+    <div class="faq-section">
         <div class="container">
-            <div class="info-grid">
-                <div class="info-item">
-                    <h3>Syarat dan Ketentuan</h3>
-                    <ul>
-                        <li>Wajib Pajak harus memiliki NPWP aktif</li>
-                        <li>Status Pengusaha Kena Pajak (PKP) harus aktif</li>
-                        <li>Dokumen pendukung harus lengkap dan valid</li>
-                        <li>Pembayaran dilakukan sesuai kesepakatan</li>
-                    </ul>
+            <div class="section-header">
+                <h2 class="section-title">Pertanyaan Umum</h2>
+                <p class="section-subtitle">Informasi lengkap seputar kertas kerja PPN</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Apakah kertas kerja ini sesuai dengan PER-03/PJ/2022?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Ya, kertas kerja telah disesuaikan dengan PER-03/PJ/2022 tentang Pedoman Teknis Tata Cara Pemungutan, Penyetoran, dan Pelaporan Pajak Pertambahan Nilai. Kami juga memberikan update gratis untuk paket Professional dan Enterprise ketika ada perubahan regulasi.</p>
+                    </div>
                 </div>
-                <div class="info-item">
-                    <h3>Proses Pengerjaan</h3>
-                    <ol>
-                        <li>Konsultasi kebutuhan dan pengumpulan dokumen</li>
-                        <li>Penyusunan kertas kerja PPN</li>
-                        <li>Review bersama klien</li>
-                        <li>Revisi dan finalisasi</li>
-                        <li>Pelaporan SPT Masa PPN</li>
-                    </ol>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Bagaimana sistem validasi faktur pajak bekerja?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sistem validasi faktur pajak akan memeriksa kelengkapan data faktur, masa pajak, status approval, dan potensi masalah pengkreditan. Fitur ini membantu mencegah kesalahan dalam pengkreditan PPN Masukan.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Apakah ada panduan penggunaan?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Ya, setiap kertas kerja dilengkapi dengan panduan penggunaan lengkap dalam Bahasa Indonesia yang berisi langkah-langkah detail dari input data hingga generate laporan SPT Masa PPN.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Bisakah digunakan untuk multiple company?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Paket Basic untuk 1 perusahaan/license. Paket Professional dapat digunakan untuk 1 perusahaan. Paket Enterprise dapat digunakan untuk maksimal 3 perusahaan dalam 1 grup usaha.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
-</div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h3>Siap Mengoptimalkan Pelaporan PPN Anda?</h3>
+                <p>Dapatkan kertas kerja PPN sekarang dan rasakan kemudahan dalam penyusunan laporan pajak masa</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+:root {
+    --primary-purple: #7c3aed;
+    --secondary-purple: #6d28d9;
+    --dark-purple: #5b21b6;
+    --light-purple: #ede9fe;
+    --white: #ffffff;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-800: #1e293b;
+    --gray-600: #475569;
+    --gray-400: #94a3b8;
+    --success: #10b981;
+    --error: #ef4444;
+    --warning: #f59e0b;
+}
+
+.ppn-service {
+    min-height: 100vh;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* =========================
+   MODERN HERO SECTION
+   ========================= */
+.modern-hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #5b21b6 0%, #7c3aed 50%, #8b5cf6 100%);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.hero-shapes {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    animation: float 6s ease-in-out infinite;
+}
+
+.shape-1 {
+    width: 300px;
+    height: 300px;
+    top: 10%;
+    left: 5%;
+    animation-delay: 0s;
+}
+
+.shape-2 {
+    width: 200px;
+    height: 200px;
+    top: 60%;
+    right: 10%;
+    animation-delay: 2s;
+}
+
+.shape-3 {
+    width: 150px;
+    height: 150px;
+    bottom: 20%;
+    left: 20%;
+    animation-delay: 4s;
+}
+
+.shape-4 {
+    width: 100px;
+    height: 100px;
+    top: 20%;
+    right: 20%;
+    animation-delay: 1s;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    padding: 120px 0 80px;
+}
+
+.hero-text {
+    max-width: 600px;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+}
+
+.title-line {
+    display: block;
+}
+
+.title-line.highlight {
+    background: linear-gradient(135deg, #fde68a, #fcd34d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+}
+
+.text-highlight {
+    font-weight: 600;
+    color: #fde68a;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    opacity: 0.8;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.excel-preview {
+    perspective: 1000px;
+}
+
+.excel-window {
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+    transform: rotateY(-5deg) rotateX(5deg);
+    transition: transform 0.3s ease;
+}
+
+.excel-window:hover {
+    transform: rotateY(0) rotateX(0);
+}
+
+.excel-header {
+    background: #f3f4f6;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.excel-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.control {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.control.red { background: #ef4444; }
+.control.yellow { background: #f59e0b; }
+.control.green { background: #10b981; }
+
+.excel-filename {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.excel-sheet {
+    background: var(--white);
+}
+
+.sheet-tabs {
+    display: flex;
+    background: #f8fafc;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.tab {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    color: var(--gray-600);
+    border-right: 1px solid #e5e7eb;
+    cursor: pointer;
+}
+
+.tab.active {
+    background: var(--white);
+    color: var(--primary-purple);
+    font-weight: 600;
+}
+
+.sheet-content {
+    padding: 20px;
+}
+
+.excel-grid {
+    display: grid;
+    grid-template-columns: 60px 1fr 1fr 1fr;
+    gap: 1px;
+    background: #e5e7eb;
+    border: 1px solid #e5e7eb;
+}
+
+.cell {
+    background: var(--white);
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    min-height: 35px;
+    display: flex;
+    align-items: center;
+}
+
+.grid-header .cell {
+    background: #f8fafc;
+    font-weight: 600;
+    color: var(--gray-600);
+    justify-content: center;
+}
+
+.grid-row .cell.header {
+    background: #f8fafc;
+    font-weight: 600;
+    color: var(--gray-600);
+    justify-content: center;
+}
+
+.cell.formula {
+    color: #059669;
+    font-family: 'Courier New', monospace;
+    background: #f0fdf4;
+}
+
+.cell.value {
+    color: var(--gray-700);
+}
+
+.cell.number {
+    color: var(--gray-800);
+    font-weight: 600;
+    justify-content: flex-end;
+}
+
+.cell.highlight {
+    background: var(--light-purple);
+    color: var(--primary-purple);
+    font-weight: 700;
+}
+
+.hero-stats {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding: 3rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-item {
+    text-align: center;
+    background: transparent;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: var(--white);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.8;
+    color: var(--white);
+}
+
+/* =========================
+   FEATURES SECTION
+   ========================= */
+.features-section {
+    padding: 100px 0;
+    background: var(--gray-50);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--gray-800);
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--gray-600);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.feature-card {
+    background: var(--white);
+    padding: 2.5rem 2rem;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+    color: var(--white);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto 1.5rem;
+}
+
+.feature-card h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--gray-800);
+}
+
+.feature-card p {
+    line-height: 1.6;
+    color: var(--gray-600);
+}
+
+/* =========================
+   PRICING SECTION - PPN
+   ========================= */
+.pricing-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto 4rem;
+}
+
+.service-card {
+    background-color: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    border: 1px solid #e2e8f0;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+.service-card.featured {
+    border: 2px solid var(--primary-purple);
+    transform: scale(1.05);
+}
+
+.service-card.featured:hover {
+    transform: scale(1.05) translateY(-10px);
+}
+
+.card-badge {
+    position: absolute;
+    top: 20px;
+    right: -35px;
+    background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
+    color: var(--white);
+    padding: 8px 40px;
+    transform: rotate(45deg);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+}
+
+/* Card header */
+.card-header {
+    padding: 30px;
+    background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
+    color: var(--white);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    transform: rotate(30deg);
+}
+
+.card-header h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--white);
+    position: relative;
+    z-index: 1;
+}
+
+.price {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--white);
+    position: relative;
+    z-index: 1;
+}
+
+.starting-from {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 5px;
+}
+
+.amount {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.package-info {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    padding: 5px 15px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    display: inline-block;
+}
+
+/* Card body */
+.card-body {
+    padding: 30px;
+    color: var(--gray-800);
+    background: var(--white);
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.feature-list li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    color: var(--gray-600);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.feature-list i {
+    margin-right: 12px;
+    margin-top: 3px;
+    flex-shrink: 0;
+    width: 16px;
+    text-align: center;
+}
+
+.feature-list .fa-check {
+    color: var(--success);
+}
+
+.feature-list .fa-times {
+    color: var(--error);
+    opacity: 0.6;
+}
+
+/* Card footer */
+.card-footer {
+    padding: 0 30px 20px;
+    text-align: center;
+}
+
+.card-footer:first-of-type {
+    padding-bottom: 15px;
+}
+
+.btn-order {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+}
+
+.btn-order:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
+}
+
+.btn-outline-kk {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: transparent;
+    color: var(--primary-purple);
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary-purple);
+    font-size: 0.95rem;
+}
+
+.btn-outline-kk:hover {
+    background-color: var(--primary-purple);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.2);
+}
+
+/* Additional Info Section */
+.pricing-info {
+    margin-top: 4rem;
+    padding-top: 4rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.info-item {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.info-item i {
+    font-size: 2.5rem;
+    color: var(--primary-purple);
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--light-purple) 0%, #ede9fe 100%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.info-item h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--gray-800);
+}
+
+.info-item p {
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* =========================
+   STRUCTURE SECTION
+   ========================= */
+.structure-section {
+    padding: 100px 0;
+    background: var(--white);
+}
+
+.structure-tabs {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.tab-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.tab-button {
+    padding: 1rem 2rem;
+    background: var(--gray-50);
+    border: 2px solid var(--gray-200);
+    border-radius: 12px;
+    font-weight: 600;
+    color: var(--gray-600);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+    border-color: var(--primary-purple);
+    color: var(--primary-purple);
+}
+
+.tab-button.active {
+    background: var(--primary-purple);
+    border-color: var(--primary-purple);
+    color: var(--white);
+}
+
+.tab-content {
+    background: var(--gray-50);
+    border-radius: 20px;
+    padding: 3rem;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+.pane-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.pane-text h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--gray-800);
+}
+
+.pane-text p {
+    line-height: 1.6;
+    color: var(--gray-600);
+    margin-bottom: 1.5rem;
+}
+
+.pane-text ul {
+    list-style: none;
+    padding: 0;
+}
+
+.pane-text li {
+    padding: 0.5rem 0;
+    color: var(--gray-600);
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.pane-text li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--success);
+    font-weight: 600;
+}
+
+/* Form Preview Styles */
+.form-preview {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.form-header {
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--primary-purple);
+}
+
+.form-field {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.form-field label {
+    flex: 1;
+    color: var(--gray-600);
+}
+
+.field-value {
+    font-weight: 600;
+    color: var(--gray-800);
+}
+
+.form-field.highlight {
+    background: var(--light-purple);
+    margin: 0 -2rem;
+    padding: 1rem 2rem;
+    border-bottom: none;
+}
+
+.form-field.highlight .field-value {
+    color: var(--primary-purple);
+    font-size: 1.1rem;
+}
+
+/* Faktur Preview */
+.faktur-preview {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.faktur-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.faktur-item:last-child {
+    border-bottom: none;
+}
+
+.faktur-item i {
+    width: 50px;
+    height: 50px;
+    background: var(--light-purple);
+    color: var(--primary-purple);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.faktur-item div {
+    flex: 1;
+}
+
+.faktur-item strong {
+    display: block;
+    color: var(--gray-800);
+    margin-bottom: 0.25rem;
+}
+
+.faktur-item span {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+}
+
+/* Reconciliation Preview */
+.reconciliation-preview {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.recon-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.recon-item.total {
+    font-weight: 700;
+    border-top: 2px solid var(--primary-purple);
+    border-bottom: none;
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+}
+
+.negative {
+    color: var(--error);
+}
+
+/* Supporting Docs Preview */
+.supporting-preview {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.doc-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.doc-item:last-child {
+    border-bottom: none;
+}
+
+.doc-item i {
+    width: 40px;
+    height: 40px;
+    background: var(--light-purple);
+    color: var(--primary-purple);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.doc-item span:first-of-type {
+    flex: 1;
+    color: var(--gray-700);
+}
+
+.count {
+    background: var(--primary-purple);
+    color: var(--white);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* =========================
+   TESTIMONIALS SECTION
+   ========================= */
+.testimonials-section {
+    padding: 100px 0;
+    background: var(--gray-50);
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.testimonial-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+}
+
+.testimonial-content {
+    margin-bottom: 1.5rem;
+}
+
+.testimonial-content p {
+    line-height: 1.6;
+    color: var(--gray-600);
+    font-style: italic;
+    margin: 0;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.author-avatar {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-purple);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.author-info h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem 0;
+    color: var(--gray-800);
+}
+
+.author-info span {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+}
+
+/* =========================
+   FAQ SECTION
+   ========================= */
+.faq-section {
+    padding: 100px 0;
+    background: var(--white);
+}
+
+.faq-grid {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background: var(--white);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+}
+
+.faq-question {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.faq-question:hover {
+    background: var(--gray-50);
+}
+
+.faq-question h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin: 0;
+}
+
+.faq-question i {
+    color: var(--primary-purple);
+    transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    padding: 0 1.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+    padding: 0 1.5rem 1.5rem;
+    max-height: 500px;
+}
+
+.faq-answer p {
+    line-height: 1.6;
+    color: var(--gray-600);
+    margin: 0;
+}
+
+/* =========================
+   BUTTONS
+   ========================= */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.btn-primary {
+    color: var(--white);
+    background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+}
+
+.btn-outline-light {
+    color: var(--white);
+    background: transparent;
+    border: 2px solid var(--white);
+}
+
+.btn-outline-light:hover {
+    color: var(--primary-purple);
+    background: var(--white);
+    transform: translateY(-2px);
+}
+
+.btn-light {
+    color: var(--gray-800);
+    background: var(--white);
+}
+
+.btn-light:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================
+   CTA SECTION
+   ========================= */
+.cta-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, var(--dark-purple) 0%, var(--primary-purple) 100%);
+    color: var(--white);
+    text-align: center;
+}
+
+.cta-content h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--white);
+}
+
+.cta-content p {
+    font-size: 1.2rem;
+    margin: 0 auto 2.5rem;
+    max-width: 600px;
+    opacity: 0.9;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* =========================
+   ANIMATIONS
+   ========================= */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+   ========================= */
+@media (max-width: 1024px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        text-align: center;
+    }
+
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .pane-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .service-card.featured {
+        transform: none;
+    }
+
+    .service-card.featured:hover {
+        transform: translateY(-10px);
+    }
+}
+
+@media (max-width: 768px) {
+    .modern-hero {
+        min-height: 90vh;
+    }
+
+    .hero-content {
+        padding: 100px 0 60px;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .hero-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tab-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tab-button {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .pricing-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-content h3 {
+        font-size: 2rem;
+    }
+
+    .hero-actions {
+        justify-content: center;
+    }
+
+    .btn {
+        padding: 0.875rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .hero-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .tab-content {
+        padding: 2rem 1.5rem;
+    }
+
+    .excel-window {
+        transform: none;
+    }
+
+    .cta-section {
+        padding: 80px 0;
+    }
+
+    .cta-content h3 {
+        font-size: 1.75rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Tab functionality */
+.tab-pane {
+    animation: fadeInUp 0.5s ease;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Tab functionality
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetTab = button.getAttribute('data-tab');
+            
+            // Remove active class from all buttons and panes
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabPanes.forEach(pane => pane.classList.remove('active'));
+            
+            // Add active class to current button and pane
+            button.classList.add('active');
+            document.getElementById(targetTab).classList.add('active');
+        });
+    });
+
+    // FAQ functionality
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        question.addEventListener('click', () => {
+            // Close all other items
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                }
+            });
+            
+            // Toggle current item
+            item.classList.toggle('active');
+        });
+    });
+});
+</script>
 @endsection

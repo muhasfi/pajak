@@ -51,7 +51,7 @@
                                 <a href="/ppn" class="dropdown-item">
                                     <i class="fas fa-receipt"></i> Kertas Kerja PPN
                                 </a>
-                                <a href="#kertas-kerja-spt-masa-unifikasi" class="dropdown-item">
+                                <a href="/kertas-kerja-spt-masa-unifikasi" class="dropdown-item">
                                     <i class="fas fa-file-alt"></i> Kertas Kerja SPT Masa Unifikasi
                                 </a>
                             </div>
@@ -84,10 +84,10 @@
                     <div class="dropdown">
                         <div class="dropdown-grid two-columns">
                             <div class="dropdown-column">
-                                <a href="#brevet-ab" class="dropdown-item">
+                                <a href="/brevet-ab" class="dropdown-item">
                                     <i class="fas fa-user-graduate"></i> Brevet A & B
                                 </a>
-                                <a href="#brevet-c" class="dropdown-item">
+                                <a href="/brevet-c" class="dropdown-item">
                                     <i class="fas fa-user-graduate"></i> Brevet C
                                 </a>
                                 <a href="/webinar" class="dropdown-item">
@@ -98,7 +98,7 @@
                                 <a href="/seminar" class="dropdown-item">
                                     <i class="fas fa-users"></i> Seminar Offline
                                 </a>
-                                <a href="#in-house-training" class="dropdown-item">
+                                <a href="/in-house-training" class="dropdown-item">
                                     <i class="fas fa-building"></i> In house Training
                                 </a>
                             </div>
@@ -130,24 +130,24 @@
                     <div class="dropdown">
                         <div class="dropdown-grid two-columns">
                             <div class="dropdown-column">
-                                <a href="#pembuatan-pt" class="dropdown-item">
+                                <a href="/corporate-services" class="dropdown-item">
                                     <i class="fas fa-building"></i> Pembuatan PT, NIB, & NPWP
                                 </a>
-                                <a href="#jasa-akuntansi" class="dropdown-item">
+                                <a href="/jasa-akuntansi" class="dropdown-item">
                                     <i class="fas fa-chart-line"></i> Jasa Akuntansi & Pembukuan
                                 </a>
-                                <a href="#jasa-perpajakan" class="dropdown-item">
+                                <a href="/jasa-perpajakan" class="dropdown-item">
                                     <i class="fas fa-calculator"></i> Jasa Perpajakan
                                 </a>
                             </div>
                             <div class="dropdown-column">
-                                <a href="#litigasi" class="dropdown-item">
+                                <a href="/litigasi" class="dropdown-item">
                                     <i class="fas fa-gavel"></i> Litigasi & Sengketa Perpajakan
                                 </a>
-                                <a href="#audit" class="dropdown-item">
+                                <a href="/audit" class="dropdown-item">
                                     <i class="fas fa-search-dollar"></i> Audit Laporan Keuangan
                                 </a>
-                                <a href="#transfer-pricing" class="dropdown-item">
+                                <a href="/transfer-pricing" class="dropdown-item">
                                     <i class="fas fa-exchange-alt"></i> Transfer Pricing Doc
                                 </a>
                             </div>
@@ -162,10 +162,10 @@
                     </a>
                     <div class="dropdown">
                         <div class="dropdown-grid">
-                            <a href="#forum" class="dropdown-item">
+                            <a href="/forum" class="dropdown-item">
                                 <i class="fas fa-comments"></i> Forum
                             </a>
-                            <a href="#konsultasi-private" class="dropdown-item">
+                            <a href="/private" class="dropdown-item">
                                 <i class="fas fa-comment-dots"></i> Konsultasi Private
                             </a>
                         </div>
@@ -174,7 +174,6 @@
                 
                 <!-- Login Button -->
                 <li class="nav-item">
-=======
                 {{-- <li class="nav-item">
 >>>>>>> 0a071cbb10510b796f9ab6287b32944a7fe218b5
                     <a href="/login" class="login-btn">

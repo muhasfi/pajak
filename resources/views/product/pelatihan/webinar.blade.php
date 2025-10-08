@@ -1,13 +1,13 @@
 @extends('layouts.master')
 
-@section('title', 'Catalog Seminar & Workshop')
+@section('title', 'Catalog WEBINAR')
 
 @section('content')
 <!-- Header Section -->
 <section class="catalog-header">
     <div class="container mt-5">
         <div class="header-content">
-            <h1 class="main-title">Catalog Seminar</h1>
+            <h1 class="main-title">Catalog Webinar</h1>
             <p class="subtitle">Tingkatkan keahlian Anda dalam bidang perpajakan dan akuntansi bersama para ahli</p>
             
             <div class="search-container">
@@ -102,6 +102,36 @@
     </div>
     
     <!-- Course Card 3 - Premium -->
+    <div class="course-card premium" data-category="premium">
+        <div class="course-image">
+            <img src="{{ asset('assets/customer/images/seminar3.jpg') }}" alt="Internal Audit Seminar" />
+            <div class="course-badge badge-workshop">WEBINAR</div>
+            <div class="status-badge status-popular">POPULER</div>
+        </div>
+        <div class="course-content">
+            <h3 class="course-title">Workshop Internal Audit Excellence 2025</h3>
+            
+            <div class="mentor-info">
+                <img src="{{ asset('assets/customer/images/mentor3.jpeg') }}" alt="Mentor" class="mentor-avatar">
+                <div class="mentor-details">
+                    <span class="mentor-name">Prof. Indra Bastian, M.B.A</span>
+                    <span class="mentor-role">Audit Specialist</span>
+                </div>
+            </div>
+            
+            <div class="course-meta">
+                <div class="price">Rp. 2.750.000</div>
+            </div>
+            
+            <div class="course-actions">
+                <button class="btn btn-outline">
+                    <i class="fas fa-calendar"></i>
+                </button>
+                <button class="btn btn-premium">Daftar</button>
+            </div>
+        </div>
+    </div>
+
     <div class="course-card premium" data-category="premium">
         <div class="course-image">
             <img src="{{ asset('assets/customer/images/seminar3.jpg') }}" alt="Internal Audit Seminar" />

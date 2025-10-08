@@ -4,20 +4,20 @@
 
 @section('style')
     <style>
-        :root {
-            --primary: #7c3aed;
-            --primary-dark: #6d28d9;
-            --secondary: #64748b;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --danger: #ef4444;
+                :root {
+            --primary-blue: #2563eb;
+            --secondary-blue: #1d4ed8;
+            --dark-blue: #1e40af;
+            --light-blue: #dbeafe;
+            --white: #ffffff;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-800: #1e293b;
+            --gray-600: #475569;
+            --gray-400: #94a3b8;
             --success: #10b981;
+            --error: #ef4444;
             --warning: #f59e0b;
-            --radius: 8px;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --transition: all 0.3s ease;
-            --gradient-primary: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
         }
 
         .checkout-header {

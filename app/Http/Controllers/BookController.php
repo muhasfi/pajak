@@ -72,7 +72,16 @@ class BookController extends Controller
     //     ]);
 
     // }
-
+    public function show($id)
+    {
+        $item = Item::with('reviews')->findOrFail($id);
+        $relatedItems = Item::where('id', '!=', $id)
+            ->inRandomOrder()
+            ->limit(4)
+            ->get();
+        
+        return view('catalog.show', compact('item', 'relatedItems'));
+    }
     public function updateCart(Request $request)
     {
         $itemId = $request->input('id');

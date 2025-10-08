@@ -1,4 +1,6 @@
-/* Variabel Warna */
+/* ================================
+   VARIABEL WARNA
+================================ */
 :root {
     --primary-blue: #1a4b8c;
     --secondary-blue: #2c6cb0;
@@ -12,7 +14,9 @@
     --border-color: #e0e0e0;
 }
 
-/* Reset dan Base Styles */
+/* ================================
+   RESET & BASE STYLES
+================================ */
 .spt-tahunan-page * {
     margin: 0;
     padding: 0;
@@ -23,6 +27,7 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: var(--text-dark);
+    background-color: var(--white);
 }
 
 .spt-tahunan-page .container {
@@ -31,7 +36,9 @@
     padding: 0 20px;
 }
 
-/* Hero Section */
+/* ================================
+   HERO SECTION
+================================ */
 .hero-section {
     background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
     color: var(--white);
@@ -43,7 +50,7 @@
     font-size: 2.8rem;
     margin-bottom: 20px;
     font-weight: 700;
-    color: white;
+    color: var(--white);
 }
 
 .hero-content p {
@@ -51,6 +58,7 @@
     max-width: 700px;
     margin: 0 auto 30px;
     opacity: 0.9;
+    color: var(--white);
 }
 
 .hero-actions {
@@ -60,7 +68,9 @@
     flex-wrap: wrap;
 }
 
-.btn-primary, .btn-secondary {
+/* Buttons */
+.btn-primary,
+.btn-secondary {
     display: inline-block;
     padding: 12px 30px;
     border-radius: 5px;
@@ -90,7 +100,9 @@
     color: var(--primary-blue);
 }
 
-/* Section Header */
+/* ================================
+   SECTION HEADER
+================================ */
 .section-header {
     text-align: center;
     margin-bottom: 50px;
@@ -104,15 +116,18 @@
 
 .section-header p {
     font-size: 1.1rem;
-    color: var(--text-light);
+    color: var(--text-dark);
     max-width: 700px;
     margin: 0 auto;
 }
 
-/* Description Section */
+/* ================================
+   DESCRIPTION SECTION
+================================ */
 .description-section {
     padding: 80px 0;
     background-color: var(--white);
+    color: var(--text-dark);
 }
 
 .benefits-grid {
@@ -152,13 +167,16 @@
 }
 
 .benefit-item p {
-    color: var(--text-light);
+    color: var(--text-dark);
 }
 
-/* Catalog Section */
+/* ================================
+   CATALOG SECTION
+================================ */
 .catalog-section {
     padding: 80px 0;
     background-color: var(--gray-light);
+    color: var(--text-dark);
 }
 
 .catalog-grid {
@@ -202,6 +220,7 @@
     font-weight: 600;
 }
 
+/* Card header */
 .card-header {
     padding: 25px;
     background-color: var(--primary-blue);
@@ -212,30 +231,30 @@
 .card-header h3 {
     font-size: 1.5rem;
     margin-bottom: 15px;
-    color: white;
+    color: var(--white);
 }
 
 .price {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: white;
+    color: var(--white);
 }
 
 .starting-from {
     font-size: 0.9rem;
     opacity: 0.8;
-    color: white;
 }
 
 .amount {
     font-size: 2rem;
     font-weight: 700;
-    color: white;
 }
 
+/* Card body */
 .card-body {
     padding: 25px;
+    color: var(--text-dark);
 }
 
 .feature-list {
@@ -246,7 +265,7 @@
     display: flex;
     align-items: flex-start;
     margin-bottom: 15px;
-    color: var(--text-light);
+    color: var(--text-dark);
 }
 
 .feature-list i {
@@ -263,6 +282,7 @@
     color: #dc3545;
 }
 
+/* Card footer */
 .card-footer {
     padding: 0 25px 25px;
     text-align: center;
@@ -284,10 +304,13 @@
     background-color: var(--secondary-blue);
 }
 
-/* Additional Info Section */
+/* ================================
+   ADDITIONAL INFO SECTION
+================================ */
 .additional-info {
     padding: 80px 0;
     background-color: var(--white);
+    color: var(--text-dark);
 }
 
 .info-grid {
@@ -304,61 +327,66 @@
     border-bottom: 2px solid var(--light-blue);
 }
 
-.info-item ul, .info-item ol {
+.info-item ul,
+.info-item ol {
     padding-left: 20px;
 }
 
 .info-item li {
     margin-bottom: 10px;
-    color: var(--text-light);
+    color: var(--text-dark);
 }
 
-
+/* ================================
+   BUTTON OUTLINE (CUSTOM)
+================================ */
 .btn-outline-kk {
-    display: block;             
-    width: 100%;                 
-    padding: 12px;               
+    display: block;
+    width: 100%;
+    padding: 12px;
     border: 2px solid var(--primary-blue);
-    color: black;
-    border-radius: 5px;          
+    color: var(--primary-blue);
+    border-radius: 5px;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
-    margin-top: 10px;            
+    margin-top: 10px;
+    text-align: center;
 }
 
 .btn-outline-kk:hover {
     background: var(--primary-blue);
-    color: #fff;
+    color: var(--white);
 }
 
-
-/* Responsive Design */
+/* ================================
+   RESPONSIVE DESIGN
+================================ */
 @media (max-width: 768px) {
     .hero-content h1 {
         font-size: 2.2rem;
     }
-    
+
     .hero-content p {
         font-size: 1rem;
     }
-    
+
     .section-header h2 {
         font-size: 1.8rem;
     }
-    
+
     .service-card.featured {
         transform: scale(1);
     }
-    
+
     .service-card.featured:hover {
         transform: translateY(-5px);
     }
-    
+
     .info-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .cta-content h2 {
         font-size: 1.8rem;
     }
@@ -368,24 +396,26 @@
     .hero-section {
         padding: 60px 0;
     }
-    
+
     .hero-content h1 {
         font-size: 1.8rem;
     }
-    
-    .hero-actions, .cta-buttons {
+
+    .hero-actions,
+    .cta-buttons {
         flex-direction: column;
         align-items: center;
     }
-    
-    .btn-primary, .btn-secondary, .btn-whatsapp, .btn-call {
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-whatsapp,
+    .btn-call {
         width: 100%;
         max-width: 250px;
     }
-    
+
     .catalog-grid {
         grid-template-columns: 1fr;
     }
-
-    
 }

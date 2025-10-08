@@ -22,6 +22,7 @@ use App\Http\Controllers\SiteController;
 
 Route::get('/', [\App\Http\Controllers\SiteController::class, 'index'])->name('index');
 Route::get('/book', [\App\Http\Controllers\BookController::class, 'index'])->name('book');
+Route::get('/book/{id}', [BookController::class, 'show'])->name('book.show');
 
 Route::get('/cart', [OrderController::class, 'cart'])->name('cart');
 Route::post('/cart/add', [OrderController::class, 'addToCart'])->name('cart.add');
@@ -66,8 +67,23 @@ Route::view('/seminar', 'product.pelatihan.seminar')->name('seminar');
 Route::view('/webinar', 'product.pelatihan.webinar')->name('webinar');
 Route::view('/spt', 'product.kertas_kerja.kertas_spt')->name('spt');
 Route::view('/ppn', 'product.kertas_kerja.kertas_ppn')->name('ppn');
+Route::view('/kertas-kerja-spt-masa-unifikasi', 'product.kertas_kerja.kertas_spt_unifikasi')->name('spt.unifikasi');
 Route::view('/order-ppn', 'product.kertas_kerja.order_ppn')->name('order.ppn');
+Route::view('/order-spt', 'product.kertas_kerja.order_spt')->name('order.spt');
+Route::view('/order-pph', 'product.kertas_kerja.order_pph')->name('order.pph');
+Route::view('/order-spt-unifikasi', 'product.kertas_kerja.order_spt_uni')->name('order.spt.uni');
 Route::view('/pph21', 'product.kertas_kerja.kertas_pph')->name('pph21');
+Route::view('/brevet-ab', 'product.pelatihan.brevet_ab')->name('brevet.ab');
+Route::view('/brevet-c', 'product.pelatihan.brevet_c')->name('brevet.c');
+Route::view('/in-house-training', 'product.pelatihan.in_house')->name('in.house');
+Route::view('/corporate-services', 'product.layanan.corporate-services')->name('corporate.services');
+Route::view('/jasa-akuntansi', 'product.layanan.jasa_akuntansi')->name('jasa.akuntansi');
+Route::view('/jasa-perpajakan', 'product.layanan.jasa_perpajakan')->name('jasa.perpajakan');
+Route::view('/litigasi', 'product.layanan.litigasi')->name('litigasi');
+Route::view('/audit', 'product.layanan.audit')->name('audit');
+Route::view('/transfer-pricing', 'product.layanan.transfer')->name('transfer');
+Route::view('/forum', 'product.konsultasi.forum')->name('forum');
+Route::view('/private', 'product.konsultasi.private')->name('private');
 // Route::view('/blog', 'product.blog.blog')->name('blog');
 
 require __DIR__.'/auth.php';

@@ -47,6 +47,7 @@
         <div class="catalog-grid">
             @forelse ($items as $item)
             <div class="product-card animate-fade-in">
+                 {{-- <a href="{{ route('book.show', $item->id) }}" class="product-link"> --}}
                 <div class="product-image">
                     <img src="{{ Str::startsWith($item->img, ['http://', 'https://']) 
                                             ? $item->img 

@@ -1,9 +1,9 @@
 @extends('layouts.master')
 
-@section('title', 'Litigasi & Sengketa Perpajakan')
+@section('title', 'Layanan Jasa Akuntansi & Pembukuan')
 
 @section('content')
-<section class="litigation-service">
+<section class="service-akuntansi">
     <!-- Hero Section -->
     <div class="modern-hero">
         <div class="hero-background">
@@ -18,16 +18,16 @@
             <div class="hero-content">
                 <div class="hero-text">
                     <h1 class="hero-title">
-                        <span class="title-line">Litigasi &</span>
-                        <span class="title-line highlight">Sengketa Perpajakan</span>
+                        <span class="title-line">Jasa Akuntansi</span>
+                        <span class="title-line highlight">& Pembukuan</span>
                     </h1>
                     <p class="hero-subtitle">
-                        Solusi komprehensif untuk penyelesaian sengketa pajak dengan pendekatan <span class="text-highlight">strategis</span>, 
-                        <span class="text-highlight">profesional</span>, dan <span class="text-highlight">berpengalaman</span>
+                        Solusi lengkap akuntansi untuk bisnis Anda yang <span class="text-highlight">profesional</span>, 
+                        <span class="text-highlight">transparan</span>, dan <span class="text-highlight">sesuai standar</span>
                     </p>
                     <p class="hero-description">
-                        Tim ahli litigasi pajak kami siap mendampingi Anda dalam setiap tahap sengketa perpajakan, 
-                        dari banding hingga pengadilan pajak. Dapatkan perlindungan hukum terbaik untuk hak perpajakan Anda.
+                        Tim ahli kami membantu mengoptimalkan proses keuangan bisnis Anda dengan layanan akuntansi 
+                        yang akurat dan terpercaya. Fokus pada pengembangan bisnis, biarkan kami mengelola pembukuan Anda.
                     </p>
                     <div class="hero-actions">
                         <a href="#services" class="btn btn-primary">
@@ -43,36 +43,36 @@
                 <div class="hero-visual">
                     <div class="floating-cards">
                         <div class="floating-card card-1">
-                            <i class="fas fa-balance-scale"></i>
-                            <span>Pengadilan Pajak</span>
+                            <i class="fas fa-chart-line"></i>
+                            <span>Laporan Real-time</span>
                         </div>
                         <div class="floating-card card-2">
-                            <i class="fas fa-file-contract"></i>
-                            <span>Banding & Gugatan</span>
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Data Aman</span>
                         </div>
                         <div class="floating-card card-3">
-                            <i class="fas fa-user-tie"></i>
-                            <span>Konsultan Hukum</span>
+                            <i class="fas fa-clock"></i>
+                            <span>Tepat Waktu</span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="hero-stats">
                 <div class="stat-item">
-                    <span class="stat-number">95%</span>
-                    <span class="stat-label">Tingkat Keberhasilan</span>
-                </div>
-                <div class="stat-item">
                     <span class="stat-number">500+</span>
-                    <span class="stat-label">Kasus Diselesaikan</span>
+                    <span class="stat-label">Klien Terlayani</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">25+</span>
-                    <span class="stat-label">Tahun Pengalaman</span>
+                    <span class="stat-number">99%</span>
+                    <span class="stat-label">Kepuasan Klien</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Support</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number">50+</span>
-                    <span class="stat-label">Klien Perusahaan</span>
+                    <span class="stat-label">Ahli Profesional</span>
                 </div>
             </div>
         </div>
@@ -82,8 +82,8 @@
     <div id="services" class="services-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Layanan Litigasi Perpajakan</h2>
-                <p class="section-subtitle">Komprehensif solusi hukum untuk setiap tahap sengketa perpajakan</p>
+                <h2 class="section-title">Layanan Kami</h2>
+                <p class="section-subtitle">Berbagai solusi akuntansi lengkap untuk kebutuhan bisnis Anda</p>
             </div>
 
             <div class="services-grid">
@@ -91,27 +91,26 @@
                 <div class="service-card">
                     <div class="card-header">
                         <div class="service-icon">
-                            <i class="fas fa-gavel"></i>
+                            <i class="fas fa-file-invoice-dollar"></i>
                         </div>
-                        <h3>Banding Pajak</h3>
+                        <h3>Pencatatan Transaksi</h3>
                     </div>
                     <div class="card-body">
-                        <p>Pendampingan proses banding terhadap surat ketetapan pajak yang tidak sesuai.</p>
+                        <p>Pencatatan transaksi harian secara rapi, akurat, dan sesuai standar akuntansi berjalan.</p>
                         <ul class="feature-list">
-                            <li>Analisis kelayakan banding</li>
-                            <li>Penyusunan memorandum banding</li>
-                            <li>Pendampingan sidang banding</li>
-                            <li>Negosiasi dengan fiskus</li>
-                            <li>Monitoring proses banding</li>
+                            <li>Pencatatan transaksi harian</li>
+                            <li>Klasifikasi akun yang tepat</li>
+                            <li>Audit trail lengkap</li>
+                            <li>Backup data otomatis</li>
                         </ul>
                     </div>
                     <div class="card-footer">
                         <a href="#" class="btn btn-primary">
-                            <span>Konsultasi Kasus</span>
+                            <span>Pesan Sekarang</span>
                             <i class="fas fa-arrow-right"></i>
                         </a>
                         <a href="/kontak" class="btn btn-outline">
-                            <span>Detail Layanan</span>
+                            <span>Konsultasi Gratis</span>
                         </a>
                     </div>
                 </div>
@@ -120,86 +119,83 @@
                 <div class="service-card">
                     <div class="card-header">
                         <div class="service-icon">
-                            <i class="fas fa-balance-scale"></i>
+                            <i class="fas fa-chart-line"></i>
                         </div>
-                        <h3>Gugatan Pengadilan Pajak</h3>
+                        <h3>Laporan Keuangan</h3>
                     </div>
                     <div class="card-body">
-                        <p>Representasi hukum di Pengadilan Pajak untuk sengketa yang kompleks.</p>
+                        <p>Menyusun laporan keuangan komprehensif untuk pengambilan keputusan bisnis yang tepat.</p>
                         <ul class="feature-list">
-                            <li>Penyusunan surat gugatan</li>
-                            <li>Legal opinion dan strategi</li>
-                            <li>Pendampingan persidangan</li>
-                            <li>Pembuatan eksepsi dan replik</li>
-                            <li>Upaya hukum lanjutan</li>
+                            <li>Laporan Neraca</li>
+                            <li>Laporan Laba Rugi</li>
+                            <li>Laporan Arus Kas</li>
+                            <li>Analisis rasio keuangan</li>
                         </ul>
                     </div>
                     <div class="card-footer">
                         <a href="#" class="btn btn-primary">
-                            <span>Konsultasi Kasus</span>
+                            <span>Pesan Sekarang</span>
                             <i class="fas fa-arrow-right"></i>
                         </a>
                         <a href="/kontak" class="btn btn-outline">
-                            <span>Detail Layanan</span>
+                            <span>Konsultasi Gratis</span>
                         </a>
                     </div>
                 </div>
 
                 <!-- Service 3 -->
-                <div class="service-card featured">
-                    <div class="card-badge">Populer</div>
+                <div class="service-card">
                     <div class="card-header">
                         <div class="service-icon">
-                            <i class="fas fa-handshake"></i>
+                            <i class="fas fa-check-circle"></i>
                         </div>
-                        <h3>Mediasi & Negosiasi</h3>
+                        <h3>Rekonsiliasi Bank</h3>
                     </div>
                     <div class="card-body">
-                        <p>Penyelesaian sengketa melalui jalur mediasi dan negosiasi yang efektif.</p>
+                        <p>Mengecek dan mencocokkan saldo bank dengan catatan perusahaan secara berkala.</p>
                         <ul class="feature-list">
-                            <li>Strategi negosiasi optimal</li>
-                            <li>Mediasi dengan fiskus</li>
-                            <li>Penyusunan kesepakatan</li>
-                            <li>Penyelesaian damai</li>
-                            <li>Penghematan waktu & biaya</li>
+                            <li>Rekonsiliasi bulanan</li>
+                            <li>Identifikasi selisih</li>
+                            <li>Laporan rekonsiliasi</li>
+                            <li>Monitoring otomatis</li>
                         </ul>
                     </div>
                     <div class="card-footer">
                         <a href="#" class="btn btn-primary">
-                            <span>Konsultasi Kasus</span>
+                            <span>Pesan Sekarang</span>
                             <i class="fas fa-arrow-right"></i>
                         </a>
                         <a href="/kontak" class="btn btn-outline">
-                            <span>Detail Layanan</span>
+                            <span>Konsultasi Gratis</span>
                         </a>
                     </div>
                 </div>
 
                 <!-- Service 4 -->
-                <div class="service-card">
+                <div class="service-card featured">
+                    <div class="card-badge">Populer</div>
                     <div class="card-header">
                         <div class="service-icon">
-                            <i class="fas fa-search"></i>
+                            <i class="fas fa-calculator"></i>
                         </div>
-                        <h3>Pendampingan Pemeriksaan</h3>
+                        <h3>Payroll & Pajak</h3>
                     </div>
                     <div class="card-body">
-                        <p>Pendampingan selama proses pemeriksaan untuk meminimalkan risiko sengketa.</p>
+                        <p>Mengelola gaji karyawan serta administrasi pajak bulanan dengan profesional.</p>
                         <ul class="feature-list">
-                            <li>Review dokumen pemeriksaan</li>
-                            <li>Pendampingan lapangan</li>
-                            <li>Respons terhadap SP2</li>
-                            <li>Pembuatan tanggapan resmi</li>
-                            <li>Pencegahan sengketa</li>
+                            <li>Penggajian terintegrasi</li>
+                            <li>Perhitungan PPh 21</li>
+                            <li>Pelaporan pajak bulanan</li>
+                            <li>Slip gaji digital</li>
                         </ul>
                     </div>
                     <div class="card-footer">
                         <a href="#" class="btn btn-primary">
-                            <span>Konsultasi Kasus</span>
+                            <span>Pesan Sekarang</span>
                             <i class="fas fa-arrow-right"></i>
                         </a>
                         <a href="/kontak" class="btn btn-outline">
-                            <span>Detail Layanan</span>
+                            <span>Konsultasi Gratis</span>
                         </a>
                     </div>
                 </div>
@@ -207,110 +203,41 @@
         </div>
     </div>
 
-    <!-- Process Section -->
-    <div class="process-section">
+    <!-- Features Section -->
+    <div class="features-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Proses Penanganan Sengketa</h2>
-                <p class="section-subtitle">Tahapan sistematis untuk penyelesaian sengketa perpajakan yang optimal</p>
+                <h2 class="section-title">Mengapa Memilih Kami?</h2>
+                <p class="section-subtitle">Keunggulan layanan yang membuat kami berbeda</p>
             </div>
-            <div class="process-steps">
-                <div class="process-step">
-                    <div class="step-number">01</div>
-                    <div class="step-content">
-                        <h4>Konsultasi Awal</h4>
-                        <p>Analisis dokumen dan identifikasi masalah hukum untuk menentukan strategi terbaik</p>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
                     </div>
+                    <h4>Terpercaya & Aman</h4>
+                    <p>Data keuangan Anda aman bersama kami dengan sistem keamanan berlapis dan enkripsi tingkat tinggi</p>
                 </div>
-                <div class="process-step">
-                    <div class="step-number">02</div>
-                    <div class="step-content">
-                        <h4>Penyusunan Dokumen</h4>
-                        <p>Pembuatan memorandum banding, gugatan, atau tanggapan hukum yang komprehensif</p>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
                     </div>
+                    <h4>Tepat Waktu</h4>
+                    <p>Laporan disampaikan tepat waktu dengan akurasi yang terjamin dan update real-time</p>
                 </div>
-                <div class="process-step">
-                    <div class="step-number">03</div>
-                    <div class="step-content">
-                        <h4>Proses Hukum</h4>
-                        <p>Pendampingan dalam setiap tahap proses hukum dari banding hingga pengadilan</p>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
                     </div>
+                    <h4>Tim Berpengalaman</h4>
+                    <p>Dikelola oleh profesional akuntansi dengan sertifikasi dan pengalaman luas lebih dari 10 tahun</p>
                 </div>
-                <div class="process-step">
-                    <div class="step-number">04</div>
-                    <div class="step-content">
-                        <h4>Monitoring & Evaluasi</h4>
-                        <p>Pemantauan berkelanjutan dan evaluasi perkembangan kasus untuk hasil optimal</p>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Case Studies -->
-    <div class="case-studies">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Studi Kasus Berhasil</h2>
-                <p class="section-subtitle">Bukti keberhasilan dalam menangani berbagai kompleksitas sengketa perpajakan</p>
-            </div>
-            <div class="cases-grid">
-                <div class="case-card">
-                    <div class="case-header">
-                        <span class="case-badge success">Berhasil</span>
-                        <h4>PT. Maju Jaya Abadi</h4>
-                    </div>
-                    <div class="case-body">
-                        <p>Pembatalan SKPKB senilai Rp 2,3 M melalui banding yang efektif dengan strategi bukti yang kuat.</p>
-                        <div class="case-details">
-                            <div class="case-detail">
-                                <span class="label">Nilai Sengketa</span>
-                                <span class="value">Rp 2,3 Miliar</span>
-                            </div>
-                            <div class="case-detail">
-                                <span class="label">Durasi</span>
-                                <span class="value">4 Bulan</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card">
-                    <div class="case-header">
-                        <span class="case-badge success">Berhasil</span>
-                        <h4>CV. Sentosa Mandiri</h4>
-                    </div>
-                    <div class="case-body">
-                        <p>Kemenangan di Pengadilan Pajak untuk sengketa PPN dengan nilai Rp 850 juta.</p>
-                        <div class="case-details">
-                            <div class="case-detail">
-                                <span class="label">Nilai Sengketa</span>
-                                <span class="value">Rp 850 Juta</span>
-                            </div>
-                            <div class="case-detail">
-                                <span class="label">Durasi</span>
-                                <span class="value">6 Bulan</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card">
-                    <div class="case-header">
-                        <span class="case-badge success">Berhasil</span>
-                        <h4>PT. Global Teknologi</h4>
-                    </div>
-                    <div class="case-body">
-                        <p>Penyelesaian melalui mediasi dengan pengurangan pokok pajak sebesar 65%.</p>
-                        <div class="case-details">
-                            <div class="case-detail">
-                                <span class="label">Nilai Sengketa</span>
-                                <span class="value">Rp 1,5 Miliar</span>
-                            </div>
-                            <div class="case-detail">
-                                <span class="label">Durasi</span>
-                                <span class="value">3 Bulan</span>
-                            </div>
-                        </div>
-                    </div>
+                    <h4>Support 24/7</h4>
+                    <p>Layanan dukungan penuh setiap saat untuk kebutuhan bisnis Anda kapanpun dibutuhkan</p>
                 </div>
             </div>
         </div>
@@ -320,8 +247,8 @@
     <div class="cta-section">
         <div class="container">
             <div class="cta-content">
-                <h3>Hadapi Sengketa Pajak dengan Percaya Diri</h3>
-                <p>Konsultasikan kasus Anda dengan tim litigasi berpengalaman kami dan dapatkan solusi terbaik untuk perlindungan hukum perpajakan Anda</p>
+                <h3>Siap Mengoptimalkan Keuangan Bisnis Anda?</h3>
+                <p>Konsultasikan kebutuhan akuntansi Anda dengan ahli kami dan dapatkan solusi terbaik untuk perkembangan bisnis</p>
             </div>
         </div>
     </div>
@@ -339,11 +266,9 @@
         --gray-800: #1e293b;
         --gray-600: #475569;
         --gray-400: #94a3b8;
-        --success: #10b981;
-        --warning: #f59e0b;
     }
 
-    .litigation-service {
+    .service-akuntansi {
         min-height: 100vh;
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
@@ -359,7 +284,7 @@
        ========================= */
     .modern-hero {
         min-height: 100vh;
-        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+        background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 50%, var(--dark-blue) 100%);
         color: var(--white);
         position: relative;
         overflow: hidden;
@@ -436,7 +361,7 @@
     }
 
     .hero-title {
-        font-size: 3.5rem;
+        font-size: 4rem;
         font-weight: 800;
         line-height: 1.1;
         margin-bottom: 1.5rem;
@@ -454,7 +379,7 @@
     }
 
     .hero-subtitle {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
         line-height: 1.6;
         margin-bottom: 1.5rem;
         opacity: 0.9;
@@ -514,7 +439,6 @@
     .floating-card span {
         font-size: 0.9rem;
         font-weight: 600;
-        text-align: center;
     }
 
     .card-1 {
@@ -548,7 +472,7 @@
 
     .stat-item {
         text-align: center;
-        background: transparent;
+        background-color: transparent;
     }
 
     .stat-number {
@@ -580,7 +504,7 @@
     }
 
     .section-title {
-        font-size: 2.8rem;
+        font-size: 3rem;
         font-weight: 700;
         margin-bottom: 1rem;
         color: var(--gray-800);
@@ -595,7 +519,7 @@
 
     .services-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 2rem;
     }
 
@@ -603,7 +527,7 @@
         position: relative;
         overflow: hidden;
         padding: 2.5rem;
-        border-radius: 20px;
+        border-radius: 24px;
         border: 1px solid var(--gray-100);
         background: var(--white);
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -698,11 +622,6 @@
         position: relative;
         padding: 0.5rem 0 0.5rem 1.5rem;
         color: var(--gray-600);
-        border-bottom: 1px solid var(--gray-100);
-    }
-
-    .feature-list li:last-child {
-        border-bottom: none;
     }
 
     .feature-list li::before {
@@ -710,7 +629,7 @@
         position: absolute;
         left: 0;
         font-weight: 600;
-        color: var(--success);
+        color: #10b981;
     }
 
     .card-footer {
@@ -718,142 +637,6 @@
         flex-direction: column;
         gap: 0.75rem;
         margin-top: 2rem;
-    }
-
-    /* =========================
-       PROCESS SECTION
-       ========================= */
-    .process-section {
-        padding: 100px 0;
-        background: var(--white);
-    }
-
-    .process-steps {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 2rem;
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-
-    .process-step {
-        text-align: center;
-        padding: 2rem;
-        position: relative;
-    }
-
-    .step-number {
-        width: 60px;
-        height: 60px;
-        background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
-        color: var(--white);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin: 0 auto 1.5rem;
-    }
-
-    .step-content h4 {
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-        color: var(--gray-800);
-    }
-
-    .step-content p {
-        line-height: 1.6;
-        color: var(--gray-600);
-    }
-
-    /* =========================
-       CASE STUDIES
-       ========================= */
-    .case-studies {
-        padding: 100px 0;
-        background: var(--gray-50);
-    }
-
-    .cases-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-    }
-
-    .case-card {
-        background: var(--white);
-        border-radius: 16px;
-        padding: 2rem;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        transition: transform 0.3s ease;
-    }
-
-    .case-card:hover {
-        transform: translateY(-5px);
-    }
-
-    .case-header {
-        display: flex;
-        justify-content: between;
-        align-items: flex-start;
-        margin-bottom: 1.5rem;
-    }
-
-    .case-header h4 {
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: var(--gray-800);
-        flex: 1;
-        margin-right: 1rem;
-    }
-
-    .case-badge {
-        padding: 0.25rem 0.75rem;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        text-transform: uppercase;
-    }
-
-    .case-badge.success {
-        background: #d1fae5;
-        color: #065f46;
-    }
-
-    .case-body p {
-        line-height: 1.6;
-        color: var(--gray-600);
-        margin-bottom: 1.5rem;
-    }
-
-    .case-details {
-        display: grid;
-        gap: 0.75rem;
-    }
-
-    .case-detail {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.5rem 0;
-        border-bottom: 1px solid var(--gray-100);
-    }
-
-    .case-detail:last-child {
-        border-bottom: none;
-    }
-
-    .label {
-        font-size: 0.9rem;
-        color: var(--gray-600);
-    }
-
-    .value {
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: var(--gray-800);
     }
 
     /* =========================
@@ -920,6 +703,57 @@
     }
 
     /* =========================
+       FEATURES SECTION
+       ========================= */
+    .features-section {
+        padding: 100px 0;
+        background: var(--white);
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 3rem;
+    }
+
+    .feature-item {
+        text-align: center;
+        padding: 2rem 1rem;
+    }
+
+    .feature-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 1.5rem;
+        font-size: 2rem;
+        color: var(--primary-blue);
+        border-radius: 20px;
+        background: linear-gradient(135deg, var(--light-blue) 0%, #eff6ff 100%);
+        transition: all 0.3s ease;
+    }
+
+    .feature-item:hover .feature-icon {
+        transform: scale(1.1);
+        background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+        color: var(--white);
+    }
+
+    .feature-item h4 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--gray-800);
+    }
+
+    .feature-item p {
+        line-height: 1.6;
+        color: var(--gray-600);
+    }
+
+    /* =========================
        CTA SECTION
        ========================= */
     .cta-section {
@@ -941,6 +775,7 @@
         margin: 0 auto 2.5rem;
         max-width: 600px;
         opacity: 0.9;
+        color: var(--white);
     }
 
     .cta-buttons {
@@ -984,7 +819,7 @@
         }
 
         .hero-title {
-            font-size: 3rem;
+            font-size: 3.5rem;
         }
 
         .floating-cards {
@@ -1007,7 +842,7 @@
         }
 
         .hero-subtitle {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
         }
 
         .hero-stats {
@@ -1020,7 +855,7 @@
         }
 
         .section-title {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
         }
 
         .services-grid {
@@ -1032,12 +867,9 @@
             padding: 2rem;
         }
 
-        .process-steps {
+        .features-grid {
             grid-template-columns: 1fr;
-        }
-
-        .cases-grid {
-            grid-template-columns: 1fr;
+            gap: 2rem;
         }
 
         .cta-content h3 {
@@ -1063,7 +895,7 @@
         }
 
         .hero-subtitle {
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
 
         .hero-stats {
@@ -1071,7 +903,7 @@
         }
 
         .section-title {
-            font-size: 1.8rem;
+            font-size: 2rem;
         }
 
         .service-card {

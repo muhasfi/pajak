@@ -13,8 +13,6 @@
         --dark: #1e293b;
         --success: #10b981;
         --gradient-primary: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-        --gradient-secondary: linear-gradient(135deg, #64748b 0%, #475569 100%);
-        --gradient-accent: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
         --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
@@ -29,7 +27,7 @@
     }
 
     body {
-        font-family: Arial, sans-serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         line-height: 1.6;
         color: var(--dark);
         background-color: #ffffff;
@@ -40,6 +38,7 @@
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 1.5rem;
+        width: 100%;
     }
 
     .section {
@@ -77,16 +76,18 @@
         color: var(--secondary);
         max-width: 700px;
         margin: 1.5rem auto 0;
+        line-height: 1.8;
     }
 
     /* Hero Section */
     .hero {
         background: #f8f9fa;
-        color: #000;
-        padding: 40px;
-        
+        padding: 100px 0 80px;
         position: relative;
         overflow: hidden;
+        min-height: 600px;
+        display: flex;
+        align-items: center;
     }
 
     .hero-content {
@@ -94,39 +95,49 @@
         z-index: 2;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 3rem;
+        gap: 4rem;
         align-items: center;
+        width: 100%;
+    }
+
+    .hero-text {
+        width: 100%;
     }
 
     .hero-text h1 {
-        font-size: 2.8rem;
+        font-size: 3rem;
         font-weight: 800;
         line-height: 1.2;
         margin-bottom: 1.5rem;
-        color: #000;
+        color: #1e293b;
     }
 
     .hero-text p {
         font-size: 1.25rem;
-        margin-bottom: 2.5rem;
-        opacity: 0.9;
-        color: #000;
+        margin-bottom: 2rem;
+        color: #475569;
+        line-height: 1.8;
     }
 
     .hero-features {
-        margin-top: 2rem;
+        margin: 2.5rem 0;
     }
 
     .hero-feature {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         margin-bottom: 1.5rem;
+        transition: transform 0.3s ease;
+    }
+
+    .hero-feature:hover {
+        transform: translateX(5px);
     }
 
     .hero-feature i {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -137,36 +148,50 @@
 
     .hero-feature span {
         font-weight: 600;
-        font-size: 1.1rem;
+        font-size: 1.05rem;
+        color: #1e293b;
+        line-height: 1.5;
+        padding-top: 0.5rem;
     }
 
     .hero-image {
         position: relative;
+        width: 100%;
     }
 
     .hero-image img {
         width: 100%;
-        border-radius: var(--radius);
+        height: auto;
+        border-radius: 12px;
         box-shadow: var(--shadow-xl);
+        display: block;
+    }
+
+    .hero-buttons {
+        margin-top: 2.5rem;
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
     }
 
     .btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: 0.75rem 1.5rem;
+        padding: 1rem 2rem;
         border-radius: var(--radius);
         font-weight: 600;
+        font-size: 1rem;
         text-decoration: none;
         transition: var(--transition);
         border: none;
         cursor: pointer;
         gap: 0.5rem;
-        font-family: Arial, sans-serif;
+        font-family: inherit;
     }
 
     .btn-primary {
-        background: #2563eb;
+        background: var(--primary);
         color: white;
         box-shadow: var(--shadow-lg);
     }
@@ -174,17 +199,19 @@
     .btn-primary:hover {
         transform: translateY(-2px);
         box-shadow: var(--shadow-xl);
-        background: #1d4ed8;
+        background: var(--primary-dark);
     }
 
     .btn-secondary {
-        background: rgba(37, 99, 235, 0.1);
-        color: #2563eb;
-        border: 2px solid #2563eb;
+        background: white;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+        box-shadow: var(--shadow);
     }
 
     .btn-secondary:hover {
-        background: rgba(37, 99, 235, 0.2);
+        background: var(--primary);
+        color: white;
         transform: translateY(-2px);
     }
 
@@ -206,8 +233,10 @@
 
     .about-image img {
         width: 100%;
-        border-radius: var(--radius);
+        height: auto;
+        border-radius: 12px;
         box-shadow: var(--shadow-xl);
+        display: block;
     }
 
     .about-image::before {
@@ -218,7 +247,7 @@
         width: 100%;
         height: 100%;
         border: 4px solid var(--primary);
-        border-radius: var(--radius);
+        border-radius: 12px;
         z-index: -1;
         opacity: 0.3;
     }
@@ -234,33 +263,41 @@
         color: var(--secondary);
         margin-bottom: 1.5rem;
         line-height: 1.8;
+        font-size: 1.05rem;
     }
 
     .about-features {
-        margin: 2rem 0;
+        margin: 2.5rem 0;
     }
 
     .about-feature {
         display: flex;
         align-items: center;
-        margin-bottom: 1rem;
+        margin-bottom: 1.25rem;
+        transition: transform 0.3s ease;
+    }
+
+    .about-feature:hover {
+        transform: translateX(5px);
     }
 
     .about-feature i {
-        width: 30px;
-        height: 30px;
+        width: 32px;
+        height: 32px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         margin-right: 1rem;
-        font-size: 1rem;
+        font-size: 0.9rem;
         background: rgba(37, 99, 235, 0.1);
         color: var(--primary);
+        flex-shrink: 0;
     }
 
     .about-feature span {
         font-weight: 600;
+        color: var(--dark);
     }
 
     /* Services Section */
@@ -270,27 +307,49 @@
 
     .services-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         gap: 2rem;
     }
 
     .service-card {
         background: white;
         padding: 2.5rem 2rem;
-        border-radius: var(--radius);
+        border-radius: 12px;
         box-shadow: var(--shadow);
         transition: var(--transition);
         text-align: center;
         position: relative;
         overflow: hidden;
         border-top: 4px solid transparent;
-        border-image: var(--gradient-primary);
-        border-image-slice: 1;
     }
 
     .service-card:hover {
-        transform: translateY(-5px);
-        box-shadow: var(--shadow-lg);
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .service-card:nth-child(1) {
+        border-top-color: #007bff;
+    }
+
+    .service-card:nth-child(2) {
+        border-top-color: #28a745;
+    }
+
+    .service-card:nth-child(3) {
+        border-top-color: #ffc107;
+    }
+
+    .service-card:nth-child(4) {
+        border-top-color: #dc3545;
+    }
+
+    .service-card:nth-child(5) {
+        border-top-color: #6f42c1;
+    }
+
+    .service-card:nth-child(6) {
+        border-top-color: #20c997;
     }
 
     .service-icon {
@@ -302,11 +361,15 @@
         justify-content: center;
         margin: 0 auto 1.5rem;
         font-size: 2rem;
-        background: #f1f5f9;
+        transition: var(--transition);
+    }
+
+    .service-card:hover .service-icon {
+        transform: scale(1.1) rotate(5deg);
     }
 
     .service-card h3 {
-        font-size: 1.35rem;
+        font-size: 1.4rem;
         margin-bottom: 1rem;
         color: var(--dark);
         font-weight: 700;
@@ -315,7 +378,7 @@
     .service-card p {
         color: var(--secondary);
         margin-bottom: 1.5rem;
-        line-height: 1.6;
+        line-height: 1.7;
     }
 
     .service-link {
@@ -325,7 +388,7 @@
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-        font-family: Arial, sans-serif;
+        transition: gap 0.3s ease;
     }
 
     .service-link:hover {
@@ -347,38 +410,65 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
         opacity: 0.3;
     }
 
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.5rem;
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 2rem;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+    }
+
+    .stat-item {
+    background-color: transparent;
+    border-radius: 12px;
+    padding: 2rem;
     text-align: center;
-}
+    color: #fff;
+    }
 
 
-.stat-item {
-    padding: 1.5rem;
-    background: transparent;  
-    box-shadow: none;          
-    border: none;              
-}
+    .stat-item:hover {
+        transform: translateY(-5px);
+    }
 
-.stat-item h3 {
-    font-size: 2.8rem;
-    font-weight: 800;
-    margin-bottom: 0.5rem;
-    color: #ffffff; /* tetap putih */
-}
+    .stat-item h3 {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        color: #ffffff;
+    }
 
-.stat-item p {
-    opacity: 0.9;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #ffffff; /* tambahkan supaya teks p putih juga */
-}
+    .stat-item p {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.95);
+    }
+
+    .stats-footer {
+        text-align: center;
+        margin-top: 3rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .stats-footer h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+        color: white;
+    }
+
+    .stats-footer p {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.9);
+        max-width: 800px;
+        margin: 0 auto;
+    }
 
     /* Consultation Section */
     .consultation {
@@ -403,14 +493,24 @@
         font-size: 1.125rem;
         color: var(--secondary);
         margin-bottom: 2.5rem;
+        line-height: 1.8;
     }
 
     /* Responsive Design */
     @media (max-width: 992px) {
+        .hero {
+            padding: 80px 0 60px;
+            min-height: auto;
+        }
+
         .hero-content {
             grid-template-columns: 1fr;
             text-align: center;
-            gap: 2rem;
+            gap: 3rem;
+        }
+
+        .hero-buttons {
+            justify-content: center;
         }
         
         .about-content {
@@ -424,11 +524,12 @@
         }
         
         .hero-text h1 {
-            font-size: 2.3rem;
+            font-size: 2.5rem;
         }
         
         .hero-feature {
             justify-content: center;
+            text-align: left;
         }
         
         .about-feature {
@@ -446,7 +547,7 @@
         }
         
         .hero {
-            padding: 6rem 0 3rem;
+            padding: 60px 0 40px;
         }
         
         .hero-text h1 {
@@ -456,32 +557,53 @@
         .hero-text p {
             font-size: 1.125rem;
         }
+
+        .hero-feature i {
+            width: 40px;
+            height: 40px;
+            font-size: 1.25rem;
+        }
+
+        .hero-feature span {
+            font-size: 1rem;
+        }
         
         .about-text h2 {
             font-size: 1.8rem;
         }
+
+        .hero-buttons {
+            flex-direction: column;
+        }
         
         .btn {
             width: 100%;
-            margin-bottom: 1rem;
         }
 
         .stats-grid {
             grid-template-columns: repeat(2, 1fr);
         }
+
+        .services-grid {
+            grid-template-columns: 1fr;
+        }
     }
 
     @media (max-width: 480px) {
+        .container {
+            padding: 0 1rem;
+        }
+
         .stats-grid {
             grid-template-columns: 1fr;
         }
         
         .hero-text h1 {
-            font-size: 1.8rem;
+            font-size: 1.75rem;
         }
         
         .section-title h2 {
-            font-size: 1.8rem;
+            font-size: 1.75rem;
         }
         
         .service-icon {
@@ -489,13 +611,17 @@
             height: 70px;
             font-size: 1.8rem;
         }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+        }
     }
 
     /* Animations */
-    @keyframes fadeIn {
+    @keyframes fadeInUp {
         from {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
         }
         to {
             opacity: 1;
@@ -504,7 +630,8 @@
     }
 
     .animate-fade-in {
-        animation: fadeIn 1s ease-out forwards;
+        opacity: 0;
+        animation: fadeInUp 0.8s ease-out forwards;
     }
 
     .delay-100 {
@@ -531,10 +658,10 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
-            <div class="hero-content mt-5">
+            <div class="hero-content">
                 <div class="hero-text">
-                    <h1>Solusi Permasalahan Akuntansi & Perpajakan Anda</h1>
-                    <p>Layanan profesional untuk membantu bisnis Anda tumbuh dengan dukungan konsultan berpengalaman.</p>
+                    <h1 class="animate-fade-in">Solusi Permasalahan Akuntansi & Perpajakan Anda</h1>
+                    <p class="animate-fade-in delay-100">Layanan profesional untuk membantu bisnis Anda tumbuh dengan dukungan konsultan berpengalaman.</p>
                     
                     <div class="hero-features">
                         <div class="hero-feature animate-fade-in delay-100">
@@ -551,7 +678,7 @@
                         </div>
                     </div>
                     
-                    <div style="margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <div class="hero-buttons">
                         <a href="#services" class="btn btn-primary">
                             <i class="fas fa-rocket"></i> Lihat Layanan
                         </a>
@@ -582,7 +709,7 @@
                 </div>
                 
                 <div class="about-text">
-                    <h2>Solusi Perpajakan Terpercaya </h2>
+                    <h2>Solusi Perpajakan Terpercaya</h2>
                     <p>Paham Pajak didirikan dengan misi untuk membantu pelaku usaha dan individu dalam mengelola kewajiban perpajakan mereka dengan cara yang mudah, transparan, dan sesuai dengan regulasi yang berlaku.</p>
                     
                     <p>Dengan pengalaman lebih dari satu dekade, kami telah membantu ribuan klien dari berbagai sektor industri untuk memastikan kepatuhan pajak sekaligus mengoptimalkan potensi penghematan pajak yang legal dan etis.</p>
@@ -600,7 +727,7 @@
                             <i class="fas fa-check"></i>
                             <span>Pendekatan personal untuk setiap klien</span>
                         </div>
-                        <div class="about-feature animate-fade-in delay-400">
+                        <div class="about-feature">
                             <i class="fas fa-check"></i>
                             <span>Update regulasi pajak terkini</span>
                         </div>
@@ -656,7 +783,7 @@
                     </a>
                 </div>
 
-                <div class="service-card animate-fade-in delay-100">
+                <div class="service-card animate-fade-in">
                     <div class="service-icon" style="color: #dc3545; background: rgba(220, 53, 69, 0.1);">
                         <i class="fas fa-balance-scale"></i>
                     </div>
@@ -667,7 +794,7 @@
                     </a>
                 </div>
 
-                <div class="service-card animate-fade-in delay-200">
+                <div class="service-card animate-fade-in delay-100">
                     <div class="service-icon" style="color: #6f42c1; background: rgba(111, 66, 193, 0.1);">
                         <i class="fas fa-building"></i>
                     </div>
@@ -678,7 +805,7 @@
                     </a>
                 </div>
 
-                <div class="service-card animate-fade-in delay-300">
+                <div class="service-card animate-fade-in delay-200">
                     <div class="service-icon" style="color: #20c997; background: rgba(32, 201, 151, 0.1);">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
@@ -702,26 +829,26 @@
             
             <div class="stats-grid">
                 <div class="stat-item animate-fade-in">
-                    <h3>20+</h3>
+                    <h3 data-target="20">0+</h3>
                     <p>Konsultan Pajak Bersertifikat</p>
                 </div>
                 <div class="stat-item animate-fade-in delay-100">
-                    <h3>150+</h3>
+                    <h3 data-target="150">0+</h3>
                     <p>Sesi Pelatihan Dilaksanakan</p>
                 </div>
                 <div class="stat-item animate-fade-in delay-200">
-                    <h3>550+</h3>
+                    <h3 data-target="550">0+</h3>
                     <p>Kasus Sengketa Berhasil Diselesaikan</p>
                 </div>
                 <div class="stat-item animate-fade-in delay-300">
-                    <h3>5000+</h3>
+                    <h3 data-target="5000">0+</h3>
                     <p>Wajib Pajak Terlayani</p>
                 </div>
             </div>
             
-            <div style="text-align: center; margin-top: 3rem; color: white;">
-                <h3 style="font-size: 1.5rem; margin-bottom: 1rem; font-weight: 700; color: white;">Pahampajak</h3>
-                <p style="font-size: 1.1rem;">Memberikan solusi perpajakan yang komprehensif dengan jaringan luas dan didukung konsultan pajak berpengalaman.</p>
+            <div class="stats-footer">
+                <h3>Pahampajak</h3>
+                <p>Memberikan solusi perpajakan yang komprehensif dengan jaringan luas dan didukung konsultan pajak berpengalaman.</p>
             </div>
         </div>
     </section>
@@ -743,8 +870,8 @@
 
 @section('script')
 <script>
-    // Animation on scroll
     document.addEventListener('DOMContentLoaded', function() {
+        // Animation on scroll
         const animatedElements = document.querySelectorAll('.animate-fade-in');
         
         const observer = new IntersectionObserver((entries) => {
@@ -754,12 +881,12 @@
                     entry.target.style.transform = 'translateY(0)';
                 }
             });
-        }, { threshold: 0.1 });
+        }, { 
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
         
         animatedElements.forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(el);
         });
         
@@ -772,7 +899,7 @@
                 if (entry.isIntersecting && !hasCounted) {
                     hasCounted = true;
                     counters.forEach(counter => {
-                        const target = parseInt(counter.textContent);
+                        const target = parseInt(counter.getAttribute('data-target'));
                         let count = 0;
                         const duration = 2000;
                         const increment = target / (duration / 16);
@@ -781,7 +908,7 @@
                             if (count < target) {
                                 count += increment;
                                 counter.textContent = Math.ceil(count) + '+';
-                                setTimeout(updateCount, 16);
+                                requestAnimationFrame(updateCount);
                             } else {
                                 counter.textContent = target + '+';
                             }
@@ -793,7 +920,27 @@
             });
         }, { threshold: 0.5 });
         
-        counterObserver.observe(document.querySelector('.stats'));
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            counterObserver.observe(statsSection);
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
     });
 </script>
 @endsection

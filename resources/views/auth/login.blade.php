@@ -6,7 +6,7 @@
 @section('style')
     <style>
         body {
-            background: linear-gradient(120deg, #4e54c8 0%, #fdfdff 100%);
+            background: linear-gradient(120deg, #2563eb 0%, #fdfdff 100%);
             min-height: 100vh;
             font-family: 'Inter', Arial, sans-serif;
         }
@@ -24,7 +24,7 @@
             width: 64px;
             height: 64px;
             margin: 0 auto 18px;
-            background: linear-gradient(135deg, #4e54c8 60%, #8f94fb 100%);
+            background: linear-gradient(135deg, #2563eb 60%, #ffffff 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -38,7 +38,7 @@
 
         .form-label {
             font-weight: 600;
-            color: #4e54c8;
+            color: #2563eb;
             margin-bottom: 6px;
         }
 
@@ -64,12 +64,12 @@
         }
 
         .form-control:focus {
-            border-color: #4e54c8;
+            border-color: #2563eb;
             box-shadow: 0 0 0 2px rgba(78, 84, 200, 0.15);
         }
 
         .btn-primary {
-            background: linear-gradient(90deg, #4e54c8, #8f94fb);
+            background: linear-gradient(90deg, #2563eb, #ffffff);
             border: none;
             border-radius: 8px;
             font-weight: 600;
@@ -80,7 +80,7 @@
         }
 
         .btn-primary:hover {
-            background: linear-gradient(90deg, #8f94fb, #4e54c8);
+            background: linear-gradient(90deg, #ffffff, #2563eb);
             box-shadow: 0 6px 18px rgba(78, 84, 200, 0.18);
         }
 
@@ -96,7 +96,7 @@
         }
 
         .link-register a {
-            color: #4e54c8;
+            color: #2563eb;
             font-weight: 600;
             text-decoration: none;
         }
@@ -105,8 +105,6 @@
             text-decoration: underline;
         }
     </style>
-    <link rel="stylesheet" 
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 @endsection
 
 @section('content')

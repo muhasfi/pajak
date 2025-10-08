@@ -5,23 +5,23 @@
 @section('style')
     <style>
         :root {
-            --primary: #7c3aed;
-            --primary-dark: #6d28d9;
-            --secondary: #64748b;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --danger: #ef4444;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --radius: 8px;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --transition: all 0.3s ease;
-            --gradient-primary: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+        --primary-green: #059669;
+        --secondary-green: #047857;
+        --dark-green: #065f46;
+        --light-green: #d1fae5;
+        --white: #ffffff;
+        --gray-50: #f8fafc;
+        --gray-100: #f1f5f9;
+        --gray-800: #1e293b;
+        --gray-600: #475569;
+        --gray-400: #94a3b8;
+        --success: #10b981;
+        --error: #ef4444;
+        --warning: #f59e0b;
         }
 
         .checkout-header {
-            background: var(--gradient-primary);
+            background: var(--primary-green );
             color: white;
             padding: 4rem 0;
             text-align: center;
@@ -175,7 +175,7 @@
         }
 
         .order-item-price {
-            color: var(--primary);
+            color: var(--primary-green);
             font-weight: 600;
         }
 
@@ -223,14 +223,14 @@
         }
 
         .total-value {
-            color: var(--primary);
+            color: var(--primary-green);
         }
 
         /* Checkout Button */
         .checkout-btn {
             width: 100%;
             padding: 1.2rem;
-            background: var(--primary);
+            background: var(--primary-green);
             color: white;
             border: none;
             border-radius: var(--radius);
@@ -418,14 +418,14 @@
 
                             <div class="order-items">
                                 @php 
-                                    $subTotal = 250000; // Harga produk Kertas Kerja PPN
+                                    $subTotal = 250000;
                                 @endphp
                                 <div class="order-item">
                                     <div class="order-item-image">
                                         <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Kertas Kerja PPN">
                                     </div>
                                     <div class="order-item-details">
-                                        <div class="order-item-name">Kertas Kerja PPN - Paket Lengkap</div>
+                                        <div class="order-item-name">Kertas Kerja PPH - Paket Lengkap</div>
                                         <div class="order-item-price">Rp{{ number_format($subTotal, 0, ',', '.') }}</div>
                                         <div class="order-item-quantity">Jumlah: 1</div>
                                     </div>
