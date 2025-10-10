@@ -54,6 +54,7 @@
                             <th>Gambar</th>
                             <th>Nama Paper</th>
                             <th>Deskripsi</th>
+                            <th>Kebutuhan</th>
                             <th>Harga</th>
                             <th>Kategori</th>
                             <th>Status</th>
@@ -75,6 +76,7 @@
                             </td>
                             <td>{{ $paper->name }}</td>
                             <td>{{ Str::limit($paper->description, 15) }}</td>
+                            <td>{{ $paper->kebutuhan }}</td>
                             <td>{{ 'Rp'. number_format($paper->price, 0, ',','.') }}</td>
                             <td>
                                 <span class="">

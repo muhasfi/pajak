@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
         Relation::enforceMorphMap([
         'item'      => \App\Models\Item::class,
         'bimbel'    => \App\Models\ItemBimbel::class,
+        'paper'    => \App\Models\ItemPaper::class,
     ]);
     }
 }

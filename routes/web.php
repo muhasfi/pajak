@@ -59,6 +59,29 @@ Route::prefix('bimbel')->group(function () {
 Route::get('/pelatihan', [App\Http\Controllers\PelatihanController::class, 'index'])->name('pelatihan');
 Route::view('/kontak', 'kontak')->name('kontak');
 
+Route::get('/pph21', [App\Http\Controllers\KertasKerjaController::class, 'pph21'])->name('pph21');
+Route::get('/ppn', [App\Http\Controllers\KertasKerjaController::class, 'ppn'])->name('ppn');
+Route::get('/spt', [App\Http\Controllers\KertasKerjaController::class, 'spt'])->name('spt');
+Route::get('/kertas-kerja-spt-masa-unifikasi', [App\Http\Controllers\KertasKerjaController::class, 'spt_unifikasi'])->name('spt_unifikasi');
+// Route::view('/kertas-kerja-spt-masa-unifikasi', 'product.paper.spt_masa_unifikasi.kertas_spt_unifikasi')->name('spt.unifikasi');
+
+Route::view('/order-ppn', 'product.ppn.order_ppn')->name('order.ppn');
+
+Route::view('/order-spt', 'product.kertas_kerja.order_spt')->name('order.spt');
+Route::view('/order-pph', 'product.kertas_kerja.order_pph')->name('order.pph');
+Route::view('/order-spt-unifikasi', 'product.kertas_kerja.order_spt_uni')->name('order.spt.uni');
+Route::view('/brevet-ab', 'product.pelatihan.brevet_ab')->name('brevet.ab');
+Route::view('/brevet-c', 'product.pelatihan.brevet_c')->name('brevet.c');
+Route::view('/in-house-training', 'product.pelatihan.in_house')->name('in.house');
+Route::view('/corporate-services', 'product.layanan.corporate-services')->name('corporate.services');
+Route::view('/jasa-akuntansi', 'product.layanan.jasa_akuntansi')->name('jasa.akuntansi');
+Route::view('/jasa-perpajakan', 'product.layanan.jasa_perpajakan')->name('jasa.perpajakan');
+Route::view('/litigasi', 'product.layanan.litigasi')->name('litigasi');
+Route::view('/audit', 'product.layanan.audit')->name('audit');
+Route::view('/transfer-pricing', 'product.layanan.transfer')->name('transfer');
+Route::view('/forum', 'product.konsultasi.forum')->name('forum');
+Route::view('/private', 'product.konsultasi.private')->name('private');
+
 require __DIR__.'/auth.php';
 
 Route::middleware(['auth', 'verified'])->group(function () {

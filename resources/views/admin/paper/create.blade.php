@@ -29,6 +29,12 @@
                 </div>
 
                 <div class="mb-3">
+                    <label for="kebutuhan" class="form-label">Kebutuhan</label>
+                    <input type="text" name="kebutuhan" class="form-control" id="kebutuhan" value="{{ old('kebutuhan') }}" required>
+                    @error('kebutuhan') <small class="text-danger">{{ $message }}</small> @enderror
+                </div>
+
+                <div class="mb-3">
                     <label for="price" class="form-label">Harga</label>
                     <input type="number" name="price" class="form-control" id="price" value="{{ old('price') }}" required>
                     @error('price') <small class="text-danger">{{ $message }}</small> @enderror

@@ -101,6 +101,7 @@ class ItemPaperController extends Controller
         // Update data utama
         $paper->name        = $request->name;
         $paper->description = $request->description;
+        $paper->kebutuhan   = $request->kebutuhan;
         $paper->price       = $request->price;
         $paper->category_id = $request->category_id;
         $paper->is_active   = $request->is_active ?? 1;

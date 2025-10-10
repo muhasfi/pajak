@@ -73,6 +73,7 @@ class OrderController extends Controller
         $morphType = match ($productType) {
             'Item'      => 'item',
             'ItemBimbel'=> 'bimbel',
+            'ItemPaper'=> 'paper',
             default     => strtolower($productType), // fallback
         };
 
@@ -82,6 +83,7 @@ class OrderController extends Controller
             'image' => $product->img ?? $product->gambar ?? 'default.jpg', 
             'name'  => $product->name ?? $product->judul, // Book pakai "name", Bimbel pakai "judul"
             'price' => $product->price ?? $product->harga,
+            // 'paper_type' => $morphType === 'paper' ? strtolower(optional($product->categoryPaper)->name) : null,
             'qty'   => 1,
         ];
 
@@ -93,7 +95,7 @@ class OrderController extends Controller
 
     public function removeCart(Request $request)
     {
-       $morphType = $request->input('type'); // 'item' atau 'bimbel'
+        $morphType = $request->input('type'); // 'item' atau 'bimbel'
         $productId = $request->input('id');
 
         // Validasi input
@@ -110,6 +112,7 @@ class OrderController extends Controller
         $productType = match ($morphType) {
             'item'   => 'Item',
             'bimbel' => 'ItemBimbel',
+            'paper'  => 'ItemPaper',
             default  => ucfirst($morphType),
         };
         
@@ -231,6 +234,8 @@ class OrderController extends Controller
                 'start_date'   => $item['type'] === 'bimbel' ? now() : null,
                 // 'end_date'     => $item['type'] === 'bimbel' ? now()->addDays(30) : null,
                 'end_date' => $item['type'] === 'bimbel' ? now()->addMinutes(6) : null,
+
+                // 'type_paper'   => $item['type'] === 'paper' ? $item['paper_type'] : null
 
             ]);
         }
