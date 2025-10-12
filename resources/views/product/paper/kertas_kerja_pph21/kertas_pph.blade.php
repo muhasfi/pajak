@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ asset('assets/customer/css/ppn.css') }}">
 @section('content')
 <section class="pph21-service">
-    <!-- Hero Section -->
+    <!-- Hero Sectiopwn -->
     <div class="modern-hero">
         <div class="hero-background">
             <div class="hero-shapes">

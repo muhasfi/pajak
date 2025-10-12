@@ -55,6 +55,9 @@ Route::prefix('bimbel')->group(function () {
     Route::get('/courses/{id}', [BimbelController::class, 'show'])->name('bimbel.courses.show');
     Route::post('/courses/{id}/enroll', [BimbelController::class, 'enroll'])->name('bimbel.courses.enroll');
 });
+Route::view('/profil-saya', 'layouts.profil-saya')->name('profil.saya');
+Route::view('/riwayat-transaksi', 'layouts.riwayat-transaksi')->name('riwayat.transaksi');
+Route::view('/cart/profil', 'layouts.cart')->name('cart');
 
 Route::get('/pelatihan', [App\Http\Controllers\PelatihanController::class, 'index'])->name('pelatihan');
 Route::view('/kontak', 'kontak')->name('kontak');

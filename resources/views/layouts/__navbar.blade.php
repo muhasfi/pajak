@@ -26,7 +26,7 @@
                     </a>
                 </li>
                 
-                <!-- Produk & Aplikasi (6 items - 2 columns) -->
+                <!-- Produk & Aplikasi -->
                 <li class="nav-item">
                     <a href="#produk" class="nav-link">
                         <i class="fas fa-laptop-code"></i> Produk <i class="fas fa-chevron-down"></i>
@@ -59,7 +59,7 @@
                     </div>
                 </li>
                 
-                <!-- Pelatihan & Workshop (5 items - 2 columns) -->
+                <!-- Pelatihan & Workshop -->
                 <li class="nav-item">
                     <a href="{{ route('pelatihan') }}" class="nav-link">
                         <i class="fas fa-chalkboard-teacher"></i> Pelatihan <i class="fas fa-chevron-down"></i>
@@ -89,7 +89,7 @@
                     </div>
                 </li>
                 
-                <!-- Bimbel USKP (2 items - 1 column) -->
+                <!-- Bimbel USKP -->
                 <li class="nav-item">
                     <a href="{{ route('bimbel.index') }}" class="nav-link">
                         <i class="fas fa-graduation-cap"></i> Bimbel USKP <i class="fas fa-chevron-down"></i>
@@ -105,7 +105,8 @@
                         </div>
                     </div>
                 </li>
-                <!-- Layanan Akuntansi & Perpajakan (6 items - 2 columns) -->
+
+                <!-- Layanan Akuntansi & Perpajakan -->
                 <li class="nav-item">
                     <a href="#layanan" class="nav-link">
                         <i class="fas fa-balance-scale"></i> Layanan <i class="fas fa-chevron-down"></i>
@@ -138,10 +139,10 @@
                     </div>
                 </li>
                 
-                <!-- Konsultasi Kasus (2 items - 1 column) -->
+                <!-- Konsultasi Kasus -->
                 <li class="nav-item">
                     <a href="#konsultasi" class="nav-link">
-                        <i class="fas fa-comments"></i>Konsultasi Kasus<i class="fas fa-chevron-down"></i>
+                        <i class="fas fa-comments"></i> Konsultasi Kasus <i class="fas fa-chevron-down"></i>
                     </a>
                     <div class="dropdown">
                         <div class="dropdown-grid">
@@ -154,25 +155,36 @@
                         </div>
                     </div>
                 </li>
-                
-                <!-- Login Button -->
-                <li class="nav-item">
-                {{-- <li class="nav-item">
-                    <a href="/login" class="login-btn">
-                        <i class="fas fa-sign-in-alt"></i> Login
-                    </a>
-                </li> --}}
 
+                <!-- 🧑 Menu Profil -->
+                <li class="nav-item">
+                    <a href="#profil" class="nav-link">
+                        <i class="fas fa-user-circle"></i> Profil <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown">
+                        <div class="dropdown-grid">
+                            <a href="/profil-saya" class="dropdown-item">
+                                <i class="fas fa-id-badge"></i> Profil Saya
+                            </a>
+                            <a href="/cart" class="dropdown-item">
+                                <i class="fas fa-shopping-cart"></i> Cart
+                            </a>
+                            <a href="/riwayat-transaksi" class="dropdown-item">
+                                <i class="fas fa-history"></i> Riwayat Transaksi
+                            </a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Login / Logout -->
                 <li class="nav-item">
                     @guest
-                        {{-- Kalau belum login --}}
                         <a href="{{ route('login') }}" class="login-btn">
                             <i class="fas fa-sign-in-alt"></i> Login
                         </a>
                     @endguest
 
                     @auth
-                        {{-- Kalau sudah login --}}
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="btn btn-link nav-link" style="border: none; background: none;">
@@ -181,8 +193,6 @@
                         </form>
                     @endauth
                 </li>
-
-
             </ul>
 
             <div class="mobile-menu-btn">
@@ -193,8 +203,6 @@
         </div>
     </header>
 
-
-    </body>
 <script>
     const mobileBtn = document.querySelector('.mobile-menu-btn');
     const navMenu = document.querySelector('.nav-menu');
@@ -203,51 +211,55 @@
     mobileBtn.addEventListener('click', function () {
         this.classList.toggle('active');
         navMenu.classList.toggle('active');
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
     });
 
     // toggle dropdown di mobile
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function (e) {
-        if (window.innerWidth <= 768) {
-            const dropdown = this.nextElementSibling;
-            if (dropdown && dropdown.classList.contains('dropdown')) {
-            e.preventDefault();        // cegah scroll ke atas
-            e.stopPropagation();       // cegah klik sampai ke document
-            dropdown.classList.toggle('active');
+            if (window.innerWidth <= 768) {
+                const dropdown = this.nextElementSibling;
+                if (dropdown && dropdown.classList.contains('dropdown')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropdown.classList.toggle('active');
+                }
             }
-        }
         });
     });
 
     // tutup mobile menu setelah klik dropdown-item
     document.querySelectorAll('.dropdown-item').forEach(link => {
         link.addEventListener('click', () => {
-        mobileBtn.classList.remove('active');
-        navMenu.classList.remove('active');
-        document.querySelectorAll('.dropdown').forEach(dropdown => {
-            dropdown.classList.remove('active');
-        });
+            mobileBtn.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = '';
+            document.querySelectorAll('.dropdown').forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
         });
     });
 
     // tutup dropdown kalau klik di luar nav-menu pada mobile
     document.addEventListener('click', function (e) {
         if (window.innerWidth <= 768 && !navMenu.contains(e.target)) {
-        document.querySelectorAll('.dropdown').forEach(dropdown => {
-            dropdown.classList.remove('active');
-        });
+            document.querySelectorAll('.dropdown').forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
         }
     });
 
     // handle resize
     window.addEventListener('resize', function () {
         if (window.innerWidth > 768) {
-        mobileBtn.classList.remove('active');
-        navMenu.classList.remove('active');
-        document.querySelectorAll('.dropdown').forEach(dropdown => {
-            dropdown.classList.remove('active');
-        });
+            mobileBtn.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = '';
+            document.querySelectorAll('.dropdown').forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
         }
     });
-    </script>
+</script>
+</body>
 </html>
