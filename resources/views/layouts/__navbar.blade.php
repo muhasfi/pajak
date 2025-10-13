@@ -82,7 +82,7 @@
                                     <i class="fas fa-users"></i> Seminar Offline
                                 </a>
                                 <a href="/in-house-training" class="dropdown-item">
-                                    <i class="fas fa-building"></i> In house Training
+                                    <i class="fas fa-building"></i> awdawIn house Training
                                 </a>
                             </div>
                         </div>
