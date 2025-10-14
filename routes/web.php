@@ -16,6 +16,7 @@ use App\Http\Controllers\LitigasiController;
 use App\Http\Controllers\PajakController;
 use App\Http\Controllers\PelatihanController;
 use App\Http\Controllers\TrainingController;
+use App\Http\Controllers\TransferController;
 use App\Http\Controllers\WebinarController;
 
 /*
@@ -76,15 +77,17 @@ Route::get('/brevetAB', [BrevetABController::class, 'index'])->name('catalog.ind
 Route::get('/brevet-c', [BrevetCController::class, 'index'])->name('catalog.index');
 Route::get('/seminar', [ItemSeminarController::class, 'index'])->name('catalog.index');
 Route::get('/pelatihan', [App\Http\Controllers\PelatihanController::class, 'index'])->name('pelatihan');
+
 // Route::get('/layanan-pt', [LayananPembuatanPtController::class, 'index'])->name('layanan.index');
+
 Route::get('/jasa-akuntansi', [AccountingServiceController::class, 'index'])->name('catalog.index');
 Route::get('/jasa-perpajakan', [PajakController::class, 'index'])->name('pajak.index');
 Route::get('/litigasi', [LitigasiController::class, 'index'])->name('pajak.index');
 Route::get('/audit', [AuditController::class, 'index'])->name('audit.index');
-
+Route::get('/transfer-pricing', [TransferController::class, 'index'])->name('transfer.index');
 // Route::view('/audit', 'customer.layanan.audit')->name('audit');
 // Route::view('/litigasi', 'customer.layanan.litigasi')->name('audit');
-Route::view('/transfer-pricing', 'customer.layanan.transfer')->name('audit');
+// Route::view('/transfer-pricing', 'customer.layanan.transfer')->name('audit');
 // Route::get('/pelatihan', [CatalogController::class, 'index'])->name('catalog.index');
 Route::view('/kontak', 'kontak')->name('kontak');
 require __DIR__.'/auth.php';

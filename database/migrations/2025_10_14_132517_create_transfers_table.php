@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up()
 {
-    Schema::create('detail_layanans', function (Blueprint $table) {
+    Schema::create('transfers', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('layanan_pembuatan_pt_id')->constrained()->onDelete('cascade');
-        $table->string('nama_langkah');
-        $table->text('keterangan')->nullable();
-        $table->integer('estimasi_hari');
+        $table->string('judul');
+        $table->decimal('harga', 10, 2); // tipe data decimal untuk harga
         $table->timestamps();
     });
 }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detail_layanans');
+        Schema::dropIfExists('transfers');
     }
 };

@@ -117,7 +117,7 @@
                             </a>
                             <ul class="submenu">
                                 <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
-                                    <a href="/admin/brevetab" class='sidebar-link'>
+                                    <a href="/admin/layanan-pt" class='sidebar-link'>
                                         <i class="bi bi-journal-medical"></i> <!-- Ikon bimbel/siswa -->
                                         <span>Layanan Pt</span>
                                     </a>
@@ -148,7 +148,7 @@
                                     </a>
                                 </li>
                                 <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
-                                    <a href="/admin/audits" class='sidebar-link'>
+                                    <a href="/admin/transfers" class='sidebar-link'>
                                         <i class="bi bi-file-earmark-bar-graph-fill"></i> <!-- Ikon bimbel/siswa -->
                                         <span>Transfer Pricing</span>
                                     </a>

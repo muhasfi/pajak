@@ -9,13 +9,12 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('layanan_pembuatan_pts', function (Blueprint $table) {
+        Schema::create('layanan_pt', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->text('deskripsi');
-            $table->decimal('harga', 12, 2); // 12 digit total, 2 di belakang koma
+            $table->decimal('harga', 10, 2);
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('layanan_pembuatan_pts');
+        Schema::dropIfExists('layanan_pt');
     }
 };

@@ -1,90 +1,98 @@
 @extends('admin.layouts.master')
-
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="mb-0">
-                    <i class="fas fa-edit me-2"></i>Edit Layanan
-                </h4>
-            </div>
-            <div class="card-body">
-                <form action="{{ route('layanan-pt.update', ['layanan_pt' => $layanan_pt->id]) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    
-                    <div class="mb-3">
-                        <label for="judul" class="form-label">Judul Layanan <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control @error('judul') is-invalid @enderror" 
-                               id="judul" name="judul" 
-                               value="{{ old('judul', $layanan_pt->judul) }}" required>
-                        @error('judul')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="deskripsi" class="form-label">Deskripsi <span class="text-danger">*</span></label>
-                        <textarea class="form-control @error('deskripsi') is-invalid @enderror" 
-                                  id="deskripsi" name="deskripsi" rows="4" required>{{ old('deskripsi', $layanan_pt->deskripsi) }}</textarea>
-                        @error('deskripsi')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="harga" class="form-label">Harga (Rp) <span class="text-danger">*</span></label>
-                        <input type="number" class="form-control @error('harga') is-invalid @enderror" 
-                               id="harga" name="harga" 
-                               value="{{ old('harga', $layanan_pt->harga) }}" 
-                               min="0" step="1000" required>
-                        @error('harga')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <!-- Detail Layanan Existing -->
-                    @if($layanan_pt->detailLayanans->count() > 0)
-                    <div class="mb-4">
-                        <label class="form-label">Detail Langkah-langkah</label>
-                        <div class="list-group">
-                            @foreach($layanan_pt->detailLayanans as $detail)
-                            <div class="list-group-item d-flex justify-content-between align-items-center">
-                                <div>
-                                    <strong>{{ $detail->nama_langkah }}</strong>
-                                    <br>
-                                    <small class="text-muted">{{ $detail->keterangan }}</small>
-                                    <br>
-                                    <small class="text-info">Estimasi: {{ $detail->estimasi_hari }} hari</small>
-                                </div>
-                                <form action="{{ route('detail-layanan.destroy', $detail->id) }}" 
-                                      method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-outline-danger"
-                                            onclick="return confirm('Hapus langkah ini?')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
-                    @endif
-
-                    <div class="d-flex justify-content-between">
-                        <a href="{{ route('layanan-pt.show', $layanan_pt->id) }}" 
-                           class="btn btn-secondary">
-                            <i class="fas fa-times me-1"></i>Batal
-                        </a>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save me-1"></i>Update Layanan
-                        </button>
-                    </div>
-                </form>
-            </div>
+<div class="row">
+    <div class="col-lg-12 margin-tb">
+        <div class="pull-left">
+            <h2>{{ isset($layananPt) ? 'Edit' : 'Tambah' }} Layanan</h2>
+        </div>
+        <div class="pull-right">
+            <a class="btn btn-secondary" href="{{ route('layanan-pt.index') }}">Kembali</a>
         </div>
     </div>
 </div>
+
+@if($errors->any())
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> Terdapat masalah dengan inputan Anda.<br><br>
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+<form action="{{ isset($layananPt) ? route('layanan-pt.update', $layananPt->id) : route('layanan-pt.store') }}" method="POST">
+    @csrf
+    @if(isset($layananPt))
+        @method('PUT')
+    @endif
+    
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Judul:</strong>
+                <input type="text" name="judul" class="form-control" placeholder="Judul Layanan" value="{{ old('judul', $layananPt->judul ?? '') }}">
+            </div>
+        </div>
+        
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Harga:</strong>
+                <input type="number" name="harga" class="form-control" placeholder="Harga" value="{{ old('harga', $layananPt->harga ?? '') }}">
+            </div>
+        </div>
+        
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Deskripsi:</strong>
+                <textarea class="form-control" style="height:150px" name="deskripsi" placeholder="Deskripsi Layanan">{{ old('deskripsi', $layananPt->detail->deskripsi ?? '') }}</textarea>
+            </div>
+        </div>
+        
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Benefit:</strong>
+                <div id="benefit-container">
+                    @php
+                        $benefits = old('benefit', $layananPt->detail->benefit ?? ['']);
+                    @endphp
+                    @foreach($benefits as $index => $benefit)
+                        <div class="input-group mb-2 benefit-item">
+                            <input type="text" name="benefit[]" class="form-control" placeholder="Benefit {{ $index + 1 }}" value="{{ $benefit }}">
+                            @if($index > 0)
+                                <button type="button" class="btn btn-outline-danger remove-benefit">Hapus</button>
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+                <button type="button" class="btn btn-outline-primary mt-2" id="add-benefit">Tambah Benefit</button>
+            </div>
+        </div>
+        
+        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</form>
+
+<script>
+document.getElementById('add-benefit').addEventListener('click', function() {
+    const container = document.getElementById('benefit-container');
+    const index = container.children.length;
+    const div = document.createElement('div');
+    div.className = 'input-group mb-2 benefit-item';
+    div.innerHTML = `
+        <input type="text" name="benefit[]" class="form-control" placeholder="Benefit ${index + 1}">
+        <button type="button" class="btn btn-outline-danger remove-benefit">Hapus</button>
+    `;
+    container.appendChild(div);
+});
+
+document.addEventListener('click', function(e) {
+    if(e.target && e.target.classList.contains('remove-benefit')) {
+        e.target.closest('.benefit-item').remove();
+    }
+});
+</script>
 @endsection

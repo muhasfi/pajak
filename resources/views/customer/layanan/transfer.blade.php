@@ -57,24 +57,6 @@
                     </div>
                 </div>
             </div>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number">200+</span>
-                    <span class="stat-label">Dokumen Tersusun</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">100%</span>
-                    <span class="stat-label">Compliance Rate</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">15+</span>
-                    <span class="stat-label">Tahun Pengalaman</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">50+</span>
-                    <span class="stat-label">Klien Multinasional</span>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -88,95 +70,43 @@
 
             <div class="services-grid">
                 <!-- Service 1 -->
+
                 <div class="service-card">
-                    <div class="card-header">
-                        <div class="service-icon">
-                            <i class="fas fa-file-alt"></i>
+                    @foreach($transfers as $transfer)
+                    <div class="service-card {{ $loop->first ? 'featured' : '' }}">
+                        @if($loop->first)
+                        <div class="card-badge">Populer</div>
+                        @endif
+                        <div class="card-header pajak">
+                            <div class="service-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <h3>{{ $transfer->judul }}</h3>
                         </div>
-                        <h3>Master File</h3>
+                        <div class="card-body">
+                            <p>{{ $transfer->details->first()->deskripsi ?? '-' }}</p>
+                            <ul class="feature-list">
+                                @foreach(json_decode($transfer->details->first()->benefit ?? '[]') as $item)
+                                    <li>{{ $item }}</li>
+                                    @endforeach</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <div class="price-section">
+                                <span class="price">Rp {{ number_format($transfer->harga, 0, ',', '.') }}</span>
+                            </div>
+                            <a href="#" class="btn btn-primary">
+                                <span>Mulai Layanan</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <a href="/kontak" class="btn btn-outline">
+                                <span>Konsultasi</span>
+                            </a>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <p>Dokumentasi global yang menggambarkan keseluruhan grup usaha secara komprehensif.</p>
-                        <ul class="feature-list">
-                            <li>Struktur organisasi grup</li>
-                            <li>Deskripsi bisnis global</li>
-                            <li>Strategi transfer pricing</li>
-                            <li>Analisis kontribusi nilai</li>
-                            <li>Kebijakan intellectual property</li>
-                            <li>Laporan keuangan konsolidasi</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Detail Layanan</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Konsultasi</span>
-                        </a>
-                    </div>
+                    @endforeach
                 </div>
 
-                <!-- Service 2 -->
-                <div class="service-card featured">
-                    <div class="card-badge">Wajib</div>
-                    <div class="card-header">
-                        <div class="service-icon">
-                            <i class="fas fa-map-marked-alt"></i>
-                        </div>
-                        <h3>Local File</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Dokumentasi spesifik untuk setiap yurisdiksi dengan analisis transaksi terkait pihak berelasi.</p>
-                        <ul class="feature-list">
-                            <li>Analisis komparabilitas</li>
-                            <li>Pemilihan metode transfer pricing</li>
-                            <li>Penetapan rentang kewajaran</li>
-                            <li>Dokumentasi transaksi spesifik</li>
-                            <li>Analisis ekonomi dan finansial</li>
-                            <li>Kesesuaian dengan regulasi lokal</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Detail Layanan</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Konsultasi</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Service 3 -->
-                <div class="service-card">
-                    <div class="card-header">
-                        <div class="service-icon">
-                            <i class="fas fa-globe-americas"></i>
-                        </div>
-                        <h3>Country-by-Country Report</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Pelaporan informasi agregat mengenai alokasi pendapatan, laba, dan pajak per yurisdiksi.</p>
-                        <ul class="feature-list">
-                            <li>Pendapatan per yurisdiksi</li>
-                            <li>Laba sebelum pajak</li>
-                            <li>Pajak dibayar dan diperhitungkan</li>
-                            <li>Jumlah karyawan</li>
-                            <li>Modal dan retained earnings</li>
-                            <li>Identitas entitas konstituen</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Detail Layanan</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Konsultasi</span>
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -235,81 +165,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Methodology Section -->
-    <div class="methodology-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Metodologi Transfer Pricing</h2>
-                <p class="section-subtitle">Pendekatan komprehensif berdasarkan OECD Transfer Pricing Guidelines</p>
-            </div>
-            <div class="methodology-steps">
-                <div class="methodology-step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h4>Analisis Transaksi</h4>
-                        <p>Identifikasi dan karakterisasi transaksi dengan pihak berelasi</p>
-                        <ul>
-                            <li>Analisis kontrak dan perjanjian</li>
-                            <li>Pemetaan transaksi berelasi</li>
-                            <li>Karakterisasi fungsi dan risiko</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="methodology-step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h4>Analisis Komparabilitas</h4>
-                        <p>Pencarian dan analisis perusahaan pembanding independen</p>
-                        <ul>
-                            <li>Pencarian database komparabel</li>
-                            <li>Analisis kriteria komparabilitas</li>
-                            <li>Seleksi perusahaan pembanding</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="methodology-step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h4>Pemilihan Metode</h4>
-                        <p>Seleksi metode transfer pricing yang paling sesuai</p>
-                        <ul>
-                            <li>Comparable Uncontrolled Price (CUP)</li>
-                            <li>Resale Price Method</li>
-                            <li>Cost Plus Method</li>
-                            <li>Transactional Net Margin Method (TNMM)</li>
-                            <li>Profit Split Method</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="methodology-step">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h4>Penetapan Harga Wajar</h4>
-                        <p>Penetapan rentang harga wajar berdasarkan analisis</p>
-                        <ul>
-                            <li>Perhitungan rentang kewajaran</li>
-                            <li>Analisis titik tengah</li>
-                            <li>Kesesuaian dengan arm's length principle</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="methodology-step">
-                    <div class="step-number">5</div>
-                    <div class="step-content">
-                        <h4>Dokumentasi & Compliance</h4>
-                        <p>Penyusunan dokumentasi lengkap untuk kepatuhan</p>
-                        <ul>
-                            <li>Penyusunan master file</li>
-                            <li>Penyusunan local file</li>
-                            <li>Pelaporan Country-by-Country</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Industry Expertise -->
     <div class="industry-section">
         <div class="container">
@@ -370,106 +225,7 @@
         </div>
     </div>
 
-    <!-- Case Studies -->
-    <div class="case-studies-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Studi Kasus Berhasil</h2>
-                <p class="section-subtitle">Bukti keberhasilan dalam menangani kompleksitas transfer pricing</p>
-            </div>
-            <div class="case-studies-grid">
-                <div class="case-study-card">
-                    <div class="case-header">
-                        <h4>Perusahaan Teknologi Multinasional</h4>
-                        <span class="case-year">2023</span>
-                    </div>
-                    <div class="case-body">
-                        <p class="case-description">Penyusunan dokumentasi untuk R&D cost sharing arrangement senilai USD 50 juta dengan struktur IP holding yang kompleks.</p>
-                        <div class="case-details">
-                            <div class="case-detail">
-                                <span class="label">Nilai Transaksi</span>
-                                <span class="value">USD 50 Juta</span>
-                            </div>
-                            <div class="case-detail">
-                                <span class="label">Yurisdiksi</span>
-                                <span class="value">5 Negara</span>
-                            </div>
-                            <div class="case-detail">
-                                <span class="label">Durasi</span>
-                                <span class="value">3 Bulan</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-study-card">
-                    <div class="case-header">
-                        <h4>Grup Manufaktur Otomotif</h4>
-                        <span class="case-year">2023</span>
-                    </div>
-                    <div class="case-body">
-                        <p class="case-description">Restrukturisasi transfer pricing policy untuk supply chain manufacturing dengan penghematan pajak 15%.</p>
-                        <div class="case-details">
-                            <div class="case-detail">
-                                <span class="label">Nilai Transaksi</span>
-                                <span class="value">Rp 200 Miliar</span>
-                            </div>
-                            <div class="case-detail">
-                                <span class="label">Yurisdiksi</span>
-                                <span class="value">ASEAN</span>
-                            </div>
-                            <div class="case-detail">
-                                <span class="label">Durasi</span>
-                                <span class="value">4 Bulan</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-study-card">
-                    <div class="case-header">
-                        <h4>Perusahaan Farmasi Global</h4>
-                        <span class="case-year">2024</span>
-                    </div>
-                    <div class="case-body">
-                        <p class="case-description">Pertahanan succesful dalam tax audit untuk licensing agreement dengan nilai royalty USD 25 juta per tahun.</p>
-                        <div class="case-details">
-                            <div class="case-detail">
-                                <span class="label">Nilai Transaksi</span>
-                                <span class="value">USD 25 Juta/tahun</span>
-                            </div>
-                            <div class="case-detail">
-                                <span class="label">Yurisdiksi</span>
-                                <span class="value">Global</span>
-                            </div>
-                            <div class="case-detail">
-                                <span class="label">Durasi</span>
-                                <span class="value">6 Bulan</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- CTA Section -->
-    <div class="cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h3>Siap Memenuhi Kewajiban Transfer Pricing Perusahaan Anda?</h3>
-                <p>Konsultasikan dengan ahli transfer pricing kami dan dapatkan dokumentasi yang robust untuk meminimalkan risiko perpajakan</p>
-                <div class="cta-buttons">
-                    <a href="/kontak" class="btn btn-light">
-                        <span>Konsultasi Ahli</span>
-                        <i class="fas fa-calendar-check"></i>
-                    </a>
-                    <a href="tel:+628123456789" class="btn btn-outline-light">
-                        <span>Hubungi Spesialis</span>
-                        <i class="fas fa-phone"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 </section>
 
 <style>
