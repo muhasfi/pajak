@@ -114,7 +114,7 @@
                     <div class="dropdown">
                         <div class="dropdown-grid two-columns">
                             <div class="dropdown-column">
-                                <a href="/corporate-services" class="dropdown-item">
+                                <a href="/layanan-pt" class="dropdown-item">
                                     <i class="fas fa-building"></i> Pembuatan PT, NIB, & NPWP
                                 </a>
                                 <a href="/jasa-akuntansi" class="dropdown-item">

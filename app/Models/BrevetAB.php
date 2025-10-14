@@ -12,19 +12,22 @@ class BrevetAB extends Model
 
     protected $table = 'brevet_a_b';
     
-    protected $fillable  = [
+    protected $fillable = [
         'gambar',
         'judul',
         'deskripsi',
         'hari',
-        // 'tanggal_mulai' => 'datetime',
-        // 'tanggal_selesai' => 'datetime',
+        'tanggal_mulai',
+        'tanggal_selesai',
         'harga'
     ];
+
     protected $casts = [
+        'deskripsi' => 'array',
         'tanggal_mulai' => 'date',
         'tanggal_selesai' => 'date',
     ];
+
     public function detail()
     {
         return $this->hasOne(DetailBrevetab::class, 'brevetab_id');

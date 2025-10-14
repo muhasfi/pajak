@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AccountingServiceController;
 use App\Http\Controllers\Admin\ItemBimbelController;
 use App\Http\Controllers\Admin\ItemLayananController;
+use App\Http\Controllers\AuditController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BimbelController;
 use App\Http\Controllers\BookController;
@@ -9,8 +11,12 @@ use App\Http\Controllers\BrevetABController;
 use App\Http\Controllers\BrevetCController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\ItemSeminarController;
+use App\Http\Controllers\LayananPembuatanPtController;
+use App\Http\Controllers\LitigasiController;
+use App\Http\Controllers\PajakController;
 use App\Http\Controllers\PelatihanController;
 use App\Http\Controllers\TrainingController;
+use App\Http\Controllers\WebinarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,7 +67,8 @@ Route::prefix('bimbel')->name('customer.')->group(function () {
     Route::get('/', [ItemBimbelController::class, 'index'])->name('item_bimbel.index');
     Route::get('/{item_bimbel}', [ItemBimbelController::class, 'show'])->name('item_bimbel.show');
 });
-Route::get('/webinar', [CatalogController::class, 'index'])->name('catalog.index');
+Route::get('/webinar', [WebinarController::class, 'index'])->name('webinar');
+Route::view('/artikel', 'customer.artikel.index')->name('artikel.saya');
 // Route::get('/', [CatalogController::class, 'index'])->name('home');
 Route::get('/in-house-training', [TrainingController::class, 'index'])->name('training.index');
 Route::get('/in-house-training/{id}', [TrainingController::class, 'show'])->name('training.show');
@@ -69,6 +76,16 @@ Route::get('/brevetAB', [BrevetABController::class, 'index'])->name('catalog.ind
 Route::get('/brevet-c', [BrevetCController::class, 'index'])->name('catalog.index');
 Route::get('/seminar', [ItemSeminarController::class, 'index'])->name('catalog.index');
 Route::get('/pelatihan', [App\Http\Controllers\PelatihanController::class, 'index'])->name('pelatihan');
+// Route::get('/layanan-pt', [LayananPembuatanPtController::class, 'index'])->name('layanan.index');
+Route::get('/jasa-akuntansi', [AccountingServiceController::class, 'index'])->name('catalog.index');
+Route::get('/jasa-perpajakan', [PajakController::class, 'index'])->name('pajak.index');
+Route::get('/litigasi', [LitigasiController::class, 'index'])->name('pajak.index');
+Route::get('/audit', [AuditController::class, 'index'])->name('audit.index');
+
+// Route::view('/audit', 'customer.layanan.audit')->name('audit');
+// Route::view('/litigasi', 'customer.layanan.litigasi')->name('audit');
+Route::view('/transfer-pricing', 'customer.layanan.transfer')->name('audit');
+// Route::get('/pelatihan', [CatalogController::class, 'index'])->name('catalog.index');
 Route::view('/kontak', 'kontak')->name('kontak');
 require __DIR__.'/auth.php';
 

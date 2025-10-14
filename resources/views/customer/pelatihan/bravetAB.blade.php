@@ -1,794 +1,1610 @@
 @extends('layouts.master')
 
-@section('title', 'Catalog Seminar & Workshop')
+@section('title', 'Pelatihan Brevet A & B')
 
-@section('style')
+@section('content')
+<section class="brevet-training-service">
+    <!-- Hero Section -->
+    <div class="modern-hero">
+        <div class="hero-background">
+            <div class="hero-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="title-line">Pelatihan</span>
+                        <span class="title-line highlight">Brevet A & B</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Sertifikasi kompetensi perpajakan tingkat <span class="text-highlight">A</span> dan 
+                        <span class="text-highlight">B</span> yang diakui secara nasional untuk 
+                        <span class="text-highlight">profesional pajak</span>
+                    </p>
+                    <p class="hero-description">
+                        Tingkatkan kompetensi perpajakan Anda dengan pelatihan brevet berstandar nasional. 
+                        Persiapkan karir di bidang perpajakan dengan kurikulum komprehensif dan pengajar berpengalaman.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#programs" class="btn btn-primary">
+                            <span>Lihat Program</span>
+                            <i class="fas fa-arrow-down"></i>
+                        </a>
+                        <a href="#pricing" class="btn btn-outline-light">
+                            <span>Daftar Sekarang</span>
+                            <i class="fas fa-user-graduate"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="certificate-preview">
+                        <div class="certificate-window">
+                            <div class="certificate-header">
+                                <div class="certificate-controls">
+                                    <span class="control red"></span>
+                                    <span class="control yellow"></span>
+                                    <span class="control green"></span>
+                                </div>
+                                <div class="certificate-title">Sertifikat Brevet</div>
+                            </div>
+                            <div class="certificate-content">
+                                <div class="certificate-badge">
+                                    <i class="fas fa-award"></i>
+                                    <span>BREVET A&B</span>
+                                </div>
+                                <div class="certificate-info">
+                                    <h4>SERTIFIKAT KOMPETENSI</h4>
+                                    <p>Diakui oleh Direktorat Jenderal Pajak</p>
+                                    <div class="certificate-details">
+                                        <div class="detail-item">
+                                            <span>Tingkat</span>
+                                            <strong>A & B</strong>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span>Masa Berlaku</span>
+                                            <strong>5 Tahun</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Programs Section -->
+    <div id="programs" class="programs-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Program Pelatihan Brevet</h2>
+                <p class="section-subtitle">Pilih program yang sesuai dengan kebutuhan dan level kompetensi Anda</p>
+            </div>
+            <div class="programs-grid">
+                <!-- Brevet A -->
+            <!-- resources/views/brevetab/index.blade.php -->
+            @forelse($brevetabs as $brevetab)
+<div class="program-card">
+    {{-- <div class="program-badge">{{ $brevet->level_kelas }}</div> <!-- Contoh: "Level Dasar" --> --}}
+    <div class="program-header">
+        <h3>{{ $brevetab->judul }}</h3> <!-- Contoh: "Brevet A" -->
+        <div class="program-level">
+            <span class="level">{{ $brevetab->detail->level }}</span> <!-- Contoh: "Pemula" -->
+            <span class="duration">{{ $brevetab->tanggal_mulai->format('d M Y') }} - {{ $brevetab->tanggal_selesai->format('d M Y') }}</span> <!-- Contoh: "6 Minggu" -->
+        </div>
+    </div>
+    <div class="program-body"> 
+        <h4>Kurikulum {{ $brevetab->judul }}</h4>
+        <ul class="curriculum-list">
+            <!-- Asumsikan Anda memiliki kolom 'kurikulum' yang menyimpan data JSON -->
+            @if(isset($ $brevetab->judul))
+                @foreach(json_decode($ $brevetab->judul) as $item)
+                    <li><i class="fas fa-check"></i> {{ $item }}</li>
+                @endforeach
+            @endif
+        </ul>
+        {{-- <div class="program-features">
+            <div class="feature">
+                <i class="fas fa-users"></i>
+                <span>{{ $ $brevetab->tipe_kelas }}</span> <!-- Contoh: "Kelas Online & Offline" -->
+            </div>
+            <!-- Tambahkan fitur lainnya serupa -->
+        </div> --}}
+    </div>
+    {{-- <div class="program-footer">
+        <div class="program-target">
+            <h5>Cocok Untuk:</h5>
+            <p>{{ $brevet->target_peserta }}</p> <!-- Contoh: "Mahasiswa, Fresh Graduate..." -->
+        </div>
+    </div> --}}
+</div>
+@endforeach
+
+                <!-- Brevet B -->
+                <div class="program-card featured">
+                    <div class="program-badge">Level Lanjutan</div>
+                    <div class="program-header">
+                        <h3>Brevet B</h3>
+                        <div class="program-level">
+                            <span class="level">Mahir</span>
+                            <span class="duration">8 Minggu</span>
+                        </div>
+                    </div>
+                    <div class="program-body">
+                        <h4>Kurikulum Brevet B</h4>
+                        <ul class="curriculum-list">
+                            <li><i class="fas fa-check"></i> Semua Materi Brevet A</li>
+                            <li><i class="fas fa-check"></i> PPh Badan</li>
+                            <li><i class="fas fa-check"></i> PPN Komprehensif</li>
+                            <li><i class="fas fa-check"></i> Akuntansi Pajak</li>
+                            <li><i class="fas fa-check"></i> Tax Planning</li>
+                            <li><i class="fas fa-check"></i> Pemeriksaan Pajak</li>
+                            <li><i class="fas fa-check"></i> Keberatan & Banding</li>
+                        </ul>
+                        <div class="program-features">
+                            <div class="feature">
+                                <i class="fas fa-users"></i>
+                                <span>Kelas Intensif</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-book"></i>
+                                <span>Case Study</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <span>Konsultan Pajak</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="program-footer">
+                        <div class="program-target">
+                            <h5>Cocok Untuk:</h5>
+                            <p>Accountant, Finance Manager, Konsultan Pajak Pemula</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Brevet A+B Paket -->
+                <div class="program-card">
+                    <div class="program-badge">Paket Lengkap</div>
+                    <div class="program-header">
+                        <h3>Brevet A+B</h3>
+                        <div class="program-level">
+                            <span class="level">Komprehensif</span>
+                            <span class="duration">12 Minggu</span>
+                        </div>
+                    </div>
+                    <div class="program-body">
+                        <h4>Kurikulum Lengkap</h4>
+                        <ul class="curriculum-list">
+                            <li><i class="fas fa-check"></i> Semua Materi Brevet A & B</li>
+                            <li><i class="fas fa-check"></i> Workshop Praktis</li>
+                            <li><i class="fas fa-check"></i> Simulasi Ujian</li>
+                            <li><i class="fas fa-check"></i> Mentoring Personal</li>
+                            <li><i class="fas fa-check"></i> Sertifikat Ganda</li>
+                            <li><i class="fas fa-check"></i> Job Connector</li>
+                        </ul>
+                        <div class="program-features">
+                            <div class="feature">
+                                <i class="fas fa-users"></i>
+                                <span>Kelas Premium</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-book"></i>
+                                <span>Full Package</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <span>Expert Trainer</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="program-footer">
+                        <div class="program-target">
+                            <h5>Cocok Untuk:</h5>
+                            <p>Profesional yang ingin menguasai perpajakan secara menyeluruh</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Benefits Section -->
+    <div class="benefits-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Manfaat Mengikuti Brevet A & B</h2>
+                <p class="section-subtitle">Raih keunggulan kompetitif dalam karir perpajakan Anda</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h4>Sertifikat Resmi</h4>
+                    <p>Sertifikat brevet A & B yang diakui secara nasional oleh instansi perpajakan</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h4>Peluang Karir</h4>
+                    <p>Meningkatkan peluang kerja di bidang accounting, finance, dan konsultan pajak</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4>Kompetensi</h4>
+                    <p>Penguasaan teknis perpajakan yang komprehensif dan terupdate</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h4>Networking</h4>
+                    <p>Jaringan profesional dengan sesama peserta dan pengajar berpengalaman</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h4>Kredibilitas</h4>
+                    <p>Meningkatkan kredibilitas sebagai tenaga profesional di bidang perpajakan</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h4>Nilai Investasi</h4>
+                    <p>Investasi pendidikan yang memberikan return tinggi untuk karir jangka panjang</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FAQ Section -->
+    <div class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Pertanyaan Umum</h2>
+                <p class="section-subtitle">Informasi lengkap seputar pelatihan Brevet A & B</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Apa perbedaan Brevet A dan Brevet B?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Brevet A fokus pada dasar-dasar perpajakan untuk pemula, sedangkan Brevet B mencakup materi lanjutan seperti PPh Badan, PPN komprehensif, akuntansi pajak, dan tax planning. Brevet A cocok untuk mahasiswa dan fresh graduate, sementara Brevet B untuk profesional yang ingin mendalami perpajakan.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Berapa lama masa berlaku sertifikat brevet?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sertifikat Brevet A & B memiliki masa berlaku 5 tahun. Setelah itu, Anda dapat mengikuti penyegaran (refresher) untuk memperpanjang masa berlaku sertifikat. Penyegaran biasanya lebih singkat dan fokus pada update regulasi terbaru.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Apakah ada jaminan kelulusan?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Kami memberikan garansi mengulang gratis jika peserta tidak lulus dalam ujian sertifikasi pertama. Dengan catatan, peserta telah mengikuti minimal 80% sesi pelatihan dan menyelesaikan semua tugas yang diberikan.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Bagaimana sistem pembayaran dan cicilannya?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Kami menyediakan opsi pembayaran penuh dengan diskon atau cicilan 0% hingga 12 bulan. Untuk cicilan, dapat melalui kerja sama dengan bank atau finance company. DP minimal 30% untuk dapat mengikuti kelas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <style>
-    :root {
-        --primary: #4361ee;
-        --primary-light: #eef2ff;
-        --primary-dark: #3730a3;
-        --secondary: #8b5cf6;
-        --success: #10b981;
-        --warning: #f59e0b;
-        --danger: #ef4444;
-        --dark: #1f2937;
-        --light: #f8fafc;
-        --gray: #6b7280;
-        --gray-light: #f3f4f6;
-        --border: #e5e7eb;
-        --radius: 12px;
-        --radius-lg: 16px;
-        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
-        --transition: all 0.3s ease;
-    }
+:root {
+    --primary-gold: #d97706;
+    --secondary-gold: #b45309;
+    --dark-gold: #92400e;
+    --light-gold: #fef3c7;
+    --white: #ffffff;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-800: #1e293b;
+    --gray-600: #475569;
+    --gray-400: #94a3b8;
+    --success: #10b981;
+    --error: #ef4444;
+    --warning: #f59e0b;
+}
 
-    .catalog-hero {
-        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-        padding: 60px 0 80px;
-        color: white;
-        text-align: center;
-        margin-bottom: 40px;
-        position: relative;
-        overflow: hidden;
-    }
+.brevet-training-service {
+    min-height: 100vh;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
 
-    .catalog-hero::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 极 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
-        opacity: 0.5;
-    }
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
 
+/* =========================
+   MODERN HERO SECTION
+   ========================= */
+.modern-hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #92400e 0%, #d97706 50%, #f59e0b 100%);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.hero-shapes {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    animation: float 6s ease-in-out infinite;
+}
+
+.shape-1 {
+    width: 300px;
+    height: 300px;
+    top: 10%;
+    left: 5%;
+    animation-delay: 0s;
+}
+
+.shape-2 {
+    width: 200px;
+    height: 200px;
+    top: 60%;
+    right: 10%;
+    animation-delay: 2s;
+}
+
+.shape-3 {
+    width: 150px;
+    height: 150px;
+    bottom: 20%;
+    left: 20%;
+    animation-delay: 4s;
+}
+
+.shape-4 {
+    width: 100px;
+    height: 100px;
+    top: 20%;
+    right: 20%;
+    animation-delay: 1s;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    padding: 120px 0 80px;
+}
+
+.hero-text {
+    max-width: 600px;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+}
+
+.title-line {
+    display: block;
+}
+
+.title-line.highlight {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+}
+
+.text-highlight {
+    font-weight: 600;
+    color: #fef3c7;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    opacity: 0.8;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.certificate-preview {
+    perspective: 1000px;
+}
+
+.certificate-window {
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+    transform: rotateY(-5deg) rotateX(5deg);
+    transition: transform 0.3s ease;
+    border: 2px solid var(--light-gold);
+}
+
+.certificate-window:hover {
+    transform: rotateY(0) rotateX(0);
+}
+
+.certificate-header {
+    background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--light-gold);
+}
+
+.certificate-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.control {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.control.red { background: #ef4444; }
+.control.yellow { background: #f59e0b; }
+.control.green { background: #10b981; }
+
+.certificate-title {
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.certificate-content {
+    padding: 2rem;
+    text-align: center;
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+}
+
+.certificate-badge {
+    margin-bottom: 1.5rem;
+}
+
+.certificate-badge i {
+    font-size: 3rem;
+    color: var(--primary-gold);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.certificate-badge span {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--dark-gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.certificate-info h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--dark-gold);
+    margin-bottom: 0.5rem;
+}
+
+.certificate-info p {
+    color: var(--gray-600);
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.certificate-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.detail-item {
+    text-align: center;
+}
+
+.detail-item span {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--gray-600);
+    margin-bottom: 0.25rem;
+}
+
+.detail-item strong {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--dark-gold);
+    font-weight: 700;
+}
+
+.hero-stats {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding: 3rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-item {
+    text-align: center;
+    background: transparent;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: var(--white);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.8;
+    color: var(--white);
+}
+/* =========================
+   PROGRAMS SECTION
+   ========================= */
+.programs-section {
+    padding: 100px 0;
+    background: var(--gray-50);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--gray-800);
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--gray-600);
+}
+
+.programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.program-card {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    border: 1px solid #e2e8f0;
+}
+
+.program-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+.program-card.featured {
+    border: 2px solid var(--primary-gold);
+    transform: scale(1.05);
+}
+
+.program-card.featured:hover {
+    transform: scale(1.05) translateY(-10px);
+}
+
+.program-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--primary-gold);
+    color: var(--white);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.program-header {
+    padding: 2rem 2rem 1rem;
+    background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
+    color: var(--white);
+}
+
+.program-header h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--white);
+}
+
+.program-level {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.level {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.duration {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+}
+
+.program-body {
+    padding: 1.5rem 2rem;
+}
+
+.program-body h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--gray-800);
+}
+
+.curriculum-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+}
+
+.curriculum-list li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+    color: var(--gray-600);
+    font-size: 0.9rem;
+}
+
+.curriculum-list i {
+    margin-right: 10px;
+    margin-top: 3px;
+    color: var(--success);
+    flex-shrink: 0;
+}
+
+.program-features {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--gray-200);
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--gray-600);
+}
+
+.feature i {
+    color: var(--primary-gold);
+    width: 16px;
+}
+
+.program-footer {
+    padding: 1rem 2rem 2rem;
+    border-top: 1px solid var(--gray-200);
+}
+
+.program-target h5 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--gray-800);
+}
+
+.program-target p {
+    font-size: 0.85rem;
+    color: var(--gray-600);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* =========================
+   BENEFITS SECTION
+   ========================= */
+.benefits-section {
+    padding: 100px 0;
+    background: var(--white);
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.benefit-card {
+    background: var(--white);
+    padding: 2.5rem 2rem;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+    border: 1px solid #f1f5f9;
+}
+
+.benefit-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.benefit-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--light-gold), #fde68a);
+    color: var(--primary-gold);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto 1.5rem;
+}
+
+.benefit-card h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--gray-800);
+}
+
+.benefit-card p {
+    line-height: 1.6;
+    color: var(--gray-600);
+    margin: 0;
+}
+
+/* =========================
+   PRICING SECTION - BREVET
+   ========================= */
+.pricing-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto 4rem;
+}
+
+.training-card {
+    background-color: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    border: 1px solid #e2e8f0;
+}
+
+.training-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+.training-card.featured {
+    border: 2px solid var(--primary-gold);
+    transform: scale(1.05);
+}
+
+.training-card.featured:hover {
+    transform: scale(1.05) translateY(-10px);
+}
+
+.card-badge {
+    position: absolute;
+    top: 20px;
+    right: -35px;
+    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--secondary-gold) 100%);
+    color: var(--white);
+    padding: 8px 40px;
+    transform: rotate(45deg);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3);
+}
+
+/* Card header */
+.card-header {
+    padding: 30px;
+    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--secondary-gold) 100%);
+    color: var(--white);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    transform: rotate(30deg);
+}
+
+.card-header h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--white);
+    position: relative;
+    z-index: 1;
+}
+
+.price {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--white);
+    position: relative;
+    z-index: 1;
+}
+
+.starting-from {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 5px;
+}
+
+.amount {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.package-info {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    padding: 5px 15px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    display: inline-block;
+}
+
+/* Card body */
+.card-body {
+    padding: 30px;
+    color: var(--gray-800);
+    background: var(--white);
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.feature-list li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    color: var(--gray-600);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.feature-list i {
+    margin-right: 12px;
+    margin-top: 3px;
+    flex-shrink: 0;
+    width: 16px;
+    text-align: center;
+}
+
+.feature-list .fa-check {
+    color: var(--success);
+}
+
+.feature-list .fa-times {
+    color: var(--error);
+    opacity: 0.6;
+}
+
+/* Card footer */
+.card-footer {
+    padding: 0 30px 20px;
+    text-align: center;
+}
+
+.card-footer:first-of-type {
+    padding-bottom: 15px;
+}
+
+.btn-order {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--secondary-gold) 100%);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3);
+}
+
+.btn-order:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(217, 119, 6, 0.4);
+}
+
+.btn-outline-kk {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: transparent;
+    color: var(--primary-gold);
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary-gold);
+    font-size: 0.95rem;
+}
+
+.btn-outline-kk:hover {
+    background-color: var(--primary-gold);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(217, 119, 6, 0.2);
+}
+
+/* Additional Info Section */
+.pricing-info {
+    margin-top: 4rem;
+    padding-top: 4rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.info-item {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.info-item i {
+    font-size: 2.5rem;
+    color: var(--primary-gold);
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--light-gold) 0%, #fef3c7 100%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.info-item h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--gray-800);
+}
+
+.info-item p {
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* =========================
+   INSTRUCTORS SECTION
+   ========================= */
+.instructors-section {
+    padding: 100px 0;
+    background: var(--white);
+}
+
+.instructors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.instructor-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+    border: 1px solid #f1f5f9;
+}
+
+.instructor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.instructor-avatar {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, var(--light-gold), #fde68a);
+    color: var(--primary-gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    margin: 0 auto 1.5rem;
+}
+
+.instructor-info h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--gray-800);
+}
+
+.instructor-info span {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--primary-gold);
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.instructor-info p {
+    line-height: 1.6;
+    color: var(--gray-600);
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.instructor-expertise {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.expertise-tag {
+    background: var(--light-gold);
+    color: var(--primary-gold);
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* =========================
+   TESTIMONIALS SECTION
+   ========================= */
+.testimonials-section {
+    padding: 100px 0;
+    background: var(--gray-50);
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.testimonial-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+}
+
+.testimonial-content {
+    margin-bottom: 1.5rem;
+}
+
+.testimonial-content p {
+    line-height: 1.6;
+    color: var(--gray-600);
+    font-style: italic;
+    margin: 0;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.author-avatar {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-gold);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.author-info {
+    flex: 1;
+}
+
+.author-info h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem 0;
+    color: var(--gray-800);
+}
+
+.author-info span {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.author-badge {
+    background: var(--light-gold);
+    color: var(--primary-gold);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    display: inline-block;
+}
+
+/* =========================
+   FAQ SECTION
+   ========================= */
+.faq-section {
+    padding: 100px 0;
+    background: var(--white);
+}
+
+.faq-grid {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background: var(--white);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+}
+
+.faq-question {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.faq-question:hover {
+    background: var(--gray-50);
+}
+
+.faq-question h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin: 0;
+    flex: 1;
+}
+
+.faq-question i {
+    color: var(--primary-gold);
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    padding: 0 1.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+    padding: 0 1.5rem 1.5rem;
+    max-height: 500px;
+}
+
+.faq-answer p {
+    line-height: 1.6;
+    color: var(--gray-600);
+    margin: 0;
+}
+
+/* =========================
+   BUTTONS
+   ========================= */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.btn-primary {
+    color: var(--white);
+    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--secondary-gold) 100%);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(217, 119, 6, 0.3);
+}
+
+.btn-outline-light {
+    color: var(--white);
+    background: transparent;
+    border: 2px solid var(--white);
+}
+
+.btn-outline-light:hover {
+    color: var(--primary-gold);
+    background: var(--white);
+    transform: translateY(-2px);
+}
+
+.btn-light {
+    color: var(--gray-800);
+    background: var(--white);
+}
+
+.btn-light:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================
+   CTA SECTION
+   ========================= */
+.cta-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, var(--dark-gold) 0%, var(--primary-gold) 100%);
+    color: var(--white);
+    text-align: center;
+}
+
+.cta-content h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--white);
+}
+
+.cta-content p {
+    font-size: 1.2rem;
+    margin: 0 auto 2.5rem;
+    max-width: 600px;
+    opacity: 0.9;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* =========================
+   ANIMATIONS
+   ========================= */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+   ========================= */
+@media (max-width: 1024px) {
     .hero-content {
-        position: relative;
-        z-index: 1;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        text-align: center;
     }
 
     .hero-title {
-        font-size: 2.25rem;
-        font-weight: 700;
-        margin-bottom: 16px;
-        color: white;
+        font-size: 3rem;
+    }
+
+    .program-card.featured {
+        transform: none;
+    }
+
+    .program-card.featured:hover {
+        transform: translateY(-10px);
+    }
+
+    .training-card.featured {
+        transform: none;
+    }
+
+    .training-card.featured:hover {
+        transform: translateY(-10px);
+    }
+}
+
+@media (max-width: 768px) {
+    .modern-hero {
+        min-height: 90vh;
+    }
+
+    .hero-content {
+        padding: 100px 0 60px;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
     }
 
     .hero-subtitle {
-        font-size: 1.125rem;
-        font-weight: 400;
-        margin-bottom: 32px;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-        color: rgba(255, 255, 255, 0.9);
-    }
-
-    .search-box {
-        max-width: 500px;
-        margin: 0 auto;
-        position: relative;
-    }
-
-    .search-input {
-        width: 100%;
-        padding: 14px 50px 14px 20px;
-        border: none;
-        border-radius: 50px;
-        font-size: 16px;
-        outline: none;
-        box-shadow: var(--shadow-lg);
-        transition: var(--transition);
-        background: rgba(255, 255, 255, 0.95);
-    }
-
-    .search-input:focus {
-        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
-        background: white;
-    }
-
-    .search-btn {
-        position: absolute;
-        right: 6px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: var(--primary);
-        border: none;
-        border-radius: 50px;
-        padding: 8px 16px;
-        color: white;
-        cursor: pointer;
-        transition: var(--transition);
-    }
-
-    .search-btn:hover {
-        background: var(--primary-dark);
-    }
-
-    /* Filter Section */
-    .filter-section {
-        margin-bottom: 30px;
-        background: white;
-        padding: 20px;
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-        align-items: center;
-    }
-
-    .filter-group {
-        display: flex;
-        flex-direction: column;
-        min-width: 200px;
-    }
-
-    .filter-label {
-        font-size: 0.875rem;
-        font-weight: 500;
-        margin-bottom: 8px;
-        color: var(--gray);
-    }
-
-    .filter-select {
-        padding: 10px 16px;
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        font-size: 14px;
-        background: white;
-        cursor: pointer;
-        transition: var(--transition);
-        appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 16px center;
-        background-size: 16px;
-        padding-right: 40px;
-    }
-
-    .filter-select:focus {
-        outline: none;
-        border-color: var(--primary);
-        box-shadow: 0 0 0 3px var(--primary-light);
-    }
-
-    .filter-reset {
-        padding: 10px 16px;
-        background: var(--gray-light);
-        color: var(--gray);
-        border: none;
-        border-radius: 8px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: var(--transition);
-        margin-top: 28px;
-    }
-
-    .filter-reset:hover {
-        background: var(--border);
-        color: var(--dark);
-    }
-
-    /* Event Cards */
-    .events-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
-        margin-bottom: 50px;
-    }
-
-    .event-card {
-        background: white;
-        border-radius: var(--radius);
-        overflow: hidden;
-        transition: var(--transition);
-        box-shadow: var(--shadow);
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .event-card:hover {
-        transform: translateY(-5px);
-        box-shadow: var(--shadow-lg);
-    }
-
-    .event-image {
-        height: 160px;
-        background: linear-gradient(45deg, #4361ee, #8b5cf6);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .event-image-placeholder {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        color: white;
-        font-size: 2.5rem;
-        opacity: 0.8;
-    }
-
-    .event-badge {
-        position: absolute;
-        top: 12px;
-        right: 12px;
-        font-size: 0.7rem;
-        font-weight: 600;
-        padding: 4px 10px;
-        border-radius: 30px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .status-upcoming {
-        background: var(--success);
-        color: white;
-    }
-
-    .status-completed {
-        background: var(--gray);
-        color: white;
-    }
-
-    .status-ongoing {
-        background: var(--warning);
-        color: white;
-    }
-
-    .event-content {
-        padding: 20px;
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .event-type {
-        font-size: 0.75rem;
-        font-weight: 500;
-        padding: 4px 10px;
-        border-radius: 6px;
-        display: inline-block;
-        margin-bottom: 10px;
-    }
-
-    .type-seminar {
-        background: #dbeafe;
-        color: #1e40af;
-    }
-
-    .type-workshop {
-        background: #fef3c7;
-        color: #92400e;
-    }
-
-    .type-webinar {
-        background: #ecfdf5;
-        color: #065f46;
-    }
-
-    .event-title {
         font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
-        line-height: 1.4;
     }
 
-    .event-description {
-        color: var(--gray);
-        margin-bottom: 16px;
-        flex-grow: 1;
-        font-size: 0.9rem;
-        line-height: 1.5;
+    .hero-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
     }
 
-    .event-meta {
-        display: flex;
-        align-items: center;
-        margin-bottom: 16px;
-        padding: 10px;
-        background: var(--gray-light);
-        border-radius: 8px;
+    .stat-number {
+        font-size: 2rem;
     }
 
-    .event-date {
-        display: flex;
+    .section-title {
+        font-size: 2.2rem;
+    }
+
+    .programs-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pricing-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .instructors-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-content h3 {
+        font-size: 2rem;
+    }
+
+    .hero-actions {
+        justify-content: center;
+    }
+
+    .btn {
+        padding: 0.875rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .hero-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .certificate-window {
+        transform: none;
+    }
+
+    .cta-section {
+        padding: 80px 0;
+    }
+
+    .cta-content h3 {
+        font-size: 1.75rem;
+    }
+
+    .cta-buttons {
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        background: var(--primary);
-        color: white;
-        padding: 8px;
-        border-radius: 6px;
-        min-width: 50px;
-        margin-right: 12px;
     }
 
-    .event-day {
-        font-size: 1rem;
-        font-weight: 700;
-        line-height: 1;
+    .btn {
+        width: 100%;
+        max-width: 300px;
     }
 
-    .event-month {
-        font-size: 0.7rem;
-        font-weight: 500;
-        text-transform: uppercase;
-    }
-
-    .event-details {
-        flex-grow: 1;
-    }
-
-    .event-time, .event-location {
-        font-size: 0.8rem;
-        color: var(--gray);
-        margin-bottom: 4px;
-        display: flex;
-        align-items: center;
-    }
-
-    .event-time i, .event-location i {
-        margin-right: 6px;
+    .card-badge {
+        right: -30px;
+        padding: 6px 30px;
         font-size: 0.7rem;
     }
+}
 
-    .event-location {
-        margin-bottom: 0;
-    }
-
-    .event-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .event-price {
-        font-size: 1rem;
-        font-weight: 700;
-        color: var(--success);
-    }
-
-    .price-free {
-        color: var(--danger);
-    }
-
-    .event-action {
-        padding: 6px 16px;
-        background: var(--primary);
-        color: white;
-        border: none;
-        border-radius: 6px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: var(--transition);
-        font-size: 0.9rem;
-    }
-
-    .event-action:hover {
-        background: var(--primary-dark);
-    }
-
-    /* Pagination */
-    .pagination {
-        display: flex;
-        justify-content: center;
-        margin-top: 40px;
-    }
-
-    .page-item {
-        margin: 0 4px;
-    }
-
-    .page-link {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 36px;
-        height: 36px;
-        border-radius: 8px;
-        background: white;
-        color: var(--dark);
-        font-weight: 500;
-        text-decoration: none;
-        box-shadow: var(--shadow);
-        transition: var(--transition);
-        font-size: 0.9rem;
-    }
-
-    .page-link:hover {
-        background: var(--primary-light);
-        color: var(--primary);
-        text-decoration: none;
-    }
-
-    .page-item.active .page-link {
-        background: var(--primary);
-        color: white;
-    }
-
-    /* Newsletter */
-    .newsletter {
-        background: var(--light);
-        padding: 60px 0;
-        margin-top: 60px;
-        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-    }
-
-    .newsletter-content {
-        text-align: center;
-        max-width: 500px;
-        margin: 0 auto;
-    }
-
-    .newsletter-title {
-        font-size: 1.5rem;
-        font-weight: 600;
-        margin-bottom: 12px;
-    }
-
-    .newsletter-text {
-        color: var(--gray);
-        margin-bottom: 24px;
-        font-size: 0.95rem;
-    }
-
-    .newsletter-form {
-        display: flex;
-        max-width: 400px;
-        margin: 0 auto;
-    }
-
-    .newsletter-input {
-        flex-grow: 1;
-        padding: 10px 16px;
-        border: 1px solid var(--border);
-        border-radius: 8px 0 0 8px;
-        font-size: 14px;
-        outline: none;
-        transition: var(--transition);
-    }
-
-    .newsletter-input:focus {
-        border-color: var(--primary);
-    }
-
-    .newsletter-button {
-        padding: 10px 20px;
-        background: var(--primary);
-        color: white;
-        border: none;
-        border-radius: 0 8px 8px 0;
-        font-weight: 500;
-        cursor: pointer;
-        transition: var(--transition);
-        font-size: 0.9rem;
-    }
-
-    .newsletter-button:hover {
-        background: var(--primary-dark);
-    }
-
-    /* Empty State */
-    .empty-state {
-        text-align: center;
-        padding: 40px 20px;
-        background: white;
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        margin-bottom: 40px;
-    }
-
-    .empty-state i {
-        font-size: 3rem;
-        color: var(--gray-light);
-        margin-bottom: 16px;
-    }
-
-    .empty-state h3 {
-        font-size: 1.25rem;
-        color: var(--gray);
-        margin-bottom: 8px;
-    }
-
-    .empty-state p {
-        color: var(--gray);
-        margin-bottom: 20px;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-        .hero-title {
-            font-size: 1.75rem;
-        }
-        
-        .hero-subtitle {
-            font-size: 1rem;
-        }
-        
-        .events-grid {
-            grid-template-columns: 1fr;
-        }
-        
-        .newsletter-form {
-            flex-direction: column;
-        }
-        
-        .newsletter-input {
-            border-radius: 8px;
-            margin-bottom: 12px;
-        }
-        
-        .newsletter-button {
-            border-radius: 8px;
-        }
-        
-        .filter-section {
-            flex-direction: column;
-            align-items: stretch;
-        }
-        
-        .filter-group {
-            width: 100%;
-        }
-        
-        .filter-reset {
-            margin-top: 0;
-            align-self: flex-start;
-        }
-        
-        .catalog-hero {
-            padding: 40px 0 60px;
-        }
-    }
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
 </style>
-@endsection
 
-@section('content')
-<!-- Hero Section -->
-<section class="catalog-hero">
-    <div class="container">
-        <div class="hero-content">
-            <h1 class="hero-title">Catalog Pelatihan & Seminar</h1>
-            <p class="hero-subtitle">Tingkatkan expertise Anda dalam bidang perpajakan dan akuntansi bersama para ahli</p>
-            
-            <div class="search-box">
-                <form action="{{ route('catalog.index') }}" method="GET" id="searchForm">
-                    <input type="text" class="search-input" name="search" placeholder="Cari seminar, workshop, atau webinar..." 
-                           id="searchInput" value="{{ request('search') }}">
-                    <button type="submit" class="search-btn">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-
-<div class="container">
-    <!-- Filter Section -->
-    <section class="filter-section">
-        <form action="{{ route('catalog.index') }}" method="GET" id="filterForm">
-            <input type="hidden" name="search" value="{{ request('search') }}">
-{{--             
-            <div class="filter-group">
-                <label class="filter-label">Status Event</label>
-                <select class="filter-select" name="status" id="statusFilter">
-                    <option value="all" {{ request('status') == 'all' ? 'selected' : '' }}>Semua Status</option>
-                    <option value="upcoming" {{ request('status') == 'upcoming' ? 'selected' : '' }}>Akan Datang</option>
-                    <option value="ongoing" {{ request('status') == 'ongoing' ? 'selected' : '' }}>Sedang Berlangsung</option>
-                    <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Selesai</option>
-                </select>
-            </div> --}}
-            
-            {{-- <div class="filter-group">
-                <label class="filter-label">Jenis Event</label>
-                <select class="filter-select" name="type" id="typeFilter">
-                    <option value="all" {{ request('type') == 'all' ? 'selected' : '' }}>Semua Jenis</option>
-                    <option value="seminar" {{ request('type') == 'seminar' ? 'selected' : '' }}>Seminar</option>
-                    <option value="workshop" {{ request('type') == 'workshop' ? 'selected' : '' }}>Workshop</option>
-                    <option value="webinar" {{ request('type') == 'webinar' ? 'selected' : '' }}>Webinar</option>
-                </select>
-            </div> --}}
-            
-            {{-- <div class="filter-group">
-                <label class="filter-label">Urutkan</label>
-                <select class="filter-select" name="sort" id="sortFilter">
-                    <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Terbaru</option>
-                    <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Terlama</option>
-                    <option value="price-low" {{ request('sort') == 'price-low' ? 'selected' : '' }}>Harga Terendah</option>
-                    <option value="price-high" {{ request('sort') == 'price-high' ? 'selected' : '' }}>Harga Tertinggi</option>
-                </select>
-            </div> --}}
-            
-            {{-- <button type="button" class="filter-reset" id="resetFilters">Reset Filter</button> --}}
-        </form>
-    </section>
-    
-    <!-- Events Grid -->
-    <div class="events-grid" id="eventsContainer">
-        @forelse($brevetabs as $brevetab)
-        
-        <div class="event-card" data-status="{{ $brevetab->status }}" data-type="{{ $brevetab->type }}" 
-             data-date="{{ $brevetab->tanggal_mulai->format('Y-m-d') }}" 
-             data-price="{{ $brevetab->harga }}">
-            <div class="event-image">
-                @if($brevetab->gambar)
-                <img src="{{ asset('storage/' . $brevetab->gambar) }}" alt="{{ $brevetab->judul }}" 
-                     style="width: 100%; height: 100%; object-fit: cover;">
-                @else
-                <div class="event-image-placeholder">
-                    @if($webinar->type == 'seminar')
-                    <i class="fas fa-chart-line"></i>
-                    @elseif($webinar->type == 'workshop')
-                    <i class="fas fa-file-invoice-dollar"></i>
-                    @else
-                    <i class="fas fa-laptop"></i>
-                    @endif
-                </div>
-                @endif
-                
-                <span class="event-badge status-{{ $brevetab->status }}">
-                    @if($brevetab->status == 'upcoming')
-                    Akan Datang
-                    @elseif($brevetab->status == 'ongoing')
-                    Berlangsung
-                    @else
-                    Selesai
-                    @endif
-                </span>
-            </div>
-            
-            <div class="event-content">
-                <span class="event-type type-{{ $brevetab->type }}">
-                    @if($brevetab->type == 'seminar')
-                    Seminar
-                    @elseif($brevetab->type == 'workshop')
-                    Workshop
-                    @else
-                    Webinar
-                    @endif
-                </span>
-                
-                <h3 class="event-title">{{ $brevetab->judul }}</h3>
-                <p class="event-description">{{ Str::limit($brevetab->deskripsi, 120) }}</p>
-                
-                <div class="event-meta">
-                    <div class="event-date">
-                        <span class="event-day">{{ $brevetab->day }}</span>
-                        <span class="event-month">{{ $brevetab->month }}</span>
-                    </div>
-                    <div class="event-details">
-                        <div class="event-time">
-                            <i class="fas fa-clock"></i>
-                            @if($brevetab->waktu_mulai && $brevetab->waktu_selesai)
-                            {{ \Carbon\Carbon::parse($brevetab->waktu_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($brevetab->waktu_selesai)->format('H:i') }} WIB
-                            @else
-                            {{ $brevetab->tanggal_mulai->format('H:i') }} WIB
-                            @endif
-                        </div>
-                        <div class="event-location">
-                            <i class="fas @if($brevetab->type == 'brevetab') fa-globe @else fa-map-marker-alt @endif"></i>
-                            @if($brevetab->lokasi)
-                            {{ $brevetab->lokasi }}
-                            @else
-                            {{ $brevetab->type == 'webinar' ? 'Online' : 'Lokasi akan diinformasikan' }}
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="event-footer">
-                    @if($brevetab->harga == 0)
-                    <div class="event-price price-free">GRATIS</div>
-                    @else
-                    <div class="event-price">Rp {{ number_format($brevetab->harga, 0, ',', '.') }}</div>
-                    @endif
-                    
-                    @if($brevetab->status == 'upcoming')
-                    <button class="event-action">Daftar</button>
-                    @elseif($brevetab->status == 'ongoing')
-                    <button class="event-action" style="background: var(--warning);">Join</button>
-                    @else
-                    <button class="event-action" style="background: var(--gray);">Materi</button>
-                    @endif
-                </div>
-            </div>
-        </div>
-        @empty
-        <div class="empty-state" id="emptyState">
-            <i class="fas fa-search"></i>
-            <h3>Tidak ada event yang ditemukan</h3>
-            <p>Coba ubah filter atau kata kunci pencarian Anda</p>
-            <button class="filter-reset" id="resetFiltersEmpty">Reset Filter</button>
-        </div>
-        @endforelse
-    </div>
-    
-    <!-- Pagination -->
-    {{-- @if($brevetab->hasPages())
-    <div class="pagination">
-        {{ $brevetab->links('vendor.pagination.bootstrap-4') }}
-    </div>
-    @endif --}}
-</div>
-
-<!-- Newsletter Section -->
-<section class="newsletter">
-    <div class="container">
-        <div class="newsletter-content">
-            <h3 class="newsletter-title">Jangan Lewatkan Update Terbaru</h3>
-            <p class="newsletter-text">Dapatkan informasi seminar dan workshop terbaru langsung di inbox Anda</p>
-            
-            <form class="newsletter-form">
-                <input type="email" class="newsletter-input" placeholder="Masukkan email Anda">
-                <button type="submit" class="newsletter-button">Subscribe</button>
-            </form>
-        </div>
-    </div>
-</section>
-@endsection
-
-@section('script')
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const statusFilter = document.getElementById('statusFilter');
-        const typeFilter = document.getElementById('typeFilter');
-        const sortFilter = document.getElementById('sortFilter');
-        const searchInput = document.getElementById('searchInput');
-        const filterForm = document.getElementById('filterForm');
-        const searchForm = document.getElementById('searchForm');
+document.addEventListener('DOMContentLoaded', function() {
+    // FAQ functionality
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
         
-        // Auto-submit form when filters change
-        [statusFilter, typeFilter, sortFilter].forEach(filter => {
-            filter.addEventListener('change', function() {
-                filterForm.submit();
-            });
-        });
-        
-        // Auto-submit search form when typing (with debounce)
-        let searchTimeout;
-        searchInput.addEventListener('keyup', function() {
-            clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(() => {
-                searchForm.submit();
-            }, 500);
-        });
-        
-        // Reset filters
-        document.getElementById('resetFilters').addEventListener('click', function() {
-            window.location.href = "{{ route('catalog.index') }}";
-        });
-        
-        document.getElementById('resetFiltersEmpty').addEventListener('click', function() {
-            window.location.href = "{{ route('catalog.index') }}";
-        });
-        
-        // Event card click handlers
-        document.querySelectorAll('.event-action').forEach(button => {
-            button.addEventListener('click', function() {
-                const card = this.closest('.event-card');
-                const status = card.getAttribute('data-status');
-                const title = card.querySelector('.event-title').textContent;
-                
-                if (status === 'upcoming') {
-                    alert('Mendaftar untuk: ' + title);
-                    // Implement registration logic here
-                } else if (status === 'ongoing') {
-                    alert('Bergabung dengan: ' + title);
-                    // Implement join logic here
-                } else {
-                    alert('Mengakses materi: ' + title);
-                    // Implement material access logic here
+        question.addEventListener('click', () => {
+            // Close all other items
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
                 }
             });
+            
+            // Toggle current item
+            item.classList.toggle('active');
         });
     });
+});
 </script>
 @endsection

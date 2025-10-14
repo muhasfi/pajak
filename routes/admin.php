@@ -1,17 +1,25 @@
 <?php
 
+use App\Http\Controllers\Admin\AccountingServiceController;
 use App\Http\Controllers\Admin\ArtikelController;
+use App\Http\Controllers\Admin\AuditController;
 use App\Http\Controllers\Admin\BrevetABController;
 use App\Http\Controllers\Admin\BrevetCController;
+use App\Http\Controllers\Admin\ConsultationController;
 use App\Http\Controllers\Admin\InHouseTrainingController;
 use App\Http\Controllers\Admin\ItemBimbelController;
 use App\Http\Controllers\Admin\ItemBookController;
 use App\Http\Controllers\Admin\ItemLayananController;
 use App\Http\Controllers\Admin\ItemPaperController;
 use App\Http\Controllers\Admin\ItemSeminarController;
+use App\Http\Controllers\Admin\JasaAkuntansiController;
+use App\Http\Controllers\Admin\LayananPembuatanPtController as AdminLayananPembuatanPtController;
+use App\Http\Controllers\Admin\LitigasiController;
+use App\Http\Controllers\Admin\PajakController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\TrainingController;
 use App\Http\Controllers\Admin\WebinarController;
+use App\Http\Controllers\LayananPembuatanPtController;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 
@@ -56,6 +64,14 @@ Route::prefix('admin')->group(static function () {
         Route::resource('in_house_trainings', InHouseTrainingController::class);
         Route::resource('item-seminar', ItemSeminarController::class);
         Route::resource('trainings', TrainingController::class);
+        Route::resource('layanan-pt', AdminLayananPembuatanPtController::class);
+        Route::resource('accounting-services', AccountingServiceController::class);
+        Route::resource('pajak', PajakController::class);
+        Route::resource('litigasi', LitigasiController::class);
+        Route::resource('consultations', ConsultationController::class);
+        Route::resource('audits', AuditController::class);
+
+        
         // 
         Route::resource('services', ServiceController::class);
         Route::get('/layanan', [ItemLayananController::class, 'index'])->name('item-layanan.index');

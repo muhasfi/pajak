@@ -110,11 +110,65 @@
                             </ul>
                         </li>
                         
-                        <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
-                            <a href="/admin/services" class='sidebar-link'>
-                                <i class="bi bi-gear"></i> <!-- Ikon layanan/settings -->
-                                <span>Layanan Pajak & Akuntansi</span>
+                        <li class="sidebar-item has-sub">
+                            <a href="/admin/layanan-pt" class="sidebar-link">
+                                <i class="bi bi-mortarboard-fill"></i> <!-- Ikon pelatihan/edukasi -->
+                                <span>Layanan</span>
                             </a>
+                            <ul class="submenu">
+                                <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                                    <a href="/admin/brevetab" class='sidebar-link'>
+                                        <i class="bi bi-journal-medical"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>Layanan Pt</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                                    <a href="/admin/accounting-services
+                                    " class='sidebar-link'>
+                                        <i class="bi bi-mic-fill"></i> <!-- Ikon seminar/presentasi -->
+                                        <span>Akuntansi</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                                    <a href="/admin/pajak" class='sidebar-link'>
+                                        <i class="bi bi-file-earmark-bar-graph-fill"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>Pajak</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                                    <a href="/admin/litigasi" class='sidebar-link'>
+                                        <i class="bi bi-file-earmark-bar-graph-fill"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>Litigasi</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                                    <a href="/admin/audits" class='sidebar-link'>
+                                        <i class="bi bi-file-earmark-bar-graph-fill"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>Audit</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                                    <a href="/admin/audits" class='sidebar-link'>
+                                        <i class="bi bi-file-earmark-bar-graph-fill"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>Transfer Pricing</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                         <li class="sidebar-item has-sub">
+                            <a href="#" class="sidebar-link">
+                                <i class="bi bi-mortarboard-fill"></i> <!-- Ikon pelatihan/edukasi -->
+                                <span>Konsultasi</span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                                    <a href="/admin/consultations" class='sidebar-link'>
+                                        <i class="bi bi-journal-medical"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>Konsultasi Private</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>

@@ -3,64 +3,74 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Webinar;
+use App\Models\BrevetC;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 
 class CatalogController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Webinar::with('details');
+        $query = BrevetC::with(['details', 'waktus', 'lokasis']);
         
-        // Search functionality
-        if ($request->has('search') && $request->search != '') {
-            $search = $request->search;
-            $query->where(function($q) use ($search) {
-                $q->where('judul', 'like', "%{$search}%")
-                  ->orWhere('deskripsi', 'like', "%{$search}%")
-                  ->orWhereHas('details', function($q) use ($search) {
-                      $q->where('pembicara', 'like', "%{$search}%")
-                        ->orWhere('topik', 'like', "%{$search}%");
-                  });
+        // Filter berdasarkan jenis (Brevet C atau lainnya)
+        if ($request->has('jenis') && $request->jenis !== 'all') {
+            if ($request->jenis === 'brevet-c') {
+                $query->where('judul', 'LIKE', '%Brevet C%')
+                      ->orWhere('judul', 'LIKE', '%brevet c%')
+                      ->orWhere('deskripsi', 'LIKE', '%Brevet C%');
+            } else {
+                $query->where('judul', 'NOT LIKE', '%Brevet C%')
+                      ->where('judul', 'NOT LIKE', '%brevet c%')
+                      ->where('deskripsi', 'NOT LIKE', '%Brevet C%');
+            }
+        }
+        
+        // Filter berdasarkan status
+        if ($request->has('status') && $request->status !== 'all') {
+            $today = now()->format('Y-m-d');
+            
+            if ($request->status === 'upcoming') {
+                $query->where('tanggal_mulai', '>', $today);
+            } elseif ($request->status === 'ongoing') {
+                $query->where('tanggal_mulai', '<=', $today)
+                      ->where('tanggal_selesai', '>=', $today);
+            } elseif ($request->status === 'completed') {
+                $query->where('tanggal_selesai', '<', $today);
+            }
+        }
+        
+        // Search
+        if ($request->has('search') && !empty($request->search)) {
+            $searchTerm = $request->search;
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('judul', 'LIKE', "%{$searchTerm}%")
+                  ->orWhere('deskripsi', 'LIKE', "%{$searchTerm}%")
+                  ->orWhere('hari', 'LIKE', "%{$searchTerm}%");
             });
         }
         
-        // Filter by status
-        if ($request->has('status') && $request->status != 'all') {
-            $now = now();
-            if ($request->status == 'upcoming') {
-                $query->where('tanggal', '>', $now);
-            } elseif ($request->status == 'ongoing') {
-                $query->where('tanggal', '<=', $now)
-                      ->where('tanggal', '>=', $now->copy()->subHours(3));
-            } elseif ($request->status == 'completed') {
-                $query->where('tanggal', '<', $now->copy()->subHours(3));
-            }
-        }
-        
-        // Filter by type (assuming you have a 'type' column in webinars table)
-        if ($request->has('type') && $request->type != 'all') {
-            $query->where('type', $request->type);
-        }
-        
-        // Sort functionality
+        // Sorting
         if ($request->has('sort')) {
-            if ($request->sort == 'oldest') {
-                $query->orderBy('tanggal', 'asc');
-            } elseif ($request->sort == 'price-low') {
-                $query->orderBy('harga', 'asc');
-            } elseif ($request->sort == 'price-high') {
-                $query->orderBy('harga', 'desc');
-            } else {
-                $query->orderBy('tanggal', 'desc');
+            switch ($request->sort) {
+                case 'oldest':
+                    $query->orderBy('tanggal_mulai', 'asc');
+                    break;
+                case 'price-low':
+                    $query->orderBy('harga', 'asc');
+                    break;
+                case 'price-high':
+                    $query->orderBy('harga', 'desc');
+                    break;
+                default:
+                    $query->orderBy('tanggal_mulai', 'desc');
+                    break;
             }
         } else {
-            $query->orderBy('tanggal', 'desc');
+            $query->orderBy('tanggal_mulai', 'desc');
         }
         
-        $webinars = $query->paginate(9);
+        $events = $query->paginate(9);
         
-        return view('customer.pelatihan.webinars', compact('webinars'));
+        return view('catalog', compact('events'));
     }
 }

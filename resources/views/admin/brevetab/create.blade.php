@@ -31,13 +31,41 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="deskripsi" class="form-label">Deskripsi *</label>
-                        <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="3" required>{{ old('deskripsi') }}</textarea>
+                        <label for="deskripsi" class="form-label">Deskripsi (List Items) *</label>
+                        <div id="deskripsi-container">
+                            @if(old('deskripsi', isset($brevetab) ? $brevetab->deskripsi : []))
+                                @foreach(old('deskripsi', isset($brevetab) ? $brevetab->deskripsi : ['']) as $index => $item)
+                                <div class="input-group mb-2 deskripsi-item">
+                                    <input type="text" 
+                                           class="form-control @error('deskripsi.' . $index) is-invalid @enderror" 
+                                           name="deskripsi[]" 
+                                           value="{{ $item }}" 
+                                           placeholder="Masukkan item deskripsi">
+                                    @if($index > 0)
+                                    <button type="button" class="btn btn-danger remove-deskripsi">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                    @endif
+                                </div>
+                                @endforeach
+                            @else
+                            <div class="input-group mb-2 deskripsi-item">
+                                <input type="text" 
+                                       class="form-control @error('deskripsi.0') is-invalid @enderror" 
+                                       name="deskripsi[]" 
+                                       value="{{ old('deskripsi.0', '') }}" 
+                                       placeholder="Masukkan item deskripsi">
+                            </div>
+                            @endif
+                        </div>
+                        <button type="button" id="add-deskripsi" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-plus-circle"></i> Tambah Item
+                        </button>
                         @error('deskripsi')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror
+                        <div class="form-text">Tambahkan poin-poin deskripsi program brevet.</div>
                     </div>
-
                     <div class="mb-3">
                         <label for="hari" class="form-label">Hari *</label>
                         <input type="text" class="form-control @error('hari') is-invalid @enderror" id="hari" name="hari" value="{{ old('hari') }}" required>
@@ -170,4 +198,37 @@
         </form>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const container = document.getElementById('deskripsi-container');
+        const addButton = document.getElementById('add-deskripsi');
+        
+        // Tambah item baru
+        addButton.addEventListener('click', function() {
+            const newItem = document.createElement('div');
+            newItem.className = 'input-group mb-2 deskripsi-item';
+            newItem.innerHTML = `
+                <input type="text" 
+                       class="form-control" 
+                       name="deskripsi[]" 
+                       placeholder="Masukkan item deskripsi">
+                <button type="button" class="btn btn-danger remove-deskripsi">
+                    <i class="bi bi-trash"></i>
+                </button>
+            `;
+            container.appendChild(newItem);
+        });
+        
+        // Hapus item
+        container.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-deskripsi') || 
+                e.target.parentElement.classList.contains('remove-deskripsi')) {
+                const item = e.target.closest('.deskripsi-item');
+                if (container.querySelectorAll('.deskripsi-item').length > 1) {
+                    item.remove();
+                }
+            }
+        });
+    });
+    </script>
 @endsection

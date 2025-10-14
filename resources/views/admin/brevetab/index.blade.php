@@ -20,6 +20,7 @@
                         <th>Tanggal</th>
                         <th>Harga</th>
                         <th>Lokasi</th>
+                        <th>Level</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -39,7 +40,7 @@
                         <td>{{ $brevetab->tanggal_mulai->format('d M Y') }} - {{ $brevetab->tanggal_selesai->format('d M Y') }}</td>
                         <td>Rp {{ number_format($brevetab->harga, 0, ',', '.') }}</td>
                         <td>{{ $brevetab->detail->lokasi ?? '-' }}</td>
-                        
+                        <td>{{  $brevetab->detail->level }}</td>
                         <td>
                             <div class="btn-group">
                                 <a href="{{ route('brevetab.show', $brevetab) }}" class="btn btn-sm btn-info">
