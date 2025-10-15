@@ -49,8 +49,8 @@ Route::prefix('bimbel')->group(function () {
 
 Route::prefix('bimbel')->group(function () {
     Route::get('/', [BimbelController::class, 'index'])->name('bimbel.index');
-    Route::view('/bimbel/a', 'product.bimbel.bimbel-a')->name('bimbel.a');
-    Route::view('/bimbel/b', 'product.bimbel.bimbel-b')->name('bimbel.b');
+    // Route::view('/bimbel/a', 'product.bimbel.bimbel-a')->name('bimbel.a');
+    // Route::view('/bimbel/b', 'product.bimbel.bimbel-b')->name('bimbel.b');
     Route::get('/courses', [BimbelController::class, 'courses'])->name('bimbel.courses.index');
     Route::get('/courses/{id}', [BimbelController::class, 'show'])->name('bimbel.courses.show');
     Route::post('/courses/{id}/enroll', [BimbelController::class, 'enroll'])->name('bimbel.courses.enroll');
@@ -63,6 +63,12 @@ Route::get('/pph21', [App\Http\Controllers\KertasKerjaController::class, 'pph21'
 Route::get('/ppn', [App\Http\Controllers\KertasKerjaController::class, 'ppn'])->name('ppn');
 Route::get('/spt', [App\Http\Controllers\KertasKerjaController::class, 'spt'])->name('spt');
 Route::get('/kertas-kerja-spt-masa-unifikasi', [App\Http\Controllers\KertasKerjaController::class, 'spt_unifikasi'])->name('spt_unifikasi');
+Route::get('/brevet-ab', [App\Http\Controllers\BrevetABController::class, 'index'])->name('brevet.ab');
+Route::get('/brevet-c', [App\Http\Controllers\BrevetCController::class, 'index'])->name('brevet.c');
+Route::get('/seminar', [App\Http\Controllers\SeminarController::class, 'index'])->name('seminar');
+Route::get('/webinar', [App\Http\Controllers\WebinarController::class, 'index'])->name('webinar');
+Route::get('/in-house-training', [App\Http\Controllers\TrainingController::class, 'index'])->name('in.house');
+// Route::view('/brevet-c', 'product.pelatihan.brevet_c')->name('brevet.c');
 // Route::view('/kertas-kerja-spt-masa-unifikasi', 'product.paper.spt_masa_unifikasi.kertas_spt_unifikasi')->name('spt.unifikasi');
 
 Route::view('/order-ppn', 'product.ppn.order_ppn')->name('order.ppn');
@@ -70,9 +76,6 @@ Route::view('/order-ppn', 'product.ppn.order_ppn')->name('order.ppn');
 Route::view('/order-spt', 'product.kertas_kerja.order_spt')->name('order.spt');
 Route::view('/order-pph', 'product.kertas_kerja.order_pph')->name('order.pph');
 Route::view('/order-spt-unifikasi', 'product.kertas_kerja.order_spt_uni')->name('order.spt.uni');
-Route::view('/brevet-ab', 'product.pelatihan.brevet_ab')->name('brevet.ab');
-Route::view('/brevet-c', 'product.pelatihan.brevet_c')->name('brevet.c');
-Route::view('/in-house-training', 'product.pelatihan.in_house')->name('in.house');
 Route::view('/corporate-services', 'product.layanan.corporate-services')->name('corporate.services');
 Route::view('/jasa-akuntansi', 'product.layanan.jasa_akuntansi')->name('jasa.akuntansi');
 Route::view('/jasa-perpajakan', 'product.layanan.jasa_perpajakan')->name('jasa.perpajakan');

@@ -193,9 +193,9 @@
     margin-bottom: 0.8rem;
 }
 
-.summary-label {
+/* .summary-label {
     color: var(--secondary);
-}
+} */
 
 .summary-value {
     font-weight: 600;

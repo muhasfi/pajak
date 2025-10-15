@@ -114,6 +114,46 @@
                             </ul>
                         </li> --}}
 
+                        <li class="sidebar-item has-sub">
+                            <a href="#" class="sidebar-link">
+                                <i class="bi bi-mortarboard-fill"></i> <!-- Ikon pelatihan/edukasi -->
+                                <span>Pelatihan dan Workshop</span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                                    <a href="/admin/brevetab" class='sidebar-link'>
+                                        <i class="bi bi-journal-medical"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>Brevet A & B</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                                    <a href="/admin/brevet-c" class='sidebar-link'>
+                                        <i class="bi bi-journal-text"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>Brevet C</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                                    <a href="/admin/webinars" class='sidebar-link'>
+                                        <i class="bi bi-camera-video-fill"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>Webinar</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                                    <a href="/admin/item-seminar
+                                    " class='sidebar-link'>
+                                        <i class="bi bi-mic-fill"></i> <!-- Ikon seminar/presentasi -->
+                                        <span>Seminar</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                                    <a href="/admin/trainings" class='sidebar-link'>
+                                        <i class="bi bi-file-earmark-bar-graph-fill"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>In House Training</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
 
                     </ul>
                 </div>

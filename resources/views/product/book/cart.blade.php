@@ -2,9 +2,10 @@
 
 @section('title', 'Keranjang Belanja - Paham Pajak')
 
-    @section('style')
+    {{-- @section('style')
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    @endsection
+    @endsection --}}
+    <link rel="stylesheet" href="{{ asset('assets/customer/css/cart.css') }}">
 
 @section('content')
 <!-- Hero Section -->
@@ -54,13 +55,13 @@
                             @endphp
                             <div class="cart-item">
                                 <div class="cart-item-image">
-    <img 
-        src="{{ asset($item['image'] ?? 'default.jpg') }}" 
-        class="img-fluid me-5 rounded-circle" 
-        style="width: 80px; height: 80px;" 
-        alt="gambar produk"
-        onerror="this.onerror=null;this.src='{{ asset('default.jpg') }}';">
-</div>
+                                    <img 
+                                        src="{{ asset($item['image'] ?? 'default.jpg') }}" 
+                                        class="img-fluid me-5 rounded-circle" 
+                                        style="width: 80px; height: 80px;" 
+                                        alt="gambar produk"
+                                        onerror="this.onerror=null;this.src='{{ asset('default.jpg') }}';">
+                                </div>
 
                                 
                                 <div class="cart-item-content">
