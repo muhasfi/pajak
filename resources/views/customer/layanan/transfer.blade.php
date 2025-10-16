@@ -69,45 +69,39 @@
             </div>
 
             <div class="services-grid">
-                <!-- Service 1 -->
-
-                <div class="service-card">
-                    @foreach($transfers as $transfer)
-                    <div class="service-card {{ $loop->first ? 'featured' : '' }}">
-                        @if($loop->first)
-                        <div class="card-badge">Populer</div>
-                        @endif
-                        <div class="card-header pajak">
-                            <div class="service-icon">
-                                <i class="fas fa-calculator"></i>
-                            </div>
-                            <h3>{{ $transfer->judul }}</h3>
+                @foreach($transfers as $transfer)
+                <div class="service-card {{ $loop->first ? 'featured' : '' }}">
+                    @if($loop->first)
+                    <div class="card-badge">Populer</div>
+                    @endif
+                    <div class="card-header pajak">
+                        <div class="service-icon">
+                            <i class="fas fa-calculator"></i>
                         </div>
-                        <div class="card-body">
-                            <p>{{ $transfer->details->first()->deskripsi ?? '-' }}</p>
-                            <ul class="feature-list">
-                                @foreach(json_decode($transfer->details->first()->benefit ?? '[]') as $item)
-                                    <li>{{ $item }}</li>
-                                    @endforeach</li>
-                            </ul>
-                        </div>
-                        <div class="card-footer">
-                            <div class="price-section">
-                                <span class="price">Rp {{ number_format($transfer->harga, 0, ',', '.') }}</span>
-                            </div>
-                            <a href="#" class="btn btn-primary">
-                                <span>Mulai Layanan</span>
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
-                            <a href="/kontak" class="btn btn-outline">
-                                <span>Konsultasi</span>
-                            </a>
-                        </div>
+                        <h3>{{ $transfer->judul }}</h3>
+                        <span class="service-price">Rp {{ number_format($transfer->harga, 0, ',', '.') }}</span>
                     </div>
-                    @endforeach
+                    <div class="card-body">
+                        <p>{{ $transfer->details->first()->deskripsi ?? '-' }}</p>
+                        <ul class="feature-list">
+                            @foreach(json_decode($transfer->details->first()->benefit ?? '[]') as $item)
+                                <li>{{ $item }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-primary">
+                            <span>Mulai Layanan</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="/kontak" class="btn btn-outline">
+                            <span>Konsultasi</span>
+                        </a>
+                    </div>
                 </div>
-
+                @endforeach
             </div>
+            
         </div>
     </div>
 
@@ -244,6 +238,18 @@
         --warning: #f59e0b;
         --error: #ef4444;
     }
+    .service-price {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #16a34a, #06b6d4, #22d3ee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
 
     .transfer-pricing-service {
         min-height: 100vh;

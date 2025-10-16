@@ -80,6 +80,7 @@
                                 <i class="fas fa-calculator"></i>
                             </div>
                             <h3>{{ $pajak->judul }}</h3>
+                            <span class="service-price">Rp. {{ number_format($pajak->harga, 0, ',', '.') }}</span>
                         </div>
                         <div class="card-body">
                             <p>{{ $pajak->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}</p>
@@ -95,7 +96,7 @@
                         </div>
                         <div class="card-footer">
                             <div class="price-section">
-                                <span class="price">Rp {{ number_format($pajak->harga, 0, ',', '.') }}</span>
+                                {{-- <span class="price">Rp {{ number_format($pajak->harga, 0, ',', '.') }}</span> --}}
                             </div>
                             <a href="#" class="btn btn-primary">
                                 <span>Mulai Layanan</span>
@@ -169,6 +170,22 @@
         --success: #10b981;
         --warning: #f59e0b;
     }
+    .service-price {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #16a34a, #22c55e, #4ade80);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover .service-price {
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
 
     .tax-service {
         min-height: 100vh;

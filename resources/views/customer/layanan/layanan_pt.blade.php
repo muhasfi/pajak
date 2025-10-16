@@ -77,7 +77,7 @@
                             <i class="fas fa-gavel"></i>
                         </div>
                         <h3>{{ $layanan->judul }}</h3>
-                        <span>Rp.{{ number_format($layanan->harga, 0, ',', '.') }}</span>
+                        <span class="service-price">Rp {{ number_format($layanan->harga, 0, ',', '.') }}</span>
                     </div>
                     <div class="card-body">
                         <p>@if($layanan->detail && $layanan->detail->deskripsi)
@@ -173,6 +173,17 @@
         min-height: 100vh;
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
+    .service-price {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary-blue);
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+}
 
     .container {
         max-width: 1200px;

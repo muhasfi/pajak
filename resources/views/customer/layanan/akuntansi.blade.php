@@ -79,6 +79,7 @@
                             <i class="fas fa-file-invoice-dollar"></i>
                         </div>
                         <h3>{{ $service->judul }}</h3>
+                        <span class="service-price">Rp.{{ number_format($service->harga, 0, ',', '.') }}</span>
                     </div>
                     <div class="card-body">
                         <p>{{ Str::limit($service->details->deskripsi ?? '', 100) }}</p>
@@ -101,11 +102,11 @@
                     </div>
                     <div class="card-footer">
                         <a href="#" class="btn btn-primary">
-                            <span>Rp.{{ number_format($service->harga, 0, ',', '.') }}</span>
+                            <span>Beli Layanan</span>
                             <i class="fas fa-arrow-right"></i>
                         </a>
                         <a href="/kontak" class="btn btn-outline">
-                            <span>Konsultasi Gratis</span>
+                            <span>Konsultasi</span>
                         </a>
                     </div>
                 </div>  
@@ -197,7 +198,21 @@
         display: flex;
         align-items: center;
     }
-
+    .service-price {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary-blue);
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+}
+.service-card:hover .service-price {
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
     .hero-background {
         position: absolute;
         top: 0;
