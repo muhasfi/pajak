@@ -10,6 +10,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\BrevetABController;
 use App\Http\Controllers\BrevetCController;
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\CustomerAuthController;
 use App\Http\Controllers\ItemSeminarController;
 use App\Http\Controllers\LayananPembuatanPtController;
 use App\Http\Controllers\LayananPrivasiController;
@@ -32,6 +33,18 @@ use App\Http\Controllers\LayananPtController;
 |
 */
 // Route::get('layanan', [ItemLayananController::class, 'customerIndex'])->name('layanan.customer');
+Route::prefix('customer')->group(function () {
+    Route::get('/login', [CustomerAuthController::class, 'showLoginForm'])->name('customer.login');
+    Route::post('/login', [CustomerAuthController::class, 'login']);
+    Route::get('/register', [CustomerAuthController::class, 'showRegisterForm'])->name('customer.register');
+    Route::post('/register', [CustomerAuthController::class, 'register']);
+    Route::post('/logout', [CustomerAuthController::class, 'logout'])->name('customer.logout');
+    
+    // Protected Routes
+    Route::middleware(['customer.auth'])->group(function () {
+        Route::get('/dashboard', [CustomerAuthController::class, 'dashboard'])->name('customer.dashboard');
+    });
+});
 Route::get('/', [\App\Http\Controllers\SiteController::class, 'index'])
     ->name('index');
 Route::get('/book', [\App\Http\Controllers\BookController::class, 'index'])
