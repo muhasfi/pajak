@@ -88,7 +88,7 @@ Route::get('/litigasi', [LitigasiController::class, 'index'])->name('pajak.index
 Route::get('/audit', [AuditController::class, 'index'])->name('audit.index');
 Route::get('/transfer-pricing', [TransferController::class, 'index'])->name('transfer.index');
 Route::get('/private', [LayananPrivasiController::class, 'index'])->name('transfer.index');
-// Route::view('/private', 'customer.konsultasi.private')->name('private');
+Route::view('/register', 'auth.register')->name('register');
 // Route::view('/audit', 'customer.layanan.audit')->name('audit');
 // Route::view('/litigasi', 'customer.layanan.litigasi')->name('audit');
 // Route::view('/transfer-pricing', 'customer.layanan.transfer')->name('audit');
