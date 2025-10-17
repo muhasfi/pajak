@@ -87,23 +87,66 @@
             </div>
 
             <div class="services-grid">
-                <!-- Service 1 -->
-                <div class="service-card">
+                @foreach ($services as $service)
+                    <div class="service-card {{ $loop->iteration == 4 ? 'featured' : '' }}">
+                    @if ($loop->iteration == 4)
+                        <div class="card-badge">Populer</div>
+                    @endif
+
                     <div class="card-header">
                         <div class="service-icon">
-                            <i class="fas fa-file-invoice-dollar"></i>
+                            @switch($loop->iteration)
+                                @case(1)
+                                    <i class="fas fa-file-invoice-dollar"></i>
+                                    @break
+                                @case(2)
+                                    <i class="fas fa-chart-line"></i>
+                                    @break
+                                @case(3)
+                                    <i class="fas fa-check-circle"></i>
+                                    @break
+                                @default
+                                    <i class="fas fa-calculator"></i>
+                            @endswitch
                         </div>
-                        <h3>Pencatatan Transaksi</h3>
+
+                        <h3 class="fw-bold">{{ $service->judul }}</h3>
+                        <h4 class="mt-2">
+                            Rp {{ number_format($service->harga, 0, ',', '.') }}
+                        </h4>
                     </div>
+
                     <div class="card-body">
-                        <p>Pencatatan transaksi harian secara rapi, akurat, dan sesuai standar akuntansi berjalan.</p>
-                        <ul class="feature-list">
-                            <li>Pencatatan transaksi harian</li>
-                            <li>Klasifikasi akun yang tepat</li>
-                            <li>Audit trail lengkap</li>
-                            <li>Backup data otomatis</li>
-                        </ul>
+                        @if (!empty($service->details->deskripsi))
+                            @php
+                                // Pisahkan berdasarkan enter (\n)
+                                $deskripsiList = preg_split("/\r\n|\n|\r/", $service->details->deskripsi);
+                            @endphp
+
+                            <ul class="list-unstyled">
+                                @foreach ($deskripsiList as $desc)
+                                    @if (trim($desc) !== '')
+                                        <li>
+                                            <i class="bi bi-check-circle-fill text-success me-1"></i>{{ trim($desc) }}
+                                        </li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        @else
+                            <p class="text-muted">Deskripsi belum tersedia.</p>
+                        @endif
+
+                        {{-- @if (!empty($service->details->benefit))
+                            <ul class="mt-2 list-unstyled">
+                                @foreach ($service->details->benefit as $benefit)
+                                    <li>
+                                        <i class="bi bi-check-circle text-primary me-1"></i>{{ $benefit }}
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif --}}
                     </div>
+
                     <div class="card-footer">
                         <a href="#" class="btn btn-primary">
                             <span>Pesan Sekarang</span>
@@ -115,91 +158,10 @@
                     </div>
                 </div>
 
-                <!-- Service 2 -->
-                <div class="service-card">
-                    <div class="card-header">
-                        <div class="service-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3>Laporan Keuangan</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Menyusun laporan keuangan komprehensif untuk pengambilan keputusan bisnis yang tepat.</p>
-                        <ul class="feature-list">
-                            <li>Laporan Neraca</li>
-                            <li>Laporan Laba Rugi</li>
-                            <li>Laporan Arus Kas</li>
-                            <li>Analisis rasio keuangan</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Pesan Sekarang</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Konsultasi Gratis</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Service 3 -->
-                <div class="service-card">
-                    <div class="card-header">
-                        <div class="service-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <h3>Rekonsiliasi Bank</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Mengecek dan mencocokkan saldo bank dengan catatan perusahaan secara berkala.</p>
-                        <ul class="feature-list">
-                            <li>Rekonsiliasi bulanan</li>
-                            <li>Identifikasi selisih</li>
-                            <li>Laporan rekonsiliasi</li>
-                            <li>Monitoring otomatis</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Pesan Sekarang</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Konsultasi Gratis</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Service 4 -->
-                <div class="service-card featured">
-                    <div class="card-badge">Populer</div>
-                    <div class="card-header">
-                        <div class="service-icon">
-                            <i class="fas fa-calculator"></i>
-                        </div>
-                        <h3>Payroll & Pajak</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Mengelola gaji karyawan serta administrasi pajak bulanan dengan profesional.</p>
-                        <ul class="feature-list">
-                            <li>Penggajian terintegrasi</li>
-                            <li>Perhitungan PPh 21</li>
-                            <li>Pelaporan pajak bulanan</li>
-                            <li>Slip gaji digital</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Pesan Sekarang</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Konsultasi Gratis</span>
-                        </a>
-                    </div>
-                </div>
+                @endforeach
             </div>
+
+
         </div>
     </div>
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\BrevetC;
-use App\Models\BrevetCDetail;
+use App\Models\ItemBrevetC;
+use App\Models\ItemBrevetCDetail;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ class BrevetCController extends Controller
 {
     public function index()
     {
-        $brevetCs = BrevetC::with('details')->latest()->get();
+        $brevetCs = ItemBrevetC::with('details')->latest()->get();
         return view('admin.brevetc.index', compact('brevetCs'));
     }
 
@@ -48,7 +48,7 @@ class BrevetCController extends Controller
         }
 
         // Create brevet C
-        $brevetC = BrevetC::create([
+        $brevetC = ItemBrevetC::create([
             'gambar' => $gambarPath,
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
@@ -62,7 +62,7 @@ class BrevetCController extends Controller
 
         // Create details
         foreach ($request->fasilitas as $index => $fasilitas) {
-            BrevetCDetail::create([
+            ItemBrevetCDetail::create([
                 'brevet_c_id' => $brevetC->id,
                 'fasilitas' => $fasilitas,
                 'keterangan' => $request->keterangan[$index] ?? null,
@@ -73,19 +73,19 @@ class BrevetCController extends Controller
         return redirect()->route('admin.brevetc.index')->with('success', 'Data brevet C berhasil ditambahkan.');
     }
 
-    public function show(BrevetC $brevetC)
+    public function show(ItemBrevetC $brevetC)
     {
         $brevetC->load('details');
         return view('brevet_c.show', compact('brevetC'));
     }
 
-    public function edit(BrevetC $brevetC)
+    public function edit(ItemBrevetC $brevetC)
     {
         $brevetC->load('details');
         return view('admin.brevetc.edit', compact('brevetC'));
     }
 
-    public function update(Request $request, BrevetC $brevetC)
+    public function update(Request $request, ItemBrevetC $brevetC)
     {
         $validated = $request->validate([
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -128,7 +128,7 @@ class BrevetCController extends Controller
         // Update details - hapus yang lama dan buat baru
         $brevetC->details()->delete();
         foreach ($request->fasilitas as $index => $fasilitas) {
-            BrevetCDetail::create([
+            ItemBrevetCDetail::create([
                 'brevet_c_id' => $brevetC->id,
                 'fasilitas' => $fasilitas,
                 'keterangan' => $request->keterangan[$index] ?? null,
@@ -139,7 +139,7 @@ class BrevetCController extends Controller
         return redirect()->route('admin.brevetc.index')->with('success', 'Data brevet C berhasil diperbarui.');
     }
 
-    public function destroy(BrevetC $brevetC)
+    public function destroy(ItemBrevetC $brevetC)
     {
         // Hapus gambar
         if ($brevetC->gambar) {

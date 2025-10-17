@@ -87,97 +87,67 @@
             </div>
 
             <div class="services-grid">
-                <!-- Service 1 -->
-                <div class="service-card">
-                    <div class="card-header">
-                        <div class="service-icon">
-                            <i class="fas fa-file-alt"></i>
-                        </div>
-                        <h3>Master File</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Dokumentasi global yang menggambarkan keseluruhan grup usaha secara komprehensif.</p>
-                        <ul class="feature-list">
-                            <li>Struktur organisasi grup</li>
-                            <li>Deskripsi bisnis global</li>
-                            <li>Strategi transfer pricing</li>
-                            <li>Analisis kontribusi nilai</li>
-                            <li>Kebijakan intellectual property</li>
-                            <li>Laporan keuangan konsolidasi</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Detail Layanan</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Konsultasi</span>
-                        </a>
-                    </div>
-                </div>
+                @foreach ($transfers as $transfer)
+                    <div class="service-card {{ $loop->iteration == 2 ? 'featured' : '' }}">
+                        {{-- Badge jika item populer --}}
+                        @if ($loop->iteration == 2)
+                            <div class="card-badge">Populer</div>
+                        @endif
 
-                <!-- Service 2 -->
-                <div class="service-card featured">
-                    <div class="card-badge">Wajib</div>
-                    <div class="card-header">
-                        <div class="service-icon">
-                            <i class="fas fa-map-marked-alt"></i>
+                        <div class="card-header">
+                            <div class="service-icon">
+                                @switch($loop->iteration)
+                                    @case(1)
+                                        <i class="fas fa-file-alt"></i>
+                                        @break
+                                    @case(2)
+                                        <i class="fas fa-map-marked-alt"></i>
+                                        @break
+                                    @case(3)
+                                        <i class="fas fa-globe-americas"></i>
+                                        @break
+                                    @default
+                                        <i class="fas fa-briefcase"></i>
+                                @endswitch
+                            </div>
+                            <h3>{{ $transfer->judul }}</h3>
+                            <h4 class="fw-bold">
+                                Rp{{ number_format($transfer->harga, 0, ',', '.') }}
+                            </h4>
                         </div>
-                        <h3>Local File</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Dokumentasi spesifik untuk setiap yurisdiksi dengan analisis transaksi terkait pihak berelasi.</p>
-                        <ul class="feature-list">
-                            <li>Analisis komparabilitas</li>
-                            <li>Pemilihan metode transfer pricing</li>
-                            <li>Penetapan rentang kewajaran</li>
-                            <li>Dokumentasi transaksi spesifik</li>
-                            <li>Analisis ekonomi dan finansial</li>
-                            <li>Kesesuaian dengan regulasi lokal</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Detail Layanan</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Konsultasi</span>
-                        </a>
-                    </div>
-                </div>
 
-                <!-- Service 3 -->
-                <div class="service-card">
-                    <div class="card-header">
-                        <div class="service-icon">
-                            <i class="fas fa-globe-americas"></i>
+                        <div class="card-body">
+                            @if ($transfer->detail && $transfer->detail->deskripsi)
+                                @php
+                                    $deskripsiList = preg_split("/\r\n|\n|\r/", $transfer->detail->deskripsi);
+                                @endphp
+                                <ul class="list-unstyled">
+                                    @foreach ($deskripsiList as $desc)
+                                        @if (trim($desc) !== '')
+                                            <li><i class="bi bi-check-circle-fill text-success me-1"></i>{{ trim($desc) }}</li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            @else
+                                <p class="text-muted">Deskripsi belum tersedia.</p>
+                            @endif
                         </div>
-                        <h3>Country-by-Country Report</h3>
+
+                        <div class="card-footer">
+                            <a href="#" class="btn btn-primary">
+                                <span>Detail Layanan</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <a href="/kontak" class="btn btn-outline">
+                                <span>Konsultasi</span>
+                            </a>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <p>Pelaporan informasi agregat mengenai alokasi pendapatan, laba, dan pajak per yurisdiksi.</p>
-                        <ul class="feature-list">
-                            <li>Pendapatan per yurisdiksi</li>
-                            <li>Laba sebelum pajak</li>
-                            <li>Pajak dibayar dan diperhitungkan</li>
-                            <li>Jumlah karyawan</li>
-                            <li>Modal dan retained earnings</li>
-                            <li>Identitas entitas konstituen</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Detail Layanan</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Konsultasi</span>
-                        </a>
-                    </div>
-                </div>
+                @endforeach
             </div>
+
+
+
         </div>
     </div>
 

@@ -71,10 +71,15 @@ class OrderController extends Controller
         }
 
         $morphType = match ($productType) {
-            'Item'      => 'item',
-            'ItemBimbel'=> 'bimbel',
-            'ItemPaper'=> 'paper',
-            default     => strtolower($productType), // fallback
+            'Item'          => 'item',
+            'ItemBimbel'    => 'bimbel',
+            'ItemPaper'     => 'paper',
+            'ItemBrevetAB'  => 'brevetab',
+            'ItemBrevetC'   => 'brevetc',
+            'ItemWebinar'   => 'webinar',
+            'ItemSeminar'   => 'seminar',
+            'ItemTraining'  => 'training',
+            default         => strtolower($productType), // fallback
         };
 
         $cart[$key] = [
@@ -110,10 +115,15 @@ class OrderController extends Controller
         
         // Konversi morph type ke model class untuk key
         $productType = match ($morphType) {
-            'item'   => 'Item',
-            'bimbel' => 'ItemBimbel',
-            'paper'  => 'ItemPaper',
-            default  => ucfirst($morphType),
+            'item'      => 'Item',
+            'bimbel'    => 'ItemBimbel',
+            'paper'     => 'ItemPaper',
+            'brevetab'  => 'ItemBrevetAB',
+            'brevetc'   => 'ItemBrevetC',
+            'webinar'   => 'ItemWebinar',
+            'seminar'   => 'ItemSeminar',
+            'training'  => 'ItemTraining',
+            default     => ucfirst($morphType),
         };
         
         $key = $productType . '-' . $productId;

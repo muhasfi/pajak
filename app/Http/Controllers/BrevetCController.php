@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BrevetC;
+use App\Models\ItemBrevetC;
 use Illuminate\Http\Request;
 
 class BrevetCController extends Controller
 {
     public function index()
 {
-    $brevetc = BrevetC::orderBy('harga', 'asc')->get();
+    $brevetc = ItemBrevetC::orderBy('harga', 'asc')->get();
     return view('product.pelatihan.brevet_c', compact('brevetc'));
 }
 

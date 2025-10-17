@@ -28,7 +28,7 @@
                 
                 <!-- Produk & Aplikasi (6 items - 2 columns) -->
                 <li class="nav-item">
-                    <a href="#produk" class="nav-link">
+                    <a class="nav-link">
                         <i class="fas fa-laptop-code"></i> Produk <i class="fas fa-chevron-down"></i>
                     </a>
                     <div class="dropdown">
@@ -61,7 +61,7 @@
                 
                 <!-- Pelatihan & Workshop (5 items - 2 columns) -->
                 <li class="nav-item">
-                    <a href="{{ route('pelatihan') }}" class="nav-link">
+                    <a href="#pelatihan" class="nav-link">
                         <i class="fas fa-chalkboard-teacher"></i> Pelatihan <i class="fas fa-chevron-down"></i>
                     </a>
                     <div class="dropdown">
@@ -91,7 +91,7 @@
                 
                 <!-- Bimbel USKP (2 items - 1 column) -->
                 <li class="nav-item">
-                    <a href="{{ route('bimbel.index') }}" class="nav-link">
+                    <a class="nav-link">
                         <i class="fas fa-graduation-cap"></i> Bimbel USKP <i class="fas fa-chevron-down"></i>
                     </a>
                     <div class="dropdown">

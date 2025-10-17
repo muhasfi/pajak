@@ -86,7 +86,7 @@
 }
 
 .empty-cart-text {
-    color: var(--secondary);
+    /* color: var(--secondary); */
     margin-bottom: 2rem;
     max-width: 400px;
     margin-left: auto;

@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BrevetAB;
+
+use App\Models\ItemBrevetAB;
 use Illuminate\Http\Request;
 
 class BrevetABController extends Controller
 {
     public function index()
 {
-    $brevetabs = BrevetAB::orderBy('harga', 'asc')->get();
+    $brevetabs = ItemBrevetAB::with('detail')->orderBy('harga', 'asc')->get();
+    // dd($brevetabs->toArray());
+
     return view('product.pelatihan.brevet_ab', compact('brevetabs'));
 }
 

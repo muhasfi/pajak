@@ -421,8 +421,12 @@
                         </div>
 
                         <div class="card-footer">
-                            <a href="#" class="btn-order">Daftar Sekarang</a>
-                        </div>
+                        <button type="button" 
+                                class="btn-order" 
+                                onclick="addToCart({{ $brevet->id }}, 'ItemBrevetC')">
+                            Daftar Sekarang
+                        </button>
+                    </div>
                         <div class="card-footer">
                             <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20konsultasi%20tentang%20program%20{{ urlencode($brevet->judul) }}" class="btn-outline-kk">
                                 Konsultasi Program
@@ -2226,8 +2230,40 @@ html {
     animation: fadeInUp 0.5s ease;
 }
 </style>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+
+    function addToCart(id, type) {
+    fetch("{{ route('cart.add', [], false) }}", {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id, type: type }),
+    })
+    .then(response => response.json())
+            .then(data => {
+            if (data.status === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: data.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: data.message
+                        });
+                    }
+                })
+        .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
 document.addEventListener('DOMContentLoaded', function() {
     // Tab functionality
     const tabButtons = document.querySelectorAll('.tab-button');

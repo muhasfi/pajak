@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BrevetAB extends Model
+class ItemBrevetAB extends Model
 {
     protected $table = 'item_brevetab';
 
@@ -21,6 +21,6 @@ class BrevetAB extends Model
 
     public function detail()
     {
-        return $this->hasOne(BrevetABDetail::class, 'brevetab_id');
+        return $this->hasOne(ItemBrevetABDetail::class, 'brevetab_id');
     }
 }

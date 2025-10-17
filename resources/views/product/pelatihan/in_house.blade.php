@@ -182,7 +182,7 @@
                                             <i class="fas fa-info-circle"></i>
                                             Detail
                                         </a>
-                                        <button class="btn btn-primary">
+                                        <button class="btn btn-primary" onclick="addToCart({{ $training->id }}, 'ItemTraining')">
                                             Request Proposal
                                         </button>
                                     </div>
@@ -1220,7 +1220,40 @@ html {
 }
 </style>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+
+    function addToCart(id, type) {
+    fetch("{{ route('cart.add', [], false) }}", {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id, type: type }),
+    })
+    .then(response => response.json())
+            .then(data => {
+            if (data.status === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: data.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: data.message
+                        });
+                    }
+                })
+        .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
 document.addEventListener('DOMContentLoaded', function() {
     // Tab functionality
     const tabButtons = document.querySelectorAll('.tab-button');

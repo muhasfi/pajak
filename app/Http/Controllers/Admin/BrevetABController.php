@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\BrevetAB;
-use App\Models\BrevetABDetail;
+use App\Models\ItemBrevetAB;
+use App\Models\ItemBrevetABDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,7 +12,7 @@ class BrevetABController extends Controller
 {
     public function index()
     {
-        $brevetabs = BrevetAB::with('detail')->latest()->get();
+        $brevetabs = ItemBrevetAB::with('detail')->latest()->get();
         return view('admin.brevetab.index', compact('brevetabs'));
     }
 
@@ -49,7 +49,7 @@ class BrevetABController extends Controller
         }
 
         // Create brevetab
-        $brevetab = BrevetAB::create([
+        $brevetab = ItemBrevetAB::create([
             'gambar' => $gambarPath,
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
@@ -60,7 +60,7 @@ class BrevetABController extends Controller
         ]);
 
         // Create detail
-        BrevetABDetail::create([
+        ItemBrevetABDetail::create([
             'brevetab_id' => $brevetab->id,
             'fasilitas' => $request->fasilitas,
             'deskripsi_fasilitas' => $request->deskripsi_fasilitas,
@@ -76,13 +76,13 @@ class BrevetABController extends Controller
         return redirect()->route('admin.brevetab.index')->with('success', 'Data brevet AB berhasil ditambahkan.');
     }
 
-    public function show(BrevetAB $brevetab)
+    public function show(ItemBrevetAB $brevetab)
     {
         $brevetab->load('detail');
         return view('admin.brevetab.show', compact('brevetab'));
     }
 
-    public function edit(BrevetAB $brevetab)
+    public function edit(ItemBrevetAB $brevetab)
     {
         $brevetab->load('detail');
         return view('admin.brevetab.edit', compact('brevetab'));
@@ -90,7 +90,7 @@ class BrevetABController extends Controller
 
     // app/Http/Controllers/BrevetABController.php
 
-public function update(Request $request, BrevetAB $brevetab)
+public function update(Request $request, ItemBrevetAB $brevetab)
 {
     $request->validate([
         'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -156,7 +156,7 @@ public function update(Request $request, BrevetAB $brevetab)
     return redirect()->route('admin.brevetab.index')->with('success', 'Data brevet AB berhasil diperbarui.');
 }
 
-    public function destroy(BrevetAB $brevetab)
+    public function destroy(ItemBrevetAB $brevetab)
     {
         // Hapus gambar
         if ($brevetab->gambar) {

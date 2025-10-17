@@ -3,11 +3,17 @@
 use App\Http\Controllers\Admin\ArtikelController;
 use App\Http\Controllers\Admin\BrevetABController;
 use App\Http\Controllers\Admin\BrevetCController;
+use App\Http\Controllers\Admin\ItemAccountingServiceController;
+use App\Http\Controllers\Admin\ItemAuditController;
 use App\Http\Controllers\Admin\ItemBimbelController;
 use App\Http\Controllers\Admin\ItemBookController;
+use App\Http\Controllers\Admin\ItemLayananPtController;
+use App\Http\Controllers\Admin\ItemLitigasiController;
+use App\Http\Controllers\Admin\ItemPajakController;
 use App\Http\Controllers\Admin\ItemPaperController;
 use App\Http\Controllers\Admin\ItemSeminarController;
 use App\Http\Controllers\Admin\ItemTrainingController;
+use App\Http\Controllers\Admin\ItemTransferController;
 use App\Http\Controllers\Admin\WebinarController;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
@@ -18,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::prefix('admin')->group(static function () {
+Route::prefix('admin-xtz2025')->group(static function () {
 
     // Guest routes
     Route::middleware('guest:admin')->group(static function () {
@@ -58,10 +64,15 @@ Route::prefix('admin')->group(static function () {
         Route::post('/artikel/upload', [ArtikelController::class, 'upload'])->name('ckeditor.upload');
         Route::resource('brevetab', BrevetABController::class)->names('admin.brevetab');
         Route::resource('brevet-c', BrevetCController::class)->names('admin.brevetc');
-        Route::resource('brevet-c', BrevetCController::class)->names('admin.brevetc');
         Route::resource('webinars', WebinarController::class)->names('admin.webinar');
         Route::resource('item-seminar', ItemSeminarController::class)->names('admin.seminar');
         Route::resource('trainings', ItemTrainingController::class)->names('admin.training');
+        Route::resource('layanan-pt', ItemLayananPtController::class)->names('admin.layanan-pt');
+        Route::resource('accounting-services', ItemAccountingServiceController::class)->names('admin.accounting-services');
+        Route::resource('pajak', ItemPajakController::class)->names('admin.pajak');
+        Route::resource('litigasi', ItemLitigasiController::class)->names('admin.litigasi');
+        Route::resource('audits', ItemAuditController::class)->names('admin.audit');
+        Route::resource('transfers', ItemTransferController::class)->names('admin.transfer');
 
         // Route::get('/book', [\App\Http\Controllers\Admin\ItemBookController::class, 'index'])->name('book.index');
     });

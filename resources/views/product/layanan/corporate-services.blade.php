@@ -87,112 +87,103 @@
             </div>
 
             <div class="services-grid">
-                <!-- Package 1 -->
-                <div class="service-card">
-                    <div class="card-header">
-                        <div class="service-icon">
-                            <i class="fas fa-file-alt"></i>
-                        </div>
-                        <h3>Paket Dasar</h3>
-                        <div class="package-price">
-                            <span class="price">Rp 2.500.000</span>
-                            <span class="note">*termasuk biaya notaris</span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <p>Pendirian PT perorangan dengan modal kecil, cocok untuk usaha mikro.</p>
-                        <ul class="feature-list">
-                            <li>Akta Pendirian PT Perorangan</li>
-                            <li>SK Menkumham</li>
-                            <li>NPWP Badan</li>
-                            <li>NIB (Nomor Induk Berusaha)</li>
-                            <li>Pengurusan dokumen lengkap</li>
-                            <li class="excluded">SKT Pajak</li>
-                            <li class="excluded">Izin Usaha</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Pilih Paket</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Konsultasi</span>
-                        </a>
-                    </div>
-                </div>
+                @forelse ($layanans as $layanan)
+                    <div class="service-card {{ $loop->iteration == 2 ? 'featured' : '' }}">
+                        {{-- Jika ingin menandai paket tertentu --}}
+                        @if ($loop->iteration == 2)
+                            <div class="card-badge">Populer</div>
+                        @endif
 
-                <!-- Package 2 -->
-                <div class="service-card featured">
-                    <div class="card-badge">Populer</div>
-                    <div class="card-header">
-                        <div class="service-icon">
-                            <i class="fas fa-briefcase"></i>
-                        </div>
-                        <h3>Paket Professional</h3>
-                        <div class="package-price">
-                            <span class="price">Rp 4.500.000</span>
-                            <span class="note">*termasuk biaya notaris</span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <p>Pendirian PT lengkap dengan izin usaha, cocok untuk UMKM.</p>
-                        <ul class="feature-list">
-                            <li>Akta Pendirian PT Standard</li>
-                            <li>SK Menkumham</li>
-                            <li>NPWP Badan & SKT Pajak</li>
-                            <li>NIB dengan KLUI lengkap</li>
-                            <li>Pengurusan izin usaha dasar</li>
-                            <li>Nomor pengesahan pajak</li>
-                            <li>Konsultasi bisnis 3x</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Pilih Paket</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Konsultasi</span>
-                        </a>
-                    </div>
-                </div>
+                        <div class="card-header">
+                            <div class="service-icon">
+                                {{-- Ganti ikon berdasarkan nama paket, opsional --}}
+                                @if (Str::contains(strtolower($layanan->detail->paket), 'dasar'))
+                                    <i class="fas fa-file-alt"></i>
+                                @elseif (Str::contains(strtolower($layanan->detail->paket), 'pro'))
+                                    <i class="fas fa-briefcase"></i>
+                                @elseif (Str::contains(strtolower($layanan->detail->paket), 'enter'))
+                                    <i class="fas fa-crown"></i>
+                                @else
+                                    <i class="fas fa-cogs"></i>
+                                @endif
+                            </div>
 
-                <!-- Package 3 -->
-                <div class="service-card">
-                    <div class="card-header">
-                        <div class="service-icon">
-                            <i class="fas fa-crown"></i>
+                            <h3>{{ $layanan->detail->paket }}</h3>
+                            <div class="package-price">
+                                <span class="price">{{ 'Rp ' . number_format($layanan->harga, 0, ',', '.') }}</span>
+                                <span class="note">*termasuk biaya notaris</span>
+                            </div>
                         </div>
-                        <h3>Paket Enterprise</h3>
-                        <div class="package-price">
-                            <span class="price">Rp 7.500.000</span>
-                            <span class="note">*termasuk biaya notaris</span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <p>Pendirian PT komprehensif dengan izin lengkap, cocok untuk perusahaan menengah.</p>
-                        <ul class="feature-list">
-                            <li>Akta Pendirian PT Komprehensif</li>
-                            <li>SK Menkumham & SIUP</li>
-                            <li>NPWP, SKT, & SPPT Pajak</li>
-                            <li>NIB dengan multiple KLUI</li>
-                            <li>Izin usaha lengkap (OSS)</li>
-                            <li>Legalitas importir (API)</li>
-                            <li>Konsultasi bisnis unlimited</li>
+
+                        <div class="card-body">
+                            @if ($layanan->detail && $layanan->detail->deskripsi)
+                                @php
+                                    // Pisahkan setiap baris deskripsi berdasarkan "enter"
+                                    $deskripsiList = preg_split("/\r\n|\n|\r/", $layanan->detail->deskripsi);
+                                @endphp
+
+                                <ul class="list-unstyled">
+                            @foreach ($deskripsiList as $desc)
+                                @if (trim($desc) !== '')
+                                    <li>
+                                        <i class="bi bi-check-circle-fill text-success me-1"></i>{{ trim($desc) }}
+                                    </li>
+                                @endif
+                            @endforeach
                         </ul>
+
+                            @else
+                                <ul class="feature-list">
+                                    <li class="text-muted">Deskripsi belum tersedia.</li>
+                                </ul>
+                            @endif
+                        </div>
+
+
+                        {{-- <div class="card-body">
+                            <p>
+                                @if ($layanan->detail && $layanan->detail->deskripsi)
+                                    {{ $layanan->detail->deskripsi }}
+                                @else
+                                    <span class="text-muted">Deskripsi belum tersedia.</span>
+                                @endif
+                            </p>
+
+                            @if ($layanan->detail && is_array($layanan->detail->benefit))
+                                <ul class="feature-list">
+                                    @foreach ($layanan->detail->benefit as $benefit)
+                                        <li>
+                                            <i class="bi bi-check-circle-fill text-success me-1"></i>
+                                            {{ $benefit }}
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @else
+                                <ul class="feature-list">
+                                    <li class="text-muted">Belum ada daftar benefit</li>
+                                </ul>
+                            @endif
+                        </div> --}}
+
+                        <div class="card-footer">
+                            <a href="" class="btn btn-primary">
+                                <span>Pilih Paket</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <a href="/kontak" class="btn btn-outline">
+                                <span>Konsultasi</span>
+                            </a>
+                        </div>
                     </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Pilih Paket</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Konsultasi</span>
-                        </a>
+                @empty
+                    <div class="text-center text-muted py-4">
+                        <p>Belum ada layanan yang tersedia.</p>
                     </div>
-                </div>
+                @endforelse
             </div>
+
+
+            
         </div>
     </div>
 

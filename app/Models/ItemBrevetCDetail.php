@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BrevetCDetail extends Model
+class ItemBrevetCDetail extends Model
 {
     use HasFactory;
 
@@ -20,6 +20,6 @@ class BrevetCDetail extends Model
 
     public function brevetC()
     {
-        return $this->belongsTo(BrevetC::class, 'brevet_c_id');
+        return $this->belongsTo(ItemBrevetC::class, 'brevet_c_id');
     }
 }

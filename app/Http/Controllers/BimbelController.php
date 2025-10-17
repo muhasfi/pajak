@@ -86,15 +86,15 @@ class BimbelController extends Controller
         })
         ->findOrFail($id);
 
-    dd([
-        'app_timezone' => config('app.timezone'),
-        'now' => now(),
-        'end_date' => $orderItem->end_date,
-    ]);
+    // dd([
+    //     'app_timezone' => config('app.timezone'),
+    //     'now' => now(),
+    //     'end_date' => $orderItem->end_date,
+    // ]);
 
     // Cek kalau ada masa aktif
     if ($orderItem->end_date && now()->gte($orderItem->end_date)) {
-        return redirect()->route('bimbel.list')
+        return redirect()->route('bimbel.courses.list')
             ->with('error', 'Masa aktif bimbel ini sudah habis.');
     }
 

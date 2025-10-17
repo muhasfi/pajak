@@ -87,94 +87,83 @@
             </div>
 
             <div class="services-grid">
-                <!-- Service 2 -->
-                <div class="service-card featured">
-                    <div class="card-badge">Populer</div>
-                    <div class="card-header pajak">
-                        <div class="service-icon">
-                            <i class="fas fa-calculator"></i>
+                    @forelse ($pajaks as $pajak)
+                        <div class="service-card {{ $loop->iteration == 1 ? 'featured' : '' }}">
+
+                            <div class="card-header pajak">
+                                <div class="service-icon">
+                                    {{-- Ganti ikon berdasarkan nama/judul pajak (opsional) --}}
+                                    @php
+                                        $judul = strtolower($pajak->judul);
+                                    @endphp
+
+                                    @if (Str::contains($judul, ['rencana', 'plan']))
+                                        <i class="fas fa-calculator"></i>
+                                    @elseif (Str::contains($judul, ['bphtb', 'pbb']))
+                                        <i class="fas fa-hand-holding-usd"></i>
+                                    @elseif (Str::contains($judul, ['konsul', 'consult']))
+                                        <i class="fas fa-user-tie"></i>
+                                    @else
+                                        <i class="fas fa-file-invoice-dollar"></i>
+                                    @endif
+                                </div>
+                                <h3>{{ $pajak->judul }}</h3>
+                                <h3 class="text-primary fw-bold">
+                                    Rp {{ number_format($pajak->harga, 0, ',', '.') }}
+                                </h3>
+
+                            </div>
+
+                            <div class="card-body">
+                                {{-- Deskripsi (dipecah per baris menjadi list) --}}
+                                @if ($pajak->detail && $pajak->detail->deskripsi)
+                                    @php
+                                        $deskripsiList = preg_split("/\r\n|\n|\r/", $pajak->detail->deskripsi);
+                                    @endphp
+                                    <ul class="list-unstyled">
+                                        @foreach ($deskripsiList as $desc)
+                                            @if (trim($desc) !== '')
+                                                <li>
+                                                    <i class="bi bi-check-circle-fill text-success me-1"></i> {{ trim($desc) }}
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <p class="text-muted">Deskripsi belum tersedia.</p>
+                                @endif
+
+                                {{-- Benefit list (jika ada) --}}
+                                @if ($pajak->detail && is_array($pajak->detail->benefit))
+                                    <ul class="feature-list mt-2">
+                                        @foreach ($pajak->detail->benefit as $benefit)
+                                            <li>
+                                                <i class="bi bi-check-circle-fill text-success me-1"></i> {{ $benefit }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </div>
+
+                            <div class="card-footer">
+                                <a href="" class="btn btn-primary">
+                                    <span>Mulai Layanan</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                                <a href="/kontak" class="btn btn-outline">
+                                    <span>Konsultasi</span>
+                                </a>
+                            </div>
                         </div>
-                        <h3>Perencanaan Pajak</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Strategi perencanaan pajak yang legal untuk optimasi beban pajak perusahaan.</p>
-                        <ul class="feature-list">
-                            <li>Tax planning strategy</li>
-                            <li>Analisis insentif pajak</li>
-                            <li>Restrukturisasi transaksi</li>
-                            <li>Transfer pricing</li>
-                            <li>Tax risk assessment</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Mulai Layanan</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Konsultasi</span>
-                        </a>
-                    </div>
+                    @empty
+                        <div class="text-center text-muted py-4">
+                            Belum ada layanan pajak yang tersedia.
+                        </div>
+                    @endforelse
                 </div>
 
-                <!-- Service 3 -->
-                <div class="service-card">
-                    <div class="card-header pajak">
-                        <div class="service-icon">
-                            <i class="fas fa-hand-holding-usd"></i>
-                        </div>
-                        <h3>BPHTB & PBB</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Penanganan pajak bumi dan bangunan serta bea perolehan hak atas tanah dan bangunan.</p>
-                        <ul class="feature-list">
-                            <li>Perhitungan BPHTB</li>
-                            <li>Pelaporan PBB</li>
-                            <li>Pengurusan NJOP</li>
-                            <li>Keberatan pajak daerah</li>
-                            <li>Konsultasi properti</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Mulai Layanan</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Konsultasi</span>
-                        </a>
-                    </div>
-                </div>
 
-                <!-- Service 4 -->
-                <div class="service-card">
-                    <div class="card-header pajak">
-                        <div class="service-icon">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <h3>Konsultasi Pajak</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Konsultasi perpajakan komprehensif untuk solusi terbaik bisnis Anda.</p>
-                        <ul class="feature-list">
-                            <li>Konsultasi reguler</li>
-                            <li>Tax health check</li>
-                            <li>Review compliance</li>
-                            <li>Analisis transaksi khusus</li>
-                            <li>Second opinion</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Mulai Layanan</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Konsultasi</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 
@@ -677,24 +666,6 @@
 
     .service-card:hover::before {
         transform: scaleX(1);
-    }
-
-    .service-card.featured {
-        border: 2px solid var(--primary-green);
-        background: linear-gradient(135deg, var(--gray-50) 0%, var(--light-green) 100%);
-    }
-
-    .card-badge {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        padding: 0.5rem 1rem;
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: var(--white);
-        background: #dc2626;
-        border-radius: 20px;
-        text-transform: uppercase;
     }
 
     .card-header.pajak {

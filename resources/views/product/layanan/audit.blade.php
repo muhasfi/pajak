@@ -58,24 +58,6 @@
                     </div>
                 </div>
             </div>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number">800+</span>
-                    <span class="stat-label">Audit Diselesaikan</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">99.2%</span>
-                    <span class="stat-label">Client Satisfaction</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">20+</span>
-                    <span class="stat-label">Tahun Pengalaman</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">30+</span>
-                    <span class="stat-label">Auditor Berlisensi</span>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -89,92 +71,74 @@
 
             <div class="services-grid">
                 <!-- Service 1 -->
-                <div class="service-card">
-                    <div class="card-header">
-                        <div class="service-icon">
-                            <i class="fas fa-balance-scale"></i>
+                <tbody>
+                    @forelse ($audits as $audit)
+                    @php
+                        $auditDetail = $audit->detail->first();
+                        $benefits = $auditDetail ? json_decode($auditDetail->benefit) : [];
+                        // Limit deskripsi dan benefit untuk tampilan
+                        $shortDescription = $auditDetail ? Str::limit($auditDetail->deskripsi, 100) : '-';
+                        $limitedBenefits = array_slice($benefits, 0, 3); // Max 3 benefit ditampilkan
+                    @endphp
+                    <tr>
+                        <div class="service-card">
+                            <div class="card-header">
+                                <div class="service-icon">
+                                    <i class="fas fa-balance-scale"></i>
+                                </div>
+                                <h3>{{ $audit->judul }}</h3>
+                                <span class="service-price">Rp {{ number_format($audit->harga, 0, ',', '.') }}</span>
+                            </div>
+                            <div class="card-body">
+                                <p> @if($auditDetail && $auditDetail->deskripsi)
+                                    <div class="audit-description">
+                                        {{ $shortDescription }}
+                                        @if(strlen($auditDetail->deskripsi) > 100)
+                                            <a href="javascript:void(0)" 
+                                               class="text-primary text-decoration-none small"
+                                               data-bs-toggle="tooltip" 
+                                               title="{{ $auditDetail->deskripsi }}">
+                                                selengkapnya
+                                            </a>
+                                        @endif
+                                    </div>
+                                @else
+                                    <span class="text-muted fst-italic">Tidak ada deskripsi</span>
+                                @endif</p>
+                                <ul class="feature-list">
+                                     @if(count($benefits) > 0)
+                                        <div class="">
+                                            <ul class="list-unstyled mb-0">
+                                                @foreach($limitedBenefits as $benefit)
+                                                    <li class="small text-truncate">
+                                                        <i class=""></i>
+                                                        {{ $benefit }}
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        
+                                        </div>
+                                    @else
+                                        
+                                    @endif
+                                </ul>
+                            </div>
+                            <div class="card-footer">
+                                <a href="#" class="btn btn-primary">
+                                    <span>Mulai Audit</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                                <a href="/kontak" class="btn btn-outline">
+                                    <span>Konsultasi</span>
+                                </a>
+                            </div>
                         </div>
-                        <h3>Audit General</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Audit laporan keuangan umum untuk memberikan opini wajar sesuai standar profesional.</p>
-                        <ul class="feature-list">
-                            <li>Pemeriksaan bukti transaksi</li>
-                            <li>Testing internal control</li>
-                            <li>Analytical procedures</li>
-                            <li>Opini auditor independen</li>
-                            <li>Management letter</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Mulai Audit</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Konsultasi</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Service 2 -->
-                <div class="service-card featured">
-                    <div class="card-badge">Populer</div>
-                    <div class="card-header">
-                        <div class="service-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3>Audit Khusus</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Audit untuk tujuan khusus seperti due diligence, investigasi, atau compliance.</p>
-                        <ul class="feature-list">
-                            <li>Due diligence audit</li>
-                            <li>Fraud investigation</li>
-                            <li>Compliance audit</li>
-                            <li>Special purpose audit</li>
-                            <li>Forensic accounting</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Mulai Audit</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Konsultasi</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Service 3 -->
-                <div class="service-card">
-                    <div class="card-header">
-                        <div class="service-icon">
-                            <i class="fas fa-cogs"></i>
-                        </div>
-                        <h3>Audit Sistem & Proses</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Evaluasi sistem dan proses akuntansi untuk meningkatkan efektivitas internal control.</p>
-                        <ul class="feature-list">
-                            <li>Internal control review</li>
-                            <li>Process efficiency audit</li>
-                            <li>System implementation audit</li>
-                            <li>Risk assessment</li>
-                            <li>Control recommendations</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Mulai Audit</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Konsultasi</span>
-                        </a>
-                    </div>
-                </div>
+ 
+                    </tr>
+                    @empty
+                  
+                    @endforelse
+                </tbody>
             </div>
         </div>
     </div>
@@ -345,16 +309,6 @@
             </div>
         </div>
     </div>
-
-    <!-- CTA Section -->
-    <div class="cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h3>Siap Meningkatkan Kredibilitas Laporan Keuangan Anda?</h3>
-                <p>Konsultasikan kebutuhan audit Anda dengan tim profesional kami dan dapatkan opini wajar yang meningkatkan kepercayaan stakeholder</p>
-            </div>
-        </div>
-    </div>
 </section>
 
 <style>
@@ -372,6 +326,22 @@
         --success: #10b981;
         --warning: #f59e0b;
     }
+    .service-price {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #7e22ce, #9333ea, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover .service-price {
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
 
     .audit-service {
         min-height: 100vh;
