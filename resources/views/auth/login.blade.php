@@ -4,193 +4,440 @@
 
 @section('content')
 <style>
-    /* ===== Global Background ===== */
-    body {
-        background: linear-gradient(135deg, #1e3c72, #2a5298);
-        min-height: 100vh;
-        overflow: hidden;
-        font-family: 'Poppins', sans-serif;
-        position: relative;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 
-    /* ===== Animated Circles ===== */
-    .circles {
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        font-family: 'Poppins', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Background Animation */
+    .bg-animation {
         position: absolute;
-        top: 0;
-        left: 0;
         width: 100%;
         height: 100%;
-        z-index: 0;
         overflow: hidden;
+        z-index: 0;
     }
 
     .circle {
         position: absolute;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.15);
-        animation: moveUp 20s linear infinite;
+        background: rgba(255, 255, 255, 0.1);
+        animation: float 20s infinite;
     }
 
-    .circle:nth-child(1) { width: 120px; height: 120px; left: 15%; bottom: -150px; animation-delay: 0s; }
-    .circle:nth-child(2) { width: 80px; height: 80px; left: 40%; bottom: -200px; animation-delay: 5s; }
-    .circle:nth-child(3) { width: 200px; height: 200px; left: 70%; bottom: -250px; animation-delay: 10s; }
+    .circle:nth-child(1) { width: 80px; height: 80px; top: 10%; left: 20%; animation-delay: 0s; }
+    .circle:nth-child(2) { width: 120px; height: 120px; top: 70%; left: 70%; animation-delay: 2s; }
+    .circle:nth-child(3) { width: 60px; height: 60px; top: 40%; left: 80%; animation-delay: 4s; }
+    .circle:nth-child(4) { width: 100px; height: 100px; top: 80%; left: 10%; animation-delay: 6s; }
 
-    @keyframes moveUp {
-        0% { transform: translateY(0) scale(1); opacity: 0.8; }
-        100% { transform: translateY(-1200px) scale(1.3); opacity: 0; }
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+        50% { transform: translateY(-30px) rotate(180deg); opacity: 0.3; }
     }
 
-    /* ===== Login Card ===== */
-    .login-card {
+    /* Login Container */
+    .login-wrapper {
+        display: flex;
+        max-width: 1000px;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.98);
+        border-radius: 24px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
         position: relative;
         z-index: 1;
-        background: rgba(255, 255, 255, 0.12);
-        backdrop-filter: blur(15px);
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-        color: #fff;
+        animation: slideIn 0.8s ease-out;
+    }
+
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Left Illustration */
+    .login-illustration {
+        flex: 1;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 60px 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        position: relative;
+    }
+
+    .person-container {
+        position: relative;
+        width: 200px;
+        height: 250px;
+        margin-bottom: 30px;
+    }
+
+    /* Animated Person */
+    .person {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .person-head {
+        width: 60px;
+        height: 60px;
+        background: #ffd89b;
+        border-radius: 50%;
+        position: relative;
+        margin: 0 auto 5px;
+        animation: nod 2s ease-in-out infinite;
+    }
+
+    .person-eyes {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .eye {
+        width: 8px;
+        height: 8px;
+        background: #333;
+        border-radius: 50%;
+        animation: blink 3s infinite;
+    }
+
+    @keyframes blink {
+        0%, 96%, 100% { transform: scaleY(1); }
+        98% { transform: scaleY(0.1); }
+    }
+
+    .person-smile {
+        width: 20px;
+        height: 10px;
+        border: 2px solid #333;
+        border-top: none;
+        border-radius: 0 0 20px 20px;
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .person-body {
+        width: 80px;
+        height: 100px;
+        background: #fff;
+        border-radius: 40px 40px 0 0;
+        position: relative;
+        margin: 0 auto;
+    }
+
+    .person-arms {
+        position: absolute;
+        width: 120px;
+        top: 20px;
+        left: -20px;
+    }
+
+    .arm {
+        width: 35px;
+        height: 12px;
+        background: #ffd89b;
+        border-radius: 10px;
+        position: absolute;
+    }
+
+    .arm-left { left: 0; transform-origin: right center; animation: typeLeft 1.5s ease-in-out infinite; }
+    .arm-right { right: 0; transform-origin: left center; animation: typeRight 1.5s ease-in-out infinite; }
+
+    @keyframes typeLeft {
+        0%, 100% { transform: rotate(-20deg); }
+        50% { transform: rotate(-35deg); }
+    }
+
+    @keyframes typeRight {
+        0%, 100% { transform: rotate(20deg); }
+        50% { transform: rotate(35deg); }
+    }
+
+    @keyframes nod {
+        0%, 100% { transform: rotate(0deg); }
+        50% { transform: rotate(-3deg); }
+    }
+
+    .laptop {
+        width: 100px;
+        height: 60px;
+        background: #34495e;
+        border-radius: 5px 5px 0 0;
+        position: relative;
+        margin-top: 10px;
+    }
+
+    .laptop-screen {
+        width: 90px;
+        height: 50px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 3px;
+        margin: 5px auto;
         overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .login-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    .code-line {
+        height: 3px;
+        background: rgba(255, 255, 255, 0.6);
+        margin: 5px 8px;
+        border-radius: 2px;
+        animation: typing 2s ease-in-out infinite;
     }
 
-    /* ===== Header ===== */
-    .login-header {
-        text-align: center;
-        padding: 1rem 0;
+    .code-line:nth-child(1) { width: 60%; animation-delay: 0s; }
+    .code-line:nth-child(2) { width: 45%; animation-delay: 0.3s; }
+    .code-line:nth-child(3) { width: 70%; animation-delay: 0.6s; }
+
+    @keyframes typing {
+        0% { width: 0; opacity: 0; }
+        50% { opacity: 1; }
+        100% { opacity: 1; }
     }
 
-    .login-header h4 {
+    .laptop-base {
+        width: 110px;
+        height: 8px;
+        background: #2c3e50;
+        border-radius: 0 0 5px 5px;
+        margin: 0 auto;
+    }
+
+    .welcome-text h2 {
+        font-size: 28px;
+        margin-bottom: 10px;
         font-weight: 700;
-        color: #fff;
-        letter-spacing: 0.5px;
     }
 
-    .login-header p {
-        color: rgba(255, 255, 255, 0.75);
+    /* Right Side Form */
+    .login-form-container {
+        flex: 1;
+        padding: 60px 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
-    /* ===== Button ===== */
-    .btn-login {
-        background: linear-gradient(90deg, #00c6ff, #0072ff);
-        border: none;
-        color: #fff;
+    .form-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .form-logo {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7); }
+        50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(102, 126, 234, 0); }
+    }
+
+    .form-header h3 {
+        color: #667eea;
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .form-header p {
+        color: #666;
+        font-size: 15px;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+        position: relative;
+    }
+
+    .form-label {
+        display: block;
+        color: #667eea;
         font-weight: 600;
-        transition: all 0.3s ease;
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 14px 20px 14px 45px;
+        border: 2px solid #e1e8ed;
+        border-radius: 12px;
+        font-size: 15px;
+        transition: all 0.3s;
+        background: #f8f9fa;
+        color: #333;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #667eea;
+        background: white;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+
+    .btn-login {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-top: 10px;
+        position: relative;
+        overflow: hidden;
     }
 
     .btn-login:hover {
-        transform: scale(1.05);
-        background: linear-gradient(90deg, #0072ff, #00c6ff);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
     }
 
-    /* ===== Icon and Image Animation ===== */
-    .icon-login {
-        font-size: 3rem;
-        color: #fff;
-        animation: floatIcon 3s ease-in-out infinite;
+    .link-register {
+        text-align: center;
+        margin-top: 25px;
+        color: #666;
+        font-size: 14px;
     }
 
-    @keyframes floatIcon {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-8px); }
-    }
-
-    .login-image {
-        max-width: 80%;
-        height: auto;
-        animation: floatImage 4s ease-in-out infinite;
-        filter: drop-shadow(0 8px 20px rgba(0,0,0,0.3));
-    }
-
-    @keyframes floatImage {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-12px); }
-        100% { transform: translateY(0px); }
-    }
-
-    /* ===== Link Register ===== */
     .link-register a {
-        color: #00d4ff;
-        font-weight: 500;
+        color: #667eea;
+        font-weight: 600;
         text-decoration: none;
-        transition: 0.3s;
+        transition: all 0.3s;
     }
 
     .link-register a:hover {
+        color: #764ba2;
         text-decoration: underline;
-        color: #fff;
+    }
+
+    @media (max-width: 768px) {
+        .login-wrapper { flex-direction: column; }
+        .login-illustration { padding: 40px 20px; }
+        .login-form-container { padding: 40px 30px; }
+        .person-container { transform: scale(0.8); }
     }
 </style>
 
-<!-- ===== Animated Background Circles ===== -->
-<div class="circles">
+<div class="bg-animation">
+    <div class="circle"></div>
     <div class="circle"></div>
     <div class="circle"></div>
     <div class="circle"></div>
 </div>
 
-<!-- ===== Content ===== -->
-<div class="container d-flex align-items-center justify-content-center min-vh-100">
-    <div class="row w-100 align-items-center">
-        <!-- Illustration -->
-        <div class="col-md-6 text-center mb-5 mb-md-0">
-            <img src="https://cdn-icons-png.flaticon.com/512/706/706830.png" 
-                 alt="Login Illustration" 
-                 class="login-image mb-3">
-            <h5 class="text-white fw-semibold">Your Account, Your World 🌍</h5>
-        </div>
-
-        <!-- Login Form -->
-        <div class="col-md-6">
-            <div class="card login-card p-4 p-md-5">
-                <div class="login-header mb-3">
-                    <i class="fas fa-user-lock icon-login mb-3"></i>
-                    <h4>Welcome Back!</h4>
-                    <p>Sign in to continue your journey</p>
+<div class="login-wrapper">
+    <!-- Left Side - Illustration -->
+    <div class="login-illustration">
+        <div class="person-container">
+            <div class="person">
+                <div class="person-head">
+                    <div class="person-eyes">
+                        <div class="eye"></div>
+                        <div class="eye"></div>
+                    </div>
+                    <div class="person-smile"></div>
                 </div>
-
-                @if($errors->any())
-                    <div class="alert alert-danger">
-                        <ul class="mb-0">
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
+                <div class="person-body">
+                    <div class="person-arms">
+                        <div class="arm arm-left"></div>
+                        <div class="arm arm-right"></div>
                     </div>
-                @endif
-
-                <form method="POST" action="{{ route('customer.login') }}">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="email" class="form-label fw-semibold">Email</label>
-                        <input type="email" class="form-control bg-transparent text-white border-light" 
-                               id="email" name="email" value="{{ old('email') }}" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label fw-semibold">Password</label>
-                        <input type="password" class="form-control bg-transparent text-white border-light" 
-                               id="password" name="password" required>
-                    </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                        <label class="form-check-label" for="remember">Remember me</label>
-                    </div>
-                    <button type="submit" class="btn btn-login w-100 py-2">Login <i class="fas fa-arrow-right ms-2"></i></button>
-                </form>
-
-                <div class="text-center mt-3 link-register">
-                    <a href="{{ route('customer.register') }}">Don't have an account? Register here</a>
                 </div>
             </div>
+            <div class="laptop">
+                <div class="laptop-screen">
+                    <div class="code-line"></div>
+                    <div class="code-line"></div>
+                    <div class="code-line"></div>
+                </div>
+                <div class="laptop-base"></div>
+            </div>
+        </div>
+        <div class="welcome-text">
+            <h2>Welcome Back!</h2>
+            <p>Sign in to continue your journey 🌍</p>
+        </div>
+    </div>
+
+    <!-- Right Side - Login Form -->
+    <div class="login-form-container">
+        <div class="form-header">
+            <div class="form-logo">
+                <i class="fas fa-user-lock"></i>
+            </div>
+            <h3>Customer Login</h3>
+            <p>Masukkan email dan password Anda</p>
+        </div>
+
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('customer.login') }}">
+            @csrf
+            <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                <label class="form-check-label" for="remember">Remember me</label>
+            </div>
+
+            <button type="submit" class="btn-login">
+                <span><i class="fas fa-sign-in-alt"></i> Login</span>
+            </button>
+        </form>
+
+        <div class="link-register">
+            Don't have an account? <a href="{{ route('customer.register') }}">Register here</a>
         </div>
     </div>
 </div>
 
-<!-- Font Awesome for icons -->
 <script src="https://kit.fontawesome.com/a2d9d6c6d6.js" crossorigin="anonymous"></script>
 @endsection

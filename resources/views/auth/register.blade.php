@@ -4,180 +4,344 @@
 
 @section('content')
 <style>
-    /* ===== Background & Font ===== */
-    body {
-        background: linear-gradient(135deg, #2193b0, #6dd5ed);
-        min-height: 100vh;
-        overflow: hidden;
-        position: relative;
-        font-family: 'Poppins', sans-serif;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 
-    /* ===== Bubble Animation ===== */
-    .bubbles {
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        font-family: 'Poppins', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* ===== Background Animation ===== */
+    .bg-animation {
         position: absolute;
-        top: 0;
-        left: 0;
         width: 100%;
         height: 100%;
-        z-index: 0;
         overflow: hidden;
+        z-index: 0;
     }
-    .bubble {
-        position: absolute;
-        bottom: -150px;
-        background: rgba(255, 255, 255, 0.25);
-        border-radius: 50%;
-        animation: rise 10s infinite ease-in;
-    }
-    @keyframes rise {
-        0% { transform: translateY(0) scale(1); opacity: 1; }
-        100% { transform: translateY(-1200px) scale(1.5); opacity: 0; }
-    }
-    .bubble:nth-child(1) { left: 10%; width: 40px; height: 40px; animation-duration: 8s; }
-    .bubble:nth-child(2) { left: 25%; width: 20px; height: 20px; animation-duration: 12s; animation-delay: 2s; }
-    .bubble:nth-child(3) { left: 40%; width: 50px; height: 50px; animation-duration: 10s; animation-delay: 4s; }
-    .bubble:nth-child(4) { left: 55%; width: 25px; height: 25px; animation-duration: 9s; animation-delay: 3s; }
-    .bubble:nth-child(5) { left: 70%; width: 35px; height: 35px; animation-duration: 11s; animation-delay: 1s; }
-    .bubble:nth-child(6) { left: 85%; width: 60px; height: 60px; animation-duration: 13s; animation-delay: 5s; }
 
-    /* ===== Registration Card ===== */
-    .register-card {
+    .circle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        animation: float 20s infinite;
+    }
+
+    .circle:nth-child(1) { width: 80px; height: 80px; top: 10%; left: 20%; animation-delay: 0s; }
+    .circle:nth-child(2) { width: 120px; height: 120px; top: 70%; left: 70%; animation-delay: 2s; }
+    .circle:nth-child(3) { width: 60px; height: 60px; top: 40%; left: 80%; animation-delay: 4s; }
+    .circle:nth-child(4) { width: 100px; height: 100px; top: 80%; left: 10%; animation-delay: 6s; }
+    .circle:nth-child(5) { width: 90px; height: 90px; top: 50%; left: 5%; animation-delay: 3s; }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+        50% { transform: translateY(-30px) rotate(180deg); opacity: 0.3; }
+    }
+
+    /* ===== Wrapper ===== */
+    .register-wrapper {
+        display: flex;
+        max-width: 1000px;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.98);
+        border-radius: 24px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
         position: relative;
         z-index: 1;
-        background: rgba(255, 255, 255, 0.92);
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        backdrop-filter: blur(10px);
-        transition: all 0.3s ease;
-    }
-    .register-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        animation: slideIn 0.8s ease-out;
     }
 
-    /* ===== Header ===== */
-    .register-header {
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== Left Side ===== */
+    .register-illustration {
+        flex: 1;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 60px 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
         text-align: center;
-        padding: 1rem 0;
     }
-    .register-header h4 {
+
+    .register-illustration img {
+        width: 220px;
+        margin-bottom: 25px;
+        animation: floatImage 4s ease-in-out infinite;
+        filter: drop-shadow(0 8px 25px rgba(0,0,0,0.3));
+    }
+
+    @keyframes floatImage {
+        0%,100% { transform: translateY(0px); }
+        50% { transform: translateY(-12px); }
+    }
+
+    /* ===== Right Side ===== */
+    .register-form-container {
+        flex: 1;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .form-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .form-logo {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
+        }
+        50% {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+        }
+    }
+
+    .form-logo i {
+        color: white;
+        font-size: 32px;
+    }
+
+    .form-header h3 {
+        color: #667eea;
+        font-size: 28px;
         font-weight: 700;
-        color: #1a73e8;
+        margin-bottom: 8px;
     }
-    .register-header p {
-        color: #6c757d;
-        font-size: 15px;
+
+    .form-header p {
+        color: #666;
+        font-size: 14px;
+    }
+
+    /* ===== Input Styling ===== */
+    .form-label {
+        display: block;
+        color: #667eea;
+        font-weight: 600;
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+
+    .input-wrapper {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .input-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #667eea;
+        font-size: 16px;
+        transition: all 0.3s;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 20px 12px 45px;
+        border: 2px solid #e1e8ed;
+        border-radius: 12px;
+        font-size: 14px;
+        background: #f8f9fa;
+        transition: 0.3s;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #667eea;
+        background: white;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-control:focus ~ .input-icon {
+        color: #764ba2;
     }
 
     /* ===== Button ===== */
     .btn-register {
-        background-color: #1a73e8;
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
         border: none;
+        border-radius: 12px;
+        font-size: 16px;
         font-weight: 600;
-        transition: 0.3s ease;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-top: 10px;
+        position: relative;
+        overflow: hidden;
     }
+
+    .btn-register:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        transition: left 0.5s;
+    }
+
+    .btn-register span {
+        position: relative;
+        z-index: 1;
+    }
+
+    .btn-register:hover:before {
+        left: 0;
+    }
+
     .btn-register:hover {
-        background-color: #155fc1;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
     }
 
     /* ===== Link ===== */
-    .link-login a {
-        color: #1a73e8;
-        text-decoration: none;
-        font-weight: 500;
+    .login-link {
+        text-align: center;
+        margin-top: 20px;
+        color: #666;
+        font-size: 14px;
     }
-    .link-login a:hover {
+
+    .login-link a {
+        color: #667eea;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .login-link a:hover {
+        color: #764ba2;
         text-decoration: underline;
     }
 
-    /* ===== Illustration Animation ===== */
-    .register-illustration {
-        max-width: 100%;
-        animation: float 4s ease-in-out infinite;
-    }
-    @keyframes float {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-10px); }
-        100% { transform: translateY(0px); }
+    /* Responsive */
+    @media (max-width: 768px) {
+        .register-wrapper { flex-direction: column; }
+        .register-illustration { padding: 40px 20px; }
+        .register-form-container { padding: 40px 30px; }
     }
 </style>
 
-<!-- Bubble Background -->
-<div class="bubbles">
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
+<div class="bg-animation">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
 </div>
 
-<!-- Main Content -->
-<div class="container d-flex align-items-center justify-content-center min-vh-100">
-    <div class="row w-100 align-items-center">
-        <!-- Illustration -->
-        <div class="col-md-6 text-center mb-4 mb-md-0">
-            <img src="https://cdn-icons-png.flaticon.com/512/747/747376.png" alt="Register Illustration" class="register-illustration">
+<div class="register-wrapper">
+    <!-- Left Side -->
+    <div class="register-illustration">
+        <img src="https://cdn-icons-png.flaticon.com/512/747/747376.png" alt="Register Illustration">
+        <h2>Bergabunglah Dengan Kami!</h2>
+        <p>Buat akun pelanggan baru dan nikmati layanan kami</p>
+    </div>
+
+    <!-- Right Side -->
+    <div class="register-form-container">
+        <div class="form-header">
+            <div class="form-logo">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <h3>Daftar Akun Pelanggan</h3>
+            <p>Lengkapi formulir di bawah untuk mendaftar</p>
         </div>
 
-        <!-- Registration Form -->
-        <div class="col-md-6">
-            <div class="card register-card p-4">
-                <div class="register-header mb-3">
-                    <h4>Create Your Account</h4>
-                    <p>Join us today and explore amazing experiences!</p>
-                </div>
-
-                @if($errors->any())
-                    <div class="alert alert-danger">
-                        <ul class="mb-0">
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
-                <form method="POST" action="{{ route('customer.register') }}">
-                    @csrf
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="name" class="form-label fw-semibold">Full Name</label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="email" class="form-label fw-semibold">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="password" class="form-label fw-semibold">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="password_confirmation" class="form-label fw-semibold">Confirm Password</label>
-                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="phone" class="form-label fw-semibold">Phone</label>
-                            <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone') }}">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="address" class="form-label fw-semibold">Address</label>
-                            <textarea class="form-control" id="address" name="address" rows="1">{{ old('address') }}</textarea>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-register w-100 py-2">Register</button>
-                </form>
-                <div class="text-center mt-3 link-login">
-                    <a href="{{ route('customer.login') }}">Already have an account? Login here</a>
-                </div>
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
+        @endif
+
+        <form method="POST" action="{{ route('customer.register') }}">
+            @csrf
+            <div class="input-wrapper">
+                <i class="fas fa-user input-icon"></i>
+                <input type="text" class="form-control" name="name" placeholder="Full Name" value="{{ old('name') }}" required>
+            </div>
+
+            <div class="input-wrapper">
+                <i class="fas fa-envelope input-icon"></i>
+                <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}" required>
+            </div>
+
+            <div class="input-wrapper">
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password" class="form-control" name="password" placeholder="Password" required>
+            </div>
+
+            <div class="input-wrapper">
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required>
+            </div>
+
+            <div class="input-wrapper">
+                <i class="fas fa-phone input-icon"></i>
+                <input type="text" class="form-control" name="phone" placeholder="Phone Number" value="{{ old('phone') }}">
+            </div>
+
+            <div class="input-wrapper">
+                <i class="fas fa-map-marker-alt input-icon"></i>
+                <textarea class="form-control" name="address" rows="1" placeholder="Address">{{ old('address') }}</textarea>
+            </div>
+
+            <button type="submit" class="btn-register">
+                <span><i class="fas fa-user-plus"></i> Register Now</span>
+            </button>
+        </form>
+
+        <div class="login-link">
+            Already have an account? <a href="{{ route('customer.login') }}">Login here</a>
         </div>
     </div>
 </div>
+
+<script src="https://kit.fontawesome.com/a2d9d6c6d6.js" crossorigin="anonymous"></script>
 @endsection
