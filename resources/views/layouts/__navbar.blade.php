@@ -61,7 +61,7 @@
                 
                 <!-- Pelatihan & Workshop (5 items - 2 columns) -->
                 <li class="nav-item">
-                    <a href="#pelatihan" class="nav-link">
+                    <a class="nav-link">
                         <i class="fas fa-chalkboard-teacher"></i> Pelatihan <i class="fas fa-chevron-down"></i>
                     </a>
                     <div class="dropdown">
@@ -107,7 +107,7 @@
                 </li>
                 <!-- Layanan Akuntansi & Perpajakan (6 items - 2 columns) -->
                 <li class="nav-item">
-                    <a href="#layanan" class="nav-link">
+                    <a class="nav-link">
                         <i class="fas fa-balance-scale"></i> Layanan <i class="fas fa-chevron-down"></i>
                     </a>
                     <div class="dropdown">
@@ -140,7 +140,7 @@
                 
                 <!-- Konsultasi Kasus (2 items - 1 column) -->
                 <li class="nav-item">
-                    <a href="#konsultasi" class="nav-link">
+                    <a class="nav-link">
                         <i class="fas fa-comments"></i>Konsultasi Kasus<i class="fas fa-chevron-down"></i>
                     </a>
                     <div class="dropdown">
