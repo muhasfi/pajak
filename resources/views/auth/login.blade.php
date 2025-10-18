@@ -546,6 +546,22 @@
                 font-size: 24px;
             }
         }
+
+        .back-home {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.back-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
     </style>
 </head>
 <body>
@@ -607,6 +623,19 @@
 
             <form action="{{ route('login') }}" method="POST">
                 @csrf
+
+                {{-- Alert error umum --}}
+                @if ($errors->any())
+                    <div class="alert alert-danger mb-3">
+                        <ul style="margin: 0; padding-left: 1.2rem;">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                {{-- Input Email --}}
                 <div class="form-group">
                     <label class="form-label" for="email">Email</label>
                     <div class="input-wrapper">
@@ -614,15 +643,20 @@
                             type="email" 
                             name="email" 
                             id="email" 
-                            class="form-input" 
+                            class="form-input @error('email') is-invalid @enderror"
+                            value="{{ old('email') }}"
                             placeholder="customer@example.com" 
                             required 
                             autofocus
                         >
                         <i class="fas fa-envelope input-icon"></i>
                     </div>
+                    @error('email')
+                        <div class="text-danger mt-1" style="font-size: 0.875rem;">{{ $message }}</div>
+                    @enderror
                 </div>
 
+                {{-- Input Password --}}
                 <div class="form-group">
                     <label class="form-label" for="password">Password</label>
                     <div class="input-wrapper">
@@ -630,21 +664,31 @@
                             type="password" 
                             name="password" 
                             id="password" 
-                            class="form-input" 
+                            class="form-input @error('password') is-invalid @enderror"
                             placeholder="Masukkan password" 
                             required
                         >
                         <i class="fas fa-lock input-icon"></i>
                     </div>
+                    @error('password')
+                        <div class="text-danger mt-1" style="font-size: 0.875rem;">{{ $message }}</div>
+                    @enderror
                 </div>
 
+                {{-- Tombol Login --}}
                 <button type="submit" class="btn-login">
                     <span><i class="fas fa-sign-in-alt"></i> Masuk Sekarang</span>
                 </button>
             </form>
 
+
             <div class="register-link">
                 Belum punya akun? <a href="{{ route('register') }}">Daftar Sekarang</a>
+            </div>
+            <div class="back-home mt-3">
+                <a href="{{ url('/') }}" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+                </a>
             </div>
         </div>
     </div>

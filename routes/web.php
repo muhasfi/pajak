@@ -88,7 +88,8 @@ Route::view('/private', 'product.konsultasi.private')->name('private');
 
 require __DIR__.'/auth.php';
 
-Route::middleware(['auth', 'verified'])->group(function () {
+// Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 
     Route::get('profile', [\App\Http\Controllers\SiteController::class, 'profile'])
         ->middleware('password.confirm')
