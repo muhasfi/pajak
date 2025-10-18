@@ -181,7 +181,7 @@
                         }
                     })
                     .then(async response => {
-                        let text = await response.text(); // ambil response mentah
+                        let text = await response.text();
                         console.log("Raw response:", text);
 
                         let data;
