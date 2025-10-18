@@ -25,8 +25,8 @@
         <!-- Featured Article -->
         <article class="featured-article" data-news-id="1">
             <div class="article-image-wrapper">
-                <img src="https://cdn1-production-images-kly.akamaized.net/0bgy9cgxYbzEOVIdhQ48kto5pO8=/0x106:1920x1186/800x450/filters:quality(75):format(webp)/kly-media-production/2023/09/25/4723315-1695618183825-4cd0b7323cfc8ab2a2b38f8e1a6e38c4.jpeg" 
-                    class="article-image" alt="Vape Zombie Malaysia">
+                <img src="https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" 
+                    class="article-image" alt="Vape Zombie Malaysia" onerror="this.src='https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80'">
                 <span class="article-badge">Breaking News</span>
             </div>
             <div class="article-content">
@@ -45,8 +45,8 @@
         <!-- Side Articles -->
         <aside class="side-articles">
             <article class="side-article" data-news-id="2">
-                <img src="https://cdn0-production-images-kly.akamaized.net/yoNRF_dq7cJqDNX2gI9gbjDiP1g=/640x360/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/2022/03/10/206e3b23965f7b6a0b86562dd52d5738.jpg" 
-                    class="side-article-image" alt="Penjual Tahu Goreng">
+                <img src="https://images.unsplash.com/photo-1565689223820-b9fd35fa4f8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                    class="side-article-image" alt="Penjual Tahu Goreng" onerror="this.src='https://images.unsplash.com/photo-1565689223820-b9fd35fa4f8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80'">
                 <div class="side-article-content">
                     <span class="side-article-time">15 menit lalu</span>
                     <h4 class="side-article-title">Penjual Tahu Goreng di China Viral karena Dagang Pakai Cosplay Kaisar Kuno</h4>
@@ -54,8 +54,8 @@
             </article>
 
             <article class="side-article" data-news-id="3">
-                <img src="https://cdn0-production-images-kly.akamaized.net/T6zC3zlbNoyUOgMeSnGrEwIuJjM=/0x0:800x450/640x360/filters:quality(75):format(webp)/kly-media-production/2021/11/30/2497a089196a6a6bcd20e5b6a062c3a8.jpg" 
-                    class="side-article-image" alt="Bandara YIA Kuliner">
+                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                    class="side-article-image" alt="Bandara YIA Kuliner" onerror="this.src='https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80'">
                 <div class="side-article-content">
                     <span class="side-article-time">24 menit lalu</span>
                     <h4 class="side-article-title">12 Rekomendasi Tempat Makan Enak Dekat Bandara YIA, Kuliner Lezat di Sekitar...</h4>
@@ -63,8 +63,8 @@
             </article>
 
             <article class="side-article" data-news-id="4">
-                <img src="https://akcdn.detik.net.id/community/media/visual/2023/03/25/timnas-italia-2_169.jpeg?w=700&q=90" 
-                    class="side-article-image" alt="Italia vs Israel">
+                <img src="https://images.unsplash.com/photo-1579952363873-27d3b8efd5e6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1176&q=80" 
+                    class="side-article-image" alt="Italia vs Israel" onerror="this.src='https://images.unsplash.com/photo-1579952363873-27d3b8efd5e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1176&q=80'">
                 <div class="side-article-content">
                     <span class="side-article-time">24 menit lalu</span>
                     <h4 class="side-article-title">Prediksi Italia vs Israel: Kemenangan Adalah Satu-satunya Pilihan</h4>
@@ -93,8 +93,8 @@
         <div class="spotlight-grid">
             <article class="spotlight-card" data-news-id="5">
                 <div class="spotlight-image-wrapper">
-                    <img src="https://akcdn.detik.net.id/community/media/visual/2023/10/08/gleison-bremer_169.jpeg?w=700&q=90" 
-                        class="spotlight-image" alt="Gleison Bremer">
+                    <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1190&q=80" 
+                        class="spotlight-image" alt="Gleison Bremer" onerror="this.src='https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1190&q=80'">
                     <span class="spotlight-category">Bola</span>
                 </div>
                 <div class="spotlight-content">
@@ -105,8 +105,8 @@
 
             <article class="spotlight-card" data-news-id="6">
                 <div class="spotlight-image-wrapper">
-                    <img src="https://cdn0-production-images-kly.akamaized.net/0Pp2iOEpwMPrN9fKHDWJHTbAQ9s=/640x360/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/2023/09/15/514e11b6b7b7b7a2a58b7158bfa8a6e4.jpg" 
-                        class="spotlight-image" alt="Obamacare">
+                    <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                        class="spotlight-image" alt="Obamacare" onerror="this.src='https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80'">
                     <span class="spotlight-category">Bisnis</span>
                 </div>
                 <div class="spotlight-content">
@@ -117,8 +117,8 @@
 
             <article class="spotlight-card" data-news-id="7">
                 <div class="spotlight-image-wrapper">
-                    <img src="https://cdn0-production-images-kly.akamaized.net/l9EHRRvwFmfI2J5Qe3-7gT6eM0w=/0x0:640x426/640x360/filters:quality(75):format(webp)/kly-media-production/2021/02/03/155d7cc0b8a49a95f08f5195c5b302d5.jpg" 
-                        class="spotlight-image" alt="Jeff Bezos">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" 
+                        class="spotlight-image" alt="Jeff Bezos" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80'">
                     <span class="spotlight-category">Bisnis</span>
                 </div>
                 <div class="spotlight-content">
@@ -129,8 +129,8 @@
 
             <article class="spotlight-card" data-news-id="8">
                 <div class="spotlight-image-wrapper">
-                    <img src="https://akcdn.detik.net.id/community/media/visual/2023/09/14/ibl_169.jpeg?w=700&q=90" 
-                        class="spotlight-image" alt="IBL 2026">
+                    <img src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" 
+                        class="spotlight-image" alt="IBL 2026" onerror="this.src='https://images.unsplash.com/photo-1531415074968-036ba1b575da?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80'">
                     <span class="spotlight-category">Bola</span>
                 </div>
                 <div class="spotlight-content">
@@ -177,6 +177,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--bg-gray);
 }
 
 .news-container {
@@ -267,6 +274,7 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    display: block;
 }
 
 .featured-article:hover .article-image {
@@ -284,6 +292,7 @@
     font-size: 0.813rem;
     font-weight: 600;
     letter-spacing: 0.3px;
+    z-index: 2;
 }
 
 .article-content {
@@ -360,6 +369,7 @@
     border-radius: 8px;
     flex-shrink: 0;
     transition: transform 0.4s ease;
+    display: block;
 }
 
 .side-article:hover .side-article-image {
@@ -370,6 +380,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    flex: 1;
 }
 
 .side-article-time {
@@ -426,6 +437,7 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
+    display: block;
 }
 
 .spotlight-card:hover .spotlight-image {
@@ -443,6 +455,7 @@
     border-radius: 6px;
     font-size: 0.75rem;
     font-weight: 600;
+    z-index: 2;
 }
 
 .spotlight-content {
@@ -517,6 +530,11 @@
     cursor: pointer;
     transition: color 0.3s ease;
     line-height: 1;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .close-modal:hover {
@@ -538,6 +556,7 @@
     object-fit: cover;
     border-radius: 12px;
     margin-bottom: 1.5rem;
+    display: block;
 }
 
 .news-full-meta {
@@ -546,6 +565,7 @@
     gap: 0.75rem;
     margin-bottom: 1.5rem;
     font-size: 0.9rem;
+    flex-wrap: wrap;
 }
 
 .news-full-time {
@@ -590,6 +610,18 @@
     margin: 2rem 0;
     font-style: italic;
     color: var(--text-muted);
+}
+
+/* Image Fallback Styles */
+.image-fallback {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
 }
 
 /* Responsive Design */
@@ -690,7 +722,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const newsData = {
         1: {
             title: "Vape Zombie, Rokok Elektrik yang Diduga Mengandung Narkoba Berasal dari Malaysia",
-            image: "https://cdn1-production-images-kly.akamaized.net/0bgy9cgxYbzEOVIdhQ48kto5pO8=/0x106:1920x1186/800x450/filters:quality(75):format(webp)/kly-media-production/2023/09/25/4723315-1695618183825-4cd0b7323cfc8ab2a2b38f8e1a6e38c4.jpeg",
+            image: "https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
             time: "9 menit lalu",
             category: "Kriminal",
             content: `
@@ -710,7 +742,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         2: {
             title: "Penjual Tahu Goreng di China Viral karena Dagang Pakai Cosplay Kaisar Kuno",
-            image: "https://cdn0-production-images-kly.akamaized.net/yoNRF_dq7cJqDNX2gI9gbjDiP1g=/640x360/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/2022/03/10/206e3b23965f7b6a0b86562dd52d5738.jpg",
+            image: "https://images.unsplash.com/photo-1565689223820-b9fd35fa4f8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
             time: "15 menit lalu",
             category: "Hiburan",
             content: `
@@ -728,7 +760,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         3: {
             title: "12 Rekomendasi Tempat Makan Enak Dekat Bandara YIA, Kuliner Lezat di Sekitar Bandara",
-            image: "https://cdn0-production-images-kly.akamaized.net/T6zC3zlbNoyUOgMeSnGrEwIuJjM=/0x0:800x450/640x360/filters:quality(75):format(webp)/kly-media-production/2021/11/30/2497a089196a6a6bcd20e5b6a062c3a8.jpg",
+            image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
             time: "24 menit lalu",
             category: "Kuliner",
             content: `
@@ -748,7 +780,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         4: {
             title: "Prediksi Italia vs Israel: Kemenangan Adalah Satu-satunya Pilihan",
-            image: "https://akcdn.detik.net.id/community/media/visual/2023/03/25/timnas-italia-2_169.jpeg?w=700&q=90",
+            image: "https://images.unsplash.com/photo-1579952363873-27d3b8efd5e6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1176&q=80",
             time: "24 menit lalu",
             category: "Olahraga",
             content: `
@@ -768,7 +800,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         5: {
             title: "Cedera Lutut Gleison Bremer Jadi Masalah Baru untuk Juventus",
-            image: "https://akcdn.detik.net.id/community/media/visual/2023/10/08/gleison-bremer_169.jpeg?w=700&q=90",
+            image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1190&q=80",
             time: "26 menit lalu",
             category: "Olahraga",
             content: `
@@ -786,7 +818,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         6: {
             title: "Kebutuhan Pendanaan Obamacare Picu Shutdown Pemerintahan AS",
-            image: "https://cdn0-production-images-kly.akamaized.net/0Pp2iOEpwMPrN9fKHDWJHTbAQ9s=/640x360/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/2023/09/15/514e11b6b7b7b7a2a58b7158bfa8a6e4.jpg",
+            image: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
             time: "29 menit lalu",
             category: "Bisnis",
             content: `
@@ -808,7 +840,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         7: {
             title: "Jeff Bezos Ungkap Rahasia Sebelum Mulai Bangun Blue Origin",
-            image: "https://cdn0-production-images-kly.akamaized.net/l9EHRRvwFmfI2J5Qe3-7gT6eM0w=/0x0:640x426/640x360/filters:quality(75):format(webp)/kly-media-production/2021/02/03/155d7cc0b8a49a95f08f5195c5b302d5.jpg",
+            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
             time: "44 menit lalu",
             category: "Bisnis",
             content: `
@@ -828,7 +860,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         8: {
             title: "IBL 2026 Siap Bergulir: Format Kandang-Tandang akan Diterapkan",
-            image: "https://akcdn.detik.net.id/community/media/visual/2023/09/14/ibl_169.jpeg?w=700&q=90",
+            image: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
             time: "44 menit lalu",
             category: "Olahraga",
             content: `
@@ -859,7 +891,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (news) {
             newsContent.innerHTML = `
                 <div class="news-full-content">
-                    <img src="${news.image}" alt="${news.title}" class="news-full-image">
+                    <img src="${news.image}" alt="${news.title}" class="news-full-image" onerror="this.src='https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80'">
                     <div class="news-full-meta">
                         <span class="news-full-time">${news.time}</span>
                         <span class="news-full-category">${news.category}</span>
@@ -904,6 +936,19 @@ document.addEventListener('DOMContentLoaded', function() {
         if (event.key === 'Escape') {
             closeNewsModal();
         }
+    });
+
+    // Fungsi untuk menangani error gambar
+    function handleImageError(img) {
+        img.src = 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80';
+        img.alt = 'Gambar tidak tersedia';
+    }
+
+    // Menambahkan event listener untuk semua gambar
+    document.querySelectorAll('img').forEach(img => {
+        img.addEventListener('error', function() {
+            handleImageError(this);
+        });
     });
 });
 </script>
