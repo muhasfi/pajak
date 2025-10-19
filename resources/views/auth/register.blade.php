@@ -1,169 +1,364 @@
-@extends('layouts.master')
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Registration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-@section('title', 'Daftar Akun Baru')
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
 
-@section('style')
-<style>
-    body {
-        background: linear-gradient(120deg, #4e54c8 0%, #fdfdff 100%);
-        min-height: 100vh;
-        font-family: 'Inter', Arial, sans-serif;
-    }
+        /* ===== Background Animation ===== */
+        .bg-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
 
-    .register-container {
-        max-width: 700px; /* lebih lebar biar muat 2 kolom */
-        margin: 120px auto;
-        padding: 40px 32px;
-        background: #fff;
-        border-radius: 18px;
-        box-shadow: 0 12px 32px rgba(78, 84, 200, 0.15);
-    }
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 20s infinite;
+        }
 
-    .register-logo {
-        width: 64px;
-        height: 64px;
-        margin: 0 auto 18px;
-        background: linear-gradient(135deg, #4e54c8 60%, #8f94fb 100%);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+        .circle:nth-child(1) { width: 80px; height: 80px; top: 10%; left: 20%; animation-delay: 0s; }
+        .circle:nth-child(2) { width: 120px; height: 120px; top: 70%; left: 70%; animation-delay: 2s; }
+        .circle:nth-child(3) { width: 60px; height: 60px; top: 40%; left: 80%; animation-delay: 4s; }
+        .circle:nth-child(4) { width: 100px; height: 100px; top: 80%; left: 10%; animation-delay: 6s; }
+        .circle:nth-child(5) { width: 90px; height: 90px; top: 50%; left: 5%; animation-delay: 3s; }
 
-    .register-logo i {
-        color: #fff;
-        font-size: 2rem;
-    }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-30px) rotate(180deg); opacity: 0.3; }
+        }
 
-    .form-label {
-        font-weight: 600;
-        color: #4e54c8;
-        margin-bottom: 6px;
-    }
+        /* ===== Wrapper ===== */
+        .register-wrapper {
+            display: flex;
+            max-width: 1000px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+            animation: slideIn 0.8s ease-out;
+        }
 
-    .input-group {
-        position: relative;
-    }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    .input-icon {
-        position: absolute;
-        left: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #6b7280;
-        font-size: 0.95rem;
-    }
+        /* ===== Left Side ===== */
+        .register-illustration {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
 
-    .form-control {
-        border-radius: 8px;
-        border: 1px solid #e0e3ea;
-        padding: 10px 14px 10px 40px;
-        font-size: 0.95rem;
-        transition: border-color 0.2s, box-shadow 0.2s;
-    }
+        .register-illustration img {
+            width: 220px;
+            margin-bottom: 25px;
+            animation: floatImage 4s ease-in-out infinite;
+            filter: drop-shadow(0 8px 25px rgba(0,0,0,0.3));
+        }
 
-    .form-control:focus {
-        border-color: #4e54c8;
-        box-shadow: 0 0 0 2px rgba(78, 84, 200, 0.15);
-    }
+        @keyframes floatImage {
+            0%,100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
 
-    .btn-primary {
-        background: linear-gradient(90deg, #4e54c8, #8f94fb);
-        border: none;
-        border-radius: 8px;
-        font-weight: 600;
-        padding: 12px 0;
-        margin-top: 8px;
-        transition: background 0.2s, box-shadow 0.2s;
-        box-shadow: 0 4px 12px rgba(78, 84, 200, 0.10);
-    }
+        /* ===== Right Side ===== */
+        .register-form-container {
+            flex: 1;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
 
-    .btn-primary:hover {
-        background: linear-gradient(90deg, #8f94fb, #4e54c8);
-        box-shadow: 0 6px 18px rgba(78, 84, 200, 0.18);
-    }
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-    .alert {
-        border-radius: 8px;
-        margin-bottom: 16px;
-    }
-</style>
-<link rel="stylesheet" 
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-@endsection
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+            }
+        }
 
-@section('content')
-<div class="register-container">
-    <div class="register-logo">
-        <i class="fas fa-user-plus"></i>
+
+        .form-header h3 {
+            color: #667eea;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .form-header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* ===== Alert ===== */
+        .alert {
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            border: 1px solid #f5c2c7;
+            color: #842029;
+        }
+
+        .alert ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .mb-0 {
+            margin-bottom: 0;
+        }
+
+        /* ===== Input Styling ===== */
+        .form-label {
+            display: block;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667eea;
+            font-size: 16px;
+            transition: all 0.3s;
+            z-index: 1;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            font-size: 14px;
+            background: #f8f9fa;
+            transition: 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .input-wrapper:focus-within .input-icon {
+            color: #764ba2;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 45px;
+        }
+
+        /* ===== Button ===== */
+        .btn-register {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-register:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            transition: left 0.5s;
+        }
+
+        .btn-register span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-register:hover:before {
+            left: 0;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* ===== Link ===== */
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #667eea;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .login-link a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .register-wrapper { flex-direction: column; }
+            .register-illustration { padding: 40px 20px; }
+            .register-form-container { padding: 40px 30px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
     </div>
-    <h3 class="text-center mb-2" style="color:#4e54c8;font-weight:700;">Daftar Akun Baru</h3>
-    <p class="text-muted text-center mb-4" style="font-size: 0.95rem;">Silakan isi data untuk membuat akun baru.</p>
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul class="mb-0 ps-3">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="name" class="form-label">Nama Lengkap</label>
-                <div class="input-group">
-                    <span class="input-icon"><i class="fa fa-user"></i></span>
-                    <input id="name" type="text" name="name" 
-                           class="form-control" value="{{ old('name') }}" 
-                           required autofocus placeholder="Masukkan nama lengkap">
-                </div>
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <label for="email" class="form-label">Email</label>
-                <div class="input-group">
-                    <span class="input-icon"><i class="fa fa-envelope"></i></span>
-                    <input id="email" type="email" name="email" 
-                           class="form-control" value="{{ old('email') }}" 
-                           required placeholder="Masukkan email">
-                </div>
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <label for="password" class="form-label">Password</label>
-                <div class="input-group">
-                    <span class="input-icon"><i class="fa fa-lock"></i></span>
-                    <input id="password" type="password" name="password" 
-                           class="form-control" required autocomplete="new-password" 
-                           placeholder="Masukkan password">
-                </div>
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
-                <div class="input-group">
-                    <span class="input-icon"><i class="fa fa-lock"></i></span>
-                    <input id="password_confirmation" type="password" 
-                           name="password_confirmation" class="form-control" required 
-                           placeholder="Konfirmasi password">
-                </div>
-            </div>
+    <div class="register-wrapper">
+        <!-- Left Side -->
+        <div class="register-illustration">
+            <img src="https://cdn-icons-png.flaticon.com/512/747/747376.png" alt="Register Illustration">
+            <h2>Bergabunglah Dengan Kami!</h2>
+            <p>Buat akun pelanggan baru dan nikmati layanan kami</p>
         </div>
 
-        <div class="mb-3 text-end">
-            <a class="text-sm text-indigo-600 hover:underline" href="{{ route('login') }}">
-                Sudah punya akun?
-            </a>
-        </div>
+        <!-- Right Side -->
+        <div class="register-form-container">
+            <div class="form-header">
+                <h3>Daftar Akun Pelanggan</h3>
+                <p>Lengkapi formulir di bawah untuk mendaftar</p>
+            </div>
 
-        <button type="submit" class="btn btn-primary w-100">
-            <i class="fa fa-user-plus me-2"></i>Daftar
-        </button>
-    </form>
-</div>
-@endsection
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
+                <div class="input-wrapper">
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" class="form-control" name="name" placeholder="Full Name" value="{{ old('name') }}" required>
+                </div>
+
+                <div class="input-wrapper">
+                    <i class="fas fa-envelope input-icon"></i>
+                    <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}" required>
+                </div>
+
+                <div class="input-wrapper">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" class="form-control" name="password" placeholder="Password" required>
+                </div>
+
+                <div class="input-wrapper">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required>
+                </div>
+
+                <div class="input-wrapper">
+                    <i class="fas fa-phone input-icon"></i>
+                    <input type="text" class="form-control" name="phone" placeholder="Phone Number" value="{{ old('phone') }}">
+                </div>
+
+                <div class="input-wrapper">
+                    <i class="fas fa-map-marker-alt input-icon"></i>
+                    <textarea class="form-control" name="address" rows="1" placeholder="Address">{{ old('address') }}</textarea>
+                </div>
+
+                <button type="submit" class="btn-register">
+                    <span><i class="fas fa-user-plus"></i> Register Now</span>
+                </button>
+            </form>
+
+            <div class="login-link">
+                Already have an account? <a href="{{ route('login') }}">Login here</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/a2d9d6c6d6.js" crossorigin="anonymous"></script>
+</body>
+</html>

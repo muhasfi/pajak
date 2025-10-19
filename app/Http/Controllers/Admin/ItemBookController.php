@@ -29,27 +29,23 @@ class ItemBookController extends Controller
 
     public function store(Request $request)
     {
-         // Validasi input
         $validated = $request->validate([
             // item
-            'name'          => 'required|string|max:255',
-            'description'   => 'nullable|string',
-            'price'         => 'required|integer',
-            'img'           => 'nullable|image|mimes:jpg,jpeg,png',
-            'is_active'     => 'boolean',
+            'name'        => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price'       => 'required|integer',
+            'img'         => 'nullable|image|mimes:jpg,jpeg,png',
+            'is_active'   => 'boolean',
 
-            // item_details
-            'file_path'     => 'nullable|string|max:255',
-            'video_url'     => 'nullable|url',
-            'zoom_link'     => 'nullable|url',
-            'event_date'    => 'nullable|date',
-            'duration_days' => 'nullable|integer',
+            // ebook
+            'file_type'   => 'required|in:upload,link',
+            'file_upload' => 'nullable|file|mimes:pdf,doc,docx|max:20480', // max 20MB
+            'file_link'   => 'nullable|url',
         ]);
 
         DB::beginTransaction();
-
         try {
-            // Upload gambar (jika ada)
+            // Upload gambar cover (jika ada)
             $imgPath = null;
             if ($request->hasFile('img')) {
                 $imgPath = $request->file('img')->store('items', 'public');
@@ -64,25 +60,30 @@ class ItemBookController extends Controller
                 'is_active'   => $validated['is_active'] ?? 1,
             ]);
 
+            // Tentukan path ebook
+            $filePath = null;
+            if ($validated['file_type'] === 'upload' && $request->hasFile('file_upload')) {
+                $filePath = $request->file('file_upload')->store('ebooks', 'public');
+            } elseif ($validated['file_type'] === 'link') {
+                $filePath = $validated['file_link'];
+            }
+
             // Simpan detail item
             ItemDetail::create([
-                'item_id'       => $item->id,
-                'file_path'     => $validated['file_path'] ?? null,
-                'video_url'     => $validated['video_url'] ?? null,
-                'zoom_link'     => $validated['zoom_link'] ?? null,
-                'event_date'    => $validated['event_date'] ?? null,
-                'duration_days' => $validated['duration_days'] ?? null,
+                'item_id'   => $item->id,
+                'file_path' => $filePath,
             ]);
 
             DB::commit();
 
             return redirect()->route('admin.book.index')
-                ->with('success', 'Item berhasil ditambahkan.');
+                ->with('success', 'E-Book berhasil ditambahkan.');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->withErrors(['error' => $e->getMessage()]);
         }
     }
+
 
 
      public function edit($id)

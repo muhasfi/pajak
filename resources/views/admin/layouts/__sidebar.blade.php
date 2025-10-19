@@ -86,6 +86,120 @@
                             </a>
                         </li>
 
+                        <li class="sidebar-item {{ request()->routeIs('admin.paper.*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.paper.index') }}" class='sidebar-link'>
+                                <i class="bi bi-file-text-fill"></i>
+                                <span>Kertas Kerja</span>
+                            </a>
+                        </li>
+
+                        {{-- <li class="sidebar-item has-sub {{ request()->routeIs('admin.artikel.*') ? 'active' : '' }}">
+                            <a href="#" class="sidebar-link">
+                                <i class="bi bi-file-text-fill"></i>
+                                <span>Kertas Kerja</span>
+                            </a>
+                            <ul class="submenu {{ request()->routeIs('admin.artikel.*') ? 'active' : '' }}">
+                                <li class="submenu-item {{ request()->routeIs('admin.artikel.index') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.artikel.index') }}">PPh21</a>
+                                </li>
+                                <li class="submenu-item {{ request()->routeIs('admin.artike.indexl') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.artikel.index') }}">PPN</a>
+                                </li>
+                                <li class="submenu-item {{ request()->routeIs('admin.artikel.index') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.artikel.index') }}">SPT Tahunan</a>
+                                </li>
+                                <li class="submenu-item {{ request()->routeIs('admin.artikel.index') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.artikel.index') }}">SPT Masa Unifikasi</a>
+                                </li>
+                            </ul>
+                        </li> --}}
+
+                        <li class="sidebar-item has-sub">
+                            <a href="#" class="sidebar-link">
+                                <i class="bi bi-mortarboard-fill"></i> <!-- Ikon pelatihan/edukasi -->
+                                <span>Pelatihan dan Workshop</span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="sidebar-item {{ request()->routeIs('admin.brevetab.*') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.brevetab.index') }}" class='sidebar-link'>
+                                        <i class="bi bi-journal-medical"></i>
+                                        <span>Bravet A & B</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item {{ request()->routeIs('admin.brevetc.*') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.brevetc.index') }}" class='sidebar-link'>
+                                        <i class="bi bi-journal-text"></i>
+                                        <span>Bravet C</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item {{ request()->routeIs('admin.webinar.*') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.webinar.index') }}" class='sidebar-link'>
+                                        <i class="bi bi-camera-video-fill"></i>
+                                        <span>Webinar</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item {{ request()->routeIs('admin.seminar.*') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.seminar.index') }}" class='sidebar-link'>
+                                        <i class="bi bi-mic-fill"></i>
+                                        <span>Seminar</span>
+                                    </a>
+                                </li>
+                               <li class="sidebar-item {{ request()->routeIs('admin.training.*') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.training.index') }}" class='sidebar-link'>
+                                        <i class="bi bi-file-earmark-bar-graph-fill"></i>
+                                        <span>In House Trainings</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        
+
+                        <li class="sidebar-item has-sub">
+                            <a href="/admin/layanan-pt" class="sidebar-link">
+                                <i class="bi bi-mortarboard-fill"></i> <!-- Ikon pelatihan/edukasi -->
+                                <span>Layanan</span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="sidebar-item {{ request()->routeIs('admin.layanan-pt.*') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.layanan-pt.index') }}" class='sidebar-link'>
+                                        <i class="bi bi-journal-medical"></i>
+                                        <span>Layanan Pt</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item {{ request()->routeIs('admin.accounting-services.*') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.accounting-services.index') }}" class='sidebar-link'>
+                                        <i class="bi bi-mic-fill"></i>
+                                        <span>Akuntansi</span>
+                                    </a>
+                                </li>
+                                 <li class="sidebar-item {{ request()->routeIs('admin.pajak.*') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.pajak.index') }}" class='sidebar-link'>
+                                        <i class="bi bi-file-earmark-bar-graph-fill"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>Pajak</span>
+                                    </a>
+                                </li>
+                                 <li class="sidebar-item {{ request()->routeIs('admin.litigasi.*') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.litigasi.index') }}" class='sidebar-link'>
+                                        <i class="bi bi-file-earmark-bar-graph-fill"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>Litigasi</span>
+                                    </a>
+                                </li>
+                                 <li class="sidebar-item {{ request()->routeIs('admin.audit.*') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.audit.index') }}" class='sidebar-link'>
+                                        <i class="bi bi-file-earmark-bar-graph-fill"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>Audit</span>
+                                    </a>
+                                </li>
+                                 <li class="sidebar-item {{ request()->routeIs('admin.transfer.*') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.transfer.index') }}" class='sidebar-link'>
+                                        <i class="bi bi-file-earmark-bar-graph-fill"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>Transfer Pricing</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
 
                     </ul>
                 </div>

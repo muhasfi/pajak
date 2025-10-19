@@ -39,7 +39,7 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 Paham Pajak.
+                <p>&copy; 2024 Paham Pajak</p>
             </div>
         </div>
     </footer>

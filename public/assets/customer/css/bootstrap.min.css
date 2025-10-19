@@ -86,7 +86,7 @@ h1,
     font-family: "Raleway", sans-serif;
     font-weight: 600;
     line-height: 1.2;
-    color: #45595b;
+    /* color: #45595b; */
 }
 h1,
 .h1 {
@@ -210,7 +210,7 @@ a {
     text-decoration: none;
 }
 a:hover {
-    color: #f3f3f3;
+    /* color: #f3f3f3; */
 }
 a:not([href]):not([class]),
 a:not([href]):not([class]):hover {
@@ -2588,12 +2588,12 @@ textarea.form-control.is-invalid {
     }
 }
 .btn:hover {
-    color: #747d88;
+    /* color: #747d88; */
 }
 .btn-check:focus + .btn,
 .btn:focus {
     outline: 0;
-    box-shadow: 0 0 0 0.25rem rgba(129, 196, 8, 0.25);
+    /* box-shadow: 0 0 0 0.25rem rgba(129, 196, 8, 0.25); */
 }
 .btn:disabled,
 .btn.disabled,
@@ -2607,55 +2607,55 @@ fieldset:disabled .btn {
     border-color: #81c408;
 }
 .btn-primary:hover {
-    color: #000;
-    background-color: #94cd2d;
-    border-color: #8eca21;
+    /* color: #000; */
+    /* background-color: #94cd2d;
+    border-color: #8eca21; */
 }
 .btn-check:focus + .btn-primary,
 .btn-primary:focus {
-    color: #000;
-    background-color: #94cd2d;
+    /* color: #000; */
+    /* background-color: #94cd2d;
     border-color: #8eca21;
-    box-shadow: 0 0 0 0.25rem rgba(110, 167, 7, 0.5);
+    box-shadow: 0 0 0 0.25rem rgba(110, 167, 7, 0.5); */
 }
 .btn-check:checked + .btn-primary,
 .btn-check:active + .btn-primary,
 .btn-primary:active,
 .btn-primary.active,
 .show > .btn-primary.dropdown-toggle {
-    color: #000;
-    background-color: #9ad039;
-    border-color: #8eca21;
+    /* color: #000; */
+    /* background-color: #9ad039;
+    border-color: #8eca21; */
 }
 .btn-check:checked + .btn-primary:focus,
 .btn-check:active + .btn-primary:focus,
 .btn-primary:active:focus,
 .btn-primary.active:focus,
 .show > .btn-primary.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.25rem rgba(110, 167, 7, 0.5);
+    /* box-shadow: 0 0 0 0.25rem rgba(110, 167, 7, 0.5); */
 }
 .btn-primary:disabled,
 .btn-primary.disabled {
-    color: #000;
-    background-color: #81c408;
-    border-color: #81c408;
+    /* color: #000; */
+    /* background-color: #81c408;
+    border-color: #81c408; */
 }
 .btn-secondary {
     color: #000;
-    background-color: #ffb524;
-    border-color: #ffb524;
+    /* background-color: #ffb524;
+    border-color: #ffb524; */
 }
 .btn-secondary:hover {
     color: #000;
-    background-color: #ffc045;
-    border-color: #ffbc3a;
+    /* background-color: #ffc045;
+    border-color: #ffbc3a; */
 }
 .btn-check:focus + .btn-secondary,
 .btn-secondary:focus {
     color: #000;
-    background-color: #ffc045;
-    border-color: #ffbc3a;
-    box-shadow: 0 0 0 0.25rem rgba(217, 154, 31, 0.5);
+    /* background-color: #ffc045;
+    border-color: #ffbc3a; */
+    /* box-shadow: 0 0 0 0.25rem rgba(217, 154, 31, 0.5); */
 }
 .btn-check:checked + .btn-secondary,
 .btn-check:active + .btn-secondary,
@@ -2663,21 +2663,21 @@ fieldset:disabled .btn {
 .btn-secondary.active,
 .show > .btn-secondary.dropdown-toggle {
     color: #000;
-    background-color: #ffc450;
-    border-color: #ffbc3a;
+    /* background-color: #ffc450;
+    border-color: #ffbc3a; */
 }
 .btn-check:checked + .btn-secondary:focus,
 .btn-check:active + .btn-secondary:focus,
 .btn-secondary:active:focus,
 .btn-secondary.active:focus,
 .show > .btn-secondary.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.25rem rgba(217, 154, 31, 0.5);
+    /* box-shadow: 0 0 0 0.25rem rgba(217, 154, 31, 0.5); */
 }
 .btn-secondary:disabled,
 .btn-secondary.disabled {
     color: #000;
-    background-color: #ffb524;
-    border-color: #ffb524;
+    /* background-color: #ffb524;
+    border-color: #ffb524; */
 }
 .btn-success {
     color: #fff;
@@ -3468,9 +3468,9 @@ fieldset:disabled .btn {
 }
 .dropdown-item.active,
 .dropdown-item:active {
-    color: #fff;
+    color: #000000;
     text-decoration: none;
-    background-color: #81c408;
+    background: rgba(37, 99, 235, 0.08);
 }
 .dropdown-item.disabled,
 .dropdown-item:disabled {
@@ -4084,8 +4084,8 @@ fieldset:disabled .btn {
 }
 .card-footer {
     padding: 0.5rem 1rem;
-    background-color: rgba(0, 0, 0, 0.03);
-    border-top: 1px solid rgba(0, 0, 0, 0.125);
+    /* background-color: rgba(0, 0, 0, 0.03); */
+    /* border-top: 1px solid rgba(0, 0, 0, 0.125); */
 }
 .card-footer:last-child {
     border-radius: 0 0 9px 9px;

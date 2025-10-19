@@ -27,7 +27,31 @@ class OrderController extends Controller
 
         if ($productType === 'ItemBimbel' && !auth()->check()) {
         return response()->json(['status' => 'error', 'message' => 'Silakan login untuk membeli bimbel']);
-    }
+        }
+
+        if ($productType === 'ItemBimbel' && auth()->check()) {
+            $existing = OrderItem::where('product_id', $productId)
+                ->where('product_type', 'bimbel')
+                ->whereHas('order', function($q) {
+                    $q->where('user_id', auth()->id())
+                    ->where('status', 'success');
+                })
+                ->where('start_date', '<=', now())
+                ->where('end_date', '>=', now())
+                ->first();
+
+            if ($existing) {
+                $now = now();
+                if ($existing->start_date <= $now && $existing->end_date >= $now) {
+                    return response()->json([
+                        'status'  => 'redirect',
+                        'url'     => route('bimbel.show', $existing->id),
+                        'message' => 'Kamu sudah membeli bimbel ini, langsung diarahkan ke halaman bimbel.'
+                    ]);
+                }
+            }
+        }
+
 
         $modelClass = "\\App\\Models\\{$productType}";
         if (!class_exists($modelClass)) {
@@ -47,9 +71,15 @@ class OrderController extends Controller
         }
 
         $morphType = match ($productType) {
-            'Item'      => 'item',
-            'ItemBimbel'=> 'bimbel',
-            default     => strtolower($productType), // fallback
+            'Item'          => 'item',
+            'ItemBimbel'    => 'bimbel',
+            'ItemPaper'     => 'paper',
+            'ItemBrevetAB'  => 'brevetab',
+            'ItemBrevetC'   => 'brevetc',
+            'ItemWebinar'   => 'webinar',
+            'ItemSeminar'   => 'seminar',
+            'ItemTraining'  => 'training',
+            default         => strtolower($productType), // fallback
         };
 
         $cart[$key] = [
@@ -58,6 +88,7 @@ class OrderController extends Controller
             'image' => $product->img ?? $product->gambar ?? 'default.jpg', 
             'name'  => $product->name ?? $product->judul, // Book pakai "name", Bimbel pakai "judul"
             'price' => $product->price ?? $product->harga,
+            // 'paper_type' => $morphType === 'paper' ? strtolower(optional($product->categoryPaper)->name) : null,
             'qty'   => 1,
         ];
 
@@ -65,31 +96,56 @@ class OrderController extends Controller
 
         return response()->json(['status' => 'success', 'message' => 'Produk ditambahkan', 'cart' => $cart]);
     }
+    
 
     public function removeCart(Request $request)
     {
-        $productType = $request->input('type'); 
-        $productId   = $request->input('id');
+        $morphType = $request->input('type'); // 'item' atau 'bimbel'
+        $productId = $request->input('id');
 
-        $key = $productType . '-' . $productId;
-
-        $cart = Session::get('cart', []);
-
-        if (isset($cart[$key])) {
-            unset($cart[$key]);
-            Session::put('cart', $cart);
-
+        // Validasi input
+        if (!$morphType || !$productId) {
             return response()->json([
-                'success' => true,
-                'message' => 'Item berhasil dihapus dari keranjang',
-                'cart'    => $cart,
+                'status' => 'error', 
+                'message' => 'Data tidak lengkap'
             ]);
         }
 
+        $cart = Session::get('cart', []);
+        
+        // Konversi morph type ke model class untuk key
+        $productType = match ($morphType) {
+            'item'      => 'Item',
+            'bimbel'    => 'ItemBimbel',
+            'paper'     => 'ItemPaper',
+            'brevetab'  => 'ItemBrevetAB',
+            'brevetc'   => 'ItemBrevetC',
+            'webinar'   => 'ItemWebinar',
+            'seminar'   => 'ItemSeminar',
+            'training'  => 'ItemTraining',
+            default     => ucfirst($morphType),
+        };
+        
+        $key = $productType . '-' . $productId;
+
+        // Cek apakah produk ada di keranjang
+        if (!isset($cart[$key])) {
+            return response()->json([
+                'status' => 'error', 
+                'message' => 'Produk tidak ada di keranjang'
+            ]);
+        }
+
+        // Hapus produk dari keranjang
+        unset($cart[$key]);
+        Session::put('cart', $cart);
+
         return response()->json([
-            'success' => false,
-            'message' => 'Item tidak ditemukan di keranjang',
-        ], 404);
+            'success' => true, 
+            'message' => 'Produk dihapus dari keranjang',
+            'cart' => $cart,
+            'total_items' => count($cart)
+        ]);
     }
 
     public function clearCart()
@@ -186,7 +242,11 @@ class OrderController extends Controller
                 'total_price' => ($item['price'] * $item['qty']) + (0.1 * $item['price'] * $item['qty']),
 
                 'start_date'   => $item['type'] === 'bimbel' ? now() : null,
-                'end_date'     => $item['type'] === 'bimbel' ? now()->addDays(30) : null,
+                // 'end_date'     => $item['type'] === 'bimbel' ? now()->addDays(30) : null,
+                'end_date' => $item['type'] === 'bimbel' ? now()->addMinutes(6) : null,
+
+                // 'type_paper'   => $item['type'] === 'paper' ? $item['paper_type'] : null
+
             ]);
         }
 

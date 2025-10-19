@@ -32,6 +32,51 @@ class BimbelController extends Controller
     }
 
     // Halaman detail kursus
+    // public function show($id)
+    // {
+    //     $orderItem = OrderItem::with(['product.details', 'order'])
+    //         ->whereHas('order', function ($q) {
+    //             $q->where('user_id', auth()->id())
+    //             ->where('status', 'success');
+    //         })
+    //         ->findOrFail($id);
+
+    //         if (now()->gte($orderItem->end_date)) {
+    //         return redirect()->route('bimbel.list')
+    //             ->with('error', 'Masa aktif bimbel ini sudah habis.');
+    //     }
+
+    //     $bimbel = $orderItem->product;
+
+    //     return view('product.bimbel.show', compact('bimbel', 'orderItem'));
+    // }
+
+    // public function show($id)
+    // {
+    //     $orderItem = OrderItem::with(['product.details', 'order'])
+    //         ->whereHas('order', function ($q) {
+    //             $q->where('user_id', auth()->id())
+    //             ->where('status', 'success');
+    //         })
+    //         ->findOrFail($id);
+
+    //     // Cek kalau ada masa aktif
+    //     if ($orderItem->end_date && now()->gte($orderItem->end_date)) {
+    //         return redirect()->route('bimbel.list')
+    //             ->with('error', 'Masa aktif bimbel ini sudah habis.');
+    //     }
+
+    //     $bimbel = $orderItem->product;
+
+    //     // Hitung sisa waktu (hari, jam, menit, detik)
+    //     $sisaWaktu = null;
+    //     if ($orderItem->end_date) {
+    //         $sisaWaktu = now()->diff($orderItem->end_date)->format('%d hari %H jam %I menit %S detik');
+    //     }
+
+    //     return view('product.bimbel.show', compact('bimbel', 'orderItem', 'sisaWaktu'));
+    // }
+
     public function show($id)
 {
     $orderItem = OrderItem::with(['product.details', 'order'])
@@ -41,10 +86,30 @@ class BimbelController extends Controller
         })
         ->findOrFail($id);
 
+    // dd([
+    //     'app_timezone' => config('app.timezone'),
+    //     'now' => now(),
+    //     'end_date' => $orderItem->end_date,
+    // ]);
+
+    // Cek kalau ada masa aktif
+    if ($orderItem->end_date && now()->gte($orderItem->end_date)) {
+        return redirect()->route('bimbel.courses.list')
+            ->with('error', 'Masa aktif bimbel ini sudah habis.');
+    }
+
     $bimbel = $orderItem->product;
 
-    return view('product.bimbel.show', compact('bimbel', 'orderItem'));
+    $sisaWaktu = null;
+    if ($orderItem->end_date) {
+        $sisaWaktu = now()->diff($orderItem->end_date)
+            ->format('%d hari %H jam %I menit %S detik');
+    }
+
+    return view('product.bimbel.show', compact('bimbel', 'orderItem', 'sisaWaktu'));
 }
+
+
 
 
     // Halaman daftar kursus

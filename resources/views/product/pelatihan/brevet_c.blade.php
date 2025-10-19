@@ -389,96 +389,51 @@
             </div>
             
             <div class="pricing-grid">
-                <!-- Regular Package -->
-                <div class="training-card">
-                    <div class="card-header">
-                        <h3>Regular</h3>
-                        <div class="price">
-                            <span class="starting-from">mulai dari</span>
-                            <span class="amount">Rp 6.500.000</span>
-                        </div>
-                        <div class="package-info">Kelas Standar</div>
-                    </div>
-                    <div class="card-body">
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check"></i> 80 Jam Pelajaran</li>
-                            <li><i class="fas fa-check"></i> Modul Digital Lengkap</li>
-                            <li><i class="fas fa-check"></i> Kelas Online & Offline</li>
-                            <li><i class="fas fa-check"></i> Try Out & Simulasi</li>
-                            <li><i class="fas fa-check"></i> Sertifikat Brevet C</li>
-                            <li><i class="fas fa-times"></i> Mentoring Personal</li>
-                            <li><i class="fas fa-times"></i> Job Connector</li>
-                            <li><i class="fas fa-times"></i> Alumni Network</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn-order">Daftar Sekarang</a>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn-outline-kk">Konsultasi Program</a>
-                    </div>
-                </div>
+                @foreach($brevetc as $brevet)
+                    <div class="training-card {{ $loop->iteration == 2 ? 'featured' : '' }}">
+                        @if($loop->iteration == 2)
+                            <div class="card-badge">Best Value</div>
+                        @endif
 
-                <!-- Professional Package -->
-                <div class="training-card featured">
-                    <div class="card-badge">Best Value</div>
-                    <div class="card-header">
-                        <h3>Professional</h3>
-                        <div class="price">
-                            <span class="starting-from">mulai dari</span>
-                            <span class="amount">Rp 8.500.000</span>
+                        <div class="card-header">
+                            <h3>{{ $brevet->judul }}</h3>
+                            <div class="price">
+                                <span class="starting-from">mulai dari</span>
+                                <span class="amount">Rp {{ number_format($brevet->harga, 0, ',', '.') }}</span>
+                            </div>
+                            <div class="package-info">{{ $brevet->hari }}</div>
                         </div>
-                        <div class="package-info">Kelas Premium</div>
-                    </div>
-                    <div class="card-body">
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check"></i> 100 Jam Pelajaran</li>
-                            <li><i class="fas fa-check"></i> Modul Premium & Case Book</li>
-                            <li><i class="fas fa-check"></i> Kelas Intensif</li>
-                            <li><i class="fas fa-check"></i> Workshop & Case Studies</li>
-                            <li><i class="fas fa-check"></i> Sertifikat Brevet C</li>
-                            <li><i class="fas fa-check"></i> Mentoring Personal 1-on-1</li>
-                            <li><i class="fas fa-check"></i> Job Connector</li>
-                            <li><i class="fas fa-times"></i> Alumni Network</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn-order">Daftar Sekarang</a>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn-outline-kk">Konsultasi Program</a>
-                    </div>
-                </div>
 
-                <!-- Executive Package -->
-                <div class="training-card">
-                    <div class="card-header">
-                        <h3>Executive</h3>
-                        <div class="price">
-                            <span class="starting-from">mulai dari</span>
-                            <span class="amount">Rp 12.000.000</span>
+                        <div class="card-body">
+                            <ul class="feature-list">
+                                @foreach($brevet->details as $detail)
+                                    <li>
+                                        @if($detail->keterangan)
+                                            <i class="fas fa-check"></i> 
+                                            {{ $detail->fasilitas }} 
+                                            <small class="text-muted">({{ $detail->keterangan }})</small>
+                                        @else
+                                            <i class="fas fa-check"></i> {{ $detail->fasilitas }}
+                                        @endif
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
-                        <div class="package-info">Kelas Eksklusif</div>
+
+                        <div class="card-footer">
+                        <button type="button" 
+                                class="btn-order" 
+                                onclick="addToCart({{ $brevet->id }}, 'ItemBrevetC')">
+                            Daftar Sekarang
+                        </button>
                     </div>
-                    <div class="card-body">
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check"></i> 120 Jam Pelajaran</li>
-                            <li><i class="fas fa-check"></i> Modul Executive & Toolkit</li>
-                            <li><i class="fas fa-check"></i> Kelas Eksklusif</li>
-                            <li><i class="fas fa-check"></i> Masterclass & Networking</li>
-                            <li><i class="fas fa-check"></i> Sertifikat Brevet C</li>
-                            <li><i class="fas fa-check"></i> Intensive Mentoring</li>
-                            <li><i class="fas fa-check"></i> Premium Job Connector</li>
-                            <li><i class="fas fa-check"></i> Exclusive Alumni Network</li>
-                        </ul>
+                        <div class="card-footer">
+                            <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20konsultasi%20tentang%20program%20{{ urlencode($brevet->judul) }}" class="btn-outline-kk">
+                                Konsultasi Program
+                            </a>
+                        </div>
                     </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn-order">Daftar Sekarang</a>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn-outline-kk">Konsultasi Program</a>
-                    </div>
-                </div>
+                @endforeach
             </div>
 
             <!-- Additional Info -->
@@ -2275,8 +2230,40 @@ html {
     animation: fadeInUp 0.5s ease;
 }
 </style>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+
+    function addToCart(id, type) {
+    fetch("{{ route('cart.add', [], false) }}", {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id, type: type }),
+    })
+    .then(response => response.json())
+            .then(data => {
+            if (data.status === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: data.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: data.message
+                        });
+                    }
+                })
+        .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
 document.addEventListener('DOMContentLoaded', function() {
     // Tab functionality
     const tabButtons = document.querySelectorAll('.tab-button');

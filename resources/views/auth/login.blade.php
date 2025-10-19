@@ -1,110 +1,497 @@
-{{-- resources/views/auth/login.blade.php --}}
-@extends('layouts.master')
-
-@section('title', 'Login Admin')
-
-@section('style')
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Login Customer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
     <style>
-        body {
-            background: linear-gradient(120deg, #2563eb 0%, #fdfdff 100%);
-            min-height: 100vh;
-            font-family: 'Inter', Arial, sans-serif;
+        /* === RESET & BASE === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .login-container {
-            max-width: 400px;
-            margin: 120px auto;
-            padding: 40px 32px;
+        body {
+            background: linear-gradient(120deg, #4e54c8 0%, #fdfdff 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* === BACKGROUND ANIMATION === */
+        .bg-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 20s infinite;
+        }
+
+        .circle:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .circle:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 70%;
+            left: 70%;
+            animation-delay: 2s;
+        }
+
+        .circle:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            top: 40%;
+            left: 80%;
+            animation-delay: 4s;
+        }
+
+        .circle:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            top: 80%;
+            left: 10%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(-30px) rotate(180deg);
+                opacity: 0.3;
+            }
+        }
+
+        /* === MAIN CONTAINER === */
+        .login-wrapper {
+            display: flex;
+            max-width: 1000px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* === LEFT SIDE - ILLUSTRATION === */
+        .login-illustration {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .person-container {
+            position: relative;
+            width: 200px;
+            height: 250px;
+            margin-bottom: 30px;
+        }
+
+        .person {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Person - Head */
+        .person-head {
+            width: 60px;
+            height: 60px;
+            background: #ffd89b;
+            border-radius: 50%;
+            margin: 0 auto 5px;
+            animation: nod 2s ease-in-out infinite;
+            position: relative;
+        }
+
+        .person-eyes {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .eye {
+            width: 8px;
+            height: 8px;
+            background: #333;
+            border-radius: 50%;
+            animation: blink 3s infinite;
+        }
+
+        @keyframes blink {
+            0%, 96%, 100% {
+                transform: scaleY(1);
+            }
+            98% {
+                transform: scaleY(0.1);
+            }
+        }
+
+        .person-smile {
+            width: 20px;
+            height: 10px;
+            border: 2px solid #333;
+            border-top: none;
+            border-radius: 0 0 20px 20px;
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Person - Body */
+        .person-body {
+            width: 80px;
+            height: 100px;
             background: #fff;
-            border-radius: 18px;
-            box-shadow: 0 12px 32px rgba(78, 84, 200, 0.15);
+            border-radius: 40px 40px 0 0;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .person-arms {
+            position: absolute;
+            width: 120px;
+            top: 20px;
+            left: -20px;
+        }
+
+        .arm {
+            width: 35px;
+            height: 12px;
+            background: #ffd89b;
+            border-radius: 10px;
+            position: absolute;
+        }
+
+        .arm-left {
+            left: 0;
+            transform-origin: right center;
+            animation: typeLeft 1.5s ease-in-out infinite;
+        }
+
+        .arm-right {
+            right: 0;
+            transform-origin: left center;
+            animation: typeRight 1.5s ease-in-out infinite;
+        }
+
+        @keyframes typeLeft {
+            0%, 100% {
+                transform: rotate(-20deg);
+            }
+            50% {
+                transform: rotate(-35deg);
+            }
+        }
+
+        @keyframes typeRight {
+            0%, 100% {
+                transform: rotate(20deg);
+            }
+            50% {
+                transform: rotate(35deg);
+            }
+        }
+
+        @keyframes nod {
+            0%, 100% {
+                transform: rotate(0);
+            }
+            50% {
+                transform: rotate(-3deg);
+            }
+        }
+
+        /* Laptop */
+        .laptop {
+            width: 100px;
+            height: 60px;
+            background: #34495e;
+            border-radius: 5px 5px 0 0;
+            margin-top: 10px;
+        }
+
+        .laptop-screen {
+            width: 90px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 3px;
+            margin: 5px auto;
+            overflow: hidden;
+        }
+
+        .code-line {
+            height: 3px;
+            background: rgba(255, 255, 255, 0.6);
+            margin: 5px 8px;
+            border-radius: 2px;
+            animation: typing 2s ease-in-out infinite;
+        }
+
+        .code-line:nth-child(1) {
+            width: 60%;
+            animation-delay: 0s;
         }
 
         .login-logo {
             width: 64px;
             height: 64px;
             margin: 0 auto 18px;
-            background: linear-gradient(135deg, #2563eb 60%, #ffffff 100%);
+            background: linear-gradient(135deg, #4e54c8 60%, #8f94fb 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin: 0 auto 20px;
+            animation: pulse 2s ease-in-out infinite;
+        } */
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+            }
         }
 
-        .login-logo i {
-            color: #fff;
-            font-size: 2rem;
+        /* .form-logo i {
+            color: white;
+            font-size: 32px;
+        } */
+
+        .form-header h3 {
+            color: #667eea;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .form-header p {
+            color: #666;
+            font-size: 15px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 25px;
         }
 
         .form-label {
+            display: block;
+            color: #667eea;
             font-weight: 600;
-            color: #2563eb;
+            color: #4e54c8;
             margin-bottom: 6px;
         }
 
-        .input-group {
+        .input-wrapper {
             position: relative;
         }
 
         .input-icon {
             position: absolute;
-            left: 12px;
+            left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: #6b7280;
-            font-size: 0.95rem;
+            color: #667eea;
+            font-size: 16px;
+            transition: all 0.3s;
         }
 
-        .form-control {
-            border-radius: 8px;
-            border: 1px solid #e0e3ea;
-            padding: 10px 14px 10px 40px;
-            font-size: 0.95rem;
-            transition: border-color 0.2s, box-shadow 0.2s;
+        .form-input {
+            width: 100%;
+            padding: 14px 20px 14px 45px;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: #f8f9fa;
         }
 
         .form-control:focus {
-            border-color: #2563eb;
+            border-color: #4e54c8;
             box-shadow: 0 0 0 2px rgba(78, 84, 200, 0.15);
         }
 
         .btn-primary {
-            background: linear-gradient(90deg, #2563eb, #ffffff);
+            background: linear-gradient(90deg, #4e54c8, #8f94fb);
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
+            font-size: 16px;
             font-weight: 600;
-            padding: 12px 0;
-            margin-top: 8px;
-            transition: background 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 12px rgba(78, 84, 200, 0.10);
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-login span {
+            position: relative;
+            z-index: 1;
         }
 
         .btn-primary:hover {
-            background: linear-gradient(90deg, #ffffff, #2563eb);
+            background: linear-gradient(90deg, #8f94fb, #4e54c8);
             box-shadow: 0 6px 18px rgba(78, 84, 200, 0.18);
         }
 
-        .alert {
-            border-radius: 8px;
-            margin-bottom: 16px;
+        .btn-login:active {
+            transform: translateY(0);
         }
 
-        .link-register {
-            margin-top: 12px;
-            font-size: 0.9rem;
+        /* Register Link */
+        .register-link {
             text-align: center;
+            margin-top: 25px;
+            color: #666;
+            font-size: 14px;
         }
 
         .link-register a {
-            color: #2563eb;
+            color: #4e54c8;
             font-weight: 600;
             text-decoration: none;
+            transition: all 0.3s;
         }
 
-        .link-register a:hover {
+        .register-link a:hover {
+            color: #764ba2;
             text-decoration: underline;
         }
+
+        /* Alert */
+        .alert {
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background: #fee;
+            border: 1px solid #fcc;
+            color: #c33;
+            text-align: center;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-10px);
+            }
+            75% {
+                transform: translateX(10px);
+            }
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .login-wrapper {
+                flex-direction: column;
+            }
+
+            .login-illustration {
+                padding: 40px 20px;
+            }
+
+            .login-form-container {
+                padding: 40px 30px;
+            }
+
+            .person-container {
+                transform: scale(0.8);
+            }
+
+            .welcome-text h2 {
+                font-size: 24px;
+            }
+
+            .welcome-text p {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .login-form-container {
+                padding: 30px 20px;
+            }
+
+            .form-header h3 {
+                font-size: 24px;
+            }
+        }
+
+        .back-home {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.back-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
     </style>
+    <link rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 @endsection
 
 @section('content')
@@ -112,46 +499,91 @@
         <div class="login-logo">
             <i class="fas fa-user-shield"></i>
         </div>
-        <h3 class="text-center mb-2" style="color:#4e54c8;font-weight:700;">Login Admin</h3>
-        <p class="text-muted text-center mb-4" style="font-size: 0.95rem;">
-            Silakan masuk untuk mengakses dashboard admin.
-        </p>
 
-        @if (session('error'))
-            <div class="alert alert-danger text-center">{{ session('error') }}</div>
-        @endif
-
-        <form action="{{ route('login') }}" method="POST">
-            @csrf
-
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <div class="input-group">
-                    <span class="input-icon"><i class="fa fa-envelope"></i></span>
-                    <input type="email" name="email" id="email"
-                           class="form-control" required autofocus
-                           placeholder="Masukkan email">
-                </div>
+        <!-- Right Form -->
+        <div class="login-form-container">
+            <div class="form-header">
+                {{-- <div class="form-logo">
+                    <i class="fas fa-user-shield"></i>
+                </div> --}}
+                <h3>Login Customer</h3>
+                <p>Masukkan kredensial Anda untuk melanjutkan</p>
             </div>
 
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <div class="input-group">
-                    <span class="input-icon"><i class="fa fa-lock"></i></span>
-                    <input type="password" name="password" id="password"
-                           class="form-control" required
-                           placeholder="Masukkan password">
+            @if (session('error'))
+                <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
+
+            <form action="{{ route('login') }}" method="POST">
+                @csrf
+
+                {{-- Alert error umum --}}
+                @if ($errors->any())
+                    <div class="alert alert-danger mb-3">
+                        <ul style="margin: 0; padding-left: 1.2rem;">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                {{-- Input Email --}}
+                <div class="form-group">
+                    <label class="form-label" for="email">Email</label>
+                    <div class="input-wrapper">
+                        <input 
+                            type="email" 
+                            name="email" 
+                            id="email" 
+                            class="form-input @error('email') is-invalid @enderror"
+                            value="{{ old('email') }}"
+                            placeholder="customer@example.com" 
+                            required 
+                            autofocus
+                        >
+                        <i class="fas fa-envelope input-icon"></i>
+                    </div>
+                    @error('email')
+                        <div class="text-danger mt-1" style="font-size: 0.875rem;">{{ $message }}</div>
+                    @enderror
                 </div>
+
+                {{-- Input Password --}}
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <div class="input-wrapper">
+                        <input 
+                            type="password" 
+                            name="password" 
+                            id="password" 
+                            class="form-input @error('password') is-invalid @enderror"
+                            placeholder="Masukkan password" 
+                            required
+                        >
+                        <i class="fas fa-lock input-icon"></i>
+                    </div>
+                    @error('password')
+                        <div class="text-danger mt-1" style="font-size: 0.875rem;">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Tombol Login --}}
+                <button type="submit" class="btn-login">
+                    <span><i class="fas fa-sign-in-alt"></i> Masuk Sekarang</span>
+                </button>
+            </form>
+
+
+            <div class="register-link">
+                Belum punya akun? <a href="{{ route('register') }}">Daftar Sekarang</a>
             </div>
-
-            <button type="submit" class="btn btn-primary w-100">
-                <i class="fa fa-sign-in-alt me-2"></i>Login
-            </button>
-        </form>
-
-        <div class="link-register">
-            Belum punya akun?
-            <a href="{{ route('register') }}">Daftar</a>
+            <div class="back-home mt-3">
+                <a href="{{ url('/') }}" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+                </a>
+            </div>
         </div>
     </div>
-@endsection
+</body>
+</html>

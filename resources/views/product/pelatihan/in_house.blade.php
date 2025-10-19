@@ -130,315 +130,71 @@
                     <!-- Tax Programs -->
                     <div class="tab-pane active" id="tax-programs">
                         <div class="programs-grid">
-                            <div class="program-card">
-                                <div class="program-header">
-                                    <h3>Tax Compliance Excellence</h3>
-                                    <div class="program-level">Intermediate</div>
-                                </div>
-                                <div class="program-body">
-                                    <div class="program-features">
-                                        <div class="feature">
-                                            <i class="fas fa-clock"></i>
-                                            <span>2 Hari</span>
-                                        </div>
-                                        <div class="feature">
-                                            <i class="fas fa-users"></i>
-                                            <span>Max 25 Peserta</span>
-                                        </div>
-                                        <div class="feature">
-                                            <i class="fas fa-file-alt"></i>
-                                            <span>Sertifikat</span>
-                                        </div>
-                                    </div>
-                                    <ul class="program-topics">
-                                        <li>Update Regulasi Perpajakan Terkini</li>
-                                        <li>Teknik Penyusunan SPT yang Akurat</li>
-                                        <li>Manajemen Dokumen Perpajakan</li>
-                                        <li>Strategi Compliance yang Efektif</li>
-                                        <li>Handling Tax Audit Preparation</li>
-                                    </ul>
-                                    <div class="program-target">
-                                        <strong>Target Peserta:</strong> Tax Staff, Accounting Staff, Finance Officer
-                                    </div>
-                                </div>
-                                <div class="program-footer">
-                                    <button class="btn btn-outline">
-                                        <i class="fas fa-info-circle"></i>
-                                        Detail
-                                    </button>
-                                    <button class="btn btn-primary">
-                                        Request Proposal
-                                    </button>
-                                </div>
-                            </div>
+                            @forelse($trainings as $training)
+                                <div class="program-card {{ $loop->first ? 'featured' : '' }}">
+                                    @if($loop->first)
+                                        <div class="program-badge">Most Popular</div>
+                                    @endif
 
-                            <div class="program-card featured">
-                                <div class="program-badge">Most Popular</div>
-                                <div class="program-header">
-                                    <h3>Advanced Tax Planning Strategy</h3>
-                                    <div class="program-level">Advanced</div>
-                                </div>
-                                <div class="program-body">
-                                    <div class="program-features">
-                                        <div class="feature">
-                                            <i class="fas fa-clock"></i>
-                                            <span>3 Hari</span>
-                                        </div>
-                                        <div class="feature">
-                                            <i class="fas fa-users"></i>
-                                            <span>Max 20 Peserta</span>
-                                        </div>
-                                        <div class="feature">
-                                            <i class="fas fa-file-alt"></i>
-                                            <span>Sertifikat & Toolkit</span>
+                                    <div class="program-header">
+                                        <h3>{{ $training->judul }}</h3>
+                                        <div class="program-level">
+                                            {{ $training->detail->level ?? 'All Levels' }}
                                         </div>
                                     </div>
-                                    <ul class="program-topics">
-                                        <li>Corporate Tax Optimization Strategy</li>
-                                        <li>Transfer Pricing Documentation</li>
-                                        <li>Tax Incentive Utilization</li>
-                                        <li>M&A Tax Planning</li>
-                                        <li>International Tax Considerations</li>
-                                    </ul>
-                                    <div class="program-target">
-                                        <strong>Target Peserta:</strong> Tax Manager, Finance Manager, Corporate Planner
-                                    </div>
-                                </div>
-                                <div class="program-footer">
-                                    <button class="btn btn-outline">
-                                        <i class="fas fa-info-circle"></i>
-                                        Detail
-                                    </button>
-                                    <button class="btn btn-primary">
-                                        Request Proposal
-                                    </button>
-                                </div>
-                            </div>
 
-                            <div class="program-card">
-                                <div class="program-header">
-                                    <h3>PPN & PPnBM Mastery</h3>
-                                    <div class="program-level">All Levels</div>
-                                </div>
-                                <div class="program-body">
-                                    <div class="program-features">
-                                        <div class="feature">
-                                            <i class="fas fa-clock"></i>
-                                            <span>2 Hari</span>
-                                        </div>
-                                        <div class="feature">
-                                            <i class="fas fa-users"></i>
-                                            <span>Max 30 Peserta</span>
-                                        </div>
-                                        <div class="feature">
-                                            <i class="fas fa-file-alt"></i>
-                                            <span>Sertifikat</span>
-                                        </div>
-                                    </div>
-                                    <ul class="program-topics">
-                                        <li>Fundamental PPN & Mekanisme</li>
-                                        <li>Faktur Pajak & Administrasi</li>
-                                        <li>PPN atas Impor & Ekspor</li>
-                                        <li>PPnBM & Barang Mewah</li>
-                                        <li>Restitusi & Kompensasi PPN</li>
-                                    </ul>
-                                    <div class="program-target">
-                                        <strong>Target Peserta:</strong> AP Staff, Tax Staff, Procurement Team
-                                    </div>
-                                </div>
-                                <div class="program-footer">
-                                    <button class="btn btn-outline">
-                                        <i class="fas fa-info-circle"></i>
-                                        Detail
-                                    </button>
-                                    <button class="btn btn-primary">
-                                        Request Proposal
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Accounting Programs -->
-                    <div class="tab-pane" id="accounting-programs">
-                        <div class="programs-grid">
-                            <div class="program-card">
-                                <div class="program-header">
-                                    <h3>Financial Reporting Excellence</h3>
-                                    <div class="program-level">Intermediate</div>
-                                </div>
-                                <div class="program-body">
-                                    <div class="program-features">
-                                        <div class="feature">
-                                            <i class="fas fa-clock"></i>
-                                            <span>2 Hari</span>
-                                        </div>
-                                        <div class="feature">
-                                            <i class="fas fa-users"></i>
-                                            <span>Max 25 Peserta</span>
-                                        </div>
-                                        <div class="feature">
-                                            <i class="fas fa-file-alt"></i>
-                                            <span>Sertifikat</span>
-                                        </div>
-                                    </div>
-                                    <ul class="program-topics">
-                                        <li>PSAK Update & Implementation</li>
-                                        <li>Financial Statement Preparation</li>
-                                        <li>Notes to Financial Statements</li>
-                                        <li>Consolidation Techniques</li>
-                                        <li>Reporting Deadline Management</li>
-                                    </ul>
-                                    <div class="program-target">
-                                        <strong>Target Peserta:</strong> Accounting Staff, Financial Analyst
-                                    </div>
-                                </div>
-                                <div class="program-footer">
-                                    <button class="btn btn-outline">
-                                        <i class="fas fa-info-circle"></i>
-                                        Detail
-                                    </button>
-                                    <button class="btn btn-primary">
-                                        Request Proposal
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="program-card">
-                                <div class="program-header">
-                                    <h3>Internal Audit Workshop</h3>
-                                    <div class="program-level">Advanced</div>
-                                </div>
-                                <div class="program-body">
-                                    <div class="program-features">
-                                        <div class="feature">
-                                            <i class="fas fa-clock"></i>
-                                            <span>3 Hari</span>
-                                        </div>
-                                        <div class="feature">
-                                            <i class="fas fa-users"></i>
-                                            <span>Max 20 Peserta</span>
-                                        </div>
-                                        <div class="feature">
-                                            <i class="fas fa-file-alt"></i>
-                                            <span>Sertifikat & Toolkit</span>
-                                        </div>
-                                    </div>
-                                    <ul class="program-topics">
-                                        <li>Risk-Based Audit Planning</li>
-                                        <li>Audit Methodology & Techniques</li>
-                                        <li>Fraud Detection & Prevention</li>
-                                        <li>Audit Reporting & Communication</li>
-                                        <li>Follow-up & Monitoring</li>
-                                    </ul>
-                                    <div class="program-target">
-                                        <strong>Target Peserta:</strong> Internal Auditor, Compliance Officer
-                                    </div>
-                                </div>
-                                <div class="program-footer">
-                                    <button class="btn btn-outline">
-                                        <i class="fas fa-info-circle"></i>
-                                        Detail
-                                    </button>
-                                    <button class="btn btn-primary">
-                                        Request Proposal
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Custom Program -->
-                    <div class="tab-pane" id="custom-program">
-                        <div class="custom-program-content">
-                            <div class="custom-program-text">
-                                <h3>Program Training Kustom</h3>
-                                <p>Kami memahami bahwa setiap perusahaan memiliki kebutuhan yang unik. Program kustom dirancang khusus berdasarkan:</p>
-                                <ul>
-                                    <li>Analisis kebutuhan training (Training Needs Analysis)</li>
-                                    <li>Budaya dan nilai-nilai perusahaan</li>
-                                    <li>Tantangan bisnis spesifik yang dihadapi</li>
-                                    <li>Tingkat kompetensi tim saat ini</li>
-                                    <li>Objective dan KPI yang ingin dicapai</li>
-                                </ul>
-                                <div class="custom-process">
-                                    <h4>Proses Pengembangan Program Kustom:</h4>
-                                    <div class="process-steps">
-                                        <div class="process-step">
-                                            <div class="step-number">1</div>
-                                            <div class="step-content">
-                                                <h5>Konsultasi Awal</h5>
-                                                <p>Diskusi kebutuhan dan tujuan training</p>
+                                    <div class="program-body">
+                                        <div class="program-features">
+                                            <div class="feature">
+                                                <i class="fas fa-clock"></i>
+                                                <span>{{ $training->detail->durasi_jam ?? '-' }} Jam</span>
+                                            </div>
+                                            <div class="feature">
+                                                <i class="fas fa-users"></i>
+                                                <span>Max {{ $training->detail->kuota_peserta ?? '-' }} Peserta</span>
+                                            </div>
+                                            <div class="feature">
+                                                <i class="fas fa-file-alt"></i>
+                                                <span>Sertifikat</span>
                                             </div>
                                         </div>
-                                        <div class="process-step">
-                                            <div class="step-number">2</div>
-                                            <div class="step-content">
-                                                <h5>Training Needs Analysis</h5>
-                                                <p>Analisis mendalam kebutuhan perusahaan</p>
-                                            </div>
-                                        </div>
-                                        <div class="process-step">
-                                            <div class="step-number">3</div>
-                                            <div class="step-content">
-                                                <h5>Program Development</h5>
-                                                <p>Penyusunan materi dan kurikulum kustom</p>
-                                            </div>
-                                        </div>
-                                        <div class="process-step">
-                                            <div class="step-number">4</div>
-                                            <div class="step-content">
-                                                <h5>Implementation</h5>
-                                                <p>Pelaksanaan training dengan monitoring</p>
-                                            </div>
-                                        </div>
-                                        <div class="process-step">
-                                            <div class="step-number">5</div>
-                                            <div class="step-content">
-                                                <h5>Evaluation & Follow-up</h5>
-                                                <p>Evaluasi hasil dan rencana tindak lanjut</p>
-                                            </div>
+
+                                        <ul class="program-topics">
+                                            @php
+                                                // Pecah materi berdasarkan baris atau koma agar tampil rapi
+                                                $materiList = preg_split('/[\r\n,]+/', $training->detail->materi ?? '');
+                                            @endphp
+                                            @foreach($materiList as $materi)
+                                                @if(trim($materi) !== '')
+                                                    <li>{{ trim($materi) }}</li>
+                                                @endif
+                                            @endforeach
+                                        </ul>
+
+                                        <div class="program-target">
+                                            <strong>Instruktur:</strong> {{ $training->detail->instruktur ?? '-' }}<br>
+                                            <strong>Tempat:</strong> {{ $training->detail->tempat ?? '-' }}
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="custom-program-form">
-                                <div class="form-container">
-                                    <h4>Konsultasi Program Kustom</h4>
-                                    <form class="consultation-form">
-                                        <div class="form-group">
-                                            <input type="text" placeholder="Nama Perusahaan" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" placeholder="Nama PIC" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="email" placeholder="Email Perusahaan" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="tel" placeholder="Nomor Telepon" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <select required>
-                                                <option value="">Jumlah Peserta</option>
-                                                <option value="1-10">1-10 Peserta</option>
-                                                <option value="11-25">11-25 Peserta</option>
-                                                <option value="26-50">26-50 Peserta</option>
-                                                <option value="50+">50+ Peserta</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <textarea placeholder="Deskripsi Kebutuhan Training" rows="4" required></textarea>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary btn-block">
-                                            Request Konsultasi
+
+                                    <div class="program-footer">
+                                        <a href="" class="btn btn-outline">
+                                            <i class="fas fa-info-circle"></i>
+                                            Detail
+                                        </a>
+                                        <button class="btn btn-primary" onclick="addToCart({{ $training->id }}, 'ItemTraining')">
+                                            Request Proposal
                                         </button>
-                                    </form>
+                                    </div>
                                 </div>
-                            </div>
+                            @empty
+                                <p class="text-center">Belum ada program training yang tersedia.</p>
+                            @endforelse
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>
@@ -1464,7 +1220,40 @@ html {
 }
 </style>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+
+    function addToCart(id, type) {
+    fetch("{{ route('cart.add', [], false) }}", {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id, type: type }),
+    })
+    .then(response => response.json())
+            .then(data => {
+            if (data.status === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: data.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: data.message
+                        });
+                    }
+                })
+        .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
 document.addEventListener('DOMContentLoaded', function() {
     // Tab functionality
     const tabButtons = document.querySelectorAll('.tab-button');

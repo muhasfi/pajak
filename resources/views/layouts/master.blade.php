@@ -35,12 +35,13 @@
     {{-- <link rel="stylesheet" href="{{ asset('assets/customer/css/akuntansi.css') }}"> --}}
     {{-- CSS Tambahan Per Halaman --}}
     {{-- Tempat CSS tambahan dari halaman --}}
-    {{-- <link href="{{ asset('assets/customer/css/navbar.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/customer/css/cart.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('assets/customer/css/navbar.css') }}" rel="stylesheet"> --}}
+    {{-- <link href="{{ asset('assets/customer/css/cart.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('assets/customer/css/checkout.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/customer/css/book.css') }}" rel="stylesheet"> --}}
-    {{-- <link href="{{ asset('assets/customer/css/artikel.css') }}" rel="stylesheet"> --}}
-
+    <link href="{{ asset('assets/customer/css/book.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/customer/css/artikel.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/customer/css/footer.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('assets/customer/css/webinar.css') }}"> --}}
     @yield('style')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>

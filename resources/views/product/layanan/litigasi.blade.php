@@ -87,125 +87,88 @@
             </div>
 
             <div class="services-grid">
-                <!-- Service 1 -->
-                <div class="service-card">
-                    <div class="card-header">
-                        <div class="service-icon">
+    @foreach ($litigasi as $item)
+        <div class="service-card {{ $loop->iteration == 3 ? 'featured' : '' }}">
+            @if ($loop->iteration == 3)
+                <div class="card-badge">Populer</div>
+            @endif
+
+            <div class="card-header">
+                <div class="service-icon">
+                    @switch($loop->iteration)
+                        @case(1)
                             <i class="fas fa-gavel"></i>
-                        </div>
-                        <h3>Banding Pajak</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Pendampingan proses banding terhadap surat ketetapan pajak yang tidak sesuai.</p>
-                        <ul class="feature-list">
-                            <li>Analisis kelayakan banding</li>
-                            <li>Penyusunan memorandum banding</li>
-                            <li>Pendampingan sidang banding</li>
-                            <li>Negosiasi dengan fiskus</li>
-                            <li>Monitoring proses banding</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Konsultasi Kasus</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Detail Layanan</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Service 2 -->
-                <div class="service-card">
-                    <div class="card-header">
-                        <div class="service-icon">
+                            @break
+                        @case(2)
                             <i class="fas fa-balance-scale"></i>
-                        </div>
-                        <h3>Gugatan Pengadilan Pajak</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Representasi hukum di Pengadilan Pajak untuk sengketa yang kompleks.</p>
-                        <ul class="feature-list">
-                            <li>Penyusunan surat gugatan</li>
-                            <li>Legal opinion dan strategi</li>
-                            <li>Pendampingan persidangan</li>
-                            <li>Pembuatan eksepsi dan replik</li>
-                            <li>Upaya hukum lanjutan</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Konsultasi Kasus</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Detail Layanan</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Service 3 -->
-                <div class="service-card featured">
-                    <div class="card-badge">Populer</div>
-                    <div class="card-header">
-                        <div class="service-icon">
+                            @break
+                        @case(3)
                             <i class="fas fa-handshake"></i>
-                        </div>
-                        <h3>Mediasi & Negosiasi</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Penyelesaian sengketa melalui jalur mediasi dan negosiasi yang efektif.</p>
-                        <ul class="feature-list">
-                            <li>Strategi negosiasi optimal</li>
-                            <li>Mediasi dengan fiskus</li>
-                            <li>Penyusunan kesepakatan</li>
-                            <li>Penyelesaian damai</li>
-                            <li>Penghematan waktu & biaya</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Konsultasi Kasus</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Detail Layanan</span>
-                        </a>
-                    </div>
+                            @break
+                        @default
+                            <i class="fas fa-search"></i>
+                    @endswitch
                 </div>
 
-                <!-- Service 4 -->
-                <div class="service-card">
-                    <div class="card-header">
-                        <div class="service-icon">
-                            <i class="fas fa-search"></i>
-                        </div>
-                        <h3>Pendampingan Pemeriksaan</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Pendampingan selama proses pemeriksaan untuk meminimalkan risiko sengketa.</p>
-                        <ul class="feature-list">
-                            <li>Review dokumen pemeriksaan</li>
-                            <li>Pendampingan lapangan</li>
-                            <li>Respons terhadap SP2</li>
-                            <li>Pembuatan tanggapan resmi</li>
-                            <li>Pencegahan sengketa</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Konsultasi Kasus</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="/kontak" class="btn btn-outline">
-                            <span>Detail Layanan</span>
-                        </a>
-                    </div>
-                </div>
+                <h3 class="fw-bold">{{ $item->judul }}</h3>
+                <h4 class=" mt-2">
+                    Rp {{ number_format($item->harga, 0, ',', '.') }}
+                </h4>
+            </div>
+
+            <div class="card-body">
+                {{-- Deskripsi --}}
+                @if ($item->detail && $item->detail->deskripsi)
+                    @php
+                        // Pisahkan deskripsi berdasarkan enter (baris baru)
+                        $deskripsiList = preg_split("/\r\n|\n|\r/", $item->detail->deskripsi);
+                    @endphp
+
+                    <ul class="list-unstyled">
+                        @foreach ($deskripsiList as $desc)
+                            @if (trim($desc) !== '')
+                                <li>
+                                    <i class="bi bi-check-circle-fill text-success me-1"></i>
+                                    {{ trim($desc) }}
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                @else
+                    <p class="text-muted">Deskripsi belum tersedia.</p>
+                @endif
+
+                {{-- Benefit --}}
+                {{-- @if ($item->detail && is_array($item->detail->benefit) && count($item->detail->benefit) > 0)
+                    <ul class="list-unstyled mt-2">
+                        @foreach ($item->detail->benefit as $benefit)
+                            @if (trim($benefit) !== '')
+                                <li>
+                                    <i class="bi bi-check-circle-fill text-primary me-1"></i>
+                                    {{ $benefit }}
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                @else
+                    <p class="text-muted">Belum ada daftar benefit.</p>
+                @endif --}}
+            </div>
+
+
+            <div class="card-footer">
+                <a href="#" class="btn btn-primary">
+                    <span>Konsultasi Kasus</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="/kontak" class="btn btn-outline">
+                    <span>Detail Layanan</span>
+                </a>
             </div>
         </div>
-    </div>
+    @endforeach
+</div>
+
 
     <!-- Process Section -->
     <div class="process-section">

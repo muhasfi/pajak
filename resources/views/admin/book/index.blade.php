@@ -61,9 +61,9 @@
                             <td>{{ Str::limit($item->description,15) }}</td>
                             <td>{{ 'Rp'. number_format($item->price, 0, ',','.') }}</td>
                             <td>
-                                <span class="badge {{ $item->category->cat_name == 'Artikel' ? 'bg-warning' : 'bg-info' }}">
+                                {{-- <span class="badge {{ $item->category->cat_name == 'Artikel' ? 'bg-warning' : 'bg-info' }}">
                                     {{ $item->category->cat_name }}
-                                </span>
+                                </span> --}}
                             </td>
                             <td>
                                 <span class="badge {{ $item->is_active == 1 ? 'bg-success' : 'bg-danger' }}">

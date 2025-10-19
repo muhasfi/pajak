@@ -301,94 +301,49 @@
             </div>
             
             <div class="pricing-grid">
-                <!-- Brevet A -->
-                <div class="training-card">
-                    <div class="card-header">
-                        <h3>Brevet A</h3>
-                        <div class="price">
-                            <span class="starting-from">mulai dari</span>
-                            <span class="amount">Rp 2.500.000</span>
-                        </div>
-                        <div class="package-info">Level Dasar</div>
-                    </div>
-                    <div class="card-body">
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check"></i> 36 Jam Pelajaran</li>
-                            <li><i class="fas fa-check"></i> Modul Digital & Cetak</li>
-                            <li><i class="fas fa-check"></i> Kelas Online & Offline</li>
-                            <li><i class="fas fa-check"></i> Try Out & Latihan Soal</li>
-                            <li><i class="fas fa-check"></i> Sertifikat Brevet A</li>
-                            <li><i class="fas fa-times"></i> Konsultasi Pribadi</li>
-                            <li><i class="fas fa-times"></i> Job Connector</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn-order">Daftar Sekarang</a>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn-outline-kk">Hubungi Kami</a>
-                    </div>
-                </div>
+                @foreach($brevetabs as $brevet)
+                <div class="training-card {{ $loop->iteration == 2 ? 'featured' : '' }}">
+                    @if($loop->iteration == 2)
+                        <div class="card-badge">Best Seller</div>
+                    @endif
 
-                <!-- Brevet B -->
-                <div class="training-card featured">
-                    <div class="card-badge">Best Seller</div>
+                    <!-- Header -->
                     <div class="card-header">
-                        <h3>Brevet B</h3>
+                        <h3>{{ $brevet->judul }}</h3>
                         <div class="price">
                             <span class="starting-from">mulai dari</span>
-                            <span class="amount">Rp 3.500.000</span>
+                            <span class="amount">Rp {{ number_format($brevet->harga, 0, ',', '.') }}</span>
                         </div>
-                        <div class="package-info">Level Lanjutan</div>
+                        <div class="package-info">{{ $brevet->detail->first()->level ?? 'Tanpa Level' }}</div>
                     </div>
-                    <div class="card-body">
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check"></i> 48 Jam Pelajaran</li>
-                            <li><i class="fas fa-check"></i> Modul Lengkap</li>
-                            <li><i class="fas fa-check"></i> Kelas Intensif</li>
-                            <li><i class="fas fa-check"></i> Case Study & Workshop</li>
-                            <li><i class="fas fa-check"></i> Sertifikat Brevet B</li>
-                            <li><i class="fas fa-check"></i> Konsultasi Pribadi</li>
-                            <li><i class="fas fa-times"></i> Job Connector</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn-order">Daftar Sekarang</a>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn-outline-kk">Hubungi Kami</a>
-                    </div>
-                </div>
 
-                <!-- Brevet A+B -->
-                <div class="training-card">
-                    <div class="card-header">
-                        <h3>Brevet A+B</h3>
-                        <div class="price">
-                            <span class="starting-from">mulai dari</span>
-                            <span class="amount">Rp 5.000.000</span>
-                        </div>
-                        <div class="package-info">Paket Komprehensif</div>
-                    </div>
+                    <!-- Body -->
                     <div class="card-body">
                         <ul class="feature-list">
-                            <li><i class="fas fa-check"></i> 84 Jam Pelajaran</li>
-                            <li><i class="fas fa-check"></i> Modul Premium</li>
-                            <li><i class="fas fa-check"></i> Kelas Premium</li>
-                            <li><i class="fas fa-check"></i> Workshop Komprehensif</li>
-                            <li><i class="fas fa-check"></i> Sertifikat Ganda</li>
-                            <li><i class="fas fa-check"></i> Mentoring Personal</li>
-                            <li><i class="fas fa-check"></i> Job Connector</li>
+                            @foreach(preg_split("/\r\n|\n|\r/", $brevet->deskripsi) as $line)
+                                @if(!empty(trim($line)))
+                                    <li><i class="fas fa-check"></i> {{ trim($line) }}</li>
+                                @endif
+                            @endforeach
                         </ul>
                     </div>
+
+                    <!-- Footer -->
                     <div class="card-footer">
-                        <a href="#" class="btn-order">Daftar Sekarang</a>
+                        <button type="button" 
+                                class="btn-order" 
+                                onclick="addToCart({{ $brevet->id }}, 'ItemBrevetAB')">
+                            Daftar Sekarang
+                        </button>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="btn-outline-kk">Hubungi Kami</a>
+                        <a href="https://wa.me/6281234567890?text=Halo, saya tertarik dengan {{ urlencode($brevet->judul) }}" 
+                        class="btn-outline-kk" target="_blank">Hubungi Kami</a>
                     </div>
                 </div>
+                @endforeach
             </div>
+
 
             <!-- Additional Info -->
             <div class="pricing-info">
@@ -930,10 +885,10 @@
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
 }
 
-.program-card.featured {
+/* .program-card.featured {
     border: 2px solid var(--primary-gold);
     transform: scale(1.05);
-}
+} */
 
 .program-card.featured:hover {
     transform: scale(1.05) translateY(-10px);
@@ -1124,6 +1079,9 @@
     gap: 30px;
     max-width: 1200px;
     margin: 0 auto 4rem;
+
+    justify-content: center; /* <— ini penting */
+    justify-items: center;
 }
 
 .training-card {
@@ -1141,10 +1099,10 @@
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
 }
 
-.training-card.featured {
+/* .training-card.featured {
     border: 2px solid var(--primary-gold);
     transform: scale(1.05);
-}
+} */
 
 .training-card.featured:hover {
     transform: scale(1.05) translateY(-10px);
@@ -1850,8 +1808,41 @@ html {
     scroll-behavior: smooth;
 }
 </style>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+
+    function addToCart(id, type) {
+    fetch("{{ route('cart.add', [], false) }}", {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id, type: type }),
+    })
+    .then(response => response.json())
+            .then(data => {
+            if (data.status === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: data.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: data.message
+                        });
+                    }
+                })
+        .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
 document.addEventListener('DOMContentLoaded', function() {
     // FAQ functionality
     const faqItems = document.querySelectorAll('.faq-item');

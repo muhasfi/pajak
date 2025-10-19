@@ -1,6 +1,8 @@
 @extends('layouts.master')
 
-@section('title', 'Catalog WEBINAR')
+@section('title', 'Catalog Webinar')
+
+<link rel="stylesheet" href="{{ asset('assets/customer/css/webinar.css') }}">
 
 @section('content')
 <!-- Header Section -->
@@ -38,130 +40,60 @@
     </div>
 
     <!-- Course Grid -->
-<div class="courses-grid">
-    <!-- Course Card 1 - Premium -->
-    <div class="course-card premium" data-category="premium">
-        <div class="course-image">
-           <img src="{{ asset('assets/customer/images/seminar1.jpg') }}" alt="Strategi Perencanaan Pajak" />
-            <div class="course-badge badge-seminar">WEBINAR</div>
-            <div class="status-badge status-hot">HOT</div>
-        </div>
-        <div class="course-content">
-            <h3 class="course-title">Strategi Perencanaan Pajak 2025 untuk Perusahaan</h3>
-            
-            <div class="mentor-info">
-                <img src="{{ asset('assets/customer/images/mentor1.jpeg') }}"  alt="Mentor" class="mentor-avatar">
-                <div class="mentor-details">
-                    <span class="mentor-name">Dr. Sari Wijayanti, M.Ak</span>
-                    <span class="mentor-role">Tax Planning Expert</span>
+    <div class="courses-grid">
+        @foreach($webinars as $webinar)
+            @php
+                $isGratis = $webinar->harga == 0;
+                $kategori = 'webinar';
+                $detail = $webinar->details->first();
+            @endphp
+
+            <div class="course-card {{ $isGratis ? 'gratis' : 'premium' }}" data-category="{{ $isGratis ? 'gratis' : 'premium' }}">
+                <div class="course-image">
+                    <img src="{{ asset('storage/' . $webinar->gambar) }}" alt="{{ $webinar->judul }}" />
+                    <div class="course-badge badge-{{ $kategori }}">{{ strtoupper($kategori) }}</div>
+                    <div class="status-badge {{ $isGratis ? 'status-new' : 'status-hot' }}">
+                        {{ $isGratis ? 'BARU' : 'HOT' }}
+                    </div>
+                </div>
+
+                <div class="course-content">
+                    <h3 class="course-title">{{ $webinar->judul }}</h3>
+                    
+                    @if($detail)
+                        <div class="mentor-info">
+                            <img src="{{ asset('assets/customer/images/mentor1.jpeg') }}" alt="Mentor" class="mentor-avatar">
+                            <div class="mentor-details">
+                                <span class="mentor-name">{{ $detail->pembicara }}</span>
+                                <span class="mentor-role">{{ $detail->topik }}</span>
+                            </div>
+                        </div>
+                    @endif
+                    
+                    <div class="course-meta">
+                        <div class="price {{ $isGratis ? 'free' : '' }}">
+                            {{ $isGratis ? 'GRATIS' : 'Rp ' . number_format($webinar->harga, 0, ',', '.') }}
+                        </div>
+                    </div>
+                    
+                    <div class="course-actions">
+                        <button class="btn btn-outline">
+                            <i class="fas fa-calendar"></i>
+                        </button>
+
+                        <button 
+                            type="button"
+                            class="btn {{ $isGratis ? 'btn-free' : 'btn-premium' }}" 
+                            onclick="addToCart({{ $webinar->id }}, 'ItemWebinar')">
+                            Daftar
+                        </button>
+                    </div>
+
                 </div>
             </div>
-            
-            <div class="course-meta">
-                <div class="price">Rp. 1.250.000</div>
-            </div>
-            
-            <div class="course-actions">
-                <button class="btn btn-outline">
-                    <i class="fas fa-calendar"></i>
-                </button>
-                <button class="btn btn-premium">Daftar</button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Course Card 2 - Gratis -->
-    <div class="course-card gratis" data-category="gratis">
-        <div class="course-image">
-            <img src="{{ asset('assets/customer/images/seminar2.jpg') }}"alt="PPN Seminar" />
-            <div class="course-badge badge-webinar">WEBINAR</div>
-            <div class="status-badge status-new">BARU</div>
-        </div>
-        <div class="course-content">
-            <h3 class="course-title">Update Regulasi PPN 2025 & Implementasinya</h3>
-            
-            <div class="mentor-info">
-                <img src="{{ asset('assets/customer/images/mentor2.jpeg') }}"  alt="Mentor" class="mentor-avatar">
-                <div class="mentor-details">
-                    <span class="mentor-name">Ahmad Rizki, S.E., M.Si</span>
-                    <span class="mentor-role">Senior Tax Consultant</span>
-                </div>
-            </div>
-            
-            <div class="course-meta">
-                <div class="price free">GRATIS</div>
-            </div>
-            
-            <div class="course-actions">
-                <button class="btn btn-outline">
-                    <i class="fas fa-calendar"></i>
-                </button>
-                <button class="btn btn-free">Daftar</button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Course Card 3 - Premium -->
-    <div class="course-card premium" data-category="premium">
-        <div class="course-image">
-            <img src="{{ asset('assets/customer/images/seminar3.jpg') }}" alt="Internal Audit Seminar" />
-            <div class="course-badge badge-workshop">WEBINAR</div>
-            <div class="status-badge status-popular">POPULER</div>
-        </div>
-        <div class="course-content">
-            <h3 class="course-title">Workshop Internal Audit Excellence 2025</h3>
-            
-            <div class="mentor-info">
-                <img src="{{ asset('assets/customer/images/mentor3.jpeg') }}" alt="Mentor" class="mentor-avatar">
-                <div class="mentor-details">
-                    <span class="mentor-name">Prof. Indra Bastian, M.B.A</span>
-                    <span class="mentor-role">Audit Specialist</span>
-                </div>
-            </div>
-            
-            <div class="course-meta">
-                <div class="price">Rp. 2.750.000</div>
-            </div>
-            
-            <div class="course-actions">
-                <button class="btn btn-outline">
-                    <i class="fas fa-calendar"></i>
-                </button>
-                <button class="btn btn-premium">Daftar</button>
-            </div>
-        </div>
+        @endforeach
     </div>
 
-    <div class="course-card premium" data-category="premium">
-        <div class="course-image">
-            <img src="{{ asset('assets/customer/images/seminar3.jpg') }}" alt="Internal Audit Seminar" />
-            <div class="course-badge badge-workshop">WEBINAR</div>
-            <div class="status-badge status-popular">POPULER</div>
-        </div>
-        <div class="course-content">
-            <h3 class="course-title">Workshop Internal Audit Excellence 2025</h3>
-            
-            <div class="mentor-info">
-                <img src="{{ asset('assets/customer/images/mentor3.jpeg') }}" alt="Mentor" class="mentor-avatar">
-                <div class="mentor-details">
-                    <span class="mentor-name">Prof. Indra Bastian, M.B.A</span>
-                    <span class="mentor-role">Audit Specialist</span>
-                </div>
-            </div>
-            
-            <div class="course-meta">
-                <div class="price">Rp. 2.750.000</div>
-            </div>
-            
-            <div class="course-actions">
-                <button class="btn btn-outline">
-                    <i class="fas fa-calendar"></i>
-                </button>
-                <button class="btn btn-premium">Daftar</button>
-            </div>
-        </div>
-    </div>
-</div>
     
     <!-- Load More Button -->
     <div class="load-more-section">
@@ -174,7 +106,40 @@
 @endsection
 
 @section('script')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+
+    function addToCart(id, type) {
+    fetch("{{ route('cart.add', [], false) }}", {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id, type: type }),
+    })
+    .then(response => response.json())
+            .then(data => {
+            if (data.status === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: data.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: data.message
+                        });
+                    }
+                })
+        .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
     document.addEventListener('DOMContentLoaded', function() {
         // Filter functionality
         const filterTabs = document.querySelectorAll('.tab-btn');
