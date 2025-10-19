@@ -458,64 +458,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Instructors Section -->
-    <div class="instructors-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Pengajar Expert Brevet C</h2>
-                <p class="section-subtitle">Belajar langsung dari konsultan pajak senior dan praktisi berpengalaman</p>
-            </div>
-            <div class="instructors-grid">
-                <div class="instructor-card">
-                    <div class="instructor-avatar">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <div class="instructor-info">
-                        <h4>Dr. Ahmad Wijaya, S.E., M.Ak., CA.</h4>
-                        <span>Senior Tax Partner - Big Four</span>
-                        <p>20+ tahun pengalaman, ahli transfer pricing dan international taxation, mantan Pejabat DJP</p>
-                        <div class="instructor-expertise">
-                            <span class="expertise-tag">Transfer Pricing</span>
-                            <span class="expertise-tag">International Tax</span>
-                            <span class="expertise-tag">M&A</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="instructor-card">
-                    <div class="instructor-avatar">
-                        <i class="fas fa-user-graduate"></i>
-                    </div>
-                    <div class="instructor-info">
-                        <h4>Prof. Sarah Indah, S.E., M.Ak., BKP.</h4>
-                        <span>Tax Litigation Expert</span>
-                        <p>15+ tahun pengalaman di tax court, spesialis keberatan, banding, dan gugatan pajak</p>
-                        <div class="instructor-expertise">
-                            <span class="expertise-tag">Tax Dispute</span>
-                            <span class="expertise-tag">Tax Court</span>
-                            <span class="expertise-tag">Litigation</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="instructor-card">
-                    <div class="instructor-avatar">
-                        <i class="fas fa-user-cog"></i>
-                    </div>
-                    <div class="instructor-info">
-                        <h4>Budi Santoso, S.E., Ak., CA.</h4>
-                        <span>Managing Partner Tax Firm</span>
-                        <p>18+ tahun pengalaman, ahli tax planning untuk perusahaan multinasional dan konglomerasi</p>
-                        <div class="instructor-expertise">
-                            <span class="expertise-tag">Tax Planning</span>
-                            <span class="expertise-tag">Corporate Tax</span>
-                            <span class="expertise-tag">Business Restructuring</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Certification Benefits -->
     <div class="certification-section">
         <div class="container">
@@ -557,64 +499,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Testimonials -->
-    <div class="testimonials-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Kisah Sukses Alumni Brevet C</h2>
-                <p class="section-subtitle">Testimoni dari konsultan pajak dan tax manager yang telah mencapai puncak karir</p>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Brevet C membuka pintu karir saya sebagai konsultan pajak. Dalam 2 tahun, praktik saya sudah melayani 25 klien korporasi. Materi transfer pricing sangat aplikatif!"</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <div class="author-info">
-                            <h5>Andi Wijaya, BKP</h5>
-                            <span>Managing Partner - Andi Tax Consulting</span>
-                            <div class="author-badge">Lulusan 2021</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Sebagai Tax Director di perusahaan multinasional, Brevet C memberikan perspektif strategis dalam mengelola risiko pajak dan planning untuk grup perusahaan kami."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-briefcase"></i>
-                        </div>
-                        <div class="author-info">
-                            <h5>Sarah Lim</h5>
-                            <span>Tax Director - Global Manufacturing Co.</span>
-                            <div class="author-badge">Lulusan 2020</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Dari staff pajak menjadi konsultan independen dalam 3 tahun. Brevet C memberikan confidence dan kompetensi untuk mengambil klien kompleks."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user-graduate"></i>
-                        </div>
-                        <div class="author-info">
-                            <h5>Budi Pratama, S.E., Ak.</h5>
-                            <span>Independent Tax Consultant</span>
-                            <div class="author-badge">Lulusan 2022</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- FAQ Section -->
     <div class="faq-section">
         <div class="container">
