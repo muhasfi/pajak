@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\ItemLayananPt;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class ItemLayananPtController extends Controller
@@ -23,21 +25,40 @@ class ItemLayananPtController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
+        $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'harga' => 'required|numeric|min:0',
             'deskripsi' => 'required|string',
             'paket' => 'required|string',
             'benefit' => 'required|array',
-            'benefit.*' => 'string|distinct|min:1'
+            'benefit.*' => 'string|distinct|min:1',
+            'file_type'   => 'required|in:upload,link',
+            'file_upload' => 'nullable|file|mimes:pdf,doc,docx|max:20480', // max 20MB
+            'file_link'   => 'nullable|url'
         ]);
 
         $layanan = ItemLayananPt::create($request->only(['judul', 'harga']));
-        
+
+        $filePath = null;
+        if ($request->file_option === 'upload') {
+            $filePath = $request->file('file_upload')->store('layanan_pt_files', 'public');
+        } elseif ($request->file_option === 'link') {
+            $filePath = $request->file_link;
+        }
+
+        $filePath = null;
+            if ($validated['file_type'] === 'upload' && $request->hasFile('file_upload')) {
+                $filePath = $request->file('file_upload')->store('ebooks', 'public');
+            } elseif ($validated['file_type'] === 'link') {
+                $filePath = $validated['file_link'];
+            }
+
+    
         $layanan->detail()->create([
             'deskripsi' => $request->deskripsi,
             'paket' => $request->paket,
-            'benefit' => $request->benefit
+            'benefit' => $request->benefit,
+            'file_path' => $filePath
         ]);
 
         return redirect()->route('admin.layanan-pt.index')->with('success', 'Layanan berhasil dibuat!');
@@ -57,20 +78,45 @@ class ItemLayananPtController extends Controller
 
     public function update(Request $request, ItemLayananPt $layananPt): RedirectResponse
     {
-        $request->validate([
+        $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'harga' => 'required|numeric|min:0',
             'deskripsi' => 'required|string',
             'paket' => 'required|string',
             'benefit' => 'required|array',
-            'benefit.*' => 'string|distinct|min:1'
+            'benefit.*' => 'string|distinct|min:1',
+            'file_type'   => 'required|in:upload,link',
+            'file_upload' => 'nullable|file|mimes:pdf,doc,docx|max:20480', // max 20MB
+            'file_link'   => 'nullable|url'
         ]);
 
         $layananPt->update($request->only(['judul', 'harga']));
+
+        $detail = $layananPt->detail;
+        $filePath = $detail->file_path; // default: tetap gunakan file lama
+
+        // Tentukan apakah user upload file baru / ganti link
+        if ($validated['file_type'] === 'upload' && $request->hasFile('file_upload')) {
+            // Jika sebelumnya file lokal (bukan link), hapus file lama
+            if ($filePath && !Str::startsWith($filePath, ['http://', 'https://'])) {
+                Storage::disk('public')->delete($filePath);
+            }
+
+            // Simpan file baru
+            $filePath = $request->file('file_upload')->store('layanan_pt_files', 'public');
+        } elseif ($validated['file_type'] === 'link') {
+            // Jika user mengganti menjadi link
+            if ($filePath && !Str::startsWith($filePath, ['http://', 'https://'])) {
+                Storage::disk('public')->delete($filePath);
+            }
+            $filePath = $validated['file_link'];
+        }
+    
         $layananPt->detail->update([
             'deskripsi' => $request->deskripsi,
             'paket' => $request->paket,
-            'benefit' => $request->benefit
+            'benefit' => $request->benefit,
+            'file_path' => $filePath
         ]);
 
         return redirect()->route('admin.layanan-pt.index')->with('success', 'Layanan berhasil diupdate!');

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ItemAccountingServiceController;
 use App\Http\Controllers\Admin\ItemAuditController;
 use App\Http\Controllers\Admin\ItemBimbelController;
 use App\Http\Controllers\Admin\ItemBookController;
+use App\Http\Controllers\Admin\ItemKonsultasiController;
 use App\Http\Controllers\Admin\ItemLayananPtController;
 use App\Http\Controllers\Admin\ItemLitigasiController;
 use App\Http\Controllers\Admin\ItemPajakController;
@@ -73,6 +74,7 @@ Route::prefix('admin-xtz2025')->group(static function () {
         Route::resource('litigasi', ItemLitigasiController::class)->names('admin.litigasi');
         Route::resource('audits', ItemAuditController::class)->names('admin.audit');
         Route::resource('transfers', ItemTransferController::class)->names('admin.transfer');
+        Route::resource('layanan-privasi', ItemKonsultasiController::class)->names('admin.konsultasi');
 
         // Route::get('/book', [\App\Http\Controllers\Admin\ItemBookController::class, 'index'])->name('book.index');
     });

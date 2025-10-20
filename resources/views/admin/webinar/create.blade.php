@@ -1,18 +1,16 @@
 @extends('admin.layouts.master')
 @section('content')
-<div class="container">
+@section('title', 'Tambah Webinar Baru')
+<div class="container-fluid px-0">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
                         <h4 class="mb-0">Tambah Webinar Baru</h4>
-                        <a href="{{ route('admin.webinar.index') }}" class="btn btn-secondary">
-                            <i class="bi bi-arrow-left"></i> Kembali
-                        </a>
                     </div>
                 </div>
-
+                
                 <div class="card-body">
                     <form action="{{ route('admin.webinar.store') }}" method="POST" enctype="multipart/form-data" id="webinarForm">
                         @csrf
@@ -148,6 +146,8 @@
                         <div class="row mt-4">
                             <div class="col-12">
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a href="{{ route('admin.webinar.index') }}" class="btn btn-secondary"> Kembali
+                                    </a>
                                     <button type="reset" class="btn btn-secondary me-md-2">Reset</button>
                                     <button type="submit" class="btn btn-primary">Simpan Webinar</button>
                                 </div>
@@ -155,6 +155,7 @@
                         </div>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>

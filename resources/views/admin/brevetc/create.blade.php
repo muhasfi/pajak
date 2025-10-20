@@ -91,33 +91,20 @@
                         @enderror
                     </div>
                 </div>
-            </div>
 
-            <!-- Fasilitas Section -->
-            <div class="card mt-4">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class="mb-0">Fasilitas</h6>
-                    <button type="button" class="btn btn-sm btn-success" id="addFasilitas">
-                        <i class="fas fa-plus"></i> Tambah Fasilitas
-                    </button>
+                <div class="col-md-6">
+                    <label class="form-label">Fasilitas *</label>
+                    <input type="text" class="form-control" name="fasilitas[]" required>
                 </div>
-                <div class="card-body" id="fasilitas-container">
-                    <div class="row fasilitas-item mb-3">
-                        <div class="col-md-5">
-                            <label class="form-label">Fasilitas *</label>
-                            <input type="text" class="form-control" name="fasilitas[]" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Keterangan</label>
-                            <input type="text" class="form-control" name="keterangan[]">
-                        </div>
-                        <div class="col-md-1">
-                            <label class="form-label">&nbsp;</label>
-                            <button type="button" class="btn btn-danger btn-sm remove-fasilitas" style="display: none;">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
+                <div class="col-md-6">
+                    <label class="form-label">Keterangan</label>
+                    <input type="text" class="form-control" name="keterangan[]">
+                </div>
+                <div class="col-md-1">
+                    <label class="form-label">&nbsp;</label>
+                    <button type="button" class="btn btn-danger btn-sm remove-fasilitas" style="display: none;">
+                        <i class="fas fa-trash"></i>
+                    </button>
                 </div>
             </div>
 
@@ -133,29 +120,3 @@
     </div>
 </div>
 @endsection
-
-@push('scripts')
-<script>
-document.getElementById('addFasilitas').addEventListener('click', function() {
-    const container = document.getElementById('fasilitas-container');
-    const newItem = container.firstElementChild.cloneNode(true);
-    
-    // Clear values
-    newItem.querySelector('input[name="fasilitas[]"]').value = '';
-    newItem.querySelector('input[name="keterangan[]"]').value = '';
-    
-    // Show remove button
-    newItem.querySelector('.remove-fasilitas').style.display = 'block';
-    
-    container.appendChild(newItem);
-});
-
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('remove-fasilitas')) {
-        if (document.querySelectorAll('.fasilitas-item').length > 1) {
-            e.target.closest('.fasilitas-item').remove();
-        }
-    }
-});
-</script>
-@endpush

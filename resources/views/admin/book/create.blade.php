@@ -72,27 +72,6 @@
                             </div>
                         </div>
 
-
-                        {{-- <div class="form-group">
-                            <label for="video_url">Video URL</label>
-                            <input type="url" class="form-control" id="video_url" name="video_url" placeholder="https://...">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="zoom_link">Zoom Link</label>
-                            <input type="url" class="form-control" id="zoom_link" name="zoom_link" placeholder="https://zoom.us/...">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="event_date">Tanggal Event</label>
-                            <input type="datetime-local" class="form-control" id="event_date" name="event_date">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="duration_days">Durasi (Hari)</label>
-                            <input type="number" class="form-control" id="duration_days" name="duration_days" placeholder="Masukkan Durasi">
-                        </div> --}}
-
                         <div class="form-group d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
                             <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>

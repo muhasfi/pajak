@@ -18,7 +18,7 @@ class OrderController extends Controller
     public function cart()
     {
         $cart = Session::get('cart');
-        return view('product.book.cart', compact('cart'));
+        return view('product.checkout.cart', compact('cart'));
     }
     public function addToCart(Request $request)
     {
@@ -79,6 +79,13 @@ class OrderController extends Controller
             'ItemWebinar'   => 'webinar',
             'ItemSeminar'   => 'seminar',
             'ItemTraining'  => 'training',
+            'ItemAccountingService' => 'accountingservice',
+            'ItemLayananPt' => 'itemlayananpt',
+            'ItemPajak'     => 'itempajak',
+            'ItemLitigasi'  => 'itemlitagasi',
+            'ItemAudit'     => 'itemaudit',
+            'ItemTransfer'  => 'itemtransfer',
+            'ItemKonsultasi'  => 'itemkonsultasi',
             default         => strtolower($productType), // fallback
         };
 
@@ -115,15 +122,22 @@ class OrderController extends Controller
         
         // Konversi morph type ke model class untuk key
         $productType = match ($morphType) {
-            'item'      => 'Item',
-            'bimbel'    => 'ItemBimbel',
-            'paper'     => 'ItemPaper',
-            'brevetab'  => 'ItemBrevetAB',
-            'brevetc'   => 'ItemBrevetC',
-            'webinar'   => 'ItemWebinar',
-            'seminar'   => 'ItemSeminar',
-            'training'  => 'ItemTraining',
-            default     => ucfirst($morphType),
+            'item'       => 'Item',
+            'bimbel'     => 'ItemBimbel',
+            'paper'      => 'ItemPaper',
+            'brevetab'   => 'ItemBrevetAB',
+            'brevetc'    => 'ItemBrevetC',
+            'webinar'    => 'ItemWebinar',
+            'seminar'    => 'ItemSeminar',
+            'training'   => 'ItemTraining',
+            'accountingservice' => 'ItemAccountingService',
+            'itemlayananpt' => 'ItemLayananPt',
+            'itempajak'     => 'ItemPajak',
+            'itemlitagasi'  => 'ItemLitigasi',
+            'itemaudit'     => 'ItemAudit',
+            'itemtransfer'  => 'ItemTransfer',
+            'itemkonsultasi'  => 'ItemKonsultasi',
+            default         => ucfirst($morphType),
         };
         
         $key = $productType . '-' . $productId;
@@ -161,7 +175,7 @@ class OrderController extends Controller
             return redirect()->route('cart')->with('error', 'Keranjang masih kosong');
         }
 
-        return view('product.book.checkout', compact('cart'));
+        return view('product.checkout.checkout', compact('cart'));
     }
 
     private function generateOrderCode()
@@ -317,7 +331,7 @@ class OrderController extends Controller
                     'email'      => $order->email,
                 ],
                 'callbacks' => [
-                    'finish' => route('product.book.success', $order->order_code),
+                    'finish' => route('product.checkout.success', $order->order_code),
                 ],
             ];
 
@@ -329,7 +343,7 @@ class OrderController extends Controller
         return redirect()->route('checkout.success', $order->order_code);
     }
 
-        return view('product.book.order_pay', compact('order'));
+        return view('product.checkout.order_pay', compact('order'));
     }
 
     public function checkoutSuccess($orderId)
@@ -341,7 +355,7 @@ class OrderController extends Controller
         }
         $orderItems = OrderItem::where('order_id', $order->id)->get();
         
-        return view('product.book.success', compact('order', 'orderItems'));
+        return view('product.checkout.success', compact('order', 'orderItems'));
     }
 
     public function handleNotification()

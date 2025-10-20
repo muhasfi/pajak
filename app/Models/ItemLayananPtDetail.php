@@ -10,7 +10,7 @@ class ItemLayananPtDetail extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['layanan_pt_id', 'deskripsi', 'paket', 'benefit'];
+    protected $fillable = ['layanan_pt_id', 'deskripsi', 'paket', 'benefit', 'file_path'];
     protected $casts = ['benefit' => 'array']; // Cast kolom benefit sebagai array
     
     public function layananPt(): BelongsTo

@@ -137,30 +137,15 @@
                 @else
                     <p class="text-muted">Deskripsi belum tersedia.</p>
                 @endif
-
-                {{-- Benefit --}}
-                {{-- @if ($item->detail && is_array($item->detail->benefit) && count($item->detail->benefit) > 0)
-                    <ul class="list-unstyled mt-2">
-                        @foreach ($item->detail->benefit as $benefit)
-                            @if (trim($benefit) !== '')
-                                <li>
-                                    <i class="bi bi-check-circle-fill text-primary me-1"></i>
-                                    {{ $benefit }}
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
-                @else
-                    <p class="text-muted">Belum ada daftar benefit.</p>
-                @endif --}}
             </div>
 
 
             <div class="card-footer">
-                <a href="#" class="btn btn-primary">
-                    <span>Konsultasi Kasus</span>
-                    <i class="fas fa-arrow-right"></i>
-                </a>
+                <button type="button" 
+                    class="btn btn-primary"
+                    onclick="addToCart({{ $item->id }}, 'ItemLitigasi')">
+                    <span>Mulai Layanan</span>
+                </button>
                 <a href="/kontak" class="btn btn-outline">
                     <span>Detail Layanan</span>
                 </a>
@@ -1070,3 +1055,39 @@
     }
 </style>
 @endsection
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+    function addToCart(id, type) {
+    fetch("{{ route('cart.add', [], false) }}", {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id, type: type }),
+    })
+    .then(response => response.json())
+            .then(data => {
+            if (data.status === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: data.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: data.message
+                        });
+                    }
+                })
+        .catch((error) => {
+                console.error('Error:', error);
+            });
+    } 
+</script>

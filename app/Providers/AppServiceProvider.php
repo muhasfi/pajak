@@ -29,6 +29,13 @@ class AppServiceProvider extends ServiceProvider
         'webinar'   => \App\Models\ItemWebinar::class,
         'seminar'   => \App\Models\ItemSeminar::class,
         'training'  => \App\Models\ItemTraining::class,
+        'accountingservice'  => \App\Models\ItemAccountingService::class,
+        'itemlayananpt'  => \App\Models\ItemLayananPT::class,
+        'itempajak'  => \App\Models\ItemPajak::class,
+        'itemlitagasi'  => \App\Models\ItemLitigasi::class,
+        'itemaudit'  => \App\Models\ItemAudit::class,
+        'itemtransfer'  => \App\Models\ItemTransfer::class,
+        'itemkonsultasi'  => \App\Models\ItemKonsultasi::class,
     ]);
     }
 }

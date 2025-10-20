@@ -75,6 +75,7 @@ Route::get('/corporate-services', [LayananPtController::class, 'index'])->name('
 Route::get('/jasa-perpajakan', [App\Http\Controllers\PajakController::class, 'index'])->name('jasa.perpajakan');
 Route::get('/litigasi', [App\Http\Controllers\LitigasiController::class, 'index'])->name('litigasi');
 Route::get('/transfer-pricing', [App\Http\Controllers\TransferController::class, 'index'])->name('transfer');
+Route::get('/private', [App\Http\Controllers\KonsultasiController::class, 'index'])->name('private');
 // Route::view('/brevet-c', 'product.pelatihan.brevet_c')->name('brevet.c');
 // Route::view('/kertas-kerja-spt-masa-unifikasi', 'product.paper.spt_masa_unifikasi.kertas_spt_unifikasi')->name('spt.unifikasi');
 
@@ -84,7 +85,6 @@ Route::view('/order-spt', 'product.kertas_kerja.order_spt')->name('order.spt');
 Route::view('/order-pph', 'product.kertas_kerja.order_pph')->name('order.pph');
 Route::view('/order-spt-unifikasi', 'product.kertas_kerja.order_spt_uni')->name('order.spt.uni');
 Route::view('/forum', 'product.konsultasi.forum')->name('forum');
-Route::view('/private', 'product.konsultasi.private')->name('private');
 
 require __DIR__.'/auth.php';
 

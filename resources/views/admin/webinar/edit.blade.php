@@ -1,16 +1,13 @@
 @extends('admin.layouts.master')
-
+@section('title', 'Edit Webinar')
 @section('content')
-<div class="container">
+<div class="container-fluid px-0">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
                         <h4 class="mb-0">Edit Webinar: {{ $webinar->judul }}</h4>
-                        <a href="{{ route('admin.webinar.index') }}" class="btn btn-secondary">
-                            <i class="bi bi-arrow-left"></i> Kembali
-                        </a>
                     </div>
                 </div>
 
@@ -257,7 +254,7 @@
                         <div class="row mt-4">
                             <div class="col-12">
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <a href="{{ route('admin.webinar.index') }}" class="btn btn-secondary me-md-2">Batal</a>
+                                    <a href="{{ route('admin.webinar.index') }}" class="btn btn-secondary me-md-2">Kembali</a>
                                     <button type="submit" class="btn btn-primary">Update Webinar</button>
                                 </div>
                             </div>

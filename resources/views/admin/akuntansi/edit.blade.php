@@ -11,11 +11,6 @@
                 <h3>Edit Jasa Akuntansi</h3>
                 <p class="text-subtitle text-muted">Ubah data layanan akuntansi yang tersedia</p>
             </div>
-            <div class="col-12 col-md-6 order-md-2 order-first text-end">
-                <a href="{{ route('admin.accounting-services.index') }}" class="btn btn-secondary">
-                    <i class="bi bi-arrow-left"></i> Kembali
-                </a>
-            </div>
         </div>
     </div>
 
@@ -138,7 +133,7 @@
 </div>
 @endsection
 
-@push('scripts')
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const benefitsContainer = document.getElementById('benefits-container');
@@ -167,4 +162,3 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-@endpush

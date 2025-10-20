@@ -101,6 +101,72 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="mb-3">
+                        <label class="form-label">Opsi File</label><br>
+                        <div class="form-check form-check-inline">
+                            <input 
+                                class="form-check-input" 
+                                type="radio" 
+                                name="file_option" 
+                                id="option_upload" 
+                                value="upload"
+                                {{ old('file_option', Str::startsWith($brevetab->detail->file_path ?? '', 'http') ? '' : 'checked') }}
+                            >
+                            <label class="form-check-label" for="option_upload">Upload File</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input 
+                                class="form-check-input" 
+                                type="radio" 
+                                name="file_option" 
+                                id="option_link" 
+                                value="link"
+                                {{ old('file_option', Str::startsWith($brevetab->detail->file_path ?? '', 'http') ? 'checked' : '') }}
+                            >
+                            <label class="form-check-label" for="option_link">Gunakan Link</label>
+                        </div>
+                    </div>
+
+                    {{-- Upload Field --}}
+                    <div class="mb-3" id="upload_field">
+                        <label for="file_upload" class="form-label">Upload File</label>
+                        <input 
+                            type="file" 
+                            class="form-control @error('file_upload') is-invalid @enderror" 
+                            id="file_upload" 
+                            name="file_upload"
+                        >
+                        @error('file_upload')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+
+                        @if(!empty($brevetab->detail->file_path) && !Str::startsWith($brevetab->detail->file_path, 'http'))
+                            <p class="mt-2">
+                                <small>File saat ini:</small><br>
+                                <a href="{{ asset('storage/'.$brevetab->detail->file_path) }}" target="_blank">
+                                    {{ basename($brevetab->detail->file_path) }}
+                                </a>
+                            </p>
+                        @endif
+                    </div>
+
+                    {{-- Link Field --}}
+                    <div class="mb-3 d-none" id="link_field">
+                        <label for="file_link" class="form-label">Link Dokumen</label>
+                        <input 
+                            type="url" 
+                            class="form-control @error('file_link') is-invalid @enderror" 
+                            id="file_link" 
+                            name="file_link" 
+                            value="{{ old('file_link', Str::startsWith($brevetab->detail->file_path ?? '', 'http') ? $brevetab->detail->file_path : '') }}"
+                            placeholder="https://contoh.com/dokumen.pdf"
+                        >
+                        @error('file_link')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+
                 </div>
 
                 <div class="col-md-6">
@@ -214,6 +280,29 @@
 
 <!-- JavaScript untuk validasi tanggal -->
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const uploadField = document.getElementById('upload_field');
+    const linkField = document.getElementById('link_field');
+    const optionUpload = document.getElementById('option_upload');
+    const optionLink = document.getElementById('option_link');
+
+    function toggleFileOption() {
+        if (optionLink.checked) {
+            uploadField.classList.add('d-none');
+            linkField.classList.remove('d-none');
+        } else {
+            uploadField.classList.remove('d-none');
+            linkField.classList.add('d-none');
+        }
+    }
+
+    // Jalankan saat pertama kali halaman dimuat
+    toggleFileOption();
+
+    // Jalankan setiap kali user mengganti pilihan
+    optionUpload.addEventListener('change', toggleFileOption);
+    optionLink.addEventListener('change', toggleFileOption);
+});
 document.addEventListener('DOMContentLoaded', function() {
     const tanggalMulai = document.getElementById('tanggal_mulai');
     const tanggalSelesai = document.getElementById('tanggal_selesai');

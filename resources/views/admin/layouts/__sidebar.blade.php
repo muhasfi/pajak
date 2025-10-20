@@ -200,6 +200,23 @@
                             </ul>
                         </li>
 
+                        <li class="sidebar-item has-sub">
+                            <a href="#" class="sidebar-link">
+                                <i class="bi bi-mortarboard-fill"></i> <!-- Ikon pelatihan/edukasi -->
+                                <span>Konsultasi</span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="sidebar-item {{ request()->routeIs('admin.konsultasi.*') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.konsultasi.index') }}" class='sidebar-link'>
+                                        <i class="bi bi-journal-medical"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>Konsultasi Private</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        
 
                     </ul>
                 </div>

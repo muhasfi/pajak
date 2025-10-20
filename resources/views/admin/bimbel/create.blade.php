@@ -15,7 +15,7 @@
                                 <p class="text-subtitle text-muted">Isi data paket bimbel beserta modul detailnya</p>
                             </div>
                             <div class="col-12 col-md-6 order-md-2 order-first">
-                                <a href="{{ route('admin.artikel.index') }}" class="btn btn-secondary float-start float-lg-end">
+                                <a href="{{ route('admin.bimbel.index') }}" class="btn btn-secondary float-start float-lg-end">
                                     <i class="bi bi-arrow-left"></i> Kembali
                                 </a>
                             </div>

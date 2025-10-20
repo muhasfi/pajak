@@ -89,38 +89,6 @@
                             <input type="file" class="form-control" id="file_path" name="file_path">
                         </div>
 
-                        {{-- Video URL --}}
-                        <div class="form-group">
-                            <label for="video_url">Video URL</label>
-                            <input type="url" class="form-control" id="video_url" 
-                                name="video_url" placeholder="https://youtube.com/..." 
-                                value="{{ old('video_url', $detail->video_url ?? '') }}">
-                        </div>
-
-                        {{-- Zoom Link --}}
-                        <div class="form-group">
-                            <label for="zoom_link">Zoom Link</label>
-                            <input type="url" class="form-control" id="zoom_link" 
-                                name="zoom_link" placeholder="https://zoom.us/..." 
-                                value="{{ old('zoom_link', $detail->zoom_link ?? '') }}">
-                        </div>
-
-                        {{-- Tanggal Event --}}
-                        <div class="form-group">
-                            <label for="event_date">Tanggal Event</label>
-                            <input type="date" class="form-control" id="event_date" 
-                                name="event_date" 
-                                value="{{ old('event_date', $detail->event_date ?? '') }}">
-                        </div>
-
-                        {{-- Durasi Hari --}}
-                        <div class="form-group">
-                            <label for="duration_days">Durasi (Hari)</label>
-                            <input type="number" class="form-control" id="duration_days" 
-                                name="duration_days" min="1" 
-                                value="{{ old('duration_days', $detail->duration_days ?? '') }}">
-                        </div>
-
                         {{-- Status --}}
                         <div class="form-group">
                             <label for="is_active">Status</label>
