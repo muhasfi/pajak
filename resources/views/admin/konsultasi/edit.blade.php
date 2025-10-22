@@ -1,126 +1,206 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Edit Layanan Konsultasi Private')
+@section('title', 'Edit Layanan Konsultasi')
 
 @section('content')
-<div class="row">
-    <div class="col-12">
-        <h2>Edit Layanan Konsultasi Private</h2>
-
-        <form action="{{ route('admin.konsultasi.update', $layanan->id) }}" method="POST">
-            @csrf
-            @method('PUT')
-            
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="deskripsi" class="form-label">Judul Layanan</label>
-                        <input type="text" class="form-control @error('judul') is-invalid @enderror" 
-                               id="judul" name="judul" value="{{ old('judul', $layanan->judul) }}" required>
-                        @error('judul')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="harga" class="form-label">Harga (Rp)</label>
-                        <input type="number" class="form-control @error('harga') is-invalid @enderror" 
-                               id="harga" name="harga" value="{{ old('harga', $layanan->harga) }}" min="0" step="0.01" required>
-                        @error('harga')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="deskripsi" class="form-label">Deskripsi</label>
-                        <input type="text" class="form-control @error('deskripsi') is-invalid @enderror" 
-                               id="deskripsi" name="deskripsi" value="{{ old('deskripsi', $layanan->detail->first() ? $layanan->detail->first()->deskripsi : '') }}" required>
-                        @error('deskripsi')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
+<div class="page-heading">
+    <div class="page-title mb-4">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Edit Layanan Konsultasi</h3>
+                <p class="text-subtitle text-muted">Perbarui data layanan konsultasi yang sudah ada.</p>
             </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="waktu_menit" class="form-label">Waktu (menit)</label>
-                        <input type="number" class="form-control @error('waktu_menit') is-invalid @enderror" 
-                               id="waktu_menit" name="waktu_menit" 
-                               value="{{ old('waktu_menit', $layanan->detail->first() ? $layanan->detail->first()->waktu_menit : '') }}" 
-                               min="1" required>
-                        @error('waktu_menit')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Benefit</label>
-                <div id="benefit-container">
-                    @php
-                        $benefits = old('benefit', $layanan->detail->first() ? $layanan->detail->first()->benefit : []);
-                    @endphp
-                    
-                    @if(count($benefits) > 0)
-                        @foreach($benefits as $index => $benefit)
-                            <div class="input-group mb-2 benefit-item">
-                                <input type="text" class="form-control" name="benefit[]" 
-                                       value="{{ $benefit }}" placeholder="Masukkan benefit" required>
-                                <button type="button" class="btn btn-outline-danger remove-benefit">Hapus</button>
-                            </div>
-                        @endforeach
-                    @else
-                        <div class="input-group mb-2 benefit-item">
-                            <input type="text" class="form-control" name="benefit[]" 
-                                   placeholder="Masukkan benefit" required>
-                            <button type="button" class="btn btn-outline-danger remove-benefit">Hapus</button>
-                        </div>
-                    @endif
-                </div>
-                <button type="button" class="btn btn-outline-primary btn-sm mt-2" id="add-benefit">+ Tambah Benefit</button>
-            </div>
-
-            <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-success">Update</button>
-                <a href="{{ route('admin.konsultasi.index') }}" class="btn btn-secondary">Kembali</a>
-            </div>
-        </form>
+        </div>
     </div>
+
+    <section class="section">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <strong>Whoops!</strong> Ada beberapa kesalahan pada input Anda.
+                <ul class="mt-2 mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form action="{{ route('admin.konsultasi.update', $layanan->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Judul Layanan Konsultasi</strong></label>
+                        <input type="text" name="judul" class="form-control" 
+                            value="{{ old('judul', $layanan->judul) }}" 
+                            placeholder="Masukkan judul layanan" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Harga</strong></label>
+                        <input type="number" name="harga" class="form-control" 
+                            value="{{ old('harga', $layanan->harga) }}" 
+                            placeholder="Masukkan harga" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Deskripsi</strong></label>
+                        <textarea class="form-control" name="deskripsi" rows="4" required>{{ old('deskripsi', $layanan->detail->deskripsi ?? '') }}</textarea>
+                    </div>
+
+                    <!-- Waktu -->
+                        @php
+                        $stored = old('waktu_menit');
+                        if (!$stored && isset($layanan) && isset($layanan->detail->waktu_menit)) {
+                            $jam = floor($layanan->detail->waktu_menit / 60);
+                            $menit = $layanan->detail->waktu_menit % 60;
+                            $stored = sprintf('%02d:%02d', $jam, $menit);
+                        }
+                    @endphp
+
+                    <input type="time"
+                        name="waktu_menit"
+                        id="waktu_menit"
+                        class="form-control @error('waktu_menit') is-invalid @enderror"
+                        value="{{ $stored }}"
+                        required>
+                    @error('waktu_menit') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+
+
+                    <div class="mb-3">
+                        <label class="form-label">Sumber File</label>
+                        <div class="input-group">
+                            <select name="file_type" class="form-select" style="max-width: 150px;" onchange="toggleFileInput(this)">
+                                <option value="upload"
+                                    {{ old('file_type', isset($layanan->detail) && filter_var($layanan->detail->file_path, FILTER_VALIDATE_URL) ? 'link' : 'upload') == 'upload' ? 'selected' : '' }}>
+                                    Upload
+                                </option>
+                                <option value="link"
+                                    {{ old('file_type', isset($layanan->detail) && filter_var($layanan->detail->file_path, FILTER_VALIDATE_URL) ? 'link' : 'upload') == 'link' ? 'selected' : '' }}>
+                                    Link
+                                </option>
+                            </select>
+
+
+                            {{-- Input upload file --}}
+                            @php
+                                $isLink = old('file_type', isset($layanan->detail) && filter_var($layanan->detail->file_path, FILTER_VALIDATE_URL) ? 'link' : 'upload') === 'link';
+                            @endphp
+
+                            <input type="file"
+                                name="file_upload"
+                                class="form-control {{ $isLink ? 'd-none' : '' }}"
+                                accept=".pdf,.doc,.docx">
+
+                            <input type="text"
+                                name="file_link"
+                                value="{{ old('file_link', $isLink ? $layanan->detail->file_path ?? '' : '') }}"
+                                class="form-control {{ $isLink ? '' : 'd-none' }}"
+                                placeholder="https://drive.google.com/...">
+
+                        </div>
+
+                        @if(isset($layanan->detail->file_path))
+                            <small class="text-muted">
+                                File saat ini:
+                                @if(filter_var($layanan->detail->file_path, FILTER_VALIDATE_URL))
+                                    <a href="{{ $layanan->detail->file_path }}" target="_blank">Lihat Link</a>
+                                @else
+                                    <a href="{{ asset('storage/' . $layanan->detail->file_path) }}" target="_blank">Lihat File</a>
+                                @endif
+                            </small>
+                        @endif
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label class="form-label d-flex justify-content-between align-items-center">
+                            <strong>Benefit</strong>
+                            <button type="button" class="btn btn-sm btn-success" onclick="addBenefit()">
+                                <i class="bi bi-plus-circle"></i> Tambah Benefit
+                            </button>
+                        </label>
+
+                        <div id="benefits-container">
+                            @if($layanan->detail && $layanan->detail->benefit)
+                                @foreach($layanan->detail->benefit as $benefit)
+                                    <div class="benefit-input input-group mb-2">
+                                        <input type="text" name="benefit[]" class="form-control" 
+                                            value="{{ $benefit }}" placeholder="Masukkan benefit" required>
+                                        <button type="button" class="btn btn-outline-danger" onclick="removeBenefit(this)">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="benefit-input input-group mb-2">
+                                    <input type="text" name="benefit[]" class="form-control" placeholder="Masukkan benefit" required>
+                                    <button type="button" class="btn btn-outline-danger" onclick="removeBenefit(this)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            @endif
+                        </div>
+
+
+                        <small class="text-muted">Klik "Tambah Benefit" untuk menambah baris baru.</small>
+                    </div>
+
+                    <div class="text-end mt-4 d-flex justify-content-end gap-2">
+                        <a href="{{ route('admin.konsultasi.index') }}" class="btn btn-outline-primary">
+                            <i class="bi bi-arrow-left-circle"></i> Kembali
+                        </a>
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-save"></i> Simpan Perubahan
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </section>
 </div>
 
-@push('scripts')
+{{-- JavaScript untuk menambah & menghapus benefit --}}
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Add benefit field
-    document.getElementById('add-benefit').addEventListener('click', function() {
-        const container = document.getElementById('benefit-container');
-        const newItem = document.createElement('div');
-        newItem.className = 'input-group mb-2 benefit-item';
-        newItem.innerHTML = `
-            <input type="text" class="form-control" name="benefit[]" placeholder="Masukkan benefit" required>
-            <button type="button" class="btn btn-outline-danger remove-benefit">Hapus</button>
-        `;
-        container.appendChild(newItem);
-    });
+    function toggleFileInput(select) {
+    const group = select.closest('.input-group');
+    const fileInput = group.querySelector('[name="file_upload"]');
+    const linkInput = group.querySelector('[name="file_link"]');
 
-    // Remove benefit field
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('remove-benefit')) {
-            if (document.querySelectorAll('.benefit-item').length > 1) {
-                e.target.closest('.benefit-item').remove();
-            } else {
-                alert('Minimal harus ada 1 benefit');
-            }
+    if (select.value === 'upload') {
+        fileInput.classList.remove('d-none');
+        linkInput.classList.add('d-none');
+        linkInput.value = ''; // kosongkan link agar tidak ikut dikirim
+    } else {
+        fileInput.classList.add('d-none');
+        linkInput.classList.remove('d-none');
+        fileInput.value = ''; // kosongkan file agar tidak ikut dikirim
+    }
+}
+
+    function addBenefit() {
+        const container = document.getElementById('benefits-container');
+        const newInput = document.createElement('div');
+        newInput.classList.add('benefit-input', 'input-group', 'mb-2');
+        newInput.innerHTML = `
+            <input type="text" name="benefit[]" class="form-control" placeholder="Masukkan benefit" required>
+            <button type="button" class="btn btn-outline-danger" onclick="removeBenefit(this)">
+                <i class="bi bi-trash"></i>
+            </button>
+        `;
+        container.appendChild(newInput);
+    }
+
+    function removeBenefit(button) {
+        const container = document.getElementById('benefits-container');
+        if (container.children.length > 1) {
+            button.closest('.benefit-input').remove();
+        } else {
+            alert('Minimal harus ada 1 benefit.');
         }
-    });
-});
+    }
 </script>
-@endpush
 @endsection

@@ -27,7 +27,7 @@
 
         <form class="form" 
               action="{{ isset($layananPt) ? route('admin.layanan-pt.update', $layananPt->id) : route('admin.layanan-pt.store') }}" 
-              method="POST">
+              method="POST" enctype="multipart/form-data">
             @csrf
             @if(isset($layananPt))
                 @method('PUT')

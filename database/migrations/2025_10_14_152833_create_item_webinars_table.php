@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('item_webinars', function (Blueprint $table) {
             $table->id();
-            $table->string('judul', 255);
+            $table->string('gambar')->nullable();
+            $table->string('judul');
             $table->text('deskripsi');
             $table->date('tanggal');
-            $table->decimal('harga', 15, 2)->default(0);
-            $table->string('gambar')->nullable(); // path file disimpan di folder public/webinars
+            $table->time('waktu_pelaksanaan');
+            $table->decimal('harga', 12, 2);
             $table->timestamps();
         });
     }

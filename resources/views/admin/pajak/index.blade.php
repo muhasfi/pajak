@@ -33,9 +33,13 @@
                 @endif
 
                 @if($pajaks->isEmpty())
-                    <div class="alert alert-info">
-                        <i class="bi bi-info-circle-fill"></i> Belum ada data layanan perpajakan.
-                    </div>
+                    <tr>
+                            <td colspan="7" class="text-center py-4">
+                                <div class="text-muted">
+                                    Belum ada data layanan.
+                                </div>
+                            </td>
+                        </tr>
                 @else
                 <table class="table table-striped" id="table1">
                     <thead>

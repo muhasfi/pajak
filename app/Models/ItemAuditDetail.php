@@ -10,7 +10,7 @@ class ItemAuditDetail extends Model
     use HasFactory;
 
     protected $table = 'item_audit_details';
-    protected $fillable = ['audit_id', 'deskripsi', 'benefit'];
+    protected $fillable = ['audit_id', 'deskripsi', 'benefit','file_path'];
 
     /**
      * Konversi kolom JSON ke array otomatis

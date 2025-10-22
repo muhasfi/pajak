@@ -1,117 +1,207 @@
 @extends('admin.layouts.master')
-@section('title', 'Tambah Layanan Konsultasi Private')
+@section('title', 'Tambah Layanan Konsultasi')
 
 @section('content')
-<div class="row">
-    <div class="col-12">
-        <h2>Tambah Layanan Konsultasi Private</h2>
+<div class="page-title">
+    <div class="row">
+        <div class="col-12 col-md-6 order-md-1 order-last">
+            <h3>Tambah Layanan Konsultasu</h3>
+            <p class="text-subtitle text-muted">Silahkan isi data layanan yang ingin ditambahkan</p>
+        </div>
+    </div>
+</div>
 
-        <form action="{{ route('admin.konsultasi.store') }}" method="POST">
+<div class="card">
+    <div class="card-body">
+        <!-- Notifikasi Error -->
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <h5 class="alert-heading">Submit Error!</h5>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        <!-- Form Tambah Layanan -->
+        <form class="form" action="{{ route('admin.konsultasi.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="judul" class="form-label">Judul Layanan</label>
-                        <input type="text" class="form-control @error('judul') is-invalid @enderror" 
-                               id="judul" name="judul" value="{{ old('judul') }}" required>
-                        @error('judul')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="harga" class="form-label">Harga (Rp)</label>
-                        <input type="number" class="form-control @error('harga') is-invalid @enderror" 
-                               id="harga" name="harga" value="{{ old('harga') }}" min="0" step="0.01" required>
-                        @error('harga')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="deskripsi" class="form-label">Deskripsi</label>
-                        <input type="text" class="form-control @error('deskripsi') is-invalid @enderror" 
-                               id="deskripsi" name="deskripsi" value="{{ old('deskripsi') }}" required>
-                        @error('deskripsi')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-            </div>
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-12">
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="waktu_menit" class="form-label">Waktu (menit)</label>
-                        <input type="number" class="form-control @error('waktu_menit') is-invalid @enderror" 
-                               id="waktu_menit" name="waktu_menit" value="{{ old('waktu_menit') }}" min="1" required>
-                        @error('waktu_menit')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Benefit</label>
-                <div id="benefit-container">
-                    @if(old('benefit'))
-                        @foreach(old('benefit') as $index => $benefit)
-                            <div class="input-group mb-2 benefit-item">
-                                <input type="text" class="form-control" name="benefit[]" 
-                                       value="{{ $benefit }}" placeholder="Masukkan benefit" required>
-                                <button type="button" class="btn btn-outline-danger remove-benefit">Hapus</button>
-                            </div>
-                        @endforeach
-                    @else
-                        <div class="input-group mb-2 benefit-item">
-                            <input type="text" class="form-control" name="benefit[]" 
-                                   placeholder="Masukkan benefit" required>
-                            <button type="button" class="btn btn-outline-danger remove-benefit">Hapus</button>
+                        <!-- Judul -->
+                        <div class="form-group mb-3">
+                            <label for="judul">Judul Layanan</label>
+                            <input type="text" id="judul" name="judul" 
+                                   class="form-control @error('judul') is-invalid @enderror" 
+                                   placeholder="Masukkan judul layanan" value="{{ old('judul') }}" required>
+                            @error('judul')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
-                    @endif
-                </div>
-                <button type="button" class="btn btn-outline-primary btn-sm mt-2" id="add-benefit">+ Tambah Benefit</button>
-            </div>
 
-            <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-success">Simpan</button>
-                <a href="{{ route('admin.konsultasi.index') }}" class="btn btn-secondary">Kembali</a>
+                        <!-- Harga -->
+                        <div class="form-group mb-3">
+                            <label for="harga">Harga</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <input type="number" id="harga" name="harga" 
+                                       class="form-control @error('harga') is-invalid @enderror" 
+                                       placeholder="0" value="{{ old('harga') }}" required>
+                            </div>
+                            @error('harga')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Deskripsi -->
+                        <div class="form-group mb-3">
+                            <label for="deskripsi">Deskripsi</label>
+                            <textarea id="deskripsi" name="deskripsi" rows="4"
+                                      class="form-control @error('deskripsi') is-invalid @enderror"
+                                      placeholder="Masukkan deskripsi lengkap layanan" required>{{ old('deskripsi') }}</textarea>
+                            @error('deskripsi')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        
+                        <!-- Waktu -->
+                        <div class="form-group mb-3">
+                            <label for="waktu_menit">Waktu Layanan</label>
+                            <input
+                                type="time"
+                                id="waktu_menit"
+                                name="waktu_menit"
+                                class="form-control @error('waktu_menit') is-invalid @enderror"
+                                value="{{ old('waktu_menit', isset($konsultasi->waktu_menit) ? $konsultasi->waktu_menit : '') }}"
+                                required
+                            >
+                            @error('waktu_menit')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        
+                        <!-- File Upload -->
+                        <div class="mb-3">
+                            <label class="form-label">Sumber File</label>
+                            <div class="input-group">
+                                <select name="file_type" class="form-select" style="max-width: 150px;" onchange="toggleFileInput(this)">
+                                    <option value="upload">Upload</option>
+                                    <option value="link">Link</option>
+                                </select>
+
+                                <input type="file" name="file_upload" class="form-control" accept=".pdf,.doc,.docx">
+                                <input type="text" name="file_link" class="form-control d-none" placeholder="https://drive.google.com/...">
+                            </div>
+                        </div>
+
+                        <!-- Benefit -->
+                        <div class="form-group mb-3">
+                            <label>Benefit Layanan</label>
+                            <small class="text-muted d-block mb-2">Tambahkan benefit yang akan didapatkan pelanggan</small>
+
+                            <div id="benefit-container">
+                                <!-- Input pertama -->
+                                <div class="input-group mb-2 benefit-item">
+                                    <input type="text" name="benefit[]" class="form-control" 
+                                           placeholder="Benefit 1" value="{{ old('benefit.0') }}">
+                                    <button type="button" class="btn btn-outline-secondary" disabled>
+                                        <i class="bi bi-grip-vertical"></i>
+                                    </button>
+                                </div>
+
+                                <!-- Jika ada old input -->
+                                @if(old('benefit'))
+                                    @foreach(old('benefit') as $index => $benefit)
+                                        @if($index > 0)
+                                            <div class="input-group mb-2 benefit-item">
+                                                <input type="text" name="benefit[]" class="form-control" 
+                                                       placeholder="Benefit {{ $index + 1 }}" value="{{ $benefit }}">
+                                                <button type="button" class="btn btn-outline-danger remove-benefit">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                @endif
+                            </div>
+
+                            <button type="button" class="btn btn-outline-primary mt-2" id="add-benefit">
+                                <i class="bi bi-plus-circle"></i> Tambah Benefit
+                            </button>
+
+                            @error('benefit')
+                                <div class="text-danger small mt-1">{{ $message }}</div>
+                            @enderror
+                            @error('benefit.*')
+                                <div class="text-danger small mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Tombol Aksi -->
+                        <div class="form-group d-flex justify-content-end mt-4">
+                            <button type="submit" class="btn btn-primary me-1 mb-1">
+                                <i class="bi bi-save"></i> Simpan
+                            </button>
+                            <button type="reset" class="btn btn-light-secondary me-1 mb-1">
+                                <i class="bi bi-arrow-counterclockwise"></i> Reset
+                            </button>
+                            <a href="{{ route('admin.konsultasi.index') }}" class="btn btn-light-secondary me-1 mb-1">
+                                <i class="bi bi-x-circle"></i> Kembali
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </form>
     </div>
 </div>
+@endsection
 
-@push('scripts')
+@section('script')
 <script>
+function toggleFileInput(select) {
+    let fileInput = select.closest('.input-group').querySelector('[name="file_upload"]');
+    let linkInput = select.closest('.input-group').querySelector('[name="file_link"]');
+    
+    if (select.value === 'upload') {
+        fileInput.classList.remove('d-none');
+        linkInput.classList.add('d-none');
+    } else {
+        fileInput.classList.add('d-none');
+        linkInput.classList.remove('d-none');
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Add benefit field
-    document.getElementById('add-benefit').addEventListener('click', function() {
-        const container = document.getElementById('benefit-container');
-        const newItem = document.createElement('div');
-        newItem.className = 'input-group mb-2 benefit-item';
-        newItem.innerHTML = `
-            <input type="text" class="form-control" name="benefit[]" placeholder="Masukkan benefit" required>
-            <button type="button" class="btn btn-outline-danger remove-benefit">Hapus</button>
+    const benefitContainer = document.getElementById('benefit-container');
+    const addBenefitBtn = document.getElementById('add-benefit');
+
+    addBenefitBtn.addEventListener('click', function() {
+        const benefitCount = benefitContainer.children.length;
+        const newIndex = benefitCount + 1;
+
+        const benefitItem = document.createElement('div');
+        benefitItem.className = 'input-group mb-2 benefit-item';
+        benefitItem.innerHTML = `
+            <input type="text" name="benefit[]" class="form-control" placeholder="Benefit ${newIndex}" required>
+            <button type="button" class="btn btn-outline-danger remove-benefit">
+                <i class="bi bi-trash"></i>
+            </button>
         `;
-        container.appendChild(newItem);
+        benefitContainer.appendChild(benefitItem);
     });
 
-    // Remove benefit field
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('remove-benefit')) {
-            if (document.querySelectorAll('.benefit-item').length > 1) {
-                e.target.closest('.benefit-item').remove();
-            } else {
-                alert('Minimal harus ada 1 benefit');
-            }
+    benefitContainer.addEventListener('click', function(e) {
+        if (e.target.closest('.remove-benefit')) {
+            const item = e.target.closest('.benefit-item');
+            if (benefitContainer.children.length > 1) item.remove();
         }
     });
 });
 </script>
-@endpush
 @endsection

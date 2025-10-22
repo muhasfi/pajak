@@ -25,7 +25,7 @@ class BrevetCController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+       $request->validate([
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
@@ -38,7 +38,8 @@ class BrevetCController extends Controller
             'fasilitas' => 'required|array',
             'fasilitas.*' => 'required|string',
             'keterangan' => 'nullable|array',
-            'keterangan.*' => 'nullable|string'
+            'keterangan.*' => 'nullable|string',
+            'file_link' => 'nullable|url|max:500',
         ]);
 
         // Upload gambar
@@ -66,6 +67,7 @@ class BrevetCController extends Controller
                 'brevet_c_id' => $brevetC->id,
                 'fasilitas' => $fasilitas,
                 'keterangan' => $request->keterangan[$index] ?? null,
+                'file_path' => $request->file_link,
                 'urutan' => $index
             ]);
         }
@@ -100,7 +102,10 @@ class BrevetCController extends Controller
             'fasilitas' => 'required|array',
             'fasilitas.*' => 'required|string',
             'keterangan' => 'nullable|array',
-            'keterangan.*' => 'nullable|string'
+            'keterangan.*' => 'nullable|string',
+            'file_type'   => 'required|in:upload,link',
+            'file_upload' => 'nullable|file|mimes:pdf,doc,docx|max:20480', // max 20MB
+            'file_link'   => 'nullable|url',
         ]);
 
         // Update gambar

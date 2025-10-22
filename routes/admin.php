@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\ItemPaperController;
 use App\Http\Controllers\Admin\ItemSeminarController;
 use App\Http\Controllers\Admin\ItemTrainingController;
 use App\Http\Controllers\Admin\ItemTransferController;
+use App\Http\Controllers\Admin\ItemWebinarController;
 use App\Http\Controllers\Admin\WebinarController;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
@@ -65,7 +66,7 @@ Route::prefix('admin-xtz2025')->group(static function () {
         Route::post('/artikel/upload', [ArtikelController::class, 'upload'])->name('ckeditor.upload');
         Route::resource('brevetab', BrevetABController::class)->names('admin.brevetab');
         Route::resource('brevet-c', BrevetCController::class)->names('admin.brevetc');
-        Route::resource('webinars', WebinarController::class)->names('admin.webinar');
+        Route::resource('webinars', ItemWebinarController::class)->names('admin.webinar');
         Route::resource('item-seminar', ItemSeminarController::class)->names('admin.seminar');
         Route::resource('trainings', ItemTrainingController::class)->names('admin.training');
         Route::resource('layanan-pt', ItemLayananPtController::class)->names('admin.layanan-pt');

@@ -11,7 +11,7 @@ class ItemLitigasiDetail extends Model
 
     protected $table = 'item_litigasi_details';
 
-    protected $fillable = ['litigasi_id', 'deskripsi', 'benefit'];
+    protected $fillable = ['litigasi_id', 'deskripsi', 'benefit', 'file_path'];
 
     protected $casts = [
         'benefit' => 'array',

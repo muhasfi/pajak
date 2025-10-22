@@ -10,15 +10,22 @@ class ItemWebinar extends Model
     use HasFactory;
 
     protected $fillable = [
-        'judul', 'deskripsi', 'tanggal', 'harga', 'gambar'
-    ];
-     protected $casts = [
-        'tanggal' => 'datetime',
-        // Add other date attributes here if needed
+        'gambar',
+        'judul',
+        'deskripsi',
+        'tanggal',
+        'waktu_pelaksanaan',
+        'harga',
     ];
 
-    public function details()
+    protected $casts = [
+        'tanggal' => 'date',
+        'waktu_pelaksanaan' => 'datetime', // ditambahkan
+        'harga' => 'decimal:2'
+    ];
+
+    public function detailWebinar()
     {
-        return $this->hasMany(ItemWebinarDetail::class);
+        return $this->hasOne(ItemWebinarDetail::class, 'item_webinar_id');
     }
 }

@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3>Edit Jasa Akuntansi</h3>
-                <p class="text-subtitle text-muted">Ubah data layanan akuntansi yang tersedia</p>
+                <p class="text-subtitle text-muted">Ubah data akuntansi yang tersedia</p>
             </div>
         </div>
     </div>
@@ -23,14 +23,14 @@
 
                     {{-- Judul --}}
                     <div class="mb-3">
-                        <label for="judul" class="form-label fw-semibold">Judul Layanan</label>
+                        <label for="judul" class="form-label fw-semibold">Judul Jasa Akuntansi</label>
                         <input 
                             type="text" 
                             id="judul" 
                             name="judul" 
                             class="form-control @error('judul') is-invalid @enderror"
                             value="{{ old('judul', $accountingService->judul) }}" 
-                            placeholder="Masukkan judul layanan" 
+                            placeholder="Masukkan judul Jasa Akuntansi" 
                             required
                         >
                         @error('judul')
@@ -48,7 +48,7 @@
                             step="0.01"
                             class="form-control @error('harga') is-invalid @enderror"
                             value="{{ old('harga', $accountingService->harga) }}" 
-                            placeholder="Masukkan harga layanan"
+                            placeholder="Masukkan harga Jasa Akuntansi"
                             required
                         >
                         @error('harga')
@@ -64,12 +64,46 @@
                             name="deskripsi" 
                             rows="4"
                             class="form-control @error('deskripsi') is-invalid @enderror" 
-                            placeholder="Masukkan deskripsi layanan" 
+                            placeholder="Masukkan deskripsi Jasa Akuntansi" 
                             required
                         >{{ old('deskripsi', $accountingService->details->deskripsi ?? '') }}</textarea>
                         @error('deskripsi')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Sumber File</label>
+                        <div class="input-group">
+                            <select name="file_type" class="form-select" style="max-width: 150px;" onchange="toggleFileInput(this)">
+                                <option value="upload" {{ old('file_type', isset($accountingService->details) && filter_var($accountingService->details->file_path, FILTER_VALIDATE_URL) ? '' : 'selected') }}>Upload</option>
+                                <option value="link" {{ old('file_type', isset($accountingService->details) && filter_var($accountingService->details->file_path, FILTER_VALIDATE_URL) ? 'selected' : '') }}>Link</option>
+                            </select>
+
+                            {{-- Input upload file --}}
+                            <input type="file"
+                                name="file_upload"
+                                class="form-control {{ old('file_type', isset($accountingService->details) && filter_var($accountingService->details->file_path, FILTER_VALIDATE_URL) ? 'd-none' : '') }}"
+                                accept=".pdf,.doc,.docx">
+
+                            {{-- Input link --}}
+                            <input type="text"
+                                name="file_link"
+                                value="{{ old('file_link', isset($accountingService->details) && filter_var($accountingService->details->file_path, FILTER_VALIDATE_URL) ? $accountingService->details->file_path : '') }}"
+                                class="form-control {{ old('file_type', isset($accountingService->details) && filter_var($accountingService->details->file_path, FILTER_VALIDATE_URL) ? '' : 'd-none') }}"
+                                placeholder="https://drive.google.com/...">
+                        </div>
+
+                        @if(isset($accountingService->details->file_path))
+                            <small class="text-muted">
+                                File saat ini:
+                                @if(filter_var($accountingService->details->file_path, FILTER_VALIDATE_URL))
+                                    <a href="{{ $accountingService->details->file_path }}" target="_blank">Lihat Link</a>
+                                @else
+                                    <a href="{{ asset('storage/' . $accountingService->details->file_path) }}" target="_blank">Lihat File</a>
+                                @endif
+                            </small>
+                        @endif
                     </div>
 
                     {{-- Benefit --}}
@@ -123,7 +157,7 @@
                             <i class="bi bi-arrow-left-circle"></i> Batal
                         </a>
                         <button type="submit" class="btn btn-primary">
-                            <i class="bi bi-save"></i> Update Layanan
+                            <i class="bi bi-save"></i> Update Jasa Akuntansi
                         </button>
                     </div>
                 </form>
@@ -135,6 +169,19 @@
 
 
 <script>
+function toggleFileInput(select) {
+    const fileInput = select.closest('.input-group').querySelector('[name="file_upload"]');
+    const linkInput = select.closest('.input-group').querySelector('[name="file_link"]');
+
+    if (select.value === 'upload') {
+        fileInput.classList.remove('d-none');
+        linkInput.classList.add('d-none');
+    } else {
+        fileInput.classList.add('d-none');
+        linkInput.classList.remove('d-none');
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const benefitsContainer = document.getElementById('benefits-container');
     const addBenefitBtn = document.getElementById('add-benefit');

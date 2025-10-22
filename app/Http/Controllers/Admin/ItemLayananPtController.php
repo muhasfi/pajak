@@ -104,13 +104,13 @@ class ItemLayananPtController extends Controller
 
             // Simpan file baru
             $filePath = $request->file('file_upload')->store('layanan_pt_files', 'public');
-        } elseif ($validated['file_type'] === 'link') {
-            // Jika user mengganti menjadi link
-            if ($filePath && !Str::startsWith($filePath, ['http://', 'https://'])) {
-                Storage::disk('public')->delete($filePath);
+            } elseif ($validated['file_type'] === 'link') {
+                // Jika user mengganti menjadi link
+                if ($filePath && !Str::startsWith($filePath, ['http://', 'https://'])) {
+                    Storage::disk('public')->delete($filePath);
+                }
+                $filePath = $validated['file_link'];
             }
-            $filePath = $validated['file_link'];
-        }
     
         $layananPt->detail->update([
             'deskripsi' => $request->deskripsi,

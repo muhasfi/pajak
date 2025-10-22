@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('item_konsultasi_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('item_konsultasi_id')->constrained('item_konsultasis')->onDelete('cascade');
-            $table->integer('waktu_menit')->default(0);
+            $table->integer('waktu_menit');
+            $table->text('deskripsi')->nullable();
             $table->json('benefit'); // Karena benefit dikirim sebagai array
             $table->string('file_path')->nullable();
             $table->timestamps();

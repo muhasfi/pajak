@@ -12,7 +12,6 @@
             @method('PUT')
             
             <div class="row">
-                <div class="col-md-6">
                     <div class="mb-3">
                         <label for="gambar" class="form-label">Gambar</label>
                         @if($brevetC->gambar)
@@ -90,9 +89,6 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                </div>
-
-                <div class="col-md-6">
                     <div class="mb-3">
                         <label for="deskripsi" class="form-label">Deskripsi *</label>
                         <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="5" required>{{ old('deskripsi', $brevetC->deskripsi) }}</textarea>
@@ -100,7 +96,14 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                </div>
+                    <div class="mb-3">
+                            @foreach($brevetC->details as $detail)
+                                <input type="url" 
+                                    class="form-control mb-2"
+                                    name="file_link[]" 
+                                    value="{{ old('file_link.' . $loop->index, $detail->file_path) }}">
+                            @endforeach
+                    </div>
             </div>
 
             <!-- Fasilitas Section -->
@@ -184,7 +187,7 @@
 </div>
 @endsection
 
-@push('scripts')
+@section('script')
 <script>
 document.getElementById('addFasilitas').addEventListener('click', function() {
     const container = document.getElementById('fasilitas-container');
@@ -209,4 +212,4 @@ document.addEventListener('click', function(e) {
     }
 });
 </script>
-@endpush
+@endsection

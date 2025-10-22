@@ -147,6 +147,13 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+
+                    <div class="mb-3">
+                        <label for="file_path" class="form-label">Link Seminar</label>
+                        <input type="text" name="file_path" id="file_path" class="form-control"
+                            value="{{ old('file_path', $seminar->detailSeminar->file_path ?? '') }}"
+                            placeholder="Contoh: https://zoom.us/j/xxxxxx">
+                    </div>
                 </div>
             </div>
 

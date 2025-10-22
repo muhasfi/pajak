@@ -148,6 +148,15 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+
+                    <div class="mb-3">
+                        <label for="file_path" class="form-label">file Training<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('file_path') is-invalid @enderror" 
+                               id="file_path" name="file_path" value="{{ old('file_path', $training->detail->file_path) }}" required>
+                        @error('tempat')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
                 </div>
             </div>
 

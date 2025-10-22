@@ -14,6 +14,7 @@ class ItemTransferDetail extends Model
         'item_transfer_id',
         'deskripsi',
         'benefit',
+        'file_path'
     ];
 
     protected $casts = [
@@ -22,6 +23,6 @@ class ItemTransferDetail extends Model
 
     public function itemTransfer()
     {
-        return $this->belongsTo(ItemTransfer::class);
+        return $this->belongsTo(ItemTransfer::class, 'item_transfer_id');
     }
 }

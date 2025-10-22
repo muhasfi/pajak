@@ -44,7 +44,8 @@ class ItemTrainingController extends Controller
                 'instruktur' => 'required',
                 'durasi_jam' => 'required|integer',
                 'tempat' => 'required',
-                'kuota_peserta' => 'required|integer'
+                'kuota_peserta' => 'required|integer',
+                'file_path' => 'nullable|string|max:255'
             ]);
 
             try {
@@ -71,7 +72,8 @@ class ItemTrainingController extends Controller
                     'durasi_jam' => $request->durasi_jam,
                     'tempat' => $request->tempat,
                     'kuota_peserta' => $request->kuota_peserta,
-                    'peralatan_dibutuhkan' => $request->peralatan_dibutuhkan
+                    'peralatan_dibutuhkan' => $request->peralatan_dibutuhkan,
+                    'file_path' => $request->file_path,
                 ]);
 
                 return redirect()->route('admin.training.index')
@@ -116,7 +118,8 @@ class ItemTrainingController extends Controller
             'instruktur' => 'required',
             'durasi_jam' => 'required|integer',
             'tempat' => 'required',
-            'kuota_peserta' => 'required|integer'
+            'kuota_peserta' => 'required|integer',
+            'file_path' => 'nullable|string|max:255'
         ]);
 
         try {
@@ -151,7 +154,8 @@ class ItemTrainingController extends Controller
                 'durasi_jam' => $request->durasi_jam,
                 'tempat' => $request->tempat,
                 'kuota_peserta' => $request->kuota_peserta,
-                'peralatan_dibutuhkan' => $request->peralatan_dibutuhkan
+                'peralatan_dibutuhkan' => $request->peralatan_dibutuhkan,
+                'file_path' => $request->file_path,
             ]);
 
             return redirect()->route('admin.training.index')

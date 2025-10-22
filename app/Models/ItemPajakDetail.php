@@ -10,7 +10,7 @@ class ItemPajakDetail extends Model
     use HasFactory;
 
     protected $table = 'item_pajak_details';
-    protected $fillable = ['pajak_id', 'deskripsi', 'benefit'];
+    protected $fillable = ['pajak_id', 'deskripsi', 'benefit','file_path'];
 
     protected $casts = [
         'benefit' => 'array',

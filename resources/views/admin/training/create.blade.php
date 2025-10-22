@@ -133,6 +133,15 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+
+                    <div class="mb-3">
+                        <label for="file_path" class="form-label">Link Training <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('file_path') is-invalid @enderror" 
+                               id="file_path" name="file_path" value="{{ old('file_path') }}" required>
+                        @error('file_path')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
                 </div>
             </div>
 

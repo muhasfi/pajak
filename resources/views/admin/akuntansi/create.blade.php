@@ -25,12 +25,12 @@
                     @csrf
 
                     <div class="mb-3">
-                        <label for="judul" class="form-label fw-semibold">Judul Layanan</label>
+                        <label for="judul" class="form-label fw-semibold">Judul Jasa Akuntansi</label>
                         <input type="text" 
                                id="judul" 
                                name="judul" 
                                class="form-control @error('judul') is-invalid @enderror" 
-                               placeholder="Masukkan judul layanan"
+                               placeholder="Masukkan judul Jasa Akuntansi"
                                value="{{ old('judul') }}" required>
                         @error('judul')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -44,7 +44,7 @@
                                name="harga" 
                                step="0.01"
                                class="form-control @error('harga') is-invalid @enderror" 
-                               placeholder="Masukkan harga layanan"
+                               placeholder="Masukkan harga Jasa Akuntansi"
                                value="{{ old('harga') }}" required>
                         @error('harga')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -57,10 +57,24 @@
                                   name="deskripsi" 
                                   rows="4"
                                   class="form-control @error('deskripsi') is-invalid @enderror" 
-                                  placeholder="Masukkan deskripsi layanan" required>{{ old('deskripsi') }}</textarea>
+                                  placeholder="Masukkan deskripsi Jasa Akuntansi" required>{{ old('deskripsi') }}</textarea>
                         @error('deskripsi')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
+                    </div>
+
+                    <!-- File Upload -->
+                    <div class="mb-3">
+                        <label class="form-label">Sumber File</label>
+                        <div class="input-group">
+                            <select name="file_type" class="form-select" style="max-width: 150px;" onchange="toggleFileInput(this)">
+                                <option value="upload">Upload</option>
+                                <option value="link">Link</option>
+                            </select>
+
+                            <input type="file" name="file_upload" class="form-control" accept=".pdf,.doc,.docx">
+                            <input type="text" name="file_link" class="form-control d-none" placeholder="https://drive.google.com/...">
+                        </div>
                     </div>
 
                     <div class="mb-3">
@@ -100,6 +114,19 @@
 
 @section('script')
 <script>
+function toggleFileInput(select) {
+    let fileInput = select.closest('.input-group').querySelector('[name="file_upload"]');
+    let linkInput = select.closest('.input-group').querySelector('[name="file_link"]');
+    
+    if (select.value === 'upload') {
+        fileInput.classList.remove('d-none');
+        linkInput.classList.add('d-none');
+    } else {
+        fileInput.classList.add('d-none');
+        linkInput.classList.remove('d-none');
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const benefitsContainer = document.getElementById('benefits-container');
     const addBenefitBtn = document.getElementById('add-benefit');

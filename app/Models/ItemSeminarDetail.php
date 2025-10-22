@@ -19,6 +19,7 @@ class ItemSeminarDetail extends Model
         'level',
         'fasilitas',
         'kontak_person',
+        'file_path',
     ];
 
     public function itemSeminar()

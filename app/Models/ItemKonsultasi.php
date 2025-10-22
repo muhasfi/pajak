@@ -14,6 +14,6 @@ class ItemKonsultasi extends Model
 
     public function detail()
     {
-        return $this->hasOne(ItemKonsultasiDetail::class);
+        return $this->hasOne(ItemKonsultasiDetail::class, 'item_konsultasi_id');
     }
 }

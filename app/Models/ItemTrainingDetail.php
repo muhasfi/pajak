@@ -19,6 +19,7 @@ class ItemTrainingDetail extends Model
         'tempat',
         'kuota_peserta',
         'peralatan_dibutuhkan',
+        'file_path'
     ];
 
     /**

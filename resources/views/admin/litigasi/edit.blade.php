@@ -27,7 +27,7 @@
 
         <div class="card shadow-sm">
             <div class="card-body">
-                <form action="{{ route('admin.litigasi.update', $litigasi->id) }}" method="POST">
+                <form action="{{ route('admin.litigasi.update', $litigasi->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     
@@ -48,6 +48,51 @@
                     <div class="mb-3">
                         <label class="form-label"><strong>Deskripsi</strong></label>
                         <textarea class="form-control" name="deskripsi" rows="4" required>{{ old('deskripsi', $litigasi->detail->deskripsi ?? '') }}</textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Sumber File</label>
+                        <div class="input-group">
+                            <select name="file_type" class="form-select" style="max-width: 150px;" onchange="toggleFileInput(this)">
+                                <option value="upload"
+                                    {{ old('file_type', isset($litigasi->detail) && filter_var($litigasi->detail->file_path, FILTER_VALIDATE_URL) ? 'link' : 'upload') == 'upload' ? 'selected' : '' }}>
+                                    Upload
+                                </option>
+                                <option value="link"
+                                    {{ old('file_type', isset($litigasi->detail) && filter_var($litigasi->detail->file_path, FILTER_VALIDATE_URL) ? 'link' : 'upload') == 'link' ? 'selected' : '' }}>
+                                    Link
+                                </option>
+                            </select>
+
+
+                            {{-- Input upload file --}}
+                            @php
+                                $isLink = old('file_type', isset($litigasi->detail) && filter_var($litigasi->detail->file_path, FILTER_VALIDATE_URL) ? 'link' : 'upload') === 'link';
+                            @endphp
+
+                            <input type="file"
+                                name="file_upload"
+                                class="form-control {{ $isLink ? 'd-none' : '' }}"
+                                accept=".pdf,.doc,.docx">
+
+                            <input type="text"
+                                name="file_link"
+                                value="{{ old('file_link', $isLink ? $litigasi->detail->file_path ?? '' : '') }}"
+                                class="form-control {{ $isLink ? '' : 'd-none' }}"
+                                placeholder="https://drive.google.com/...">
+
+                        </div>
+
+                        @if(isset($litigasi->detail->file_path))
+                            <small class="text-muted">
+                                File saat ini:
+                                @if(filter_var($litigasi->detail->file_path, FILTER_VALIDATE_URL))
+                                    <a href="{{ $litigasi->detail->file_path }}" target="_blank">Lihat Link</a>
+                                @else
+                                    <a href="{{ asset('storage/' . $litigasi->detail->file_path) }}" target="_blank">Lihat File</a>
+                                @endif
+                            </small>
+                        @endif
                     </div>
 
 
@@ -101,6 +146,22 @@
 
 {{-- JavaScript untuk menambah & menghapus benefit --}}
 <script>
+    function toggleFileInput(select) {
+    const group = select.closest('.input-group');
+    const fileInput = group.querySelector('[name="file_upload"]');
+    const linkInput = group.querySelector('[name="file_link"]');
+
+    if (select.value === 'upload') {
+        fileInput.classList.remove('d-none');
+        linkInput.classList.add('d-none');
+        linkInput.value = ''; // kosongkan link agar tidak ikut dikirim
+    } else {
+        fileInput.classList.add('d-none');
+        linkInput.classList.remove('d-none');
+        fileInput.value = ''; // kosongkan file agar tidak ikut dikirim
+    }
+}
+
     function addBenefit() {
         const container = document.getElementById('benefits-container');
         const newInput = document.createElement('div');

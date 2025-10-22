@@ -1,5 +1,5 @@
 @extends('admin.layouts.master')
-@section('title', 'Daftar Audit')
+@section('title', 'Daftar Layanan audit')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets/admin/extensions/simple-datatables/style.css') }}">
@@ -11,13 +11,11 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Daftar Audit</h3>
-                <p class="text-subtitle text-muted">Kelola data audit dan detailnya</p>
+                <h3>Layanan Audit</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <a href="{{ route('admin.audit.create') }}" class="btn btn-primary float-start float-lg-end">
-                    <i class="bi bi-plus"></i>
-                    Buat Audit Baru
+                    <i class="bi bi-plus"></i> Tambah Layanan Baru
                 </a>
             </div>
         </div>
@@ -37,68 +35,60 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Judul Audit</th>
+                            <th>Judul Layanan</th>
                             <th>Harga</th>
                             <th>Deskripsi</th>
                             <th>Benefit</th>
-                            {{-- <th>Status</th> --}}
-                            <th colspan="2">Aksi</th>
+                            <th width="20%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($audits as $audit)
-                            @php
-                                $auditDetail = $audit->detail->first();
-                                $benefits = $auditDetail ? json_decode($auditDetail->benefit) : [];
-                                $shortDescription = $auditDetail ? Str::limit($auditDetail->deskripsi, 50) : '-';
-                                $limitedBenefits = array_slice($benefits, 0, 3);
-                            @endphp
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $audit->judul }}</td>
-                                <td>{{ 'Rp'. number_format($audit->harga, 0, ',', '.') }}</td>
-                                <td>{{ $shortDescription }}</td>
-                                <td>
-                                    @if(count($benefits) > 0)
-                                        <ul class="m-0 p-0" style="list-style:none;">
-                                            @foreach($limitedBenefits as $benefit)
-                                                <li><i class="bi bi-check-circle text-success"></i> {{ $benefit }}</li>
-                                            @endforeach
-                                            @if(count($benefits) > 3)
-                                                <small class="text-muted">+{{ count($benefits) - 3 }} lainnya</small>
-                                            @endif
-                                        </ul>
-                                    @else
-                                        <span class="text-muted fst-italic">Tidak ada benefit</span>
-                                    @endif
-                                </td>
-                                {{-- <td>
-                                    <span class="badge {{ $audit->is_active ? 'bg-success' : 'bg-danger' }}">
-                                        {{ $audit->is_active ? 'Aktif' : 'Tidak Aktif' }}
-                                    </span>
-                                </td> --}}
-                                <td>
-                                    <a href="{{ route('admin.audit.show', $audit->id) }}" class="btn btn-info btn-sm">
-                                        <i class="bi bi-eye"></i> Lihat
-                                    </a>
-                                    <a href="{{ route('admin.audit.edit', $audit->id) }}" class="btn btn-warning btn-sm">
-                                        <i class="bi bi-pencil"></i> Ubah
-                                    </a>
-                                    <form action="{{ route('admin.audit.destroy', $audit->id) }}" method="POST" class="d-inline delete-form">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm delete-btn">
-                                            <i class="bi bi-trash"></i> Hapus
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
+                        @forelse ($audits as $index => $item)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $item->judul }}</td>
+                            <td>
+                                <span class="badge bg-success fs-6">
+                                    Rp {{ number_format($item->harga, 0, ',', '.') }}
+                                </span>
+                            </td>
+                            <td>{{ Str::limit($item->detail->deskripsi ?? '-', 60) }}</td>
+                            <td>
+                                @if(!empty($item->detail?->benefit))
+                                    <ul class="list-unstyled mb-0">
+                                        @foreach($item->detail->benefit as $benefit)
+                                            <li class="mb-1">
+                                                <i class="bi bi-check-circle-fill text-success me-1"></i>{{ $benefit }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <span class="text-muted">Tidak ada benefit</span>
+                                @endif
+                            </td>
+                            <td>
+                                <a href="{{ route('admin.audit.show', $item->id) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Detail
+                                </a>
+                                <a href="{{ route('admin.audit.edit', $item->id) }}" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil"></i> Ubah
+                                </a>
+                                <form action="{{ route('admin.audit.destroy', $item->id) }}" method="POST" class="d-inline delete-form">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm delete-btn">
+                                        <i class="bi bi-trash"></i> Hapus
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
                         @empty
-                            <tr>
-                                <td colspan="7" class="text-center text-muted">Belum ada data audit</td>
-                            </tr>
+                        <tr>
+                            <td colspan="6" class="text-center text-muted">Belum ada layanan Audit</td>
+                        </tr>
                         @endforelse
                     </tbody>
+
                 </table>
             </div>
         </div>
@@ -114,6 +104,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const deleteButtons = document.querySelectorAll('.delete-btn');
+
     deleteButtons.forEach(button => {
         button.addEventListener('click', function (e) {
             e.preventDefault();
@@ -121,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             Swal.fire({
                 title: 'Yakin ingin menghapus?',
-                text: "Data yang sudah dihapus tidak bisa dikembalikan!",
+                text: "Layanan yang sudah dihapus tidak bisa dikembalikan!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',

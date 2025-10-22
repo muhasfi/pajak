@@ -26,7 +26,7 @@
             </div>
         @endif
 
-        <form class="form" action="{{ route('admin.pajak.update', $pajak->id) }}" method="POST">
+        <form class="form" action="{{ route('admin.pajak.update', $pajak->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -35,7 +35,7 @@
                     {{-- Judul Layanan --}}
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="judul">Judul Layanan <span class="text-danger">*</span></label>
+                            <label for="judul">Judul Layanan Pajak<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="judul" name="judul" 
                                    value="{{ old('judul', $pajak->judul) }}" 
                                    placeholder="Masukkan judul layanan" required>
@@ -63,63 +63,68 @@
                         </div>
                     </div>
 
-                    {{-- Benefit --}}
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>Benefit Layanan <span class="text-danger">*</span></label>
-                            <small class="text-muted d-block mb-2">Tekan Enter setelah mengetik setiap benefit, atau gunakan tombol tambah.</small>
+                    <div class="mb-3">
+                        <label class="form-label">Sumber File</label>
+                        <div class="input-group">
+                            <select name="file_type" class="form-select" style="max-width: 150px;" onchange="toggleFileInput(this)">
+                                <option value="upload" {{ old('file_type', isset($pajak->detail) && filter_var($pajak->detail->file_path, FILTER_VALIDATE_URL) ? '' : 'selected') }}>Upload</option>
+                                <option value="link" {{ old('file_type', isset($pajak->detail) && filter_var($pajak->detail->file_path, FILTER_VALIDATE_URL) ? 'selected' : '') }}>Link</option>
+                            </select>
 
-                            <div id="benefit-container" class="mb-3">
-                                @if(old('benefit'))
-                                    @foreach(old('benefit') as $benefit)
-                                        <div class="input-group mb-2 benefit-item">
-                                            <input type="text" class="form-control benefit-input" name="benefit[]" value="{{ $benefit }}" required>
-                                            <button type="button" class="btn btn-outline-danger remove-benefit">
-                                                <i class="fas fa-times"></i>
-                                            </button>
-                                        </div>
-                                    @endforeach
-                                @else
-                                    @foreach($pajak->detail->benefit as $benefit)
-                                        <div class="input-group mb-2 benefit-item">
-                                            <input type="text" class="form-control benefit-input" name="benefit[]" value="{{ $benefit }}" required>
-                                            <button type="button" class="btn btn-outline-danger remove-benefit">
-                                                <i class="fas fa-times"></i>
-                                            </button>
-                                        </div>
-                                    @endforeach
-                                @endif
-                            </div>
+                            {{-- Input upload file --}}
+                            <input type="file"
+                                name="file_upload"
+                                class="form-control {{ old('file_type', isset($pajak->detail) && filter_var($pajak->detail->file_path, FILTER_VALIDATE_URL) ? 'd-none' : '') }}"
+                                accept=".pdf,.doc,.docx">
 
-                            <div class="d-flex gap-2">
-                                <button type="button" class="btn btn-outline-primary btn-sm" onclick="addBenefitField()">
-                                    <i class="fas fa-plus"></i> Tambah Benefit
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="clearAllBenefits()">
-                                    <i class="fas fa-trash"></i> Hapus Semua
-                                </button>
-                            </div>
+                            {{-- Input link --}}
+                            <input type="text"
+                                name="file_link"
+                                value="{{ old('file_link', isset($pajak->detail) && filter_var($pajak->detail->file_path, FILTER_VALIDATE_URL) ? $pajak->detail->file_path : '') }}"
+                                class="form-control {{ old('file_type', isset($pajak->detail) && filter_var($pajak->detail->file_path, FILTER_VALIDATE_URL) ? '' : 'd-none') }}"
+                                placeholder="https://drive.google.com/...">
                         </div>
+
+                        @if(isset($pajak->detail->file_path))
+                            <small class="text-muted">
+                                File saat ini:
+                                @if(filter_var($pajak->detail->file_path, FILTER_VALIDATE_URL))
+                                    <a href="{{ $pajak->detail->file_path }}" target="_blank">Lihat Link</a>
+                                @else
+                                    <a href="{{ asset('storage/' . $pajak->detail->file_path) }}" target="_blank">Lihat File</a>
+                                @endif
+                            </small>
+                        @endif
                     </div>
 
-                    {{-- Preview Section --}}
-                    {{-- <div class="col-md-12">
-                        <hr>
-                        <h5>Preview Layanan</h5>
-                        <div class="card">
-                            <div class="card-body">
-                                <p><strong>Judul:</strong> <span id="preview-judul">{{ $pajak->judul }}</span></p>
-                                <p><strong>Harga:</strong> <span id="preview-harga">Rp {{ number_format($pajak->harga, 0, ',', '.') }}</span></p>
-                                <p><strong>Deskripsi:</strong> <span id="preview-deskripsi">{{ $pajak->detail->deskripsi }}</span></p>
-                                <p><strong>Benefit:</strong></p>
-                                <ul id="preview-benefit">
-                                    @foreach($pajak->detail->benefit as $benefit)
-                                        <li>{{ $benefit }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
+                    {{-- Benefit --}}
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Benefit Layanan</label>
+                        <small class="text-muted d-block mb-2">Tambahkan benefit yang akan didapatkan pelanggan</small>
+                        <div id="benefit-container">
+                            @php
+                                $benefits = old('benefit', $pajak->detail->benefit ?? ['']);
+                            @endphp
+                            @foreach($benefits as $index => $benefit)
+                                <div class="input-group mb-2 benefit-item">
+                                    <input type="text" name="benefit[]" class="form-control"
+                                           placeholder="Benefit {{ $index + 1 }}" value="{{ $benefit }}">
+                                    @if($index > 0)
+                                        <button type="button" class="btn btn-outline-danger remove-benefit">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    @else
+                                        <button type="button" class="btn btn-outline-secondary" disabled>
+                                            <i class="fas fa-grip-lines"></i>
+                                        </button>
+                                    @endif
+                                </div>
+                            @endforeach
                         </div>
-                    </div> --}}
+                        <button type="button" class="btn btn-outline-primary mt-2" id="add-benefit">
+                            <i class="fas fa-plus"></i> Tambah Benefit
+                        </button>
+                    </div>
 
                     {{-- Tombol --}}
                     <div class="form-group d-flex justify-content-end mt-4">
@@ -162,74 +167,40 @@
 </div>
 @endsection
 
-@push('scripts')
+@section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Tambah dan hapus field benefit
-    window.addBenefitField = function(value = '') {
-        const container = document.getElementById('benefit-container');
-        const div = document.createElement('div');
-        div.className = 'input-group mb-2 benefit-item';
-        div.innerHTML = `
-            <input type="text" class="form-control benefit-input" name="benefit[]" value="${value}" required>
-            <button type="button" class="btn btn-outline-danger remove-benefit">
-                <i class="fas fa-times"></i>
-            </button>
-        `;
-        container.appendChild(div);
-        attachEvents(div);
-        updatePreview();
-    };
+function toggleFileInput(select) {
+    const fileInput = select.closest('.input-group').querySelector('[name="file_upload"]');
+    const linkInput = select.closest('.input-group').querySelector('[name="file_link"]');
 
-    window.clearAllBenefits = function() {
-        const container = document.getElementById('benefit-container');
-        if (container.children.length > 0 && confirm('Apakah Anda yakin ingin menghapus semua benefit?')) {
-            container.innerHTML = '';
-            updatePreview();
-        }
-    };
-
-    function attachEvents(element) {
-        const removeBtn = element.querySelector('.remove-benefit');
-        removeBtn.addEventListener('click', () => {
-            element.remove();
-            updatePreview();
-        });
-
-        const input = element.querySelector('.benefit-input');
-        input.addEventListener('input', updatePreview);
-        input.addEventListener('keypress', e => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                window.addBenefitField();
-            }
-        });
+    if (select.value === 'upload') {
+        fileInput.classList.remove('d-none');
+        linkInput.classList.add('d-none');
+    } else {
+        fileInput.classList.add('d-none');
+        linkInput.classList.remove('d-none');
     }
+}
 
-    function updatePreview() {
-        document.getElementById('preview-judul').textContent = document.getElementById('judul').value;
-        const hargaValue = parseInt(document.getElementById('harga').value) || 0;
-        document.getElementById('preview-harga').textContent = 'Rp ' + hargaValue.toLocaleString('id-ID');
-        document.getElementById('preview-deskripsi').textContent = document.getElementById('deskripsi').value;
+document.getElementById('add-benefit').addEventListener('click', function() {
+    const container = document.getElementById('benefit-container');
+    const index = container.children.length;
+    const div = document.createElement('div');
+    div.className = 'input-group mb-2 benefit-item';
+    div.innerHTML = `
+        <input type="text" name="benefit[]" class="form-control" placeholder="Benefit ${index + 1}">
+        <button type="button" class="btn btn-outline-danger remove-benefit">
+            <i class="fas fa-trash"></i>
+        </button>
+    `;
+    container.appendChild(div);
+});
 
-        const benefitContainer = document.getElementById('preview-benefit');
-        benefitContainer.innerHTML = '';
-        document.querySelectorAll('.benefit-input').forEach(input => {
-            if (input.value.trim() !== '') {
-                const li = document.createElement('li');
-                li.textContent = input.value;
-                benefitContainer.appendChild(li);
-            }
-        });
+document.addEventListener('click', function(e) {
+    if(e.target.closest('.remove-benefit')) {
+        e.target.closest('.benefit-item').remove();
     }
-
-    // Init
-    document.querySelectorAll('.benefit-item').forEach(attachEvents);
-    ['judul', 'harga', 'deskripsi'].forEach(id => {
-        document.getElementById(id).addEventListener('input', updatePreview);
-    });
-    updatePreview();
 });
 </script>
-@endpush
+@endsection

@@ -25,7 +25,7 @@
         @endif
 
         <!-- Form Tambah Layanan -->
-        <form class="form" action="{{ route('admin.layanan-pt.store') }}" method="POST">
+        <form class="form" action="{{ route('admin.layanan-pt.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-body">
                 <div class="row">
@@ -91,8 +91,6 @@
                                 <input type="text" name="file_link" class="form-control d-none" placeholder="https://drive.google.com/...">
                             </div>
                         </div>
-
-
 
                         <!-- Benefit -->
                         <div class="form-group mb-3">

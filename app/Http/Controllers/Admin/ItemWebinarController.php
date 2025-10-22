@@ -3,25 +3,25 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\ItemSeminar;
-use App\Models\ItemSeminarDetail;
+use App\Models\ItemWebinar;
+use App\Models\ItemWebinarDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class ItemSeminarController extends Controller
+class ItemWebinarController extends Controller
 {
     public function index()
     {
-        $seminars = ItemSeminar::with('detailSeminar')
+        $webinars = ItemWebinar::with('detailWebinar')
             ->latest()
             ->paginate(10); // 10 items per page
         
-        return view('admin.seminar.index', compact('seminars'));
+        return view('admin.webinar.index', compact('webinars'));
     }
 
     public function create()
     {
-        return view('admin.seminar.create');
+        return view('admin.webinar.create');
     }
 
     public function store(Request $request)
@@ -31,7 +31,7 @@ class ItemSeminarController extends Controller
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'tanggal' => 'required|date',
-            'waktu_pelaksanaan' => 'required|date_format:H:i', // validasi waktu
+            'waktu_pelaksanaan' => 'required|date_format:H:i',
             'harga' => 'required|numeric',
             'pembicara' => 'required|string|max:255',
             'lokasi' => 'required|string|max:255',
@@ -46,22 +46,22 @@ class ItemSeminarController extends Controller
         // Upload gambar
         $gambarPath = null;
         if ($request->hasFile('gambar')) {
-            $gambarPath = $request->file('gambar')->store('seminar-images', 'public');
+            $gambarPath = $request->file('gambar')->store('webinar-images', 'public');
         }
     
-        // Create ItemSeminar
-        $itemSeminar = ItemSeminar::create([
+        // Create ItemWebinar
+        $itemWebinar = ItemWebinar::create([
             'gambar' => $gambarPath,
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
             'tanggal' => $request->tanggal,
-            'waktu_pelaksanaan' => $request->waktu_pelaksanaan, // ditambahkan
+            'waktu_pelaksanaan' => $request->waktu_pelaksanaan,
             'harga' => $request->harga
         ]);
     
-        // Create DetailSeminar
-        ItemSeminarDetail::create([
-            'item_seminar_id' => $itemSeminar->id,
+        // Create DetailWebinar
+        ItemWebinarDetail::create([
+            'item_webinar_id' => $itemWebinar->id,
             'pembicara' => $request->pembicara,
             'lokasi' => $request->lokasi,
             'kuota_peserta' => $request->kuota_peserta,
@@ -72,20 +72,20 @@ class ItemSeminarController extends Controller
             'file_path' => $request->file_path,
         ]);
     
-        return redirect()->route('admin.seminar.index')
-            ->with('success', 'Seminar berhasil ditambahkan.');
+        return redirect()->route('admin.webinar.index')
+            ->with('success', 'Webinar berhasil ditambahkan.');
     }
 
     public function show($id)
     {
-        $seminar = ItemSeminar::with('detailSeminar')->findOrFail($id);
-        return view('item_seminar.show', compact('seminar'));
+        $webinar = ItemWebinar::with('detailWebinar')->findOrFail($id);
+        return view('item_webinar.show', compact('webinar'));
     }
 
     public function edit($id)
     {
-        $seminar = ItemSeminar::with('detailSeminar')->findOrFail($id);
-        return view('admin.seminar.edit', compact('seminar'));
+        $webinar = ItemWebinar::with('detailWebinar')->findOrFail($id);
+        return view('admin.webinar.edit', compact('webinar'));
     }
 
     public function update(Request $request, $id)
@@ -95,7 +95,7 @@ class ItemSeminarController extends Controller
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'tanggal' => 'required|date',
-            'waktu_pelaksanaan' => 'required|date_format:H:i', // validasi waktu
+            'waktu_pelaksanaan' => 'required|date_format:H:i',
             'harga' => 'required|numeric',
             'pembicara' => 'required|string|max:255',
             'lokasi' => 'required|string|max:255',
@@ -107,29 +107,28 @@ class ItemSeminarController extends Controller
             'file_path' => 'nullable|string|max:255'
         ]);
     
-        $itemSeminar = ItemSeminar::with('detailSeminar')->findOrFail($id);
+        $itemWebinar = ItemWebinar::with('detailWebinar')->findOrFail($id);
     
         // Update gambar jika ada
         if ($request->hasFile('gambar')) {
-            // Hapus gambar lama jika ada
-            if ($itemSeminar->gambar) {
-                Storage::disk('public')->delete($itemSeminar->gambar);
+            if ($itemWebinar->gambar) {
+                Storage::disk('public')->delete($itemWebinar->gambar);
             }
-            $gambarPath = $request->file('gambar')->store('seminar-images', 'public');
-            $itemSeminar->gambar = $gambarPath;
+            $gambarPath = $request->file('gambar')->store('webinar-images', 'public');
+            $itemWebinar->gambar = $gambarPath;
         }
     
-        // Update ItemSeminar
-        $itemSeminar->update([
+        // Update ItemWebinar
+        $itemWebinar->update([
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
             'tanggal' => $request->tanggal,
-            'waktu_pelaksanaan' => $request->waktu_pelaksanaan, // ditambahkan
+            'waktu_pelaksanaan' => $request->waktu_pelaksanaan,
             'harga' => $request->harga
         ]);
     
-        // Update DetailSeminar
-        $itemSeminar->detailSeminar->update([
+        // Update DetailWebinar
+        $itemWebinar->detailWebinar->update([
             'pembicara' => $request->pembicara,
             'lokasi' => $request->lokasi,
             'kuota_peserta' => $request->kuota_peserta,
@@ -140,22 +139,22 @@ class ItemSeminarController extends Controller
             'file_path' => $request->file_path,
         ]);
     
-        return redirect()->route('admin.seminar.index')
-            ->with('success', 'Seminar berhasil diperbarui.');
+        return redirect()->route('admin.webinar.index')
+            ->with('success', 'Webinar berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
-        $itemSeminar = ItemSeminar::findOrFail($id);
+        $itemWebinar = ItemWebinar::findOrFail($id);
         
         // Hapus gambar jika ada
-        if ($itemSeminar->gambar) {
-            Storage::disk('public')->delete($itemSeminar->gambar);
+        if ($itemWebinar->gambar) {
+            Storage::disk('public')->delete($itemWebinar->gambar);
         }
         
-        $itemSeminar->delete();
+        $itemWebinar->delete();
 
-        return redirect()->route('admin.seminar.index')
-            ->with('success', 'Seminar berhasil dihapus.');
+        return redirect()->route('admin.webinar.index')
+            ->with('success', 'Webinar berhasil dihapus.');
     }
 }

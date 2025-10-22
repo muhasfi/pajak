@@ -16,6 +16,7 @@ class ItemBrevetCDetail extends Model
         'fasilitas',
         'keterangan',
         'urutan',
+        'file_path',
     ];
 
     public function brevetC()
