@@ -42,7 +42,7 @@
     }
 
     .section {
-        padding: 5rem 0;
+        padding: 4rem 0; /* Mengurangi padding section secara keseluruhan */
     }
 
     .section-title {
@@ -79,15 +79,16 @@
         line-height: 1.8;
     }
 
-    /* Hero Section */
+    /* Hero Section - Perbaikan Utama */
     .hero {
         background: #f8f9fa;
-        padding: 100px 0 80px;
+        padding: 80px 0 60px; /* Mengurangi padding atas dan bawah */
         position: relative;
         overflow: hidden;
-        min-height: 600px;
+        min-height: 500px; /* Mengurangi tinggi minimum */
         display: flex;
         align-items: center;
+        margin-bottom: 0; /* Pastikan tidak ada margin bawah */
     }
 
     .hero-content {
@@ -95,38 +96,39 @@
         z-index: 2;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 4rem;
+        gap: 3rem; /* Mengurangi gap */
         align-items: center;
         width: 100%;
     }
 
     .hero-text {
         width: 100%;
+        text-align: left;
     }
 
     .hero-text h1 {
-        font-size: 3rem;
+        font-size: 2.8rem; /* Sedikit mengurangi ukuran font */
         font-weight: 800;
         line-height: 1.2;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.2rem;
         color: #1e293b;
     }
 
     .hero-text p {
-        font-size: 1.25rem;
-        margin-bottom: 2rem;
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
         color: #475569;
         line-height: 1.8;
     }
 
     .hero-features {
-        margin: 2.5rem 0;
+        margin: 2rem 0; /* Mengurangi margin */
     }
 
     .hero-feature {
         display: flex;
         align-items: flex-start;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.2rem; /* Mengurangi margin bottom */
         transition: transform 0.3s ease;
     }
 
@@ -135,23 +137,23 @@
     }
 
     .hero-feature i {
-        width: 48px;
-        height: 48px;
+        width: 44px; /* Sedikit mengurangi ukuran */
+        height: 44px;
         border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
         margin-right: 1rem;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         flex-shrink: 0;
     }
 
     .hero-feature span {
         font-weight: 600;
-        font-size: 1.05rem;
+        font-size: 1rem;
         color: #1e293b;
         line-height: 1.5;
-        padding-top: 0.5rem;
+        padding-top: 0.3rem;
     }
 
     .hero-image {
@@ -168,7 +170,7 @@
     }
 
     .hero-buttons {
-        margin-top: 2.5rem;
+        margin-top: 2rem; /* Mengurangi margin top */
         display: flex;
         gap: 1rem;
         flex-wrap: wrap;
@@ -178,7 +180,7 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: 1rem 2rem;
+        padding: 0.9rem 1.8rem; /* Sedikit mengurangi padding */
         border-radius: var(--radius);
         font-weight: 600;
         font-size: 1rem;
@@ -215,15 +217,17 @@
         transform: translateY(-2px);
     }
 
-    /* About Section */
+    /* About Section - Perbaikan Jarak */
     .about {
         background: white;
+        padding-top: 0; /* Menghilangkan padding atas */
+        margin-top: 0; /* Menghilangkan margin atas */
     }
 
     .about-content {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 4rem;
+        gap: 3rem; /* Mengurangi gap */
         align-items: center;
     }
 
@@ -242,8 +246,8 @@
     .about-image::before {
         content: '';
         position: absolute;
-        top: -20px;
-        left: -20px;
+        top: -15px; /* Mengurangi offset */
+        left: -15px;
         width: 100%;
         height: 100%;
         border: 4px solid var(--primary);
@@ -253,27 +257,27 @@
     }
 
     .about-text h2 {
-        font-size: 2.2rem;
-        margin-bottom: 1.5rem;
+        font-size: 2rem; /* Sedikit mengurangi ukuran */
+        margin-bottom: 1.2rem;
         color: var(--dark);
         font-weight: 700;
     }
 
     .about-text p {
         color: var(--secondary);
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.2rem;
         line-height: 1.8;
         font-size: 1.05rem;
     }
 
     .about-features {
-        margin: 2.5rem 0;
+        margin: 2rem 0; /* Mengurangi margin */
     }
 
     .about-feature {
         display: flex;
         align-items: center;
-        margin-bottom: 1.25rem;
+        margin-bottom: 1rem; /* Mengurangi margin bottom */
         transition: transform 0.3s ease;
     }
 
@@ -313,7 +317,7 @@
 
     .service-card {
         background: white;
-        padding: 2.5rem 2rem;
+        padding: 2rem 1.5rem; /* Mengurangi padding */
         border-radius: 12px;
         box-shadow: var(--shadow);
         transition: var(--transition);
@@ -353,14 +357,14 @@
     }
 
     .service-icon {
-        width: 80px;
-        height: 80px;
+        width: 70px; /* Mengurangi ukuran */
+        height: 70px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 1.5rem;
-        font-size: 2rem;
+        margin: 0 auto 1.2rem;
+        font-size: 1.8rem;
         transition: var(--transition);
     }
 
@@ -369,15 +373,15 @@
     }
 
     .service-card h3 {
-        font-size: 1.4rem;
-        margin-bottom: 1rem;
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
         color: var(--dark);
         font-weight: 700;
     }
 
     .service-card p {
         color: var(--secondary);
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.2rem;
         line-height: 1.7;
     }
 
@@ -424,47 +428,46 @@
     }
 
     .stat-item {
-    background-color: transparent;
-    border-radius: 12px;
-    padding: 2rem;
-    text-align: center;
-    color: #fff;
+        background-color: transparent;
+        border-radius: 12px;
+        padding: 1.5rem; /* Mengurangi padding */
+        text-align: center;
+        color: #fff;
     }
-
 
     .stat-item:hover {
         transform: translateY(-5px);
     }
 
     .stat-item h3 {
-        font-size: 3rem;
+        font-size: 2.5rem; /* Mengurangi ukuran font */
         font-weight: 800;
         margin-bottom: 0.5rem;
         color: #ffffff;
     }
 
     .stat-item p {
-        font-size: 1.1rem;
+        font-size: 1rem;
         font-weight: 600;
         color: rgba(255, 255, 255, 0.95);
     }
 
     .stats-footer {
         text-align: center;
-        margin-top: 3rem;
+        margin-top: 2rem; /* Mengurangi margin top */
         position: relative;
         z-index: 1;
     }
 
     .stats-footer h3 {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
         font-weight: 700;
         color: white;
     }
 
     .stats-footer p {
-        font-size: 1.1rem;
+        font-size: 1rem;
         color: rgba(255, 255, 255, 0.9);
         max-width: 800px;
         margin: 0 auto;
@@ -474,7 +477,7 @@
     .consultation {
         text-align: center;
         background: var(--light);
-        padding: 5rem 0;
+        padding: 4rem 0; /* Mengurangi padding */
     }
 
     .consultation-content {
@@ -483,30 +486,33 @@
     }
 
     .consultation-content h2 {
-        font-size: 2.5rem;
-        margin-bottom: 1.5rem;
+        font-size: 2.2rem;
+        margin-bottom: 1.2rem;
         color: var(--dark);
         font-weight: 700;
     }
 
     .consultation-content p {
-        font-size: 1.125rem;
+        font-size: 1.1rem;
         color: var(--secondary);
-        margin-bottom: 2.5rem;
+        margin-bottom: 2rem;
         line-height: 1.8;
     }
 
     /* Responsive Design */
     @media (max-width: 992px) {
         .hero {
-            padding: 80px 0 60px;
+            padding: 60px 0 40px;
             min-height: auto;
         }
 
         .hero-content {
             grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        .hero-text {
             text-align: center;
-            gap: 3rem;
         }
 
         .hero-buttons {
@@ -515,7 +521,7 @@
         
         .about-content {
             grid-template-columns: 1fr;
-            gap: 3rem;
+            gap: 2.5rem;
             text-align: center;
         }
         
@@ -524,7 +530,7 @@
         }
         
         .hero-text h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
         }
         
         .hero-feature {
@@ -539,23 +545,23 @@
 
     @media (max-width: 768px) {
         .section {
-            padding: 4rem 0;
+            padding: 3rem 0;
         }
         
         .section-title h2 {
-            font-size: 2rem;
+            font-size: 1.8rem;
         }
         
         .hero {
-            padding: 60px 0 40px;
+            padding: 50px 0 30px;
         }
         
         .hero-text h1 {
-            font-size: 2rem;
+            font-size: 1.8rem;
         }
         
         .hero-text p {
-            font-size: 1.125rem;
+            font-size: 1.1rem;
         }
 
         .hero-feature i {
@@ -569,7 +575,7 @@
         }
         
         .about-text h2 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
         }
 
         .hero-buttons {
@@ -599,21 +605,21 @@
         }
         
         .hero-text h1 {
-            font-size: 1.75rem;
+            font-size: 1.6rem;
         }
         
         .section-title h2 {
-            font-size: 1.75rem;
+            font-size: 1.6rem;
         }
         
         .service-icon {
-            width: 70px;
-            height: 70px;
-            font-size: 1.8rem;
+            width: 60px;
+            height: 60px;
+            font-size: 1.6rem;
         }
 
         .stat-item h3 {
-            font-size: 2.5rem;
+            font-size: 2rem;
         }
     }
 
@@ -695,7 +701,7 @@
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- About Section - Tanpa Jarak dengan Hero -->
     <section class="section about" id="about">
         <div class="container">
             <div class="section-title">
