@@ -92,24 +92,6 @@
                     </div>
                 </div>
             </div>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number">7.500+</span>
-                    <span class="stat-label">PKP Aktif</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">99.8%</span>
-                    <span class="stat-label">Akurasi Laporan</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">75%</span>
-                    <span class="stat-label">Penghematan Waktu</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">24/7</span>
-                    <span class="stat-label">PPN Support</span>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -408,60 +390,6 @@
                         <i class="fas fa-headset"></i>
                         <h4>PPN Support 24/7</h4>
                         <p>Tim ahli PPN siap membantu kapan saja</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Testimonials -->
-    <div class="testimonials-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Apa Kata Pengguna?</h2>
-                <p class="section-subtitle">Testimoni dari PKP dan perusahaan yang telah menggunakan kertas kerja PPN kami</p>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Kertas kerja PPN ini sangat membantu tim kami dalam menyusun SPT Masa PPN. Proses yang biasanya memakan waktu 3 hari sekarang bisa selesai dalam 1 hari saja."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <div class="author-info">
-                            <h5>Budi Santoso</h5>
-                            <span>Konsultan Pajak, Jakarta</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Auto calculation dan rekonsiliasi otomatis sangat menghemat waktu. Error dalam perhitungan PPN berkurang drastis sejak menggunakan template ini."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user-cog"></i>
-                        </div>
-                        <div class="author-info">
-                            <h5>Sarah Wijaya</h5>
-                            <span>Accountant, PT Maju Jaya</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Template yang sangat user-friendly bahkan untuk yang belum berpengalaman. Panduan langkah demi langkah sangat membantu tim baru."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user-graduate"></i>
-                        </div>
-                        <div class="author-info">
-                            <h5>Andi Pratama</h5>
-                            <span>Finance Manager, Startup Tech</span>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -384,7 +384,7 @@
 }
 
 .hero-title {
-    font-size: 3.5rem;
+    font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 800;
     line-height: 1.1;
     margin-bottom: 1.5rem;
@@ -402,7 +402,7 @@
 }
 
 .hero-subtitle {
-    font-size: 1.3rem;
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
     line-height: 1.6;
     margin-bottom: 1.5rem;
     opacity: 0.9;
@@ -414,7 +414,7 @@
 }
 
 .hero-description {
-    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
     line-height: 1.7;
     margin-bottom: 2.5rem;
     opacity: 0.8;
@@ -443,16 +443,17 @@
 
 .stat-number {
     display: block;
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
     font-weight: 800;
     margin-bottom: 0.5rem;
     color: var(--white);
 }
 
 .stat-label {
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
     font-weight: 500;
     opacity: 0.9;
+    color: white;
 }
 
 /* =========================
@@ -542,14 +543,14 @@
 }
 
 .section-title {
-    font-size: 2.8rem;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
     font-weight: 700;
     margin-bottom: 1rem;
     color: var(--gray-800);
 }
 
 .section-subtitle {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2vw, 1.2rem);
     max-width: 600px;
     margin: 0 auto;
     color: var(--gray-600);
@@ -557,7 +558,7 @@
 
 .benefits-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
 }
 
@@ -659,10 +660,13 @@
     display: block;
 }
 
+/* Perbaikan utama: Program cards dengan ukuran konsisten */
 .programs-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .program-card {
@@ -673,6 +677,8 @@
     transition: var(--transition);
     position: relative;
     border: 1px solid var(--gray-200);
+    max-width: 400px; /* Batas maksimum untuk konsistensi */
+    margin: 0 auto; /* Pusatkan card jika hanya ada satu */
 }
 
 .program-card:hover {
@@ -1009,6 +1015,8 @@
     box-shadow: var(--shadow-md);
     transition: var(--transition);
     border: 1px solid var(--gray-200);
+    max-width: 300px; /* Batas maksimum untuk konsistensi */
+    margin: 0 auto; /* Pusatkan card jika hanya ada satu */
 }
 
 .client-card:hover {
@@ -1054,14 +1062,14 @@
 }
 
 .cta-text h3 {
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
     font-weight: 700;
     margin-bottom: 1rem;
     color: var(--white);
 }
 
 .cta-text p {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2vw, 1.2rem);
     margin-bottom: 2rem;
     opacity: 0.9;
 }
@@ -1084,8 +1092,10 @@
 }
 
 /* =========================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN IMPROVEMENTS
    ========================= */
+
+/* Tablet */
 @media (max-width: 1024px) {
     .hero-content {
         grid-template-columns: 1fr;
@@ -1093,12 +1103,8 @@
         text-align: center;
     }
 
-    .hero-title {
-        font-size: 3rem;
-    }
-
     .programs-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
 
     .program-card.featured {
@@ -1121,25 +1127,14 @@
     }
 }
 
+/* Mobile Large */
 @media (max-width: 768px) {
     .training-hero {
         padding: 100px 0 60px;
     }
 
-    .hero-title {
-        font-size: 2.5rem;
-    }
-
-    .hero-subtitle {
-        font-size: 1.1rem;
-    }
-
     .hero-stats {
         grid-template-columns: 1fr;
-    }
-
-    .section-title {
-        font-size: 2.2rem;
     }
 
     .benefits-grid {
@@ -1170,53 +1165,107 @@
         grid-template-columns: 1fr;
     }
 
-    .cta-text h3 {
-        font-size: 2rem;
-    }
-
     .hero-actions {
         justify-content: center;
     }
+
+    .program-footer {
+        flex-direction: column;
+    }
 }
 
+/* Mobile Small */
 @media (max-width: 480px) {
     .container {
         padding: 0 15px;
     }
 
-    .hero-title {
-        font-size: 2rem;
+    .programs-grid {
+        grid-template-columns: 1fr;
     }
 
-    .hero-subtitle {
-        font-size: 1rem;
-    }
-
-    .section-title {
-        font-size: 1.8rem;
-    }
-
-    .program-footer {
-        flex-direction: column;
+    .program-card {
+        max-width: 100%; /* Tetap konsisten pada mobile */
     }
 
     .cta-section {
         padding: 80px 0;
     }
 
-    .cta-text h3 {
-        font-size: 1.75rem;
-    }
-
     .btn {
         width: 100%;
         max-width: 300px;
+    }
+
+    .benefit-card,
+    .client-card {
+        padding: 1.5rem;
+    }
+
+    .program-body,
+    .program-footer {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+/* Extra Small Devices */
+@media (max-width: 360px) {
+    .container {
+        padding: 0 10px;
+    }
+
+    .benefits-grid,
+    .programs-grid,
+    .clients-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .benefit-card,
+    .program-card,
+    .client-card {
+        padding: 1rem;
+    }
+
+    .program-header {
+        padding: 1.5rem 1.5rem 1rem;
+    }
+
+    .program-body {
+        padding: 1rem 1.5rem;
+    }
+
+    .program-footer {
+        padding: 0 1.5rem 1.5rem;
+    }
+
+    .tab-content {
+        padding: 1.5rem 1rem;
     }
 }
 
 /* Smooth scrolling */
 html {
     scroll-behavior: smooth;
+}
+
+/* Print Styles */
+@media print {
+    .training-hero {
+        background: white !important;
+        color: black !important;
+        padding: 50px 0 !important;
+    }
+    
+    .btn {
+        display: none !important;
+    }
+    
+    .program-card {
+        break-inside: avoid;
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+    }
 }
 </style>
 

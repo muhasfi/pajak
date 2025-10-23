@@ -27,4 +27,5 @@ class Item extends Model
     {
         return $this->hasOne(ItemDetail::class);
     }
+
 }

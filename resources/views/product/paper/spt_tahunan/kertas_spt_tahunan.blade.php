@@ -96,24 +96,6 @@
                     </div>
                 </div>
             </div>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number">10.000+</span>
-                    <span class="stat-label">Pengguna Aktif</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">99.9%</span>
-                    <span class="stat-label">Akurasi Laporan</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">80%</span>
-                    <span class="stat-label">Penghematan Waktu</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">24/7</span>
-                    <span class="stat-label">Tax Support</span>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -416,60 +398,6 @@
                         <i class="fas fa-headset"></i>
                         <h4>Tax Support 24/7</h4>
                         <p>Konsultan pajak siap membantu kapan saja</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Testimonials -->
-    <div class="testimonials-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Apa Kata Pengguna?</h2>
-                <p class="section-subtitle">Testimoni dari wajib pajak dan perusahaan yang telah menggunakan kertas kerja kami</p>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Kertas kerja SPT Tahunan ini sangat membantu saya sebagai freelancer. Proses yang biasanya rumit sekarang jadi sederhana dan terstruktur."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <div class="author-info">
-                            <h5>Budi Santoso</h5>
-                            <span>Freelancer, Jakarta</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Sebagai pemilik UMKM, kertas kerja ini sangat memudahkan dalam menyusun SPT. Auto calculation sangat akurat dan menghemat waktu."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user-cog"></i>
-                        </div>
-                        <div class="author-info">
-                            <h5>Sarah Wijaya</h5>
-                            <span>Pemilik UMKM, Bandung</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Template yang sangat profesional untuk perusahaan. Rekonsiliasi fiskal otomatis sangat membantu tim accounting kami."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user-graduate"></i>
-                        </div>
-                        <div class="author-info">
-                            <h5>Andi Pratama</h5>
-                            <span>Finance Manager, PT Maju Jaya</span>
-                        </div>
                     </div>
                 </div>
             </div>

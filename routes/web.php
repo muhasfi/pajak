@@ -22,6 +22,8 @@ use App\Http\Controllers\SiteController;
 
 Route::get('/', [\App\Http\Controllers\SiteController::class, 'index'])->name('index');
 Route::get('/book', [\App\Http\Controllers\BookController::class, 'index'])->name('book');
+Route::get('/book/{id}', [\App\Http\Controllers\BookController::class, 'show'])->name('book.show');
+
 
 Route::get('/cart', [OrderController::class, 'cart'])->name('cart');
 Route::post('/cart/add', [OrderController::class, 'addToCart'])->name('cart.add');

@@ -14,7 +14,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Beranda</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('catalog.index') }}">Katalog</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('book') }}">Katalog</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ Str::limit($item->name, 30) }}</li>
             </ol>
         </nav>
@@ -36,7 +36,7 @@
                          id="mainImage"
                          onerror="this.onerror=null;this.src='{{ asset('images/default-book.png') }}';">
                 </div>
-                @if($item->images && count($item->images) > 0)
+                @if(isset($item->images) && is_array($item->images) && count($item->images) > 0)
                 <div class="image-thumbnails">
                     @foreach($item->images as $image)
                     <div class="thumbnail">
@@ -62,16 +62,26 @@
                 
                 <div class="product-rating">
                     <div class="stars">
+                        @php
+                            // Handle jika reviews tidak ada
+                            $averageRating = 0;
+                            $reviewsCount = 0;
+                            
+                            if (isset($item->reviews) && method_exists($item->reviews, 'avg')) {
+                                $averageRating = $item->reviews->avg('rating') ?? 0;
+                                $reviewsCount = $item->reviews->count() ?? 0;
+                            }
+                        @endphp
                         @for($i = 1; $i <= 5; $i++)
-                            <i class="fas fa-star {{ $i <= $item->average_rating ? 'active' : '' }}"></i>
+                            <i class="fas fa-star {{ $i <= $averageRating ? 'active' : '' }}"></i>
                         @endfor
                     </div>
-                    <span class="rating-text">({{ $item->reviews_count }} ulasan)</span>
+                    <span class="rating-text">({{ $reviewsCount }} ulasan)</span>
                 </div>
 
                 <div class="product-price-section">
                     <span class="current-price">Rp{{ number_format($item->price, 0, ',', '.') }}</span>
-                    @if($item->original_price)
+                    @if(isset($item->original_price) && $item->original_price > $item->price)
                     <span class="original-price">Rp{{ number_format($item->original_price, 0, ',', '.') }}</span>
                     <span class="discount-badge">-{{ number_format(($item->original_price - $item->price) / $item->original_price * 100, 0) }}%</span>
                     @endif
@@ -98,9 +108,9 @@
 
                 <div class="product-actions">
                     <div class="quantity-selector">
-                        <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
-                        <input type="number" id="quantity" value="1" min="1" max="10">
-                        <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                        <button type="button" class="quantity-btn" onclick="decreaseQuantity()">-</button>
+                        <input type="number" id="quantity" value="1" min="1" max="10" readonly>
+                        <button type="button" class="quantity-btn" onclick="increaseQuantity()">+</button>
                     </div>
                     
                     <button class="btn-primary btn-add-to-cart" onclick="addToCart({{ $item->id }}, 'Item')">
@@ -116,16 +126,18 @@
                 <div class="product-meta">
                     <div class="meta-item">
                         <span class="meta-label">Kategori:</span>
-                        <span class="meta-value">{{ $item->category->name ?? 'Umum' }}</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">ISBN:</span>
-                        <span class="meta-value">{{ $item->isbn ?? 'Tersedia' }}</span>
+                        <span class="meta-value">
+                            @if(isset($item->category) && isset($item->category->name))
+                                {{ $item->category->name }}
+                            @else
+                                Umum
+                            @endif
+                        </span>
                     </div>
                     <div class="meta-item">
                         <span class="meta-label">Stok:</span>
-                        <span class="meta-value {{ $item->stock > 0 ? 'in-stock' : 'out-of-stock' }}">
-                            {{ $item->stock > 0 ? 'Tersedia' : 'Habis' }}
+                        <span class="meta-value {{ ($item->stock ?? 0) > 0 ? 'in-stock' : 'out-of-stock' }}">
+                            {{ ($item->stock ?? 0) > 0 ? 'Tersedia' : 'Habis' }}
                         </span>
                     </div>
                 </div>
@@ -141,7 +153,7 @@
             <ul class="tabs-nav">
                 <li class="tab-nav-item active" data-tab="description">Deskripsi</li>
                 <li class="tab-nav-item" data-tab="specifications">Spesifikasi</li>
-                <li class="tab-nav-item" data-tab="reviews">Ulasan ({{ $item->reviews_count }})</li>
+                <li class="tab-nav-item" data-tab="reviews">Ulasan ({{ $reviewsCount }})</li>
             </ul>
 
             <div class="tabs-content">
@@ -208,57 +220,83 @@
                         
                         <div class="reviews-summary">
                             <div class="overall-rating">
-                                <div class="rating-score">{{ number_format($item->average_rating, 1) }}</div>
+                                <div class="rating-score">{{ number_format($averageRating, 1) }}</div>
                                 <div class="stars">
                                     @for($i = 1; $i <= 5; $i++)
-                                        <i class="fas fa-star {{ $i <= $item->average_rating ? 'active' : '' }}"></i>
+                                        <i class="fas fa-star {{ $i <= $averageRating ? 'active' : '' }}"></i>
                                     @endfor
                                 </div>
-                                <div class="total-reviews">{{ $item->reviews_count }} ulasan</div>
+                                <div class="total-reviews">{{ $reviewsCount }} ulasan</div>
                             </div>
                             
+                            @if($reviewsCount > 0)
                             <div class="rating-bars">
+                                @php
+                                    // Hitung persentase rating untuk setiap bintang
+                                    $ratingPercentages = [];
+                                    for ($i = 1; $i <= 5; $i++) {
+                                        if (isset($item->reviews)) {
+                                            $starCount = $item->reviews->where('rating', $i)->count();
+                                            $ratingPercentages[$i] = $reviewsCount > 0 ? ($starCount / $reviewsCount) * 100 : 0;
+                                        } else {
+                                            $ratingPercentages[$i] = 0;
+                                        }
+                                    }
+                                @endphp
                                 @for($i = 5; $i >= 1; $i--)
                                 <div class="rating-bar">
                                     <span class="star-count">{{ $i }} bintang</span>
                                     <div class="bar-container">
-                                        <div class="bar" style="width: {{ $item->getRatingPercentage($i) }}%"></div>
+                                        <div class="bar" style="width: {{ $ratingPercentages[$i] }}%"></div>
                                     </div>
-                                    <span class="percentage">{{ $item->getRatingPercentage($i) }}%</span>
+                                    <span class="percentage">{{ number_format($ratingPercentages[$i], 0) }}%</span>
                                 </div>
                                 @endfor
                             </div>
+                            @endif
                         </div>
 
                         <div class="reviews-list">
-                            @forelse($item->reviews as $review)
-                            <div class="review-item">
-                                <div class="review-header">
-                                    <div class="reviewer-info">
-                                        <div class="reviewer-avatar">
-                                            {{ substr($review->user->name, 0, 1) }}
-                                        </div>
-                                        <div class="reviewer-details">
-                                            <h5>{{ $review->user->name }}</h5>
-                                            <div class="review-rating">
-                                                @for($i = 1; $i <= 5; $i++)
-                                                    <i class="fas fa-star {{ $i <= $review->rating ? 'active' : '' }}"></i>
-                                                @endfor
+                            @if(isset($item->reviews) && $item->reviews->count() > 0)
+                                @foreach($item->reviews as $review)
+                                <div class="review-item">
+                                    <div class="review-header">
+                                        <div class="reviewer-info">
+                                            <div class="reviewer-avatar">
+                                                @if(isset($review->user) && isset($review->user->name))
+                                                    {{ substr($review->user->name, 0, 1) }}
+                                                @else
+                                                    U
+                                                @endif
+                                            </div>
+                                            <div class="reviewer-details">
+                                                <h5>
+                                                    @if(isset($review->user) && isset($review->user->name))
+                                                        {{ $review->user->name }}
+                                                    @else
+                                                        User
+                                                    @endif
+                                                </h5>
+                                                <div class="review-rating">
+                                                    @for($i = 1; $i <= 5; $i++)
+                                                        <i class="fas fa-star {{ $i <= ($review->rating ?? 0) ? 'active' : '' }}"></i>
+                                                    @endfor
+                                                </div>
                                             </div>
                                         </div>
+                                        <span class="review-date">{{ $review->created_at->format('d M Y') }}</span>
                                     </div>
-                                    <span class="review-date">{{ $review->created_at->format('d M Y') }}</span>
+                                    <div class="review-content">
+                                        <p>{{ $review->comment ?? 'Tidak ada komentar' }}</p>
+                                    </div>
                                 </div>
-                                <div class="review-content">
-                                    <p>{{ $review->comment }}</p>
-                                </div>
-                            </div>
-                            @empty
+                                @endforeach
+                            @else
                             <div class="empty-reviews">
                                 <i class="fas fa-comment-dots"></i>
                                 <p>Belum ada ulasan untuk produk ini</p>
                             </div>
-                            @endforelse
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -268,7 +306,7 @@
 </section>
 
 <!-- Related Products -->
-@if($relatedItems->count() > 0)
+@if(isset($relatedItems) && $relatedItems->count() > 0)
 <section class="related-products-section section-padding">
     <div class="container">
         <div class="section-header">
@@ -284,12 +322,13 @@
                                 ? $relatedItem->img 
                                 : asset('storage/' . $relatedItem->img) }}"
                          alt="{{ $relatedItem->name }}"
-                         class="img-fluid">
+                         class="img-fluid"
+                         onerror="this.onerror=null;this.src='{{ asset('images/default-book.png') }}';">
                 </div>
                 <div class="product-content">
                     <h4>{{ Str::limit($relatedItem->name, 50) }}</h4>
                     <div class="product-price">Rp{{ number_format($relatedItem->price, 0, ',', '.') }}</div>
-                    <a href="{{ route('catalog.show', $relatedItem->id) }}" class="btn-view-detail">
+                    <a href="{{ route('book.show', $relatedItem->id) }}" class="btn-view-detail">
                         Lihat Detail
                     </a>
                 </div>
@@ -299,6 +338,104 @@
     </div>
 </section>
 @endif
+@endsection
+
+@section('script')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // Quantity functions
+    function increaseQuantity() {
+        const quantityInput = document.getElementById('quantity');
+        let quantity = parseInt(quantityInput.value);
+        if (quantity < 10) {
+            quantityInput.value = quantity + 1;
+        }
+    }
+
+    function decreaseQuantity() {
+        const quantityInput = document.getElementById('quantity');
+        let quantity = parseInt(quantityInput.value);
+        if (quantity > 1) {
+            quantityInput.value = quantity - 1;
+        }
+    }
+
+    // Image change function
+    function changeImage(src) {
+        document.getElementById('mainImage').src = src;
+    }
+
+    // Add to cart function
+    function addToCart(id, type) {
+        const quantity = document.getElementById('quantity').value;
+        
+        // Show loading
+        document.getElementById('loadingOverlay').style.display = 'flex';
+        
+        fetch("{{ route('cart.add') }}", {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ 
+                id: id, 
+                type: type,
+                quantity: quantity
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Hide loading
+            document.getElementById('loadingOverlay').style.display = 'none';
+            
+            if (data.status === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: data.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.message
+                });
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            document.getElementById('loadingOverlay').style.display = 'none';
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Terjadi kesalahan saat menambahkan ke keranjang'
+            });
+        });
+    }
+
+    // Tab functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabNavItems = document.querySelectorAll('.tab-nav-item');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabNavItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const tabId = item.getAttribute('data-tab');
+                
+                // Remove active class from all tabs
+                tabNavItems.forEach(nav => nav.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to current tab
+                item.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    });
+</script>
 @endsection
 
 @section('styles')

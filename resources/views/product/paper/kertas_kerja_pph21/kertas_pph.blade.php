@@ -96,24 +96,6 @@
                     </div>
                 </div>
             </div>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number">8.500+</span>
-                    <span class="stat-label">Perusahaan</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">99.9%</span>
-                    <span class="stat-label">Akurasi Hitung</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">70%</span>
-                    <span class="stat-label">Penghematan Waktu</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">24/7</span>
-                    <span class="stat-label">PPh Support</span>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -416,60 +398,6 @@
                         <i class="fas fa-headset"></i>
                         <h4>PPh Support 24/7</h4>
                         <p>Tim ahli PPh 21 siap membantu kapan saja</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Testimonials -->
-    <div class="testimonials-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Apa Kata Pengguna?</h2>
-                <p class="section-subtitle">Testimoni dari HRD dan perusahaan yang telah menggunakan kertas kerja PPh 21 kami</p>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Kertas kerja PPh 21 ini sangat membantu tim HR kami. Perhitungan yang rumit sekarang jadi sederhana dan akurat."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <div class="author-info">
-                            <h5>Budi Santoso</h5>
-                            <span>HR Manager, Jakarta</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Auto calculation untuk karyawan tetap dan tidak tetap sangat menghemat waktu. Bukti potong otomatis sangat membantu."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user-cog"></i>
-                        </div>
-                        <div class="author-info">
-                            <h5>Sarah Wijaya</h5>
-                            <span>Payroll Staff, Bandung</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Template yang sangat profesional untuk perusahaan. Rekonsiliasi otomatis sangat membantu tim accounting kami."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user-graduate"></i>
-                        </div>
-                        <div class="author-info">
-                            <h5>Andi Pratama</h5>
-                            <span>Finance Manager, Startup Tech</span>
-                        </div>
                     </div>
                 </div>
             </div>
