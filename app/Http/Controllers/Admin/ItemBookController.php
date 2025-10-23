@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Models\Item;
 use App\Models\ItemDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ItemBookController extends Controller
 {
     public function index() {
         // Fetch all items from the database
-        $items = Item::orderBy('name', 'asc')->get();
+        $items = Item::orderBy('name', 'desc')->get();
 
         // Return the view with the items
         return view('admin.book.index', compact('items'));
@@ -21,10 +21,7 @@ class ItemBookController extends Controller
 
     public function create()
     {
-        $categories = Category::orderBy('cat_name', 'asc')->get();
-
-        // Return the view to create a new item
-        return view('admin.book.create', compact('categories'));
+        return view('admin.book.create');
     }
 
     public function store(Request $request)
@@ -84,75 +81,92 @@ class ItemBookController extends Controller
         }
     }
 
-
-
-     public function edit($id)
+    public function show($id)
     {
-        $item = Item::findOrFail($id);
-        $categories = Category::orderBy('cat_name', 'asc')->get();
+        // Ambil book beserta detailnya
+        $book = Item::with('detail')->findOrFail($id);
 
-        // Return the view to create a new item
-        return view('admin.book.edit', compact('item','categories'));
+        return view('admin.book.show', compact('book'));
     }
 
-    public function update(Request $request, string $id)
+
+    public function edit($id)
     {
-        // Validasi input
-        $validatedData = $request->validate([
-            'name'          => 'required|string|max:255',
-            'description'   => 'nullable|string',
-            'price'         => 'required|numeric|min:0',
-            'img'           => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'is_active'     => 'required|boolean',
+        $book = Item::findOrFail($id);
+        return view('admin.book.edit', compact('book'));
+    }
 
-            // validasi item_details
-            'file_path'     => 'nullable|file|mimes:pdf,doc,docx,ppt,pptx,zip,rar|max:10240',
-            'video_url'     => 'nullable|url',
-            'zoom_link'     => 'nullable|url',
-            'event_date'    => 'nullable|date',
-            'duration_days' => 'nullable|integer|min:1',
-        ]);
+   public function update(Request $request, $id)
+{
+    $validated = $request->validate([
+        // item
+        'name'        => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'price'       => 'required|integer',
+        'img'         => 'nullable|image|mimes:jpg,jpeg,png',
+        'is_active'   => 'boolean',
 
+        // ebook
+        'file_type'   => 'required|in:upload,link',
+        'file_upload' => 'nullable|file|mimes:pdf,doc,docx|max:20480', // max 20MB
+        'file_link'   => 'nullable|url',
+    ]);
+
+    DB::beginTransaction();
+    try {
         // Cari item
         $item = Item::findOrFail($id);
 
-        // Handle image upload jika ada file baru
+        // === Handle gambar cover ===
+        $imgPath = $item->img; // default: gunakan gambar lama
         if ($request->hasFile('img')) {
-            $image = $request->file('img')->store('items', 'public');
-            $validatedData['img'] = $image;
+            // hapus gambar lama jika ada
+            if ($item->img && Storage::disk('public')->exists($item->img)) {
+                Storage::disk('public')->delete($item->img);
+            }
+            // upload baru
+            $imgPath = $request->file('img')->store('items', 'public');
         }
 
-        // Update tabel items
+        // === Update data item ===
         $item->update([
-            'name'        => $validatedData['name'],
-            'description' => $validatedData['description'] ?? null,
-            'price'       => $validatedData['price'],
-            'img'         => $validatedData['img'] ?? $item->img,
-            'is_active'   => $validatedData['is_active'],
+            'name'        => $validated['name'],
+            'description' => $validated['description'] ?? null,
+            'price'       => $validated['price'],
+            'img'         => $imgPath,
+            'is_active'   => $validated['is_active'] ?? 1,
         ]);
 
-        // Update / Insert item_details
-        $detailData = [
-            'video_url'     => $validatedData['video_url'] ?? null,
-            'zoom_link'     => $validatedData['zoom_link'] ?? null,
-            'event_date'    => $validatedData['event_date'] ?? null,
-            'duration_days' => $validatedData['duration_days'] ?? null,
-        ];
+        // === Handle file ebook ===
+        $detail = $item->detail; // relasi one-to-one
 
-        // kalau ada file baru untuk file_path
-        if ($request->hasFile('file_path')) {
-            $filePath = $request->file('file_path')->store('item_files', 'public');
-            $detailData['file_path'] = $filePath;
+        $filePath = $detail->file_path ?? null;
+        if ($validated['file_type'] === 'upload' && $request->hasFile('file_upload')) {
+            // hapus file lama jika upload baru
+            if ($filePath && Storage::disk('public')->exists($filePath)) {
+                Storage::disk('public')->delete($filePath);
+            }
+            $filePath = $request->file('file_upload')->store('ebooks', 'public');
+        } elseif ($validated['file_type'] === 'link') {
+            $filePath = $validated['file_link'];
         }
 
-        // Update atau buat detail
+        // === Update atau buat item_detail ===
         $item->detail()->updateOrCreate(
             ['item_id' => $item->id],
-            $detailData
+            ['file_path' => $filePath]
         );
 
-        return redirect()->route('admin.book.index')->with('success', 'Item updated successfully.');
+        DB::commit();
+
+        return redirect()->route('admin.book.index')
+            ->with('success', 'E-Book berhasil diperbarui.');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return back()->withErrors(['error' => $e->getMessage()]);
     }
+}
+
 
      public function destroy(string $id)
     {

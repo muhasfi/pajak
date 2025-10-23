@@ -9,28 +9,20 @@ class ItemBrevetC extends Model
 {
     use HasFactory;
     
-    protected $table = 'item_brevetc';
+    protected $table = 'item_brevetcs';
 
     protected $fillable = [
-        'gambar',
-        'judul',
-        'deskripsi',
-        'hari',
-        'lokasi',
-        'tanggal_mulai',
-        'tanggal_selesai',
-        'waktu_pelaksanaan',
-        'harga',
+        'gambar', 'judul', 'deskripsi', 'hari',
+        'tanggal_mulai', 'tanggal_selesai', 'harga',
     ];
 
     protected $casts = [
         'tanggal_mulai' => 'date',
         'tanggal_selesai' => 'date',
-        'waktu_pelaksanaan' => 'datetime:H:i',
     ];
 
-    public function details()
+    public function detail()
     {
-        return $this->hasMany(ItemBrevetCDetail::class, 'brevet_c_id');
+        return $this->hasOne(ItemBrevetCDetail::class, 'brevetcs_id');
     }
 }

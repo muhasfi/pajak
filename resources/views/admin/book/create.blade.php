@@ -10,57 +10,61 @@
         </div>
     </div>
 </div>
+
 <div class="card">
     <div class="card-body">
         @if ($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <h5 class="alert-heading">Submit Error!</h5>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-        <form class="form" action="{{ route('admin.book.store') }}" enctype="multipart/form-data" method="POST">
+
+        <form action="{{ route('admin.book.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-body">
                 <div class="row">
                     <div class="col-md-12">
                         <!-- ITEM -->
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label for="name">Nama Menu</label>
                             <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan Nama Menu" required>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label for="description">Deskripsi</label>
-                            <textarea class="form-control" id="description" name="description" placeholder="Masukkan Deskripsi" required></textarea>
+                            <textarea class="form-control" id="description" name="description" placeholder="Masukkan Deskripsi"></textarea>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label for="price">Harga</label>
                             <input type="number" class="form-control" id="price" name="price" placeholder="Masukkan Harga" required>
                         </div>
-                        <div class="form-group">
+
+                        <div class="form-group mb-3">
                             <label for="image">Gambar</label>
-                            <input type="file" class="form-control" id="image" name="img" required>
+                            <input type="file" class="form-control" id="image" name="img" accept=".jpg,.jpeg,.png">
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label for="is_active">Status</label>
                             <div class="form-check form-switch">
                                 <input type="hidden" name="is_active" value="0">
                                 <input type="checkbox" class="form-check-input" id="flexSwitchCheckChecked" name="is_active" value="1" checked>
-                                <label for="flexSwitchCheckChecked">Aktif/Tidak Aktif</label>
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Aktif / Tidak Aktif</label>
                             </div>
                         </div>
 
                         <hr>
-                        <h5>Detail Item</h5>
+                        <h5>Detail E-Book</h5>
 
-                        <!-- ITEM DETAILS -->
                         <div class="mb-3">
-                            <label class="form-label">E-Book</label>
+                            <label class="form-label">Sumber File</label>
                             <div class="input-group">
                                 <select name="file_type" class="form-select" style="max-width: 150px;" onchange="toggleFileInput(this)">
                                     <option value="upload">Upload</option>
@@ -72,7 +76,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group d-flex justify-content-end">
+                        <div class="d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
                             <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
                             <a href="{{ route('admin.book.index') }}" class="btn btn-light-secondary me-1 mb-1">Batal</a>
@@ -81,24 +85,34 @@
                 </div>
             </div>
         </form>
-
-
     </div>
 </div>
 @endsection
 
+@section('script')
 <script>
-    function toggleFileInput(select) {
-    let fileInput = select.closest('.input-group').querySelector('[name="file_upload"]');
-    let linkInput = select.closest('.input-group').querySelector('[name="file_link"]');
-    
+function toggleFileInput(select) {
+    const group = select.closest('.input-group');
+    const fileInput = group.querySelector('[name="file_upload"]');
+    const linkInput = group.querySelector('[name="file_link"]');
+
     if (select.value === 'upload') {
         fileInput.classList.remove('d-none');
         linkInput.classList.add('d-none');
+        fileInput.required = true;
+        linkInput.required = false;
     } else {
         fileInput.classList.add('d-none');
         linkInput.classList.remove('d-none');
+        fileInput.required = false;
+        linkInput.required = true;
     }
 }
 
+// Panggil saat halaman pertama kali dimuat
+document.addEventListener('DOMContentLoaded', function() {
+    const select = document.querySelector('select[name="file_type"]');
+    toggleFileInput(select);
+});
 </script>
+@endsection

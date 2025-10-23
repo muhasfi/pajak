@@ -25,32 +25,32 @@ class OrderController extends Controller
         $productType = $request->input('type');
         $productId   = $request->input('id');
 
-        if ($productType === 'ItemBimbel' && !auth()->check()) {
-        return response()->json(['status' => 'error', 'message' => 'Silakan login untuk membeli bimbel']);
-        }
+        // if ($productType === 'ItemBimbel' && !auth()->check()) {
+        // return response()->json(['status' => 'error', 'message' => 'Silakan login untuk membeli bimbel']);
+        // }
 
-        if ($productType === 'ItemBimbel' && auth()->check()) {
-            $existing = OrderItem::where('product_id', $productId)
-                ->where('product_type', 'bimbel')
-                ->whereHas('order', function($q) {
-                    $q->where('user_id', auth()->id())
-                    ->where('status', 'success');
-                })
-                ->where('start_date', '<=', now())
-                ->where('end_date', '>=', now())
-                ->first();
+        // if ($productType === 'ItemBimbel' && auth()->check()) {
+        //     $existing = OrderItem::where('product_id', $productId)
+        //         ->where('product_type', 'bimbel')
+        //         ->whereHas('order', function($q) {
+        //             $q->where('user_id', auth()->id())
+        //             ->where('status', 'success');
+        //         })
+        //         ->where('start_date', '<=', now())
+        //         ->where('end_date', '>=', now())
+        //         ->first();
 
-            if ($existing) {
-                $now = now();
-                if ($existing->start_date <= $now && $existing->end_date >= $now) {
-                    return response()->json([
-                        'status'  => 'redirect',
-                        'url'     => route('bimbel.show', $existing->id),
-                        'message' => 'Kamu sudah membeli bimbel ini, langsung diarahkan ke halaman bimbel.'
-                    ]);
-                }
-            }
-        }
+        //     if ($existing) {
+        //         $now = now();
+        //         if ($existing->start_date <= $now && $existing->end_date >= $now) {
+        //             return response()->json([
+        //                 'status'  => 'redirect',
+        //                 'url'     => route('bimbel.show', $existing->id),
+        //                 'message' => 'Kamu sudah membeli bimbel ini, langsung diarahkan ke halaman bimbel.'
+        //             ]);
+        //         }
+        //     }
+        // }
 
 
         $modelClass = "\\App\\Models\\{$productType}";
@@ -92,7 +92,11 @@ class OrderController extends Controller
         $cart[$key] = [
             'id'    => $productId,
             'type'  => $morphType,
-            'image' => $product->img ?? $product->gambar ?? 'default.jpg', 
+            'image' => $product->img ? 'storage/' . ltrim($product->img, '/')
+            : ($product->gambar
+                ? 'storage/' . ltrim($product->gambar, '/')
+                : 'No_image_available.webp'),
+ 
             'name'  => $product->name ?? $product->judul, // Book pakai "name", Bimbel pakai "judul"
             'price' => $product->price ?? $product->harga,
             // 'paper_type' => $morphType === 'paper' ? strtolower(optional($product->categoryPaper)->name) : null,

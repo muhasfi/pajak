@@ -1,119 +1,105 @@
 @extends('admin.layouts.master')
-@section('title', 'Edit Item Bimbel')
+@section('title', 'Edit Paket Bimbel')
 
 @section('content')
-<div class="page-heading">
-    <div class="page-title">
-        <div class="row">
-            <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Edit Item Bimbel</h3>
-                <p class="text-subtitle text-muted">Perbarui informasi paket bimbel dan modul-modulnya</p>
-            </div>
-            <div class="col-12 col-md-6 order-md-2 order-first text-end">
-                <a href="{{ route('admin.bimbel.index') }}" class="btn btn-secondary">
-                    <i class="bi bi-arrow-left"></i> Kembali
-                </a>
-            </div>
+<div class="page-title">
+    <div class="row">
+        <div class="col-12 col-md-6 order-md-1 order-last">
+            <h3>Edit Paket Bimbel</h3>
+            <p class="text-subtitle text-muted">Silakan ubah data paket bimbel yang diinginkan</p>
         </div>
     </div>
+</div>
 
-    <section class="section mt-3">
+<div class="card">
+    <div class="card-body">
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <h5 class="alert-heading">Terjadi Kesalahan!</h5>
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         <form action="{{ route('admin.bimbel.update', $bimbel->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
-            {{-- Data utama --}}
-            <div class="card mb-3">
-                <div class="card-header"><h5>Data Utama</h5></div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label>Judul</label>
-                        <input type="text" name="judul" class="form-control" value="{{ old('judul', $bimbel->judul) }}" required>
-                    </div>
-                    <div class="mb-3">
-                        <label>Deskripsi</label>
-                        <textarea name="deskripsi" class="form-control">{{ old('deskripsi', $bimbel->deskripsi) }}</textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label>Harga</label>
-                        <input type="number" step="0.01" name="harga" class="form-control" value="{{ old('harga', $bimbel->harga) }}" required>
-                    </div>
-                    <div class="mb-3">
-                        <label>Status</label>
-                        <select name="is_active" class="form-select">
-                            <option value="1" {{ $bimbel->is_active ? 'selected' : '' }}>Aktif</option>
-                            <option value="0" {{ !$bimbel->is_active ? 'selected' : '' }}>Nonaktif</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Modul --}}
-            <div class="card mb-3">
-                <div class="card-header d-flex justify-content-between">
-                    <h5>Modul</h5>
-                    <button type="button" id="add-detail" class="btn btn-primary btn-sm">
-                        <i class="bi bi-plus"></i> Tambah Modul
-                    </button>
-                </div>
-                <div class="card-body" id="detail-wrapper">
-                    @foreach($bimbel->details as $i => $bimbel)
-                        <div class="detail-item border rounded p-3 mb-3">
-                            <div class="mb-2">
-                                <label>Judul Modul</label>
-                                <input type="text" name="details[{{ $i }}][judul]" class="form-control"
-                                       value="{{ old("details.$i.judul", $bimbel->judul) }}" required>
-                            </div>
-                            <div class="mb-2">
-                                <label>Deskripsi Modul</label>
-                                <textarea name="details[{{ $i }}][deskripsi]" class="form-control">{{ old("bimbel.$i.deskripsi", $bimbel->deskripsi) }}</textarea>
-                            </div>
-                            <div class="mb-2">
-                                <label>Materi PDF</label>
-                                @if($bimbel->materi_pdf)
-                                    <p>📄 <a href="{{ asset('storage/'.$bimbel->materi_pdf) }}" target="_blank">Lihat File Lama</a></p>
-                                @endif
-                                <input type="file" name="bimbels[{{ $i }}][materi_pdf]" class="form-control" accept="application/pdf">
-                            </div>
-                            <div class="mb-2">
-                                <label>Video</label>
-                                <div class="input-group">
-                                    <select name="details[{{ $i }}][video_type]" class="form-select" style="max-width: 150px;">
-                                        <option value="upload" {{ $bimbel->video && !Str::contains($bimbel->video,'youtu') ? 'selected' : '' }}>Upload</option>
-                                        <option value="youtube" {{ $bimbel->video && Str::contains($bimbel->video,'youtu') ? 'selected' : '' }}>YouTube</option>
-                                    </select>
-
-                                    <input type="file" name="details[{{ $i }}][video_upload]" 
-                                        class="form-control {{ $bimbel->video && Str::contains($bimbel->video,'youtu') ? 'd-none' : '' }}" 
-                                        accept="video/*">
-
-                                    <input type="text" name="details[{{ $i }}][video_link]" 
-                                        class="form-control {{ $bimbel->video && !Str::contains($bimbel->video,'youtu') ? 'd-none' : '' }}" 
-                                        placeholder="https://youtube.com/..." 
-                                        value="{{ $bimbel->video }}">
-                                </div>
-                            </div>
-
-                            <div class="mb-2">
-                                <label>Urutan</label>
-                                <input type="number" name="bimbels[{{ $i }}][urutan]" class="form-control"
-                                       value="{{ old("bimbels.$i.urutan", $bimbel->urutan) }}">
-                            </div>
-                            <button type="button" class="btn btn-danger btn-sm remove-detail">
-                                <i class="bi bi-trash"></i> Hapus Modul
-                            </button>
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Judul -->
+                        <div class="form-group mb-3">
+                            <label for="judul">Judul Paket</label>
+                            <input type="text" class="form-control" id="judul" name="judul"
+                                placeholder="Masukkan judul paket bimbel"
+                                value="{{ old('judul', $bimbel->judul) }}" required>
                         </div>
-                    @endforeach
+
+                        <!-- Deskripsi -->
+                        <div class="form-group mb-3">
+                            <label for="deskripsi">Deskripsi</label>
+                            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3"
+                                placeholder="Masukkan deskripsi paket">{{ old('deskripsi', $bimbel->deskripsi) }}</textarea>
+                        </div>
+
+                        <!-- Harga -->
+                        <div class="form-group mb-3">
+                            <label for="harga">Harga</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <input type="number" class="form-control" id="harga" name="harga"
+                                    placeholder="Masukkan harga paket" min="0"
+                                    value="{{ old('harga', $bimbel->harga) }}" required>
+                            </div>
+                        </div>
+
+                        <!-- Gambar -->
+                        <div class="form-group mb-3">
+                            <label for="gambar">Gambar</label>
+                            @if ($bimbel->gambar)
+                                <div class="mb-2">
+                                    <img src="{{ asset('storage/' . $bimbel->gambar) }}" alt="Gambar Paket" class="img-thumbnail" width="150">
+                                </div>
+                            @endif
+                            <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*">
+                            <small class="text-muted">Biarkan kosong jika tidak ingin mengubah gambar</small>
+                        </div>
+
+                        <div id="detail-container">
+                                <div class="mb-2">
+                                    <label>Judul Materi</label>
+                                    <input type="text" name="detail[judul_materi]" class="form-control"
+                                        value="{{ old('detail.judul_materi', $bimbel->details->first()->judul_materi ?? '') }}"
+                                        placeholder="Masukkan judul materi">
+                                </div>
+                                <div class="mb-2">
+                                    <label>Deskripsi Materi</label>
+                                    <textarea name="detail[deskripsi]" class="form-control"
+                                        placeholder="Masukkan deskripsi singkat materi">{{ old('detail.deskripsi', $bimbel->details->first()->deskripsi ?? '') }}</textarea>
+                                </div>
+                                <div class="mb-2">
+                                    <label>Link Materi (opsional)</label>
+                                    <input type="text" name="detail[link]" class="form-control"
+                                        value="{{ old('detail.link', $bimbel->details->first()->link ?? '') }}"
+                                        placeholder="Contoh: https://drive.google.com/...">
+                                </div>
+                        </div>
+
+
+                        <div class="form-group d-flex justify-content-end mt-4">
+                            <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
+                            <a href="{{ route('admin.bimbel.index') }}" class="btn btn-light-secondary me-1 mb-1">Batal</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <button type="submit" class="btn btn-success">Simpan Perubahan</button>
         </form>
-    </section>
-</div>
-@endsection
 
-@section('script')
-@include('admin.bimbel.script-detail') 
-{{-- pisahkan script add/remove modul biar bisa dipakai di create & edit --}}
+    </div>
+</div>
 @endsection

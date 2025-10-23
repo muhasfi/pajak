@@ -1,83 +1,103 @@
 @extends('admin.layouts.master')
+@section('title', 'Daftar Brevet AB')
 
-@section('title', 'Data Brevet C')
+@section('css')
+<link rel="stylesheet" href="{{ asset('assets/admin/extensions/simple-datatables/style.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/admin/compiled/css/table-datatable.css') }}">
+@endsection
 
 @section('content')
-<div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Data Brevet C</h5>
-        <a href="{{ route('admin.brevetc.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Tambah Data
-        </a>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Gambar</th>
-                        <th>Judul</th>
-                        <th>Hari</th>
-                        <th>Tanggal</th>
-                        <th>Waktu</th>
-                        <th>Harga</th>
-                        <th>Lokasi</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($brevetCs as $item)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>
-                            @if($item->gambar)
-                                <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}" width="60" class="img-thumbnail">
-                            @else
-                                <span class="text-muted">No Image</span>
-                            @endif
-                        </td>
-                        <td>{{ $item->judul }}</td>
-                        <td>{{ $item->hari }}</td>
-                        <td>{{ $item->tanggal_mulai->format('d/m/Y') }} - {{ $item->tanggal_selesai->format('d/m/Y') }}</td>
-                        <td>
-                            {{-- <i class="fas fa-clock text-info me-1"></i> --}}
-                            {{ \Carbon\Carbon::parse($item->waktu_pelaksanaan)->format('H:i') }}
-                        </td>
-                        <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
-                        <td>
-                            <i class="fas fa-map-marker-alt text-danger me-1"></i>
-                            {{ $item->lokasi }}
-                        </td>
-                        <td>
-                            {{-- <a href="{{ route('admin.brevetab.show', $brevetab->id) }}" 
-                                class="btn btn-sm btn-info">
-                                <i class="bi bi-eye"></i> Lihat
-                            </a> --}}
-                            <a href="{{ route('admin.brevetc.edit', $item->id) }}" 
-                                class="btn btn-warning btn-sm">
-                                <i class="bi bi-pencil"></i> Ubah
-                            </a>
-                            <form action="{{ route('admin.brevetc.destroy', $item->id) }}" 
-                                    method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" 
-                                        class="btn btn-sm btn-danger delete-btn">
-                                    <i class="bi bi-trash"></i> Hapus
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="7" class="text-center">Tidak ada data</td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Daftar Brevet AB</h3>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <a href="{{ route('admin.brevetc.create') }}" class="btn btn-primary float-start float-lg-end">
+                    <i class="bi bi-plus"></i> Tambah Data
+                </a>
+            </div>
         </div>
     </div>
+
+    <section class="section">
+        <div class="card">
+            <div class="card-body">
+                {{-- Notifikasi sukses --}}
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <p><i class="bi bi-check-circle-fill"></i> {{ session('success') }}</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                <table class="table table-striped" id="table1">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Gambar</th>
+                            <th>Judul</th>
+                            <th>Tanggal</th>
+                            <th>Harga</th>
+                            <th>Lokasi</th>
+                            <th width="20%">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($brevetcs as $index => $brevetc)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>
+                                @if($brevetc->gambar)
+                                    <img src="{{ asset('storage/' . $brevetc->gambar) }}" 
+                                         alt="{{ $brevetc->judul }}" 
+                                         width="60" height="60" 
+                                         class="rounded">
+                                @else
+                                    <div class="bg-light rounded d-flex align-items-center justify-content-center" 
+                                         style="width: 60px; height: 60px;">
+                                        <i class="bi bi-image text-muted"></i>
+                                    </div>
+                                @endif
+                            </td>
+                            <td>{{ $brevetc->judul }}</td>
+                            <td>
+                                {{ $brevetc->tanggal_mulai->format('d M Y') }} -
+                                {{ $brevetc->tanggal_selesai->format('d M Y') }}
+                            </td>
+                            <td>Rp {{ number_format($brevetc->harga, 0, ',', '.') }}</td>
+                            <td>{{ $brevetc->detail->lokasi ?? '-' }}</td>
+                            <td>
+                                <a href="{{ route('admin.brevetc.show', $brevetc->id) }}" 
+                                   class="btn btn-sm btn-info">
+                                    <i class="bi bi-eye"></i> Lihat
+                                </a>
+                                <a href="{{ route('admin.brevetc.edit', $brevetc->id) }}" 
+                                   class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil"></i> Ubah
+                                </a>
+                                <form action="{{ route('admin.brevetc.destroy', $brevetc->id) }}" 
+                                      method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" 
+                                            class="btn btn-sm btn-danger delete-btn">
+                                        <i class="bi bi-trash"></i> Hapus
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="7" class="text-center">Belum ada data</td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
 </div>
 @endsection
 

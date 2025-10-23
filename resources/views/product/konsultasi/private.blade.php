@@ -593,56 +593,75 @@
         <div class="container">
             <h2 class="section-title fade-in">Pilih Paket Konsultasi</h2>
 
-            <div class="row">
-    @forelse($layanan as $index => $item)
-        @php
-            $detail = $item->detail->first();
-        @endphp
+            <div class="row justify-content-center g-4">
+                @forelse($layanan as $index => $item)
+                    @php
+                        $detail = $item->detail->first();
+                    @endphp
 
-        <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card card-consultation fade-in {{ $index == 1 ? 'delay-1' : ($index == 2 ? 'delay-2' : '') }}">
-                <div class="card-header">
-                    <h3>{{ $item->judul }}</h3>
-                </div>
-                <div class="card-body">
-                    @if($detail)
-                        <span class="duration-badge">
-                            <i class="far fa-clock"></i>{{ $detail->waktu_menit }} Menit
-                        </span>
-                    @endif
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="card card-consultation h-100 fade-in {{ $index == 1 ? 'delay-1' : ($index == 2 ? 'delay-2' : '') }}">
+                            <div class="card-header text-center">
+                                <h3 class="mb-0">{{ $item->judul }}</h3>
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                @if($detail)
+                                    <div class="text-center mb-3">
+                                        <span class="duration-badge">
+                                            <i class="far fa-clock me-1"></i>{{ $item->detail->waktu_menit }} Menit
+                                        </span>
+                                    </div>
+                                @endif
 
-                    <p class="price">Rp {{ number_format($item->harga, 0, ',', '.') }}</p>
-                    <p>
-                        {{-- Deskripsi bisa ditambahkan di tabel jika ada kolomnya --}}
-                        {{ strtolower($item->detail->deskripsi) }}
-                    </p>
+                                <div class="text-center mb-3">
+                                    <p class="price mb-0">Rp {{ number_format($item->harga, 0, ',', '.') }}</p>
+                                </div>
 
-                    @if($detail && is_array($detail->benefit))
-                        <ul class="feature-list">
-                            @foreach($detail->benefit as $benefit)
-                                <li><i class="fas fa-check"></i> {{ $benefit }}</li>
-                            @endforeach
-                        </ul>
-                    @else
-                        <ul class="feature-list">
-                            <li><i class="fas fa-times"></i> Belum ada benefit</li>
-                        </ul>
-                    @endif
+                                <p class="text-muted text-center mb-4">
+                                    {{ strtolower($item->detail->deskripsi) }}
+                                </p>
 
-                    <button type="button" 
-                        class="btn btn-consult"
-                        onclick="addToCart({{ $item->id }}, 'ItemKonsultasi')">
-                        <span>Pilih Paket Ini</span>
-                    </button>
-                </div>
+                                @if($detail && is_array($detail->benefit))
+                                    <ul class="feature-list flex-grow-1 mb-4">
+                                        @foreach($detail->benefit as $benefit)
+                                            @php
+                                                $isPositive = Str::startsWith(trim($benefit), '-');
+                                                $text = ltrim(trim($benefit), '+- ');
+                                            @endphp
+
+                                            <li>
+                                                @if($isPositive)
+                                                    <i class="fas fa-times text-danger me-2"></i>{{ $text }}
+                                                @else
+                                                    <i class="fas fa-check text-success me-2"></i>{{ $text }}
+                                                @endif
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <ul class="feature-list flex-grow-1 mb-4">
+                                        <li class="text-muted"><i class="fas fa-times me-2"></i>Belum ada benefit</li>
+                                    </ul>
+                                @endif
+
+                                <div class="mt-auto">
+                                    <button type="button" 
+                                        class="btn btn-consult w-100"
+                                        onclick="addToCart({{ $item->id }}, 'ItemKonsultasi')">
+                                        <span>Pilih Paket Ini</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="col-12">
+                        <div class="text-center py-5">
+                            <p class="text-muted mb-0">Belum ada layanan konsultasi tersedia saat ini.</p>
+                        </div>
+                    </div>
+                @endforelse
             </div>
-        </div>
-    @empty
-        <div class="col-12 text-center">
-            <p class="text-muted">Belum ada layanan konsultasi tersedia saat ini.</p>
-        </div>
-    @endforelse
-</div>
 
         </div>
     </section>

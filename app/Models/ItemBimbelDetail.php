@@ -9,23 +9,19 @@ class ItemBimbelDetail extends Model
 {
     use HasFactory;
 
-    protected $table = 'item_bimbel_details'; // nama tabel
+    protected $table = 'item_bimbel_details';
 
     protected $fillable = [
-        'item_bimbel_id',
-        'judul',
+        'id_item_bimbels',
+        'judul_materi',
         'deskripsi',
-        'materi_pdf',
-        'video',
+        'link',
         'urutan',
-        'is_active',
     ];
 
-    /**
-     * Relasi ke master bimbel (Many to One)
-     */
-    public function itemBimbel()
+    // Relasi ke bimbel utama
+    public function bimbel()
     {
-        return $this->belongsTo(ItemBimbel::class, 'item_bimbel_id', 'id');
+        return $this->belongsTo(ItemBimbel::class, 'id_item_bimbels');
     }
 }

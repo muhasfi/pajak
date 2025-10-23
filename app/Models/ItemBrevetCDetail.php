@@ -9,18 +9,16 @@ class ItemBrevetCDetail extends Model
 {
     use HasFactory;
 
-    protected $table = 'item_brevetc_detail';
+    protected $table = 'item_brevetc_details';
 
-    protected $fillable = [
-        'brevet_c_id',
-        'fasilitas',
-        'keterangan',
-        'urutan',
-        'file_path',
+   protected $fillable = [
+        'brevetcs_id', 'fasilitas', 'deskripsi_fasilitas',
+        'durasi_jam', 'instruktur', 'lokasi', 'kuota_peserta',
+        'level', 'syarat_peserta', 'materi_pelatihan','file_path',
     ];
 
-    public function brevetC()
+    public function brevetc()
     {
-        return $this->belongsTo(ItemBrevetC::class, 'brevet_c_id');
+        return $this->belongsTo(ItemBrevetC::class, 'brevetcs_id');
     }
 }

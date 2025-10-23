@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('item_bimbels', function (Blueprint $table) {
+        Schema::create('item_bimbel_details', function (Blueprint $table) {
             $table->id();
-            $table->string('judul'); // nama paket bimbel
-            $table->text('deskripsi')->nullable(); // deskripsi umum
-            $table->decimal('harga', 12, 2); // harga paket
-            $table->boolean('is_active')->default(true); // status aktif
+            $table->foreignId('id_item_bimbels')
+                ->constrained('item_bimbels')
+                ->onDelete('cascade');
+            $table->string('judul_materi', 255)->nullable();
+            $table->text('deskripsi')->nullable();
+            $table->string('link')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('item_bimbels');
+        Schema::dropIfExists('item_bimbel_details');
     }
 };

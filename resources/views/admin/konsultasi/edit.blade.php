@@ -51,22 +51,23 @@
                     </div>
 
                     <!-- Waktu -->
-                        @php
-                        $stored = old('waktu_menit');
-                        if (!$stored && isset($layanan) && isset($layanan->detail->waktu_menit)) {
-                            $jam = floor($layanan->detail->waktu_menit / 60);
-                            $menit = $layanan->detail->waktu_menit % 60;
-                            $stored = sprintf('%02d:%02d', $jam, $menit);
-                        }
-                    @endphp
+                        <div class="form-group mb-3">
+                            <label for="waktu_menit">Waktu Layanan (Menit)</label>
+                            <input
+                                type="number"
+                                id="waktu_menit"
+                                name="waktu_menit"
+                                class="form-control @error('waktu_menit') is-invalid @enderror"
+                                value="{{ old('waktu_menit', isset($layanan->detail->waktu_menit) ? $layanan->detail->    waktu_menit : '') }}"
+                                min="1"
+                                step="1"
+                                required
+                            >
+                            @error('waktu_menit')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-                    <input type="time"
-                        name="waktu_menit"
-                        id="waktu_menit"
-                        class="form-control @error('waktu_menit') is-invalid @enderror"
-                        value="{{ $stored }}"
-                        required>
-                    @error('waktu_menit') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
 
 
                     <div class="mb-3">

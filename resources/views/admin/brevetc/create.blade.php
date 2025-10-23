@@ -1,68 +1,163 @@
+<!-- resources/views/brevetc/create.blade.php -->
 @extends('admin.layouts.master')
-@section('title', 'Tambah Brevet C')
+@section('title', 'Tambah Brevet AB')
 
 @section('content')
-
 <div class="card">
     <div class="card-header">
-        <h5 class="mb-0">Tambah Data Brevet C</h5>
+        <h4>Tambah Brevet AB Baru</h4>
     </div>
     <div class="card-body">
         <form action="{{ route('admin.brevetc.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-        <div class="row">
-                <div class="mb-3">
-                    <label for="gambar" class="form-label">Gambar</label>
-                    <input type="file" class="form-control @error('gambar') is-invalid @enderror" id="gambar" name="gambar">
-                    @error('gambar')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="judul" class="form-label">Judul *</label>
-                    <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" name="judul" value="{{ old('judul') }}" required>
-                    @error('judul')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="hari" class="form-label">Hari *</label>
-                    <input type="text" class="form-control @error('hari') is-invalid @enderror" id="hari" name="hari" value="{{ old('hari') }}" required>
-                    @error('hari')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="tanggal_mulai" class="form-label">Tanggal Mulai *</label>
-                            <input type="date" class="form-control @error('tanggal_mulai') is-invalid @enderror" id="tanggal_mulai" name="tanggal_mulai" value="{{ old('tanggal_mulai') }}" required>
-                            @error('tanggal_mulai')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="tanggal_selesai" class="form-label">Tanggal Selesai *</label>
-                            <input type="date" class="form-control @error('tanggal_selesai') is-invalid @enderror" id="tanggal_selesai" name="tanggal_selesai" value="{{ old('tanggal_selesai') }}" required>
-                            @error('tanggal_selesai')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Informasi Utama</h5>
+                    
                     <div class="mb-3">
-                        <label for="waktu_pelaksanaan" class="form-label">Waktu Pelaksanaan *</label>
-                        <input type="time" class="form-control @error('waktu_pelaksanaan') is-invalid @enderror" 
-                               id="waktu_pelaksanaan" name="waktu_pelaksanaan" 
-                               value="{{ old('waktu_pelaksanaan') }}" required>
-                        @error('waktu_pelaksanaan')
+                        <label for="gambar" class="form-label">Gambar</label>
+                        <input type="file" class="form-control @error('gambar') is-invalid @enderror" id="gambar" name="gambar">
+                        @error('gambar')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+
+                    <div class="mb-3">
+                        <label for="judul" class="form-label">Judul *</label>
+                        <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" name="judul" value="{{ old('judul') }}" required>
+                        @error('judul')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="deskripsi" class="form-label">Deskripsi *</label>
+                        <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="3" required>{{ old('deskripsi') }}</textarea>
+                        @error('deskripsi')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="hari" class="form-label">Hari *</label>
+                        <input type="text" class="form-control @error('hari') is-invalid @enderror" id="hari" name="hari" value="{{ old('hari') }}" required>
+                        @error('hari')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="tanggal_mulai" class="form-label">Tanggal Mulai *</label>
+                                <input type="date" class="form-control @error('tanggal_mulai') is-invalid @enderror" id="tanggal_mulai" name="tanggal_mulai" value="{{ old('tanggal_mulai') }}" required>
+                                @error('tanggal_mulai')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="tanggal_selesai" class="form-label">Tanggal Selesai *</label>
+                                <input type="date" class="form-control @error('tanggal_selesai') is-invalid @enderror" id="tanggal_selesai" name="tanggal_selesai" value="{{ old('tanggal_selesai') }}" required>
+                                @error('tanggal_selesai')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="harga" class="form-label">Harga *</label>
+                        <input type="number" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" value="{{ old('harga') }}" min="0" step="0.01" required>
+                        @error('harga')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Sumber File</label>
+                        <div class="d-flex gap-3 mb-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="file_option" id="option_upload" value="upload" checked>
+                                <label class="form-check-label" for="option_upload">Upload File</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="file_option" id="option_link" value="link">
+                                <label class="form-check-label" for="option_link">Gunakan Link</label>
+                            </div>
+                        </div>
+
+                        {{-- Input Upload --}}
+                        <div id="upload_field">
+                            <input type="file" class="form-control @error('file_path') is-invalid @enderror" 
+                                id="file_upload" name="file_upload" accept=".pdf,.jpg,.png,.docx,.xlsx">
+                            @error('file_path')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- Input Link --}}
+                        <div id="link_field" class="d-none">
+                            <input type="text" class="form-control @error('file_path') is-invalid @enderror" 
+                                id="file_link" name="file_link" placeholder="https://contoh.com/file.pdf" value="{{ old('file_path') }}">
+                            @error('file_path')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+                    <h5>Detail Brevet AB</h5>
+                    
+                    <div class="mb-3">
+                        <label for="fasilitas" class="form-label">Fasilitas *</label>
+                        <input type="text" class="form-control @error('fasilitas') is-invalid @enderror" id="fasilitas" name="fasilitas" value="{{ old('fasilitas') }}" required>
+                        @error('fasilitas')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="deskripsi_fasilitas" class="form-label">Deskripsi Fasilitas</label>
+                        <textarea class="form-control @error('deskripsi_fasilitas') is-invalid @enderror" id="deskripsi_fasilitas" name="deskripsi_fasilitas" rows="2">{{ old('deskripsi_fasilitas') }}</textarea>
+                        @error('deskripsi_fasilitas')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="durasi_jam" class="form-label">Durasi (Jam)</label>
+                                <input type="number" class="form-control @error('durasi_jam') is-invalid @enderror" id="durasi_jam" name="durasi_jam" value="{{ old('durasi_jam') }}" min="1">
+                                @error('durasi_jam')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="kuota_peserta" class="form-label">Kuota Peserta *</label>
+                                <input type="number" class="form-control @error('kuota_peserta') is-invalid @enderror" id="kuota_peserta" name="kuota_peserta" value="{{ old('kuota_peserta') }}" min="1" required>
+                                @error('kuota_peserta')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="instruktur" class="form-label">Instruktur</label>
+                        <input type="text" class="form-control @error('instruktur') is-invalid @enderror" id="instruktur" name="instruktur" value="{{ old('instruktur') }}">
+                        @error('instruktur')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <div class="mb-3">
                         <label for="lokasi" class="form-label">Lokasi *</label>
                         <input type="text" class="form-control @error('lokasi') is-invalid @enderror" id="lokasi" name="lokasi" value="{{ old('lokasi') }}" required>
@@ -70,101 +165,71 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                </div>
-                
 
-                <div class="mb-3">
-                    <label for="harga" class="form-label">Harga *</label>
-                    <input type="number" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" value="{{ old('harga') }}" min="0" step="0.01" required>
-                    @error('harga')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
                     <div class="mb-3">
-                        <label for="deskripsi" class="form-label">Deskripsi *</label>
-                        <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="5" required>{{ old('deskripsi') }}</textarea>
-                        @error('deskripsi')
+                        <label for="level" class="form-label">Level *</label>
+                        <select class="form-select @error('level') is-invalid @enderror" id="level" name="level" required>
+                            <option value="">Pilih Level</option>
+                            <option value="Beginner" {{ old('level') == 'Beginner' ? 'selected' : '' }}>Beginner</option>
+                            <option value="Intermediate" {{ old('level') == 'Intermediate' ? 'selected' : '' }}>Intermediate</option>
+                            <option value="Advanced" {{ old('level') == 'Advanced' ? 'selected' : '' }}>Advanced</option>
+                        </select>
+                        @error('level')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                </div>
 
-                <div class="mb-3 mt-3">
-                    <label for="file_link" class="form-label">Link File (Opsional)</label>
-                    <input type="url" class="form-control @error('file_link') is-invalid @enderror" 
-                        id="file_link" name="file_link" placeholder="https://drive.google.com/..." 
-                        value="{{ old('file_link') }}">
-                    @error('file_link')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-            
-
-            <div class="card mt-4">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class="mb-0">Fasilitas</h6>
-                    <button type="button" class="btn btn-sm btn-success" id="addFasilitas">
-                        <i class="fas fa-plus"></i> Tambah Fasilitas
-                    </button>
-                </div>
-                <div class="card-body" id="fasilitas-container">
-                    <div class="row fasilitas-item mb-3">
-                        <div class="col-md-5">
-                            <label class="form-label">Fasilitas *</label>
-                            <input type="text" class="form-control" name="fasilitas[]" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Keterangan</label>
-                            <input type="text" class="form-control" name="keterangan[]">
-                        </div>
-                        <div class="col-md-1">
-                            <label class="form-label">&nbsp;</label>
-                            <button type="button" class="btn btn-danger btn-sm remove-fasilitas" style="display: none;">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
+                    <div class="mb-3">
+                        <label for="syarat_peserta" class="form-label">Syarat Peserta</label>
+                        <textarea class="form-control @error('syarat_peserta') is-invalid @enderror" id="syarat_peserta" name="syarat_peserta" rows="2">{{ old('syarat_peserta') }}</textarea>
+                        @error('syarat_peserta')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
+
+                    <div class="mb-3">
+                        <label for="materi_pelatihan" class="form-label">Materi Pelatihan</label>
+                        <textarea class="form-control @error('materi_pelatihan') is-invalid @enderror" id="materi_pelatihan" name="materi_pelatihan" rows="3">{{ old('materi_pelatihan') }}</textarea>
+                        @error('materi_pelatihan')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
                 </div>
-        </div>
+            </div>
 
-        <div class="mt-4">
-            <button type="submit" class="btn btn-primary">
-                <i class="fas fa-save"></i> Simpan
-            </button>
-            <a href="{{ route('admin.brevetc.index') }}" class="btn btn-secondary">
-                <i class="fas fa-arrow-left"></i> Kembali
-            </a>
-        </div>
-    </form>
-</div>
-
+            <div class="d-flex justify-content-between mt-4">
+                <a href="{{ route('admin.brevetc.index') }}" class="btn btn-secondary">Kembali</a>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+        </form>
+    </div>
 </div>
 @endsection
+
 @section('script')
 <script>
-document.getElementById('addFasilitas').addEventListener('click', function() {
-    const container = document.getElementById('fasilitas-container');
-    const newItem = container.firstElementChild.cloneNode(true);
-    
-    // Clear values
-    newItem.querySelector('input[name="fasilitas[]"]').value = '';
-    newItem.querySelector('input[name="keterangan[]"]').value = '';
-    
-    // Show remove button
-    newItem.querySelector('.remove-fasilitas').style.display = 'block';
-    
-    container.appendChild(newItem);
-});
+document.addEventListener("DOMContentLoaded", function() {
+    const uploadField = document.getElementById('upload_field');
+    const linkField = document.getElementById('link_field');
+    const optionUpload = document.getElementById('option_upload');
+    const optionLink = document.getElementById('option_link');
 
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('remove-fasilitas')) {
-        if (document.querySelectorAll('.fasilitas-item').length > 1) {
-            e.target.closest('.fasilitas-item').remove();
+    optionUpload.addEventListener('change', toggleFields);
+    optionLink.addEventListener('change', toggleFields);
+
+    function toggleFields() {
+        if (optionUpload.checked) {
+            uploadField.classList.remove('d-none');
+            linkField.classList.add('d-none');
+        } else {
+            uploadField.classList.add('d-none');
+            linkField.classList.remove('d-none');
         }
     }
+
+    toggleFields(); // jalankan saat halaman dimuat
 });
 </script>
+
 @endsection

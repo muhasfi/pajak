@@ -65,6 +65,10 @@
                                 </span>
                             </td>
                             <td>
+                                <a href="{{ route('admin.book.show', $item->id) }}" 
+                                   class="btn btn-sm btn-info">
+                                    <i class="bi bi-eye"></i> Lihat
+                                </a>
                                 <a href="{{ route('admin.book.edit', $item->id) }}" class="btn btn-warning btn-sm">
                                     <i class="bi bi-pencil"></i> Ubah
                                 </a>

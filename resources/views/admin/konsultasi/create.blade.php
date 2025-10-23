@@ -5,7 +5,7 @@
 <div class="page-title">
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
-            <h3>Tambah Layanan Konsultasu</h3>
+            <h3>Tambah Layanan Konsultasui</h3>
             <p class="text-subtitle text-muted">Silahkan isi data layanan yang ingin ditambahkan</p>
         </div>
     </div>
@@ -69,19 +69,22 @@
                         
                         <!-- Waktu -->
                         <div class="form-group mb-3">
-                            <label for="waktu_menit">Waktu Layanan</label>
+                            <label for="waktu_menit">Waktu Layanan (Menit)</label>
                             <input
-                                type="time"
+                                type="number"
                                 id="waktu_menit"
                                 name="waktu_menit"
                                 class="form-control @error('waktu_menit') is-invalid @enderror"
                                 value="{{ old('waktu_menit', isset($konsultasi->waktu_menit) ? $konsultasi->waktu_menit : '') }}"
+                                min="1"
+                                step="1"
                                 required
                             >
                             @error('waktu_menit')
                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
                         </div>
+
 
                         
                         <!-- File Upload -->

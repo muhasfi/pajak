@@ -4,7 +4,7 @@
 @section('content')
 <div class="page-heading mb-4">
     <h2>Detail Brevet AB</h2>
-    <a href="{{ route('admin.brevetab.index') }}" class="btn btn-secondary mt-2">
+    <a href="{{ route('admin.brevetc.index') }}" class="btn btn-secondary mt-2">
         <i class="bi bi-arrow-left"></i> Kembali
     </a>
 </div>
@@ -13,9 +13,9 @@
     <div class="card-body">
         <div class="row mb-4">
             <div class="col-md-4 text-center">
-                @if($brevetab->gambar)
-                    <img src="{{ asset('storage/' . $brevetab->gambar) }}" 
-                         alt="{{ $brevetab->judul }}" 
+                @if($brevetc->gambar)
+                    <img src="{{ asset('storage/' . $brevetc->gambar) }}" 
+                         alt="{{ $brevetc->judul }}" 
                          class="img-fluid rounded mb-3" 
                          style="max-height: 250px;">
                 @else
@@ -25,63 +25,67 @@
                 @endif
             </div>
             <div class="col-md-8">
-                <h4 class="mb-2">{{ $brevetab->judul }}</h4>
-                <p class="text-muted">{{ $brevetab->deskripsi }}</p>
+                <h4 class="mb-2">{{ $brevetc->judul }}</h4>
+                <p class="text-muted">{{ $brevetc->deskripsi }}</p>
 
                 <table class="table table-borderless">
                     <tr>
                         <th width="30%">Tanggal</th>
                         <td>
-                            {{ $brevetab->tanggal_mulai->format('d M Y') }} - 
-                            {{ $brevetab->tanggal_selesai->format('d M Y') }}
+                            {{ $brevetc->tanggal_mulai->format('d M Y') }} - 
+                            {{ $brevetc->tanggal_selesai->format('d M Y') }}
                         </td>
                     </tr>
                     <tr>
                         <th>Hari</th>
-                        <td>{{ $brevetab->hari }}</td>
+                        <td>{{ $brevetc->hari }}</td>
                     </tr>
                     <tr>
                         <th>Harga</th>
-                        <td>Rp {{ number_format($brevetab->harga, 0, ',', '.') }}</td>
+                        <td>Rp {{ number_format($brevetc->harga, 0, ',', '.') }}</td>
                     </tr>
                     <tr>
                         <th>Lokasi</th>
-                        <td>{{ $brevetab->detail->lokasi ?? '-' }}</td>
+                        <td>{{ $brevetc->detail->lokasi ?? '-' }}</td>
                     </tr>
                     <tr>
                         <th>Level</th>
-                        <td>{{ $brevetab->detail->level ?? '-' }}</td>
+                        <td>{{ $brevetc->detail->level ?? '-' }}</td>
                     </tr>
                     <tr>
                         <th>Kuota Peserta</th>
-                        <td>{{ $brevetab->detail->kuota_peserta ?? '-' }}</td>
+                        <td>{{ $brevetc->detail->kuota_peserta ?? '-' }}</td>
                     </tr>
                     <tr>
                         <th>Durasi (Jam)</th>
-                        <td>{{ $brevetab->detail->durasi_jam ?? '-' }}</td>
+                        <td>{{ $brevetc->detail->durasi_jam ?? '-' }}</td>
                     </tr>
                     <tr>
                         <th>Instruktur</th>
-                        <td>{{ $brevetab->detail->instruktur ?? '-' }}</td>
+                        <td>{{ $brevetc->detail->instruktur ?? '-' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Link</th>
+                        <td>{{ $brevetc->detail->file_path ?? '-' }}</td>
                     </tr>
                 </table>
             </div>
         </div>
 
-        @if($brevetab->detail)
+        @if($brevetc->detail)
         <div class="row">
             <div class="col-md-6">
                 <h5>Fasilitas</h5>
-                <p><strong>{{ $brevetab->detail->fasilitas }}</strong></p>
-                <p class="text-muted">{{ $brevetab->detail->deskripsi_fasilitas ?? '-' }}</p>
+                <p><strong>{{ $brevetc->detail->fasilitas }}</strong></p>
+                <p class="text-muted">{{ $brevetc->detail->deskripsi_fasilitas ?? '-' }}</p>
             </div>
 
             <div class="col-md-6">
                 <h5>Syarat Peserta</h5>
-                <p>{{ $brevetab->detail->syarat_peserta ?? '-' }}</p>
+                <p>{{ $brevetc->detail->syarat_peserta ?? '-' }}</p>
 
                 <h5 class="mt-3">Materi Pelatihan</h5>
-                <p>{{ $brevetab->detail->materi_pelatihan ?? '-' }}</p>
+                <p>{{ $brevetc->detail->materi_pelatihan ?? '-' }}</p>
             </div>
         </div>
         @endif

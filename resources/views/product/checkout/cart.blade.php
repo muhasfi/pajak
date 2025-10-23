@@ -38,7 +38,7 @@
                 </div>
                 <h3 class="empty-cart-title">Keranjang Anda kosong</h3>
                 <p class="empty-cart-text">Mulai jelajahi koleksi buku dan artikel kami untuk menemukan pengetahuan perpajakan yang Anda butuhkan</p>
-                <a href="{{ route('book') }}" class="checkout-btn">
+                <a href="{{ route('index') }}" class="checkout-btn">
                     <i class="fas fa-shopping-bag me-1"></i> Mulai Berbelanja
                 </a>
             </div>
@@ -56,11 +56,11 @@
                             <div class="cart-item">
                                 <div class="cart-item-image">
                                     <img 
-                                        src="{{ asset($item['image'] ?? 'default.jpg') }}" 
+                                        src="{{ asset($item['image'] ?? 'No_image_available.webp') }}" 
                                         class="img-fluid me-5 rounded-circle" 
                                         style="width: 80px; height: 80px;" 
                                         alt="gambar produk"
-                                        onerror="this.onerror=null;this.src='{{ asset('default.jpg') }}';">
+                                        onerror="this.onerror=null;this.src='{{ asset('No_image_available.webp') }}';">
                                 </div>
 
                                 

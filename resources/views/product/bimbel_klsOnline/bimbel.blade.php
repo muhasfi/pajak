@@ -182,106 +182,79 @@
             <p class="lead text-muted">Kami menyediakan dua pilihan kelas dengan kurikulum yang disesuaikan dengan kebutuhan Anda</p>
         </div>
         
-        <div class="container py-5">
-            <div class="text-center mb-5">
-                <h2 class="fw-bold text-primary">Program Bimbingan Belajar</h2>
-                <p class="text-muted">Pilih paket bimbel yang sesuai dengan kebutuhan kamu</p>
-            </div>
-
-            <div class="row g-4 justify-content-center">
-                @forelse($bimbels as $bimbel)
-                    <div class="col-lg-5 col-md-6 mb-4">
-                        <div class="class-card card border-0 shadow-lg h-100 position-relative overflow-hidden">
-
-                            {{-- Header --}}
-                            <div class="card-header bg-gradient-primary text-white text-center py-4 position-relative">
-                                <div class="class-icon mb-3">
-                                    <i class="fa fa-star fa-3x opacity-75"></i>
-                                </div>
-                                <h3 class="fw-bold mb-2">{{ $bimbel->judul }}</h3>
-                                <h4 class="fw-light opacity-90">Program Bimbel</h4>
-                                <div class="wave-decoration"></div>
+        <div class="row g-4 justify-content-center">
+            {{-- BIMBEL A --}}
+                @foreach($bimbels as $bimbel)
+                <div class="col-lg-5 col-md-6 mb-4">
+                    <div class="class-card card border-0 shadow-lg h-100 position-relative overflow-hidden">
+                        <div class="card-header bg-gradient-primary text-white text-center py-4 position-relative">
+                            <div class="class-icon mb-3">
+                                <i class="fa fa-star fa-3x opacity-75"></i>
+                            </div>
+                            <h3 class="fw-bold mb-2">{{ $bimbel->judul }}</h3>
+                            <h4 class="fw-light opacity-90">Program Bimbel</h4>
+                            <div class="wave-decoration"></div>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="price-section text-center mb-4">
+                                <span class="h2 fw-bold text-primary">Rp {{ number_format($bimbel->harga, 0, ',', '.') }}</span>
+                                <span class="text-muted">/paket</span>
                             </div>
 
-                            {{-- Body --}}
-                            <div class="card-body p-4">
-                                <div class="price-section text-center mb-4">
-                                    <span class="h2 fw-bold text-primary">Rp {{ number_format($bimbel->harga, 0, ',', '.') }}</span>
-                                    <span class="text-muted">/paket</span>
-                                </div>
+                            {{-- <div class="features-list">
+                                @foreach($bimbel->details->take(3) as $detail)
+                                    <div class="feature-item d-flex align-items-start mb-3">
+                                        <i class="fa fa-check-circle text-success me-3 mt-1"></i>
+                                        <div>
+                                            <strong>{{ $detail->judul }}</strong>
+                                            <p class="text-muted small mb-0">{{ Str::limit($detail->deskripsi, 50) }}</p>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div> --}}
 
-                               {{-- Deskripsi dijadikan poin-poin otomatis --}}
-                                <div class="features-list">
-                                    @foreach(explode("\n", $bimbel->deskripsi) as $line)
-                                        @php
-                                            $trimmed = trim($line);
-                                            if ($trimmed === '') continue;
+                            <div class="features-list">
+                                @foreach(explode("\n", $bimbel->deskripsi) as $line)
+                                    @php
+                                        // Pisahkan antara judul & deskripsi kalau ada tanda "-"
+                                        $parts = explode('-', $line, 2);
+                                        $judul = trim($parts[0] ?? '');
+                                        $desc  = trim($parts[1] ?? '');
+                                    @endphp
 
-                                            // Tentukan ikon berdasarkan awalan
-                                            $isPositive = Str::startsWith($trimmed, '+');
-                                            $isNegative = Str::startsWith($trimmed, '-');
-
-                                            // Bersihkan tanda di awal
-                                            $text = ltrim($trimmed, '+- ');
-                                        @endphp
-
-                                        <div class="feature-item d-flex align-items-start mb-2">
-                                            @if($isPositive)
-                                                <i class="fa fa-check-circle text-success me-3 mt-1"></i>
-                                            @elseif($isNegative)
-                                                <i class="fa fa-times-circle text-danger me-3 mt-1"></i>
-                                            @else
-                                                <i class="fa fa-circle text-secondary me-3 mt-1 opacity-50"></i>
-                                            @endif
+                                    @if($judul)
+                                        <div class="feature-item d-flex align-items-start mb-3">
+                                            <i class="fa fa-star text-warning me-3 mt-1"></i>
                                             <div>
-                                                <p class="mb-0 text-muted small">{{ $text }}</p>
+                                                <strong>{{ $judul }}</strong>
+                                                @if($desc)
+                                                    <p class="text-muted small mb-0">{{ $desc }}</p>
+                                                @endif
                                             </div>
                                         </div>
-                                    @endforeach
-                                </div>
-
-                                <div class="features-list">
-                                    @foreach($bimbel->details as $detail)
-                                        <div class="mb-2">
-                                            <p class="text-muted small mb-0">{{ Str::limit($detail->deskripsi, 200) }}</p>
-                                        </div>
-                                    @endforeach
-                                </div>
-
-
+                                    @endif
+                                @endforeach
                             </div>
-                            
+                        </div>
 
-                            {{-- Footer --}}
-                            <div class="card-footer bg-transparent p-4">
-                                <button onclick="addToCart('{{ $bimbel->id }}', 'ItemBimbel')" 
-                                        class="btn btn-outline-primary btn-lg w-100 rounded-pill fw-semibold shadow-sm">
-                                    <i class="fa fa-arrow-right me-2"></i> Pilih {{ $bimbel->judul }}
-                                </button>
-                                {{-- @auth
-                                    <button onclick="addToCart('{{ $bimbel->id }}', 'ItemBimbel')" 
-                                            class="btn btn-outline-primary btn-lg w-100 rounded-pill fw-semibold shadow-sm">
-                                        <i class="fa fa-arrow-right me-2"></i> Pilih {{ $bimbel->judul }}
-                                    </button>
-                                @else
-                                    <a href="{{ route('login') }}" 
+                        <div class="card-footer bg-transparent p-4">
+                            @auth
+                            <button onclick="addToCart('{{ $bimbel->id }}', 'ItemBimbel')" 
                                     class="btn btn-outline-primary btn-lg w-100 rounded-pill fw-semibold shadow-sm">
-                                        <i class="fa fa-sign-in-alt me-2"></i> Login untuk pilih {{ $bimbel->judul }}
-                                    </a>
-                                @endauth --}}
-                            </div>
+                                <i class="fa fa-arrow-right me-2"></i> Pilih {{ $bimbel->judul }}
+                            </button>
+                        @else
+                            <a href="{{ route('login') }}" 
+                            class="btn btn-outline-primary btn-lg w-100 rounded-pill fw-semibold shadow-sm">
+                                <i class="fa fa-sign-in-alt me-2"></i> Login untuk pilih {{ $bimbel->judul }}
+                            </a>
+                        @endauth
 
                         </div>
+
                     </div>
-                @empty
-                    <div class="col-12 text-center mt-5">
-                        <p class="text-muted fs-5">Belum ada program bimbel yang tersedia saat ini.</p>
-                    </div>
-                @endforelse
-            </div>
-        </div>
-            
-                
+                </div>
+                @endforeach
 
         {{-- COMPARISON TABLE --}}
         <div class="comparison-section mt-5">
@@ -341,6 +314,72 @@
         </div>
     </section>
 
+    {{-- SEARCH & FILTER --}}
+    <div class="row mb-5">
+        <div class="col-md-8 mb-2">
+            <form action="{{ route('bimbel.courses.index') }}" method="GET" class="d-flex">
+                <input type="text" name="search" class="form-control form-control-lg rounded-start-pill shadow-sm"
+                       placeholder="Cari kursus pajak / akuntansi..." value="{{ request('search') }}">
+                <button class="btn btn-primary rounded-end-pill px-4 shadow-sm"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <select name="category" class="form-select form-select-lg shadow-sm">
+                <option value="">Semua Kategori</option>
+                @foreach($categories as $cat)
+                    <option value="{{ $cat->id }}" {{ request('category')==$cat->id ? 'selected':'' }}>
+                        {{ $cat->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+
+    {{-- KATEGORI --}}
+    <h2 class="fw-bold mb-4 text-center">Kategori Kursus</h2>
+    <div class="row row-cols-2 row-cols-md-4 g-4 mb-5">
+        @foreach ($categories as $cat)
+            <div class="col">
+                <div class="card shadow-sm border-0 h-100 text-center p-3 category-card">
+                    <div class="card-body">
+                        <i class="fa fa-layer-group fa-2x text-primary mb-3"></i>
+                        <h6 class="fw-semibold">{{ $cat->name }}</h6>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+
+    {{-- KURSUS POPULER --}}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold">Kursus Populer</h2>
+        <a href="{{ route('bimbel.courses.index') }}" class="text-decoration-none">Lihat Semua</a>
+    </div>
+    <div class="row g-4">
+        @foreach ($courses as $course)
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm border-0 course-card">
+                <img src="https://img.freepik.com/free-vector/online-tax-consultation-concept-illustration_114360-6789.jpg"
+                    class="card-img-top rounded-top-3" 
+                    style="height:220px; object-fit:cover" 
+                    alt="{{ $course->title }}" />
+                    <h5 class="card-title fw-bold">{{ $course->title }}</h5>
+                    <p class="text-muted small mb-2">{{ $course->category->name ?? 'Kategori' }}</p>
+                    <p class="mb-3 text-truncate">{{ $course->description }}</p>
+                    <div class="mt-auto d-flex justify-content-between align-items-center">
+                        <span class="fw-semibold text-primary">
+                            {{ $course->price == 0 ? 'Gratis' : 'Rp'.number_format($course->price,0,',','.') }}
+                        </span>
+                        <a href="{{ route('bimbel.courses.show',$course->id) }}" class="btn btn-sm btn-outline-primary rounded-pill">
+                            <i class="fa fa-eye me-1"></i>Lihat
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
+
     {{-- KEUNGGULAN --}}
     <div class="row align-items-center mt-5">
         <div class="col-md-6 text-center mb-4 mb-md-0">
@@ -389,39 +428,33 @@
 
 </div>
 @endsection
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
+
     function addToCart(id, type) {
-    fetch("{{ route('cart.add', [], false) }}", {
-        method: "POST",
-        headers: {
-            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: id, type: type }),
-    })
-    .then(response => response.json())
-            .then(data => {
+        fetch("{{ route('cart.add', [], false) }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ id: id, type: type })
+        })
+        .then(res => res.json())
+        .then(data => {
             if (data.status === 'success') {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil',
-                    text: data.message,
-                    timer: 1500,
-                    showConfirmButton: false
-                });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: data.message
-                        });
-                    }
-                })
-        .catch((error) => {
-                console.error('Error:', error);
-            });
-    } 
+                alert(data.message);
+                // reload atau update cart count
+                location.reload();
+            } else if (data.status === 'redirect') {
+                // kalau sudah pernah beli dan masih aktif → langsung ke halaman bimbel
+                window.location.href = data.url;
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(err => console.error(err));
+    }
 
 
     // Smooth scrolling for anchor links

@@ -65,7 +65,7 @@ Route::prefix('admin-xtz2025')->group(static function () {
         Route::resource('/paper', ItemPaperController::class)->names('admin.paper');
         Route::post('/artikel/upload', [ArtikelController::class, 'upload'])->name('ckeditor.upload');
         Route::resource('brevetab', BrevetABController::class)->names('admin.brevetab');
-        Route::resource('brevet-c', BrevetCController::class)->names('admin.brevetc');
+        Route::resource('brevetc', BrevetCController::class)->names('admin.brevetc');
         Route::resource('webinars', ItemWebinarController::class)->names('admin.webinar');
         Route::resource('item-seminar', ItemSeminarController::class)->names('admin.seminar');
         Route::resource('trainings', ItemTrainingController::class)->names('admin.training');

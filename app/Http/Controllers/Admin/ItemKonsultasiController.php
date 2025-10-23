@@ -29,7 +29,7 @@ class ItemKonsultasiController extends Controller
             'deskripsi' => 'required|string',
             'benefit' => 'required|array',
             'benefit.*' => 'string|max:255',
-            'waktu_menit' => 'required|date_format:H:i',
+            'waktu_menit' => 'required|integer|min:1',
             'file_type'   => 'required|in:upload,link',
             'file_upload' => 'nullable|file|mimes:pdf,doc,docx|max:20480', // max 20MB
             'file_link'   => 'nullable|url'
@@ -55,15 +55,12 @@ class ItemKonsultasiController extends Controller
                 $filePath = $validated['file_link'];
             }
 
-            list($jam, $menit) = explode(':', $request->waktu_menit);
-            $totalMenit = ((int)$jam * 60) + (int)$menit;
-
         // Simpan detail konsultasi
         ItemKonsultasiDetail::create([
             'item_konsultasi_id' => $konsultasi->id,
             'deskripsi' => $request->deskripsi,
             'benefit' => $request->benefit,
-            'waktu_menit' => $totalMenit,
+            'waktu_menit' => $request->waktu_menit,
             'file_path' => $filePath
         ]);
 
@@ -91,7 +88,7 @@ class ItemKonsultasiController extends Controller
             'deskripsi'   => 'required|string',
             'benefit'     => 'required|array',
             'benefit.*'   => 'string|max:255',
-            'waktu_menit' => 'required|date_format:H:i',
+            'waktu_menit' => 'required|integer|min:1',
             'file_type'   => 'required|in:upload,link,keep',
             'file_upload' => 'nullable|file|mimes:pdf,doc,docx|max:20480',
             'file_link'   => 'nullable|url'
@@ -105,10 +102,6 @@ class ItemKonsultasiController extends Controller
             'judul' => $validated['judul'],
             'harga' => $validated['harga'],
         ]);
-
-        // Konversi waktu dari format jam:menit ke total menit
-        [$jam, $menit] = explode(':', $validated['waktu_menit']);
-        $totalMenit = ((int)$jam * 60) + (int)$menit;
 
         // Ambil file path lama (jika ada)
         $filePath = $konsultasi->detail->file_path ?? null;
@@ -136,7 +129,7 @@ class ItemKonsultasiController extends Controller
         $konsultasi->detail->update([
             'deskripsi'    => $validated['deskripsi'],
             'benefit'      => $validated['benefit'],
-            'waktu_menit'  => $totalMenit,
+            'waktu_menit'  => $validated['waktu_menit'],
             'file_path'    => $filePath,
         ]);
 
