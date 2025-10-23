@@ -12,7 +12,6 @@
         --light: #f8fafc;
         --dark: #1e293b;
         --success: #10b981;
-        --gradient-primary: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
         --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
@@ -42,7 +41,7 @@
     }
 
     .section {
-        padding: 4rem 0; /* Mengurangi padding section secara keseluruhan */
+        padding: 4rem 0;
     }
 
     .section-title {
@@ -67,7 +66,7 @@
         transform: translateX(-50%);
         width: 80px;
         height: 4px;
-        background: var(--gradient-primary);
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
         border-radius: 2px;
     }
 
@@ -79,16 +78,16 @@
         line-height: 1.8;
     }
 
-    /* Hero Section - Perbaikan Utama */
+    /* Hero Section */
     .hero {
         background: #f8f9fa;
-        padding: 80px 0 60px; /* Mengurangi padding atas dan bawah */
+        padding: 80px 0 60px;
         position: relative;
         overflow: hidden;
-        min-height: 500px; /* Mengurangi tinggi minimum */
+        min-height: 500px;
         display: flex;
         align-items: center;
-        margin-bottom: 0; /* Pastikan tidak ada margin bawah */
+        margin-bottom: 0;
     }
 
     .hero-content {
@@ -96,7 +95,7 @@
         z-index: 2;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 3rem; /* Mengurangi gap */
+        gap: 3rem;
         align-items: center;
         width: 100%;
     }
@@ -107,7 +106,7 @@
     }
 
     .hero-text h1 {
-        font-size: 2.8rem; /* Sedikit mengurangi ukuran font */
+        font-size: 2.8rem;
         font-weight: 800;
         line-height: 1.2;
         margin-bottom: 1.2rem;
@@ -122,13 +121,13 @@
     }
 
     .hero-features {
-        margin: 2rem 0; /* Mengurangi margin */
+        margin: 2rem 0;
     }
 
     .hero-feature {
         display: flex;
         align-items: flex-start;
-        margin-bottom: 1.2rem; /* Mengurangi margin bottom */
+        margin-bottom: 1.2rem;
         transition: transform 0.3s ease;
     }
 
@@ -137,7 +136,7 @@
     }
 
     .hero-feature i {
-        width: 44px; /* Sedikit mengurangi ukuran */
+        width: 44px;
         height: 44px;
         border-radius: 12px;
         display: flex;
@@ -146,6 +145,21 @@
         margin-right: 1rem;
         font-size: 1.3rem;
         flex-shrink: 0;
+    }
+
+    .hero-feature:nth-child(1) i {
+        color: #007bff;
+        background: rgba(0, 123, 255, 0.1);
+    }
+
+    .hero-feature:nth-child(2) i {
+        color: #FAA533;
+        background: rgba(250, 165, 51, 0.1);
+    }
+
+    .hero-feature:nth-child(3) i {
+        color: #8FA31E;
+        background: rgba(143, 163, 30, 0.1);
     }
 
     .hero-feature span {
@@ -170,7 +184,7 @@
     }
 
     .hero-buttons {
-        margin-top: 2rem; /* Mengurangi margin top */
+        margin-top: 2rem;
         display: flex;
         gap: 1rem;
         flex-wrap: wrap;
@@ -180,7 +194,7 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: 0.9rem 1.8rem; /* Sedikit mengurangi padding */
+        padding: 0.9rem 1.8rem;
         border-radius: var(--radius);
         font-weight: 600;
         font-size: 1rem;
@@ -217,17 +231,17 @@
         transform: translateY(-2px);
     }
 
-    /* About Section - Perbaikan Jarak */
+    /* About Section */
     .about {
         background: white;
-        padding-top: 0; /* Menghilangkan padding atas */
-        margin-top: 0; /* Menghilangkan margin atas */
+        padding-top: 0;
+        margin-top: 0;
     }
 
     .about-content {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 3rem; /* Mengurangi gap */
+        gap: 3rem;
         align-items: center;
     }
 
@@ -246,7 +260,7 @@
     .about-image::before {
         content: '';
         position: absolute;
-        top: -15px; /* Mengurangi offset */
+        top: -15px;
         left: -15px;
         width: 100%;
         height: 100%;
@@ -257,7 +271,7 @@
     }
 
     .about-text h2 {
-        font-size: 2rem; /* Sedikit mengurangi ukuran */
+        font-size: 2rem;
         margin-bottom: 1.2rem;
         color: var(--dark);
         font-weight: 700;
@@ -271,13 +285,13 @@
     }
 
     .about-features {
-        margin: 2rem 0; /* Mengurangi margin */
+        margin: 2rem 0;
     }
 
     .about-feature {
         display: flex;
         align-items: center;
-        margin-bottom: 1rem; /* Mengurangi margin bottom */
+        margin-bottom: 1rem;
         transition: transform 0.3s ease;
     }
 
@@ -317,7 +331,7 @@
 
     .service-card {
         background: white;
-        padding: 2rem 1.5rem; /* Mengurangi padding */
+        padding: 2rem 1.5rem;
         border-radius: 12px;
         box-shadow: var(--shadow);
         transition: var(--transition);
@@ -357,7 +371,7 @@
     }
 
     .service-icon {
-        width: 70px; /* Mengurangi ukuran */
+        width: 70px;
         height: 70px;
         border-radius: 50%;
         display: flex;
@@ -401,7 +415,7 @@
 
     /* Stats Section */
     .stats {
-        background: var(--gradient-primary);
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
         color: white;
         position: relative;
         overflow: hidden;
@@ -430,7 +444,7 @@
     .stat-item {
         background-color: transparent;
         border-radius: 12px;
-        padding: 1.5rem; /* Mengurangi padding */
+        padding: 1.5rem;
         text-align: center;
         color: #fff;
     }
@@ -440,7 +454,7 @@
     }
 
     .stat-item h3 {
-        font-size: 2.5rem; /* Mengurangi ukuran font */
+        font-size: 2.5rem;
         font-weight: 800;
         margin-bottom: 0.5rem;
         color: #ffffff;
@@ -454,7 +468,7 @@
 
     .stats-footer {
         text-align: center;
-        margin-top: 2rem; /* Mengurangi margin top */
+        margin-top: 2rem;
         position: relative;
         z-index: 1;
     }
@@ -477,7 +491,7 @@
     .consultation {
         text-align: center;
         background: var(--light);
-        padding: 4rem 0; /* Mengurangi padding */
+        padding: 4rem 0;
     }
 
     .consultation-content {
@@ -497,6 +511,35 @@
         color: var(--secondary);
         margin-bottom: 2rem;
         line-height: 1.8;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in {
+        opacity: 0;
+        animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    .delay-100 {
+        animation-delay: 0.1s;
+    }
+
+    .delay-200 {
+        animation-delay: 0.2s;
+    }
+
+    .delay-300 {
+        animation-delay: 0.3s;
     }
 
     /* Responsive Design */
@@ -623,36 +666,6 @@
         }
     }
 
-    /* Animations */
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .animate-fade-in {
-        opacity: 0;
-        animation: fadeInUp 0.8s ease-out forwards;
-    }
-
-    .delay-100 {
-        animation-delay: 0.1s;
-    }
-
-    .delay-200 {
-        animation-delay: 0.2s;
-    }
-
-    .delay-300 {
-        animation-delay: 0.3s;
-    }
-
-    /* Smooth scrolling */
     html {
         scroll-behavior: smooth;
     }
@@ -661,25 +674,27 @@
 
 @section('content')
 <main>
-    <!-- Hero Section -->
+    {{-- Hero Section --}}
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
                     <h1 class="animate-fade-in">Solusi Permasalahan Akuntansi & Perpajakan Anda</h1>
-                    <p class="animate-fade-in delay-100">Layanan profesional untuk membantu bisnis Anda tumbuh dengan dukungan konsultan berpengalaman.</p>
+                    <p class="animate-fade-in delay-100">
+                        Layanan profesional untuk membantu bisnis Anda tumbuh dengan dukungan konsultan berpengalaman.
+                    </p>
                     
                     <div class="hero-features">
                         <div class="hero-feature animate-fade-in delay-100">
-                            <i class="fas fa-check-circle" style="color:#007bff; background: rgba(0, 123, 255, 0.1);"></i>
+                            <i class="fas fa-check-circle"></i>
                             <span>Dukungan Kepatuhan Perpajakan sesuai Peraturan Terbaru</span>
                         </div>
                         <div class="hero-feature animate-fade-in delay-200">
-                            <i class="fas fa-chart-line" style="color:#FAA533; background: rgba(250, 165, 51, 0.1);"></i>
+                            <i class="fas fa-chart-line"></i>
                             <span>Jasa Pembukuan, Pelaporan Keuangan, serta Audit Terintegrasi</span>
                         </div>
                         <div class="hero-feature animate-fade-in delay-300">
-                            <i class="fas fa-user-friends" style="color:#8FA31E; background: rgba(143, 163, 30, 0.1);"></i>
+                            <i class="fas fa-user-friends"></i>
                             <span>Konsultasi 1-on-1 untuk Menentukan Strategi Perpajakan Anda</span>
                         </div>
                     </div>
@@ -695,13 +710,15 @@
                 </div>
                 
                 <div class="hero-image animate-fade-in delay-200">
-                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Konsultan Pajak Profesional">
+                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                         alt="Konsultan Pajak Profesional"
+                         loading="lazy">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section - Tanpa Jarak dengan Hero -->
+    {{-- About Section --}}
     <section class="section about" id="about">
         <div class="container">
             <div class="section-title">
@@ -711,32 +728,41 @@
             
             <div class="about-content">
                 <div class="about-image animate-fade-in">
-                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Tentang Paham Pajak">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                         alt="Tentang Paham Pajak"
+                         loading="lazy">
                 </div>
                 
                 <div class="about-text">
                     <h2>Solusi Perpajakan Terpercaya</h2>
-                    <p>Paham Pajak didirikan dengan misi untuk membantu pelaku usaha dan individu dalam mengelola kewajiban perpajakan mereka dengan cara yang mudah, transparan, dan sesuai dengan regulasi yang berlaku.</p>
+                    <p>
+                        Paham Pajak didirikan dengan misi untuk membantu pelaku usaha dan individu dalam mengelola 
+                        kewajiban perpajakan mereka dengan cara yang mudah, transparan, dan sesuai dengan regulasi 
+                        yang berlaku.
+                    </p>
                     
-                    <p>Dengan pengalaman lebih dari satu dekade, kami telah membantu ribuan klien dari berbagai sektor industri untuk memastikan kepatuhan pajak sekaligus mengoptimalkan potensi penghematan pajak yang legal dan etis.</p>
+                    <p>
+                        Dengan pengalaman lebih dari satu dekade, kami telah membantu ribuan klien dari berbagai 
+                        sektor industri untuk memastikan kepatuhan pajak sekaligus mengoptimalkan potensi penghematan 
+                        pajak yang legal dan etis.
+                    </p>
                     
                     <div class="about-features">
-                        <div class="about-feature animate-fade-in delay-100">
+                        @php
+                        $aboutFeatures = [
+                            'Konsultan pajak bersertifikat dan berpengalaman',
+                            'Layanan komprehensif dari konsultasi hingga representasi',
+                            'Pendekatan personal untuk setiap klien',
+                            'Update regulasi pajak terkini'
+                        ];
+                        @endphp
+                        
+                        @foreach($aboutFeatures as $index => $feature)
+                        <div class="about-feature animate-fade-in {{ $index < 3 ? 'delay-' . (($index + 1) * 100) : '' }}">
                             <i class="fas fa-check"></i>
-                            <span>Konsultan pajak bersertifikat dan berpengalaman</span>
+                            <span>{{ $feature }}</span>
                         </div>
-                        <div class="about-feature animate-fade-in delay-200">
-                            <i class="fas fa-check"></i>
-                            <span>Layanan komprehensif dari konsultasi hingga representasi</span>
-                        </div>
-                        <div class="about-feature animate-fade-in delay-300">
-                            <i class="fas fa-check"></i>
-                            <span>Pendekatan personal untuk setiap klien</span>
-                        </div>
-                        <div class="about-feature">
-                            <i class="fas fa-check"></i>
-                            <span>Update regulasi pajak terkini</span>
-                        </div>
+                        @endforeach
                     </div>
                     
                     <a href="#consultation" class="btn btn-primary">
@@ -747,124 +773,129 @@
         </div>
     </section>
 
-    <!-- Services Section -->
+    {{-- Services Section --}}
     <section class="section services" id="services">
         <div class="container">
             <div class="section-title">
                 <h2>Layanan Pajak & Akuntansi Terintegrasi</h2>
-                <p>Pahampajak menyediakan berbagai layanan perpajakan dan akuntansi terintegrasi untuk membantu menyelesaikan semua kebutuhan perpajakan Anda.</p>
+                <p>
+                    Pahampajak menyediakan berbagai layanan perpajakan dan akuntansi terintegrasi untuk membantu 
+                    menyelesaikan semua kebutuhan perpajakan Anda.
+                </p>
             </div>
             
             <div class="services-grid">
-                <div class="service-card animate-fade-in">
-                    <div class="service-icon" style="color: #007bff; background: rgba(0, 123, 255, 0.1);">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <h3>Jasa Akuntansi</h3>
-                    <p>Layanan pembukuan dan pelaporan keuangan yang akurat dan sesuai standar untuk kebutuhan bisnis Anda.</p>
-                    <a href="#" class="service-link">
-                        Pelajari Selengkapnya <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
+                @php
+                $services = [
+                    [
+                        'icon' => 'fa-book',
+                        'color' => '#007bff',
+                        'title' => 'Jasa Akuntansi',
+                        'description' => 'Layanan pembukuan dan pelaporan keuangan yang akurat dan sesuai standar untuk kebutuhan bisnis Anda.',
+                        'delay' => 0
+                    ],
+                    [
+                        'icon' => 'fa-comments',
+                        'color' => '#28a745',
+                        'title' => 'Konsultasi Pajak',
+                        'description' => 'Dapatkan solusi perpajakan terbaik dengan bimbingan dari konsultan pajak berpengalaman.',
+                        'delay' => 100
+                    ],
+                    [
+                        'icon' => 'fa-graduation-cap',
+                        'color' => '#ffc107',
+                        'title' => 'Pelatihan USKP',
+                        'description' => 'Program bimbingan belajar untuk persiapan ujian sertifikasi konsultan pajak yang komprehensif.',
+                        'delay' => 200
+                    ],
+                    [
+                        'icon' => 'fa-balance-scale',
+                        'color' => '#dc3545',
+                        'title' => 'Litigasi Pajak',
+                        'description' => 'Pendampingan dan penyelesaian sengketa pajak dengan strategi yang efektif.',
+                        'delay' => 0
+                    ],
+                    [
+                        'icon' => 'fa-building',
+                        'color' => '#6f42c1',
+                        'title' => 'Jasa Pembuatan PT',
+                        'description' => 'Pendirian badan usaha dan pengurusan perizinan lengkap dengan konsultasi yang tepat.',
+                        'delay' => 100
+                    ],
+                    [
+                        'icon' => 'fa-mobile-alt',
+                        'color' => '#20c997',
+                        'title' => 'Aplikasi Pajak',
+                        'description' => 'Software perpajakan untuk memudahkan administrasi dan kepatuhan perpajakan Anda.',
+                        'delay' => 200
+                    ]
+                ];
+                @endphp
                 
-                <div class="service-card animate-fade-in delay-100">
-                    <div class="service-icon" style="color: #28a745; background: rgba(40, 167, 69, 0.1);">
-                        <i class="fas fa-comments"></i>
+                @foreach($services as $service)
+                <div class="service-card animate-fade-in {{ $service['delay'] > 0 ? 'delay-' . $service['delay'] : '' }}">
+                    <div class="service-icon" style="color: {{ $service['color'] }}; background: {{ $service['color'] }}1a;">
+                        <i class="fas {{ $service['icon'] }}"></i>
                     </div>
-                    <h3>Konsultasi Pajak</h3>
-                    <p>Dapatkan solusi perpajakan terbaik dengan bimbingan dari konsultan pajak berpengalaman.</p>
+                    <h3>{{ $service['title'] }}</h3>
+                    <p>{{ $service['description'] }}</p>
                     <a href="#" class="service-link">
                         Pelajari Selengkapnya <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
-                
-                <div class="service-card animate-fade-in delay-200">
-                    <div class="service-icon" style="color: #ffc107; background: rgba(255, 193, 7, 0.1);">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3>Pelatihan USKP</h3>
-                    <p>Program bimbingan belajar untuk persiapan ujian sertifikasi konsultan pajak yang komprehensif.</p>
-                    <a href="#" class="service-link">
-                        Pelajari Selengkapnya <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-
-                <div class="service-card animate-fade-in">
-                    <div class="service-icon" style="color: #dc3545; background: rgba(220, 53, 69, 0.1);">
-                        <i class="fas fa-balance-scale"></i>
-                    </div>
-                    <h3>Litigasi Pajak</h3>
-                    <p>Pendampingan dan penyelesaian sengketa pajak dengan strategi yang efektif.</p>
-                    <a href="#" class="service-link">
-                        Pelajari Selengkapnya <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-
-                <div class="service-card animate-fade-in delay-100">
-                    <div class="service-icon" style="color: #6f42c1; background: rgba(111, 66, 193, 0.1);">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    <h3>Jasa Pembuatan PT</h3>
-                    <p>Pendirian badan usaha dan pengurusan perizinan lengkap dengan konsultasi yang tepat.</p>
-                    <a href="#" class="service-link">
-                        Pelajari Selengkapnya <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-
-                <div class="service-card animate-fade-in delay-200">
-                    <div class="service-icon" style="color: #20c997; background: rgba(32, 201, 151, 0.1);">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Aplikasi Pajak</h3>
-                    <p>Software perpajakan untuk memudahkan administrasi dan kepatuhan perpajakan Anda.</p>
-                    <a href="#" class="service-link">
-                        Pelajari Selengkapnya <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
 
-    <!-- Stats Section -->
+    {{-- Stats Section --}}
     <section class="section stats">
         <div class="container">
             <div class="section-title">
                 <h2 style="color: white;">Pengalaman & Reputasi Terpercaya</h2>
-                <p style="color: rgba(255, 255, 255, 0.9);">Pahampajak telah dipercaya oleh ratusan klien di seluruh Indonesia untuk menyelesaikan berbagai permasalahan perpajakan mereka.</p>
+                <p style="color: rgba(255, 255, 255, 0.9);">
+                    Pahampajak telah dipercaya oleh ratusan klien di seluruh Indonesia untuk menyelesaikan 
+                    berbagai permasalahan perpajakan mereka.
+                </p>
             </div>
             
             <div class="stats-grid">
-                <div class="stat-item animate-fade-in">
-                    <h3 data-target="20">0+</h3>
-                    <p>Konsultan Pajak Bersertifikat</p>
+                @php
+                $stats = [
+                    ['target' => 20, 'label' => 'Konsultan Pajak Bersertifikat', 'delay' => 0],
+                    ['target' => 150, 'label' => 'Sesi Pelatihan Dilaksanakan', 'delay' => 100],
+                    ['target' => 550, 'label' => 'Kasus Sengketa Berhasil Diselesaikan', 'delay' => 200],
+                    ['target' => 5000, 'label' => 'Wajib Pajak Terlayani', 'delay' => 300]
+                ];
+                @endphp
+                
+                @foreach($stats as $stat)
+                <div class="stat-item animate-fade-in {{ $stat['delay'] > 0 ? 'delay-' . $stat['delay'] : '' }}">
+                    <h3 data-target="{{ $stat['target'] }}">0+</h3>
+                    <p>{{ $stat['label'] }}</p>
                 </div>
-                <div class="stat-item animate-fade-in delay-100">
-                    <h3 data-target="150">0+</h3>
-                    <p>Sesi Pelatihan Dilaksanakan</p>
-                </div>
-                <div class="stat-item animate-fade-in delay-200">
-                    <h3 data-target="550">0+</h3>
-                    <p>Kasus Sengketa Berhasil Diselesaikan</p>
-                </div>
-                <div class="stat-item animate-fade-in delay-300">
-                    <h3 data-target="5000">0+</h3>
-                    <p>Wajib Pajak Terlayani</p>
-                </div>
+                @endforeach
             </div>
             
             <div class="stats-footer">
                 <h3>Pahampajak</h3>
-                <p>Memberikan solusi perpajakan yang komprehensif dengan jaringan luas dan didukung konsultan pajak berpengalaman.</p>
+                <p>
+                    Memberikan solusi perpajakan yang komprehensif dengan jaringan luas dan didukung konsultan 
+                    pajak berpengalaman.
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- Consultation Section -->
+    {{-- Consultation Section --}}
     <section class="consultation" id="consultation">
         <div class="container">
             <div class="consultation-content">
                 <h2>Konsultasi Gratis</h2>
-                <p>Jadwalkan sesi konsultasi gratis dengan konsultan kami untuk membahas kebutuhan perpajakan dan akuntansi bisnis Anda.</p>
+                <p>
+                    Jadwalkan sesi konsultasi gratis dengan konsultan kami untuk membahas kebutuhan perpajakan 
+                    dan akuntansi bisnis Anda.
+                </p>
                 <a href="#" class="btn btn-primary">
                     <i class="fas fa-calendar-alt"></i> Jadwalkan Sekarang
                 </a>

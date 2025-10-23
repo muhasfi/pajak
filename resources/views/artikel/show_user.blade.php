@@ -983,27 +983,6 @@ a:focus-visible {
                     </div>
                 </div>
 
-                <!-- Newsletter -->
-                <div class="sidebar-widget newsletter-widget">
-                    <div class="newsletter-content">
-                        <div class="widget-header">
-                            <div class="widget-icon">
-                                <i class="fas fa-paper-plane"></i>
-                            </div>
-                            <h3 class="widget-title">Newsletter</h3>
-                        </div>
-                        <p class="newsletter-text">
-                            Dapatkan update terbaru seputar perpajakan dan keuangan langsung di inbox email Anda
-                        </p>
-                        <form class="newsletter-form">
-                            <input type="email" class="newsletter-input" placeholder="Masukkan email Anda" required>
-                            <button type="submit" class="newsletter-button">
-                                <i class="fas fa-paper-plane"></i>
-                                Berlangganan
-                            </button>
-                        </form>
-                    </div>
-                </div>
             </aside>
         </div>
 
