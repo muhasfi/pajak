@@ -11,7 +11,7 @@ class ItemPaper extends Model
     use HasFactory,SoftDeletes;
 
     protected $fillable = [
-        'name', 'description', 'price', 'img', 'is_active'
+        'name', 'description', 'price', 'img', 'is_active', 'category_id', 'kebutuhan'
     ];
 
     // Relasi ke kategori (1 kategori per paper)
@@ -26,3 +26,5 @@ class ItemPaper extends Model
         return $this->hasOne(ItemPaperDetail::class, 'paper_id');
     }
 }
+
+

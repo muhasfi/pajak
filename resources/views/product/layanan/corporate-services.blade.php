@@ -93,65 +93,45 @@
                             <h3>{{ $layanan->detail->paket }}</h3>
                             <div class="package-price">
                                 <span class="price">{{ 'Rp ' . number_format($layanan->harga, 0, ',', '.') }}</span>
-                                <span class="note">*termasuk biaya notaris</span>
+                                {{-- <span class="note">*termasuk biaya notaris</span> --}}
                             </div>
                         </div>
+                        <p class="text-muted text-center mb-4">
+                            {{ $layanan->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}
+                        </p>
 
                         <div class="card-body">
-                            @if ($layanan->detail && $layanan->detail->deskripsi)
-                                @php
-                                    // Pisahkan setiap baris deskripsi berdasarkan "enter"
-                                    $deskripsiList = preg_split("/\r\n|\n|\r/", $layanan->detail->deskripsi);
-                                @endphp
+                            @if (!empty($layanan->detail->benefit))
+                                    <ul class="list-unstyled fs-5">
+                                        @foreach ($layanan->detail->benefit as $benefit)
+                                            @php
+                                                $trimmed = trim($benefit);
+                                            @endphp
 
-                                <ul class="list-unstyled">
-                            @foreach ($deskripsiList as $desc)
-                                @if (trim($desc) !== '')
-                                    <li>
-                                        <i class="bi bi-check-circle-fill text-success me-1"></i>{{ trim($desc) }}
-                                    </li>
+                                            @if ($trimmed !== '')
+                                                @php
+                                                    $isNegative = Str::startsWith($trimmed, '-');
+                                                    $text = ltrim($trimmed, '+- ');
+                                                @endphp
+
+                                                <li class="mb-2">
+                                                    <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
+                                                    {{ $text }}
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <p class="text-muted fs-5">Benefit belum tersedia.</p>
                                 @endif
-                            @endforeach
-                        </ul>
-
-                            @else
-                                <ul class="feature-list">
-                                    <li class="text-muted">Deskripsi belum tersedia.</li>
-                                </ul>
-                            @endif
                         </div>
 
-
-                        {{-- <div class="card-body">
-                            <p>
-                                @if ($layanan->detail && $layanan->detail->deskripsi)
-                                    {{ $layanan->detail->deskripsi }}
-                                @else
-                                    <span class="text-muted">Deskripsi belum tersedia.</span>
-                                @endif
-                            </p>
-
-                            @if ($layanan->detail && is_array($layanan->detail->benefit))
-                                <ul class="feature-list">
-                                    @foreach ($layanan->detail->benefit as $benefit)
-                                        <li>
-                                            <i class="bi bi-check-circle-fill text-success me-1"></i>
-                                            {{ $benefit }}
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            @else
-                                <ul class="feature-list">
-                                    <li class="text-muted">Belum ada daftar benefit</li>
-                                </ul>
-                            @endif
-                        </div> --}}
-
                         <div class="card-footer">
-                            <a href="" class="btn btn-primary">
-                                <span>Pilih Paket</span>
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
+                            <button type="button" 
+                                    class="btn btn-primary"
+                                    onclick="addToCart({{ $layanan->id }}, 'ItemLayananPt')">
+                                <span>Daftar Sekarang</span>
+                            </button>
                             <a href="/kontak" class="btn btn-outline">
                                 <span>Konsultasi</span>
                             </a>
@@ -420,7 +400,11 @@
 </section>
 
 <style>
+<<<<<<< HEAD
  :root {
+=======
+:root {
+>>>>>>> d02faebeab8747a5de3202ff73c4b998d7308c51
     --primary-orange: #ea580c;
     --secondary-orange: #c2410c;
     --dark-orange: #9a3412;
@@ -1592,7 +1576,40 @@ html {
 }
 </style>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+
+    function addToCart(id, type) {
+    fetch("{{ route('cart.add', [], false) }}", {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id, type: type }),
+    })
+    .then(response => response.json())
+            .then(data => {
+            if (data.status === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: data.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: data.message
+                        });
+                    }
+                })
+        .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
     document.addEventListener('DOMContentLoaded', function() {
         // FAQ functionality
         const faqItems = document.querySelectorAll('.faq-item');

@@ -12,7 +12,7 @@ class ItemBrevetABDetail extends Model
     protected $fillable = [
         'brevetab_id', 'fasilitas', 'deskripsi_fasilitas',
         'durasi_jam', 'instruktur', 'lokasi', 'kuota_peserta',
-        'level', 'syarat_peserta', 'materi_pelatihan',
+        'level', 'syarat_peserta', 'materi_pelatihan','file_path',
     ];
 
     public function brevetab()

@@ -60,10 +60,17 @@
                     @error('img') <small class="text-danger">{{ $message }}</small> @enderror
                 </div>
 
-                 <div class="mb-3">
-                    <label for="details" class="form-label">File Lampiran (bisa lebih dari satu)</label>
-                    <input type="file" name="details[]" class="form-control" multiple>
-                    @error('details.*') <small class="text-danger">{{ $message }}</small> @enderror
+                <div class="mb-3">
+                    <label class="form-label">Sumber File</label>
+                    <div class="input-group">
+                        <select name="file_type" class="form-select" style="max-width: 150px;" onchange="toggleFileInput(this)">
+                            <option value="upload">Upload</option>
+                            <option value="link">Link</option>
+                        </select>
+
+                        <input type="file" name="file_upload" class="form-control" accept=".pdf,.doc,.docx">
+                        <input type="text" name="file_link" class="form-control d-none" placeholder="https://drive.google.com/...">
+                    </div>
                 </div>
 
                 <div class="mb-3">
@@ -80,4 +87,32 @@
         </div>
     </div>
 </section>
+@endsection
+
+@section('script')
+<script>
+function toggleFileInput(select) {
+    const group = select.closest('.input-group');
+    const fileInput = group.querySelector('[name="file_upload"]');
+    const linkInput = group.querySelector('[name="file_link"]');
+
+    if (select.value === 'upload') {
+        fileInput.classList.remove('d-none');
+        linkInput.classList.add('d-none');
+        fileInput.required = true;
+        linkInput.required = false;
+    } else {
+        fileInput.classList.add('d-none');
+        linkInput.classList.remove('d-none');
+        fileInput.required = false;
+        linkInput.required = true;
+    }
+}
+
+// Panggil saat halaman pertama kali dimuat
+document.addEventListener('DOMContentLoaded', function() {
+    const select = document.querySelector('select[name="file_type"]');
+    toggleFileInput(select);
+});
+</script>
 @endsection

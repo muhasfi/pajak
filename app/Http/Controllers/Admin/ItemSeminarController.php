@@ -12,10 +12,7 @@ class ItemSeminarController extends Controller
 {
     public function index()
     {
-        $seminars = ItemSeminar::with('detailSeminar')
-            ->latest()
-            ->paginate(10); // 10 items per page
-        
+        $seminars = ItemSeminar::with('detailSeminar')->latest()->get();
         return view('admin.seminar.index', compact('seminars'));
     }
 
@@ -39,7 +36,8 @@ class ItemSeminarController extends Controller
             'kategori' => 'required|string|max:255',
             'level' => 'required|in:Beginner,Intermediate,Advanced',
             'fasilitas' => 'required|string',
-            'kontak_person' => 'required|string|max:255'
+            'kontak_person' => 'required|string|max:255',
+            'file_path' => 'nullable|string|max:255'
         ]);
     
         // Upload gambar
@@ -67,7 +65,8 @@ class ItemSeminarController extends Controller
             'kategori' => $request->kategori,
             'level' => $request->level,
             'fasilitas' => $request->fasilitas,
-            'kontak_person' => $request->kontak_person
+            'kontak_person' => $request->kontak_person,
+            'file_path' => $request->file_path,
         ]);
     
         return redirect()->route('admin.seminar.index')
@@ -101,7 +100,8 @@ class ItemSeminarController extends Controller
             'kategori' => 'required|string|max:255',
             'level' => 'required|in:Beginner,Intermediate,Advanced',
             'fasilitas' => 'required|string',
-            'kontak_person' => 'required|string|max:255'
+            'kontak_person' => 'required|string|max:255',
+            'file_path' => 'nullable|string|max:255'
         ]);
     
         $itemSeminar = ItemSeminar::with('detailSeminar')->findOrFail($id);
@@ -133,7 +133,8 @@ class ItemSeminarController extends Controller
             'kategori' => $request->kategori,
             'level' => $request->level,
             'fasilitas' => $request->fasilitas,
-            'kontak_person' => $request->kontak_person
+            'kontak_person' => $request->kontak_person,
+            'file_path' => $request->file_path,
         ]);
     
         return redirect()->route('admin.seminar.index')

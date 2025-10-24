@@ -89,79 +89,79 @@
             <div class="services-grid">
     @foreach ($litigasi as $item)
         <div class="service-card {{ $loop->iteration == 3 ? 'featured' : '' }}">
+            {{-- Badge Populer --}}
             @if ($loop->iteration == 3)
                 <div class="card-badge">Populer</div>
             @endif
 
+            {{-- Header Card --}}
             <div class="card-header">
                 <div class="service-icon">
                     @switch($loop->iteration)
                         @case(1)
                             <i class="fas fa-gavel"></i>
-                            @break
+                        @break
+                        
                         @case(2)
                             <i class="fas fa-balance-scale"></i>
-                            @break
+                        @break
+                        
                         @case(3)
                             <i class="fas fa-handshake"></i>
-                            @break
+                        @break
+                        
                         @default
                             <i class="fas fa-search"></i>
                     @endswitch
                 </div>
 
                 <h3 class="fw-bold">{{ $item->judul }}</h3>
-                <h4 class=" mt-2">
+                <h4 class="mt-2">
                     Rp {{ number_format($item->harga, 0, ',', '.') }}
                 </h4>
             </div>
 
+            {{-- Deskripsi --}}
+            <p class="text-muted text-center mb-4">
+                {{ $item->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}
+            </p>
+
+            {{-- Body Card - Benefits --}}
             <div class="card-body">
-                {{-- Deskripsi --}}
-                @if ($item->detail && $item->detail->deskripsi)
-                    @php
-                        // Pisahkan deskripsi berdasarkan enter (baris baru)
-                        $deskripsiList = preg_split("/\r\n|\n|\r/", $item->detail->deskripsi);
-                    @endphp
-
-                    <ul class="list-unstyled">
-                        @foreach ($deskripsiList as $desc)
-                            @if (trim($desc) !== '')
-                                <li>
-                                    <i class="bi bi-check-circle-fill text-success me-1"></i>
-                                    {{ trim($desc) }}
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
-                @else
-                    <p class="text-muted">Deskripsi belum tersedia.</p>
-                @endif
-
-                {{-- Benefit --}}
-                {{-- @if ($item->detail && is_array($item->detail->benefit) && count($item->detail->benefit) > 0)
-                    <ul class="list-unstyled mt-2">
+                @if (!empty($item->detail->benefit))
+                    <ul class="list-unstyled fs-5">
                         @foreach ($item->detail->benefit as $benefit)
-                            @if (trim($benefit) !== '')
-                                <li>
-                                    <i class="bi bi-check-circle-fill text-primary me-1"></i>
-                                    {{ $benefit }}
+                            @php
+                                $trimmed = trim($benefit);
+                            @endphp
+
+                            @if ($trimmed !== '')
+                                @php
+                                    $isNegative = Str::startsWith($trimmed, '-');
+                                    $text = ltrim($trimmed, '+- ');
+                                @endphp
+
+                                <li class="mb-2">
+                                    <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
+                                    {{ $text }}
                                 </li>
                             @endif
                         @endforeach
                     </ul>
                 @else
-                    <p class="text-muted">Belum ada daftar benefit.</p>
-                @endif --}}
+                    <p class="text-muted fs-5">Benefit belum tersedia.</p>
+                @endif
             </div>
 
-
+            {{-- Footer Card - Action Buttons --}}
             <div class="card-footer">
-                <a href="#" class="btn btn-primary">
-                    <span>Konsultasi Kasus</span>
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-                <a href="/kontak" class="btn btn-outline">
+                <button type="button" 
+                    class="btn btn-primary"
+                    onclick="addToCart({{ $item->id }}, 'ItemLitigasi')">
+                    <span>Mulai Layanan</span>
+                </button>
+                
+                <a href="{{ route('kontak') }}" class="btn btn-outline">
                     <span>Detail Layanan</span>
                 </a>
             </div>
@@ -1070,3 +1070,39 @@
     }
 </style>
 @endsection
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+    function addToCart(id, type) {
+    fetch("{{ route('cart.add', [], false) }}", {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id, type: type }),
+    })
+    .then(response => response.json())
+            .then(data => {
+            if (data.status === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: data.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: data.message
+                        });
+                    }
+                })
+        .catch((error) => {
+                console.error('Error:', error);
+            });
+    } 
+</script>

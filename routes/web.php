@@ -7,6 +7,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\LayananPtController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PelatihanController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiteController;
 
 /*
@@ -77,6 +78,7 @@ Route::get('/corporate-services', [LayananPtController::class, 'index'])->name('
 Route::get('/jasa-perpajakan', [App\Http\Controllers\PajakController::class, 'index'])->name('jasa.perpajakan');
 Route::get('/litigasi', [App\Http\Controllers\LitigasiController::class, 'index'])->name('litigasi');
 Route::get('/transfer-pricing', [App\Http\Controllers\TransferController::class, 'index'])->name('transfer');
+Route::get('/private', [App\Http\Controllers\KonsultasiController::class, 'index'])->name('private');
 // Route::view('/brevet-c', 'product.pelatihan.brevet_c')->name('brevet.c');
 // Route::view('/kertas-kerja-spt-masa-unifikasi', 'product.paper.spt_masa_unifikasi.kertas_spt_unifikasi')->name('spt.unifikasi');
 
@@ -86,19 +88,21 @@ Route::view('/order-spt', 'product.kertas_kerja.order_spt')->name('order.spt');
 Route::view('/order-pph', 'product.kertas_kerja.order_pph')->name('order.pph');
 Route::view('/order-spt-unifikasi', 'product.kertas_kerja.order_spt_uni')->name('order.spt.uni');
 Route::view('/forum', 'product.konsultasi.forum')->name('forum');
-Route::view('/private', 'product.konsultasi.private')->name('private');
 
 require __DIR__.'/auth.php';
 
 // Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('profile', [\App\Http\Controllers\SiteController::class, 'profile'])
-        ->middleware('password.confirm')
-        ->name('profile');
+        // Route::get('profile', [\App\Http\Controllers\SiteController::class, 'profile'])
+        //     ->middleware('password.confirm')
+        //     ->name('profile');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
 
-    Route::get('/bimbel/my-courses', [BimbelController::class, 'list'])->name('bimbel.courses.list');
-    Route::get('/bimbel/{id}', [BimbelController::class, 'show'])->name('bimbel.show');
+    // Route::get('/bimbel/my-courses', [BimbelController::class, 'list'])->name('bimbel.courses.list');
+    // Route::get('/bimbel/{id}', [BimbelController::class, 'show'])->name('bimbel.show');
        
     Route::get('/transactions', [SiteController::class, 'transaction'])->name('transactions.transaction');
     Route::get('/transactions/{id}', [SiteController::class, 'show'])->name('transactions.show');

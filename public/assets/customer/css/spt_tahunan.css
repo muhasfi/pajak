@@ -461,6 +461,10 @@
     box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
 }
 
+.service-card .card-header {
+    padding: 20px 15px 15px 15px; /* atas, kanan, bawah, kiri */
+}
+
 /* Card header */
 .card-header {
     padding: 30px;

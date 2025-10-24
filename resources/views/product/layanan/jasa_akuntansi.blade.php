@@ -115,43 +115,42 @@
                             Rp {{ number_format($service->harga, 0, ',', '.') }}
                         </h4>
                     </div>
+                    <p class="text-muted text-center mb-4">
+                            {{ $service->details->deskripsi ?? 'Deskripsi tidak tersedia' }}
+                        </p>
 
                     <div class="card-body">
-                        @if (!empty($service->details->deskripsi))
-                            @php
-                                // Pisahkan berdasarkan enter (\n)
-                                $deskripsiList = preg_split("/\r\n|\n|\r/", $service->details->deskripsi);
-                            @endphp
+                        @if (!empty($service->details->benefit))
+                                    <ul class="list-unstyled mt-2">
+                                        @foreach ($service->details->benefit as $benefit)
+                                            @php
+                                                $trimmed = trim($benefit);
+                                            @endphp
 
-                            <ul class="list-unstyled">
-                                @foreach ($deskripsiList as $desc)
-                                    @if (trim($desc) !== '')
-                                        <li>
-                                            <i class="bi bi-check-circle-fill text-success me-1"></i>{{ trim($desc) }}
-                                        </li>
-                                    @endif
-                                @endforeach
-                            </ul>
-                        @else
-                            <p class="text-muted">Deskripsi belum tersedia.</p>
-                        @endif
+                                            @if ($trimmed !== '')
+                                                @php
+                                                    $isNegative = Str::startsWith($trimmed, '-');
+                                                    $text = ltrim($trimmed, '+- ');
+                                                @endphp
 
-                        {{-- @if (!empty($service->details->benefit))
-                            <ul class="mt-2 list-unstyled">
-                                @foreach ($service->details->benefit as $benefit)
-                                    <li>
-                                        <i class="bi bi-check-circle text-primary me-1"></i>{{ $benefit }}
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @endif --}}
+                                                <li class="mb-2">
+                                                    <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
+                                                    {{ $text }}
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <p class="text-muted fs-5">Benefit belum tersedia.</p>
+                                @endif
                     </div>
 
                     <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <span>Pesan Sekarang</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
+                        <button type="button" 
+                                    class="btn btn-primary"
+                                    onclick="addToCart({{ $service->id }}, 'ItemAccountingService')">
+                                <span>Daftar Sekarang</span>
+                            </button>
                         <a href="/kontak" class="btn btn-outline">
                             <span>Konsultasi Gratis</span>
                         </a>
@@ -495,6 +494,9 @@
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         animation: fadeInUp 0.6s ease-out;
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
     }
 
     .service-card::before {
@@ -901,3 +903,39 @@
     }
 </style>
 @endsection
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+    function addToCart(id, type) {
+    fetch("{{ route('cart.add', [], false) }}", {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id, type: type }),
+    })
+    .then(response => response.json())
+            .then(data => {
+            if (data.status === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: data.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: data.message
+                        });
+                    }
+                })
+        .catch((error) => {
+                console.error('Error:', error);
+            });
+    } 
+</script>

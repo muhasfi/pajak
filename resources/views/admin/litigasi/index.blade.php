@@ -67,18 +67,19 @@
                                 @endif
                             </td>
                             <td>
-                                <div class="btn-group">
-                                    <a href="{{ route('admin.litigasi.edit', $item->id) }}" class="btn btn-warning btn-sm">
-                                        <i class="bi bi-pencil"></i> Ubah
-                                    </a>
-                                    <form action="{{ route('admin.litigasi.destroy', $item->id) }}" method="POST" class="d-inline delete-form">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button" class="btn btn-danger btn-sm delete-btn">
-                                            <i class="bi bi-trash"></i> Hapus
-                                        </button>
-                                    </form>
-                                </div>
+                                <a href="{{ route('admin.litigasi.show', $item->id) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Detail
+                                </a>
+                                <a href="{{ route('admin.litigasi.edit', $item->id) }}" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil"></i> Ubah
+                                </a>
+                                <form action="{{ route('admin.litigasi.destroy', $item->id) }}" method="POST" class="d-inline delete-form">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm delete-btn">
+                                        <i class="bi bi-trash"></i> Hapus
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         @empty

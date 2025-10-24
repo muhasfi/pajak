@@ -7,6 +7,7 @@ use App\Models\Item;
 use App\Models\ItemPajak;
 use App\Models\ItemPajakDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ItemPajakController extends Controller
 {
@@ -23,12 +24,15 @@ class ItemPajakController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'harga' => 'required|numeric',
             'deskripsi' => 'required|string',
             'benefit' => 'required|array',
-            'benefit.*' => 'string|max:255'
+            'benefit.*' => 'string|max:255',
+            'file_type'   => 'required|in:upload,link',
+            'file_upload' => 'nullable|file|mimes:pdf,doc,docx|max:20480', // max 20MB
+            'file_link'   => 'nullable|url'
         ]);
 
         $pajak = ItemPajak::create([
@@ -36,10 +40,25 @@ class ItemPajakController extends Controller
             'harga' => $request->harga,
         ]);
 
+        $filePath = null;
+            if ($request->file_option === 'upload') {
+                $filePath = $request->file('file_upload')->store('layanan_pt_files', 'public');
+            } elseif ($request->file_option === 'link') {
+                $filePath = $request->file_link;
+            }
+
+        $filePath = null;
+            if ($validated['file_type'] === 'upload' && $request->hasFile('file_upload')) {
+                $filePath = $request->file('file_upload')->store('ebooks', 'public');
+            } elseif ($validated['file_type'] === 'link') {
+                $filePath = $validated['file_link'];
+            }
+
         ItemPajakDetail::create([
             'pajak_id' => $pajak->id,
             'deskripsi' => $request->deskripsi,
             'benefit' => $request->benefit,
+            'file_path' => $filePath
         ]);
 
         return redirect()->route('admin.pajak.index')->with('success', 'Layanan pajak berhasil ditambahkan!');
@@ -67,48 +86,55 @@ class ItemPajakController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'harga' => 'required|numeric|min:0',
-            'deskripsi' => 'required|string',
-            'benefit' => 'required|array|min:1',
-            'benefit.*' => 'required|string|max:255'
-        ], [
-            'benefit.required' => 'Minimal satu benefit harus diisi',
-            'benefit.*.required' => 'Setiap benefit tidak boleh kosong',
-            'benefit.*.max' => 'Benefit maksimal 255 karakter'
+        $validated = $request->validate([
+        'judul' => 'required|string|max:255',
+        'harga' => 'required|numeric',
+        'deskripsi' => 'required|string',
+        'benefit' => 'required|array',
+        'benefit.*' => 'string|max:255',
+        'file_type'   => 'required|in:upload,link,keep', // tambahkan opsi 'keep' untuk file lama
+        'file_upload' => 'nullable|file|mimes:pdf,doc,docx|max:20480',
+        'file_link'   => 'nullable|url'
         ]);
 
-        $pajak = ItemPajak::findOrFail($id);
-        
+        // Ambil data pajak beserta detail-nya
+        $pajak = ItemPajak::with('detail')->findOrFail($id);
+
         // Update data utama
         $pajak->update([
-            'judul' => $request->judul,
-            'harga' => $request->harga,
+            'judul' => $validated['judul'],
+            'harga' => $validated['harga'],
         ]);
 
-        // Filter benefit yang tidak kosong
-        $filteredBenefits = array_filter($request->benefit, function($benefit) {
-            return !empty(trim($benefit));
-        });
+        // Tentukan path file baru (jika ada)
+        $filePath = $pajak->detail->file_path ?? null;
 
-        // Update atau create detail
-        if ($pajak->detail) {
-            $pajak->detail->update([
-                'deskripsi' => $request->deskripsi,
-                'benefit' => $filteredBenefits,
-            ]);
-        } else {
-            \App\Models\ItemPajakDetail::create([
-                'pajak_id' => $pajak->id,
-                'deskripsi' => $request->deskripsi,
-                'benefit' => $filteredBenefits,
-            ]);
+        // Jika upload file baru
+        if ($validated['file_type'] === 'upload' && $request->hasFile('file_upload')) {
+            // Hapus file lama kalau masih ada di storage
+            if ($filePath && Storage::disk('public')->exists($filePath)) {
+                Storage::disk('public')->delete($filePath);
+            }
+
+            // Simpan file baru
+            $filePath = $request->file('file_upload')->store('ebooks', 'public');
+        } 
+        // Jika pakai link baru
+        elseif ($validated['file_type'] === 'link') {
+            $filePath = $validated['file_link'];
         }
+        // Jika 'keep' berarti pakai file lama, tidak perlu ubah $filePath
 
-        return redirect()->route('admin.pajak.index')
-            ->with('success', 'Layanan pajak berhasil diupdate!');
+        // Update detail pajak
+        $pajak->detail->update([
+            'deskripsi' => $validated['deskripsi'],
+            'benefit'   => $validated['benefit'],
+            'file_path' => $filePath,
+        ]);
+
+        return redirect()->route('admin.pajak.index')->with('success', 'Layanan pajak berhasil diperbarui!');
     }
+
     public function destroy($id)
     {
         $pajak = ItemPajak::findOrFail($id);

@@ -56,12 +56,14 @@
 <div class="page-heading mb-4">
     <div class="d-flex justify-content-between align-items-center">
         <h3 class="mb-0">Selamat Datang, Admin! 👋</h3>
-        <form method="POST" action="{{ route('admin.logout') }}" class="d-inline">
+        {{-- <form method="POST" action="{{ route('admin.logout') }}" class="d-inline">
+        {{-- <form method="POST" action="{{ route('admin.logout') }}" class="d-inline">
             @csrf
             <button type="submit" class="btn btn-outline-danger btn-sm">
                 <i class="bi bi-box-arrow-right"></i> Logout
             </button>
-        </form>
+        </form> --}}
+        </form> --}}
     </div>
 </div>
 
@@ -143,7 +145,6 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex align-items-center">
-                                <i class="bi bi-graph-up text-primary me-2" style="font-size: 1.5rem;"></i>
                                 <h4>Grafik Penjualan Bulanan ({{ date('Y') }})</h4>
                             </div>
                         </div>
@@ -158,7 +159,6 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex align-items-center">
-                                <i class="bi bi-calendar-check text-success me-2" style="font-size: 1.5rem;"></i>
                                 <h4>Penjualan per Tahun</h4>
                             </div>
                         </div>
@@ -169,34 +169,31 @@
                 </div>
             </div>
 
-            <!-- Secondary Charts Row -->
+            <!-- Statistik User -->
             <div class="row">
-                <!-- Grafik Total Barang Terjual per Bulan -->
+                <!-- Grafik Jumlah User Baru per Bulan -->
                 <div class="col-12 col-lg-6 mb-4">
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex align-items-center">
-                                <i class="bi bi-box-seam text-warning me-2" style="font-size: 1.5rem;"></i>
-                                <h4>Total Barang Terjual per Bulan ({{ date('Y') }})</h4>
+                                <h4>Jumlah User Baru per Bulan ({{ date('Y') }})</h4>
                             </div>
                         </div>
                         <div class="card-body">
-                            <div id="chart-items-sold"></div>
+                            <div id="chart-user-monthly"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Grafik Perbandingan -->
+                <!-- Total User Saat Ini -->
                 <div class="col-12 col-lg-6 mb-4">
-                    <div class="card">
+                    <div class="card text-center">
                         <div class="card-header">
-                            <div class="d-flex align-items-center">
-                                <i class="bi bi-pie-chart text-info me-2" style="font-size: 1.5rem;"></i>
-                                <h4>Perbandingan Penjualan vs Barang</h4>
-                            </div>
+                            <h4>Total User Saat Ini</h4>
                         </div>
                         <div class="card-body">
-                            <div id="chart-comparison"></div>
+                            <h2 class="fw-bold">{{ number_format($totalUsers) }}</h2>
+                            <p class="text-muted mb-0">Pengguna terdaftar hingga hari ini</p>
                         </div>
                     </div>
                 </div>
@@ -209,24 +206,50 @@
 <!-- Script langsung di sini -->
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Data dari Controller
-    const monthlyData = @json(array_values($months));
-    const monthlyItems = @json(array_values($monthlyItems ?? array_fill(0, 12, 0)));
-    const yearlyDataRaw = @json($yearlySales);
-    
-    // Konversi yearly data
-    let yearlyYears = [];
-    let yearlySales = [];
-    
-    if (yearlyDataRaw && typeof yearlyDataRaw === 'object') {
-        for (const [year, total] of Object.entries(yearlyDataRaw)) {
-            yearlyYears.push(year);
-            yearlySales.push(parseFloat(total));
-        }
-    }
+    var optionsUserMonthly = {
+            chart: {
+                type: 'bar',
+                height: 300
+            },
+            series: [{
+                name: 'User Baru',
+                data: @json(array_values($userMonths))
+            }],
+            xaxis: {
+                categories: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des']
+            },
+            yaxis: {
+                labels: {
+                    formatter: function(value) {
+                        return value.toFixed(0) + ' user';
+                    }
+                }
+            },
+            colors: ['#4a90e2'],
+            dataLabels: { enabled: false },
+            grid: { borderColor: '#eee' }
+        };
 
-    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+        new ApexCharts(document.querySelector("#chart-user-monthly"), optionsUserMonthly).render();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Data dari Controller
+            const monthlyData = @json(array_values($months));
+            const monthlyItems = @json(array_values($monthlyItems ?? array_fill(0, 12, 0)));
+            const yearlyDataRaw = @json($yearlySales);
+            
+            // Konversi yearly data
+            let yearlyYears = [];
+            let yearlySales = [];
+            
+            if (yearlyDataRaw && typeof yearlyDataRaw === 'object') {
+                for (const [year, total] of Object.entries(yearlyDataRaw)) {
+                    yearlyYears.push(year);
+                    yearlySales.push(parseFloat(total));
+                }
+            }
+
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
 
     // ===== GRAFIK PENJUALAN BULANAN =====
     const monthlyOptions = {
@@ -265,15 +288,20 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
         yaxis: {
-            labels: {
-                formatter: function(value) {
+        labels: {
+            formatter: function (value) {
+                if (value >= 1000000) {
                     return 'Rp ' + (value / 1000000).toFixed(1) + 'jt';
-                },
-                style: {
-                    fontSize: '12px'
+                } else if (value >= 1000) {
+                    return 'Rp ' + (value / 1000).toFixed(0) + 'rb';
                 }
+                return 'Rp ' + value;
+            },
+            style: {
+                fontSize: '12px'
             }
-        },
+        }
+    },
         tooltip: {
             y: {
                 formatter: function(value) {

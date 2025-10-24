@@ -75,6 +75,39 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Sumber File</label>
+                        <div class="d-flex gap-3 mb-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="file_option" id="option_upload" value="upload" checked>
+                                <label class="form-check-label" for="option_upload">Upload File</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="file_option" id="option_link" value="link">
+                                <label class="form-check-label" for="option_link">Gunakan Link</label>
+                            </div>
+                        </div>
+
+                        {{-- Input Upload --}}
+                        <div id="upload_field">
+                            <input type="file" class="form-control @error('file_path') is-invalid @enderror" 
+                                id="file_upload" name="file_upload" accept=".pdf,.jpg,.png,.docx,.xlsx">
+                            @error('file_path')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- Input Link --}}
+                        <div id="link_field" class="d-none">
+                            <input type="text" class="form-control @error('file_path') is-invalid @enderror" 
+                                id="file_link" name="file_link" placeholder="https://contoh.com/file.pdf" value="{{ old('file_path') }}">
+                            @error('file_path')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="col-md-6">
@@ -161,6 +194,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                    
                 </div>
             </div>
 
@@ -171,4 +205,31 @@
         </form>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const uploadField = document.getElementById('upload_field');
+    const linkField = document.getElementById('link_field');
+    const optionUpload = document.getElementById('option_upload');
+    const optionLink = document.getElementById('option_link');
+
+    optionUpload.addEventListener('change', toggleFields);
+    optionLink.addEventListener('change', toggleFields);
+
+    function toggleFields() {
+        if (optionUpload.checked) {
+            uploadField.classList.remove('d-none');
+            linkField.classList.add('d-none');
+        } else {
+            uploadField.classList.add('d-none');
+            linkField.classList.remove('d-none');
+        }
+    }
+
+    toggleFields(); // jalankan saat halaman dimuat
+});
+</script>
+
 @endsection

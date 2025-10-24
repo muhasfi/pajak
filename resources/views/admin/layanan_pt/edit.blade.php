@@ -27,7 +27,7 @@
 
         <form class="form" 
               action="{{ isset($layananPt) ? route('admin.layanan-pt.update', $layananPt->id) : route('admin.layanan-pt.store') }}" 
-              method="POST">
+              method="POST" enctype="multipart/form-data">
             @csrf
             @if(isset($layananPt))
                 @method('PUT')
@@ -68,6 +68,40 @@
                         <input type="text" id="paket" name="paket" class="form-control" 
                                placeholder="Masukkan Paket Layanan"
                                value="{{ old('paket', $layananPt->judul ?? '') }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Sumber File</label>
+                        <div class="input-group">
+                            <select name="file_type" class="form-select" style="max-width: 150px;" onchange="toggleFileInput(this)">
+                                <option value="upload" {{ old('file_type', isset($layananPt->detail) && filter_var($layananPt->detail->file_path, FILTER_VALIDATE_URL) ? '' : 'selected') }}>Upload</option>
+                                <option value="link" {{ old('file_type', isset($layananPt->detail) && filter_var($layananPt->detail->file_path, FILTER_VALIDATE_URL) ? 'selected' : '') }}>Link</option>
+                            </select>
+
+                            {{-- Input upload file --}}
+                            <input type="file"
+                                name="file_upload"
+                                class="form-control {{ old('file_type', isset($layananPt->detail) && filter_var($layananPt->detail->file_path, FILTER_VALIDATE_URL) ? 'd-none' : '') }}"
+                                accept=".pdf,.doc,.docx">
+
+                            {{-- Input link --}}
+                            <input type="text"
+                                name="file_link"
+                                value="{{ old('file_link', isset($layananPt->detail) && filter_var($layananPt->detail->file_path, FILTER_VALIDATE_URL) ? $layananPt->detail->file_path : '') }}"
+                                class="form-control {{ old('file_type', isset($layananPt->detail) && filter_var($layananPt->detail->file_path, FILTER_VALIDATE_URL) ? '' : 'd-none') }}"
+                                placeholder="https://drive.google.com/...">
+                        </div>
+
+                        @if(isset($layananPt->detail->file_path))
+                            <small class="text-muted">
+                                File saat ini:
+                                @if(filter_var($layananPt->detail->file_path, FILTER_VALIDATE_URL))
+                                    <a href="{{ $layananPt->detail->file_path }}" target="_blank">Lihat Link</a>
+                                @else
+                                    <a href="{{ asset('storage/' . $layananPt->detail->file_path) }}" target="_blank">Lihat File</a>
+                                @endif
+                            </small>
+                        @endif
                     </div>
 
                     <!-- Benefit -->
@@ -116,6 +150,19 @@
 
 <!-- Script untuk dynamic benefit -->
 <script>
+function toggleFileInput(select) {
+    const fileInput = select.closest('.input-group').querySelector('[name="file_upload"]');
+    const linkInput = select.closest('.input-group').querySelector('[name="file_link"]');
+
+    if (select.value === 'upload') {
+        fileInput.classList.remove('d-none');
+        linkInput.classList.add('d-none');
+    } else {
+        fileInput.classList.add('d-none');
+        linkInput.classList.remove('d-none');
+    }
+}
+    
 document.getElementById('add-benefit').addEventListener('click', function() {
     const container = document.getElementById('benefit-container');
     const index = container.children.length;

@@ -12,15 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('item_webinar_details', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('item_webinar_id')
-                  ->constrained('item_webinars')
-                  ->onDelete('cascade');
+           $table->id();
+            $table->foreignId('item_webinar_id')->constrained('item_webinars')->onDelete('cascade');
             $table->string('pembicara');
-            $table->string('topik');
-            $table->time('waktu_mulai');
-            $table->time('waktu_selesai');
-            $table->string('materi')->nullable();
+            $table->string('lokasi');
+            $table->integer('kuota_peserta');
+            $table->string('kategori');
+            $table->enum('level', ['Beginner', 'Intermediate', 'Advanced']);
+            $table->text('fasilitas');
+            $table->string('kontak_person');
             $table->timestamps();
         });
     }

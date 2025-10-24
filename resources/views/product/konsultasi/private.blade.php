@@ -171,19 +171,6 @@
         color: var(--white);
     }
 
-    .popular-badge {
-        position: absolute;
-        top: -10px;
-        right: 20px;
-        background-color: var(--warning);
-        color: var(--white);
-        padding: 0.5rem 1rem;
-        border-radius: 50px;
-        font-weight: 600;
-        font-size: 0.8rem;
-        box-shadow: 0 4px 10px rgba(255, 158, 0, 0.3);
-    }
-
     .card-body {
         padding: 2.5rem;
         flex-grow: 1;
@@ -605,74 +592,77 @@
     <section class="consultation-cards">
         <div class="container">
             <h2 class="section-title fade-in">Pilih Paket Konsultasi</h2>
-            <div class="row">
-                <!-- Card 1 -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card card-consultation fade-in">
-                        <div class="card-header">
-                            <h3>Konsultasi Singkat</h3>
-                        </div>
-                        <div class="card-body">
-                            <span class="duration-badge"><i class="far fa-clock"></i>30 Menit</span>
-                            <p class="price">Rp 150.000</p>
-                            <p>Konsultasi singkat untuk pertanyaan hukum yang spesifik dan langsung ke inti permasalahan.</p>
-                            <ul class="feature-list">
-                                <li><i class="fas fa-check"></i> Analisis kasus awal</li>
-                                <li><i class="fas fa-check"></i> Saran hukum dasar</li>
-                                <li><i class="fas fa-check"></i> Rekomendasi langkah selanjutnya</li>
-                                <li class="disabled"><i class="fas fa-times"></i> Review dokumen</li>
-                                <li class="disabled"><i class="fas fa-times"></i> Konsultasi lanjutan</li>
-                            </ul>
-                            <button class="btn btn-consult">Pilih Paket Ini</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Card 2 -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card card-consultation fade-in delay-1">
-                        <div class="card-header">
-                            <span class="popular-badge">Paling Populer</span>
-                            <h3>Konsultasi Standar</h3>
-                        </div>
-                        <div class="card-body">
-                            <span class="duration-badge"><i class="far fa-clock"></i>60 Menit</span>
-                            <p class="price">Rp 250.000</p>
-                            <p>Konsultasi komprehensif untuk analisis mendalam dan solusi terstruktur.</p>
-                            <ul class="feature-list">
-                                <li><i class="fas fa-check"></i> Analisis mendalam kasus</li>
-                                <li><i class="fas fa-check"></i> Strategi penyelesaian</li>
-                                <li><i class="fas fa-check"></i> Review dokumen (maks. 5 halaman)</li>
-                                <li><i class="fas fa-check"></i> Rekomendasi ahli jika diperlukan</li>
-                                <li class="disabled"><i class="fas fa-times"></i> Konsultasi lanjutan</li>
-                            </ul>
-                            <button class="btn btn-consult">Pilih Paket Ini</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Card 3 -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card card-consultation fade-in delay-2">
-                        <div class="card-header">
-                            <h3>Konsultasi Premium</h3>
-                        </div>
-                        <div class="card-body">
-                            <span class="duration-badge"><i class="far fa-clock"></i>120 Menit</span>
-                            <p class="price">Rp 450.000</p>
-                            <p>Konsultasi mendalam dengan analisis komprehensif dan rencana tindakan detail.</p>
-                            <ul class="feature-list">
-                                <li><i class="fas fa-check"></i> Analisis komprehensif</li>
-                                <li><i class="fas fa-check"></i> Strategi penyelesaian terperinci</li>
-                                <li><i class="fas fa-check"></i> Review dokumen lengkap</li>
-                                <li><i class="fas fa-check"></i> Konsultasi lanjutan 1x (30 menit)</li>
-                                <li><i class="fas fa-check"></i> Akses ke template dokumen hukum</li>
-                            </ul>
-                            <button class="btn btn-consult">Pilih Paket Ini</button>
+
+            <div class="row justify-content-center g-4">
+                @forelse($layanan as $index => $item)
+                    @php
+                        $detail = $item->detail->first();
+                    @endphp
+
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="card card-consultation h-100 fade-in {{ $index == 1 ? 'delay-1' : ($index == 2 ? 'delay-2' : '') }}">
+                            <div class="card-header text-center">
+                                <h3 class="mb-0">{{ $item->judul }}</h3>
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                @if($detail)
+                                    <div class="text-center mb-3">
+                                        <span class="duration-badge">
+                                            <i class="far fa-clock me-1"></i>{{ $item->detail->waktu_menit }} Menit
+                                        </span>
+                                    </div>
+                                @endif
+
+                                <div class="text-center mb-3">
+                                    <p class="price mb-0">Rp {{ number_format($item->harga, 0, ',', '.') }}</p>
+                                </div>
+
+                                <p class="text-muted text-center mb-4">
+                                    {{ strtolower($item->detail->deskripsi) }}
+                                </p>
+
+                                @if($detail && is_array($detail->benefit))
+                                    <ul class="feature-list flex-grow-1 mb-4">
+                                        @foreach($detail->benefit as $benefit)
+                                            @php
+                                                $isPositive = Str::startsWith(trim($benefit), '-');
+                                                $text = ltrim(trim($benefit), '+- ');
+                                            @endphp
+
+                                            <li>
+                                                @if($isPositive)
+                                                    <i class="fas fa-times text-danger me-2"></i>{{ $text }}
+                                                @else
+                                                    <i class="fas fa-check text-success me-2"></i>{{ $text }}
+                                                @endif
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <ul class="feature-list flex-grow-1 mb-4">
+                                        <li class="text-muted"><i class="fas fa-times me-2"></i>Belum ada benefit</li>
+                                    </ul>
+                                @endif
+
+                                <div class="mt-auto">
+                                    <button type="button" 
+                                        class="btn btn-consult w-100"
+                                        onclick="addToCart({{ $item->id }}, 'ItemKonsultasi')">
+                                        <span>Pilih Paket Ini</span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @empty
+                    <div class="col-12">
+                        <div class="text-center py-5">
+                            <p class="text-muted mb-0">Belum ada layanan konsultasi tersedia saat ini.</p>
+                        </div>
+                    </div>
+                @endforelse
             </div>
+
         </div>
     </section>
 
@@ -822,58 +812,37 @@
 </div>
 @endsection
 
-@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Animasi scroll untuk elemen
-        const fadeElements = document.querySelectorAll('.fade-in');
-        
-        const fadeInOnScroll = function() {
-            fadeElements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
-                
-                if (elementTop < window.innerHeight - elementVisible) {
-                    element.style.opacity = 1;
-                    element.style.transform = 'translateY(0)';
-                }
+function addToCart(id, type) {
+    fetch("{{ route('cart.add', [], false) }}", {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id, type: type }),
+    })
+    .then(response => response.json())
+            .then(data => {
+            if (data.status === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: data.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: data.message
+                        });
+                    }
+                })
+        .catch((error) => {
+                console.error('Error:', error);
             });
-        };
-        
-        // Set initial state
-        fadeElements.forEach(element => {
-            element.style.opacity = 0;
-            element.style.transform = 'translateY(20px)';
-            element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-        });
-        
-        // Check on load
-        fadeInOnScroll();
-        
-        // Check on scroll
-        window.addEventListener('scroll', fadeInOnScroll);
-        
-        // Button click handlers
-        const consultButtons = document.querySelectorAll('.btn-consult');
-        consultButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const card = this.closest('.card-consultation');
-                const packageName = card.querySelector('.card-header h3').textContent;
-                const duration = card.querySelector('.duration-badge').textContent;
-                const price = card.querySelector('.price').textContent;
-                
-                alert(`Anda memilih: ${packageName}\n${duration}\n${price}\n\nAnda akan diarahkan ke halaman pemesanan.`);
-                // Di sini biasanya akan diarahkan ke halaman checkout/pemesanan
-            });
-        });
-        
-        const ctaButton = document.querySelector('.btn-cta');
-        ctaButton.addEventListener('click', function() {
-            // Scroll to consultation cards
-            document.querySelector('.consultation-cards').scrollIntoView({ 
-                behavior: 'smooth' 
-            });
-        });
-    });
+    }
 </script>
-@endsection

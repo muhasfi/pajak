@@ -40,7 +40,17 @@
                 </div>
                 <div class="sidebar-menu">
                     <ul class="menu">
-                        <li class="sidebar-title">Menu</li>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <span class="sidebar-title mb-0">Menu</span>
+
+                            <form method="POST" action="{{ route('admin.logout') }}" class="d-inline m-0">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                    <i class="bi bi-box-arrow-right"></i> Logout
+                                </button>
+                            </form>
+                        </div>
+
                         
                         <li class="sidebar-item {{ request()->routeIs('admin.index') ? 'active' : '' }}">
                             <a href="{{ route('admin.index') }}" class='sidebar-link'>
@@ -48,75 +58,47 @@
                                 <span>Dashboard</span>
                             </a>
                         </li>
-                        
-                       {{-- <li class="sidebar-item has-sub {{ request()->routeIs('book.*') || request()->routeIs('artikel.*') ? 'active' : '' }}"> --}}
-                       {{-- <li class="sidebar-item has-sub {{ request()->routeIs('book.*') ? 'active' : '' }}">
-                            <a href="#" class="sidebar-link">
-                                <i class="bi bi-card-list"></i>
-                                <span>Daftar Menu</span>
-                            </a>
-                            <ul class="submenu">
-                                <li class="submenu-item {{ request()->routeIs('admin.book.*') ? 'active' : '' }}">
-                                    <a href="{{ route('admin.book.index') }}">
-                                        <i class="bi bi-book-fill"></i>
-                                        <span>Book</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li> --}}
-
-                        <li class="sidebar-item {{ request()->routeIs('admin.book.*') ? 'active' : '' }}">
-                            <a href="{{ route('admin.book.index') }}" class='sidebar-link'>
-                                <i class="bi bi-book-fill"></i>
-                                <span>Book</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item {{ request()->routeIs('admin.bimbel.*') ? 'active' : '' }}">
-                            <a href="{{ route('admin.bimbel.index') }}" class='sidebar-link'>
-                                <i class="bi bi-journal-bookmark-fill"></i>
-                                <span>Bimbel</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item {{ request()->routeIs('admin.artikel.*') ? 'active' : '' }}">
-                            <a href="{{ route('admin.artikel.index') }}" class='sidebar-link'>
-                                <i class="bi bi-file-text-fill"></i>
-                                <span>Artikel</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item {{ request()->routeIs('admin.paper.*') ? 'active' : '' }}">
-                            <a href="{{ route('admin.paper.index') }}" class='sidebar-link'>
-                                <i class="bi bi-file-text-fill"></i>
-                                <span>Kertas Kerja</span>
-                            </a>
-                        </li>
-
-                        {{-- <li class="sidebar-item has-sub {{ request()->routeIs('admin.artikel.*') ? 'active' : '' }}">
-                            <a href="#" class="sidebar-link">
-                                <i class="bi bi-file-text-fill"></i>
-                                <span>Kertas Kerja</span>
-                            </a>
-                            <ul class="submenu {{ request()->routeIs('admin.artikel.*') ? 'active' : '' }}">
-                                <li class="submenu-item {{ request()->routeIs('admin.artikel.index') ? 'active' : '' }}">
-                                    <a href="{{ route('admin.artikel.index') }}">PPh21</a>
-                                </li>
-                                <li class="submenu-item {{ request()->routeIs('admin.artike.indexl') ? 'active' : '' }}">
-                                    <a href="{{ route('admin.artikel.index') }}">PPN</a>
-                                </li>
-                                <li class="submenu-item {{ request()->routeIs('admin.artikel.index') ? 'active' : '' }}">
-                                    <a href="{{ route('admin.artikel.index') }}">SPT Tahunan</a>
-                                </li>
-                                <li class="submenu-item {{ request()->routeIs('admin.artikel.index') ? 'active' : '' }}">
-                                    <a href="{{ route('admin.artikel.index') }}">SPT Masa Unifikasi</a>
-                                </li>
-                            </ul>
-                        </li> --}}
 
                         <li class="sidebar-item has-sub">
                             <a href="#" class="sidebar-link">
-                                <i class="bi bi-mortarboard-fill"></i> <!-- Ikon pelatihan/edukasi -->
+                                <i class="bi bi-collection-fill"></i> <!-- ikon untuk grup konten/publikasi -->
+                                <span>Materi & Publikasi</span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="sidebar-item {{ request()->routeIs('admin.book.*') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.book.index') }}" class="sidebar-link">
+                                        <i class="bi bi-book-half"></i> <!-- ikon buku -->
+                                        <span>Book</span>
+                                    </a>
+                                </li>
+
+                                <li class="sidebar-item {{ request()->routeIs('admin.bimbel.*') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.bimbel.index') }}" class="sidebar-link">
+                                        <i class="bi bi-journal-bookmark-fill"></i> <!-- ikon bimbel -->
+                                        <span>Bimbel</span>
+                                    </a>
+                                </li>
+
+                                <li class="sidebar-item {{ request()->routeIs('admin.artikel.*') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.artikel.index') }}" class="sidebar-link">
+                                        <i class="bi bi-file-earmark-text-fill"></i> <!-- ikon artikel -->
+                                        <span>Artikel</span>
+                                    </a>
+                                </li>
+
+                                <li class="sidebar-item {{ request()->routeIs('admin.paper.*') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.paper.index') }}" class="sidebar-link">
+                                        <i class="bi bi-file-earmark-ruled-fill"></i> <!-- ikon kertas kerja -->
+                                        <span>Kertas Kerja</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li class="sidebar-item has-sub">
+                            <a href="#" class="sidebar-link">
+                                <i class="bi bi-easel-fill"></i>
                                 <span>Pelatihan dan Workshop</span>
                             </a>
                             <ul class="submenu">
@@ -157,7 +139,7 @@
 
                         <li class="sidebar-item has-sub">
                             <a href="/admin/layanan-pt" class="sidebar-link">
-                                <i class="bi bi-mortarboard-fill"></i> <!-- Ikon pelatihan/edukasi -->
+                                <i class="bi bi-briefcase-fill"></i>
                                 <span>Layanan</span>
                             </a>
                             <ul class="submenu">
@@ -200,6 +182,27 @@
                             </ul>
                         </li>
 
+                        <li class="sidebar-item has-sub">
+                            <a href="#" class="sidebar-link">
+                                <i class="bi bi-chat-dots-fill"></i>
+                                <span>Konsultasi</span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="sidebar-item {{ request()->routeIs('admin.konsultasi.*') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.konsultasi.index') }}" class='sidebar-link'>
+                                        <i class="bi bi-journal-medical"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>Konsultasi Private</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.users.index') }}" class='sidebar-link'>
+                                <i class="bi bi-person"></i>
+                                <span>Users</span>
+                            </a>
+                        </li>
 
                     </ul>
                 </div>

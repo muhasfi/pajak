@@ -38,7 +38,6 @@
                             <th>Nama Item</th>
                             <th>Deskripsi</th>
                             <th>Harga</th>
-                            <th>Kategori</th>
                             <th>Status</th>
                             <th colspan="2">Aksi</th>
                         </tr>
@@ -61,16 +60,15 @@
                             <td>{{ Str::limit($item->description,15) }}</td>
                             <td>{{ 'Rp'. number_format($item->price, 0, ',','.') }}</td>
                             <td>
-                                {{-- <span class="badge {{ $item->category->cat_name == 'Artikel' ? 'bg-warning' : 'bg-info' }}">
-                                    {{ $item->category->cat_name }}
-                                </span> --}}
-                            </td>
-                            <td>
                                 <span class="badge {{ $item->is_active == 1 ? 'bg-success' : 'bg-danger' }}">
                                     {{ $item->is_active == 1 ? 'Aktif' : 'Tidak Aktif' }}
                                 </span>
                             </td>
                             <td>
+                                <a href="{{ route('admin.book.show', $item->id) }}" 
+                                   class="btn btn-sm btn-info">
+                                    <i class="bi bi-eye"></i> Lihat
+                                </a>
                                 <a href="{{ route('admin.book.edit', $item->id) }}" class="btn btn-warning btn-sm">
                                     <i class="bi bi-pencil"></i> Ubah
                                 </a>
@@ -81,7 +79,6 @@
                                         <i class="bi bi-trash"></i> Hapus
                                     </button>
                                 </form>
-
                             </td>
                         </tr>
 

@@ -25,7 +25,7 @@
         @endif
 
         <!-- Form Tambah Layanan -->
-        <form class="form" action="{{ route('admin.layanan-pt.store') }}" method="POST">
+        <form class="form" action="{{ route('admin.layanan-pt.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-body">
                 <div class="row">
@@ -76,6 +76,20 @@
                             @error('paket')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
+                        </div>
+
+                        <!-- File Upload -->
+                        <div class="mb-3">
+                            <label class="form-label">Sumber File</label>
+                            <div class="input-group">
+                                <select name="file_type" class="form-select" style="max-width: 150px;" onchange="toggleFileInput(this)">
+                                    <option value="upload">Upload</option>
+                                    <option value="link">Link</option>
+                                </select>
+
+                                <input type="file" name="file_upload" class="form-control" accept=".pdf,.doc,.docx">
+                                <input type="text" name="file_link" class="form-control d-none" placeholder="https://drive.google.com/...">
+                            </div>
                         </div>
 
                         <!-- Benefit -->
@@ -144,6 +158,19 @@
 
 @section('script')
 <script>
+function toggleFileInput(select) {
+    let fileInput = select.closest('.input-group').querySelector('[name="file_upload"]');
+    let linkInput = select.closest('.input-group').querySelector('[name="file_link"]');
+    
+    if (select.value === 'upload') {
+        fileInput.classList.remove('d-none');
+        linkInput.classList.add('d-none');
+    } else {
+        fileInput.classList.add('d-none');
+        linkInput.classList.remove('d-none');
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const benefitContainer = document.getElementById('benefit-container');
     const addBenefitBtn = document.getElementById('add-benefit');

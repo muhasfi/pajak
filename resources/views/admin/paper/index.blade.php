@@ -31,21 +31,23 @@
                     </div>
                 @endif
                 <form method="GET" action="{{ route('admin.paper.index') }}" class="mb-3 row g-2 align-items-end">
-    <div class="col-auto">
-        <label for="category_id" class="form-label">Filter Kategori</label>
-        <select name="category_id" class="form-select">
-            <option value="">-- Semua Kategori --</option>
-            @foreach($categories as $cat)
-                <option value="{{ $cat->id }}" {{ request('category_id') == $cat->id ? 'selected' : '' }}>
-                    {{ $cat->name }}
-                </option>
-            @endforeach
-        </select>
-    </div>
-    <div class="col-auto">
-        <button type="submit" class="btn btn-primary mb-3">Filter</button>
-    </div>
-</form>
+                    <div class="col-auto">
+                        <label for="category_id" class="form-label">Filter Kategori</label>
+                        <select name="category_id" id="category_id" class="form-select">
+                            <option value="">-- Semua Kategori --</option>
+                            @foreach($categories as $cat)
+                                <option value="{{ $cat->id }}" {{ request('category_id') == $cat->id ? 'selected' : '' }}>
+                                    {{ $cat->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-auto d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                    </div>
+                </form>
+
 
                 <table class="table table-striped" id="table1">
                     <thead>

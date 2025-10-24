@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -29,6 +30,9 @@ class HomeController extends Controller
             ->whereDate('created_at', today())
             ->count();
 
+        // === Jumlah User ===
+        $totalUsers = User::count(); // atau filter sesuai kebutuhan
+
         // === Penjualan Per Bulan (Tahun Berjalan) ===
         $monthlySales = Order::selectRaw('MONTH(created_at) as month, SUM(grand_total) as total')
             ->where('status', 'success')
@@ -37,6 +41,19 @@ class HomeController extends Controller
             ->orderBy('month')
             ->pluck('total', 'month')
             ->toArray();
+
+        $userMonthly = User::selectRaw('MONTH(created_at) as month, COUNT(*) as total')
+            ->whereYear('created_at', Carbon::now()->year)
+            ->groupBy('month')
+            ->orderBy('month')
+            ->pluck('total', 'month')
+            ->toArray();
+
+        // Biar lengkap 12 bulan (kalau belum ada user di bulan itu, isi 0)
+        $userMonths = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $userMonths[$i] = $userMonthly[$i] ?? 0;
+        }
 
         // Biar data selalu 12 bulan (kalau ada bulan kosong tetap 0)
         $months = [];
@@ -59,9 +76,12 @@ class HomeController extends Controller
             'todayOrders',
             'today',
             'months',
-            'yearlySales'
+            'yearlySales',
+            'totalUsers', // ← tambahkan ini
+            'userMonths'
         ));
     }
+
 
 
     public function profile()

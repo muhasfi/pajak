@@ -4,40 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ItemBimbel extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
-    protected $table = 'item_bimbels'; // nama tabel
+    protected $table = 'item_bimbels';
 
     protected $fillable = [
         'judul',
-        'deskripsi',
         'harga',
-        'is_active',
+        'deskripsi',
+        'gambar',
+        'status',
     ];
 
-    /**
-     * Relasi ke detail (One to Many)
-     */
+    // Relasi ke detail
     public function details()
     {
-        return $this->hasMany(ItemBimbelDetail::class, 'item_bimbel_id', 'id');
+        return $this->hasMany(ItemBimbelDetail::class, 'id_item_bimbels');
     }
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($item) {
-            $item->details()->delete();
-        });
-    }
-
-    // public function orderItems()
-    // {
-    //     return $this->morphMany(OrderItem::class, 'product');
-    // }
 }

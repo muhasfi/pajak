@@ -64,6 +64,10 @@
                         <th>Instruktur</th>
                         <td>{{ $brevetab->detail->instruktur ?? '-' }}</td>
                     </tr>
+                    <tr>
+                        <th>Link</th>
+                        <td>{{ $brevetab->detail->file_path ?? '-' }}</td>
+                    </tr>
                 </table>
             </div>
         </div>

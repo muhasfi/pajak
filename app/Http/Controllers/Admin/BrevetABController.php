@@ -39,8 +39,20 @@ class BrevetABController extends Controller
             'kuota_peserta' => 'required|integer|min:1',
             'level' => 'required|in:Beginner,Intermediate,Advanced',
             'syarat_peserta' => 'nullable|string',
-            'materi_pelatihan' => 'nullable|string'
+            'materi_pelatihan' => 'nullable|string',
+            'file_option' => 'required|in:upload,link',
+            'file_upload' => 'required_if:file_option,upload|file|mimes:pdf,doc,docx|max:5120',
+            'file_link'   => 'required_if:file_option,link|url|max:255',
         ]);
+
+        if ($request->file_option === 'upload') {
+            // Simpan file ke storage/public/uploads
+            $path = $request->file('file_upload')->store('brevetab_files', 'public');
+        } else {
+            // Simpan langsung link yang dimasukkan user
+            $path = $request->file_link;
+        }
+
 
         // Upload gambar
         $gambarPath = null;
@@ -71,6 +83,7 @@ class BrevetABController extends Controller
             'level' => $request->level,
             'syarat_peserta' => $request->syarat_peserta,
             'materi_pelatihan' => $request->materi_pelatihan,
+            'file_path' => $path,
         ]);
 
         return redirect()->route('admin.brevetab.index')->with('success', 'Data brevet AB berhasil ditambahkan.');
@@ -108,8 +121,23 @@ public function update(Request $request, ItemBrevetAB $brevetab)
         'kuota_peserta' => 'required|integer|min:1',
         'level' => 'required|in:Beginner,Intermediate,Advanced',
         'syarat_peserta' => 'nullable|string',
-        'materi_pelatihan' => 'nullable|string'
+        'materi_pelatihan' => 'nullable|string',
+        'file_option' => 'required|in:upload,link',
+        'file_upload' => 'required_if:file_option,upload|file|mimes:pdf,doc,docx|max:5120',
+        'file_link'   => 'required_if:file_option,link|url|max:255',
     ]);
+
+    $Path = null;
+    if ($request->file_option === 'upload' && $request->hasFile('file_upload')) {
+        // Hapus file lama jika ada
+        if ($brevetab->detail && $brevetab->detail->file_path) {
+            Storage::disk('public')->delete($brevetab->detail->file_path);
+        }
+        $Path = $request->file('file_upload')->store('brevetab_files', 'public');
+    } elseif ($request->file_option === 'link') {
+        $Path = $request->file_link;
+    }
+    
 
     // Handle hapus gambar
     if ($request->has('hapus_gambar')) {
@@ -151,6 +179,7 @@ public function update(Request $request, ItemBrevetAB $brevetab)
         'level' => $request->level,
         'syarat_peserta' => $request->syarat_peserta,
         'materi_pelatihan' => $request->materi_pelatihan,
+        'file_path' => $Path,
     ]);
 
     return redirect()->route('admin.brevetab.index')->with('success', 'Data brevet AB berhasil diperbarui.');

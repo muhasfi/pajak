@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ItemAccountingServiceController;
 use App\Http\Controllers\Admin\ItemAuditController;
 use App\Http\Controllers\Admin\ItemBimbelController;
 use App\Http\Controllers\Admin\ItemBookController;
+use App\Http\Controllers\Admin\ItemKonsultasiController;
 use App\Http\Controllers\Admin\ItemLayananPtController;
 use App\Http\Controllers\Admin\ItemLitigasiController;
 use App\Http\Controllers\Admin\ItemPajakController;
@@ -14,6 +15,8 @@ use App\Http\Controllers\Admin\ItemPaperController;
 use App\Http\Controllers\Admin\ItemSeminarController;
 use App\Http\Controllers\Admin\ItemTrainingController;
 use App\Http\Controllers\Admin\ItemTransferController;
+use App\Http\Controllers\Admin\ItemWebinarController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\WebinarController;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
@@ -56,6 +59,7 @@ Route::prefix('admin-xtz2025')->group(static function () {
         // General routes
         Route::get('profile', [\App\Http\Controllers\Admin\HomeController::class, 'profile'])->middleware('password.confirm.admin')->name('admin.profile');
         Route::get('/', [\App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.index');
+        Route::resource('users', UserController::class)->names('admin.users');
         
         Route::resource('/book', ItemBookController::class)->names('admin.book');
         Route::resource('/bimbel', ItemBimbelController::class)->names('admin.bimbel');
@@ -63,8 +67,8 @@ Route::prefix('admin-xtz2025')->group(static function () {
         Route::resource('/paper', ItemPaperController::class)->names('admin.paper');
         Route::post('/artikel/upload', [ArtikelController::class, 'upload'])->name('ckeditor.upload');
         Route::resource('brevetab', BrevetABController::class)->names('admin.brevetab');
-        Route::resource('brevet-c', BrevetCController::class)->names('admin.brevetc');
-        Route::resource('webinars', WebinarController::class)->names('admin.webinar');
+        Route::resource('brevetc', BrevetCController::class)->names('admin.brevetc');
+        Route::resource('webinars', ItemWebinarController::class)->names('admin.webinar');
         Route::resource('item-seminar', ItemSeminarController::class)->names('admin.seminar');
         Route::resource('trainings', ItemTrainingController::class)->names('admin.training');
         Route::resource('layanan-pt', ItemLayananPtController::class)->names('admin.layanan-pt');
@@ -73,6 +77,7 @@ Route::prefix('admin-xtz2025')->group(static function () {
         Route::resource('litigasi', ItemLitigasiController::class)->names('admin.litigasi');
         Route::resource('audits', ItemAuditController::class)->names('admin.audit');
         Route::resource('transfers', ItemTransferController::class)->names('admin.transfer');
+        Route::resource('layanan-privasi', ItemKonsultasiController::class)->names('admin.konsultasi');
 
         // Route::get('/book', [\App\Http\Controllers\Admin\ItemBookController::class, 'index'])->name('book.index');
     });

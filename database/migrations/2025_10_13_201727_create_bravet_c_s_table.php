@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('item_brevetc', function (Blueprint $table) {
-            $table->id();
+        Schema::create('item_brevetcs', function (Blueprint $table) {
+             $table->id();
             $table->string('gambar')->nullable();
             $table->string('judul', 255);
             $table->text('deskripsi');
             $table->string('hari', 100);
-            $table->string('lokasi', 255);
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
-            $table->time('waktu_pelaksanaan');
             $table->decimal('harga', 15, 2)->default(0);
             $table->timestamps();
         });

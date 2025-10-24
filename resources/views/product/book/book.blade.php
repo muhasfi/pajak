@@ -26,6 +26,7 @@
         </div>
     </section>
 
+<<<<<<< HEAD
     <!-- Catalog Section -->
     <section class="section">
         <div class="container">
@@ -40,6 +41,23 @@
                     <a href="{{ route('cart') }}" class="position-relative me-4 my-auto">
                         <i class="fa fa-shopping-bag fa-2x" style="color:#2563eb; opacity:1;"></i>
                     </a>
+=======
+<!-- Catalog Section -->
+<section class="section">
+    <div class="container">
+        <!-- Products Grid -->
+        <div class="catalog-grid">
+            @forelse ($items as $item)
+            <div class="product-card animate-fade-in">
+                <div class="product-image">
+                    <img src="{{ Str::startsWith($item->img, ['http://', 'https://']) 
+                                            ? $item->img 
+                                            : asset('storage/' . $item->img) }}"
+                                    width="60"
+                                    class="img-fluid rounded-top"
+                                    alt="Gambar {{ $item->name }}"
+                                    onerror="this.onerror=null;this.src='{{ asset('images/default.png') }}';">  
+>>>>>>> d02faebeab8747a5de3202ff73c4b998d7308c51
                 </div>
             </div>
 

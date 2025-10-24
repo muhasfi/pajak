@@ -853,13 +853,22 @@
                     </a>
                 @endguest
                 @auth
+<<<<<<< HEAD
                     <a href="#" class="nav-link">
                         <i class="fas fa-user-circle"></i> Profil 
+=======
+                    <a class="nav-link">
+                        <i class="fas fa-user-circle"></i> Profile 
+>>>>>>> d02faebeab8747a5de3202ff73c4b998d7308c51
                         <i class="fas fa-chevron-down dropdown-chevron"></i>
                     </a>
                     <div class="dropdown">
                         <div class="dropdown-grid">
+<<<<<<< HEAD
                             <a href="/profil-saya" class="dropdown-item">
+=======
+                            <a href="{{ route('profile.index') }}" class="dropdown-item">
+>>>>>>> d02faebeab8747a5de3202ff73c4b998d7308c51
                                 <i class="fas fa-id-badge"></i> Profil Saya
                             </a>
                             <a href="/cart" class="dropdown-item">

@@ -9,7 +9,7 @@ class ItemAccountingService extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['judul', 'harga'];
+    protected $fillable = ['judul', 'harga','gambar'];
 
     public function details()
     {

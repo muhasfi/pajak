@@ -9,7 +9,7 @@ class ItemAccountingServiceDetail extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['accounting_service_id', 'deskripsi', 'benefit'];
+    protected $fillable = ['accounting_service_id', 'deskripsi', 'benefit', 'file_path'];
 
     protected $casts = [
         'benefit' => 'array'

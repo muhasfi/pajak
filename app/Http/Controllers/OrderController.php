@@ -17,40 +17,44 @@ class OrderController extends Controller
 
     public function cart()
     {
+        if (!session()->has('previous_url')) {
+        session(['previous_url' => url()->previous()]);
+    }
+    
         $cart = Session::get('cart');
-        return view('product.book.cart', compact('cart'));
+        return view('product.checkout.cart', compact('cart'));
     }
     public function addToCart(Request $request)
     {
         $productType = $request->input('type');
         $productId   = $request->input('id');
 
-        if ($productType === 'ItemBimbel' && !auth()->check()) {
-        return response()->json(['status' => 'error', 'message' => 'Silakan login untuk membeli bimbel']);
-        }
+        // if ($productType === 'ItemBimbel' && !auth()->check()) {
+        // return response()->json(['status' => 'error', 'message' => 'Silakan login untuk membeli bimbel']);
+        // }
 
-        if ($productType === 'ItemBimbel' && auth()->check()) {
-            $existing = OrderItem::where('product_id', $productId)
-                ->where('product_type', 'bimbel')
-                ->whereHas('order', function($q) {
-                    $q->where('user_id', auth()->id())
-                    ->where('status', 'success');
-                })
-                ->where('start_date', '<=', now())
-                ->where('end_date', '>=', now())
-                ->first();
+        // if ($productType === 'ItemBimbel' && auth()->check()) {
+        //     $existing = OrderItem::where('product_id', $productId)
+        //         ->where('product_type', 'bimbel')
+        //         ->whereHas('order', function($q) {
+        //             $q->where('user_id', auth()->id())
+        //             ->where('status', 'success');
+        //         })
+        //         ->where('start_date', '<=', now())
+        //         ->where('end_date', '>=', now())
+        //         ->first();
 
-            if ($existing) {
-                $now = now();
-                if ($existing->start_date <= $now && $existing->end_date >= $now) {
-                    return response()->json([
-                        'status'  => 'redirect',
-                        'url'     => route('bimbel.show', $existing->id),
-                        'message' => 'Kamu sudah membeli bimbel ini, langsung diarahkan ke halaman bimbel.'
-                    ]);
-                }
-            }
-        }
+        //     if ($existing) {
+        //         $now = now();
+        //         if ($existing->start_date <= $now && $existing->end_date >= $now) {
+        //             return response()->json([
+        //                 'status'  => 'redirect',
+        //                 'url'     => route('bimbel.show', $existing->id),
+        //                 'message' => 'Kamu sudah membeli bimbel ini, langsung diarahkan ke halaman bimbel.'
+        //             ]);
+        //         }
+        //     }
+        // }
 
 
         $modelClass = "\\App\\Models\\{$productType}";
@@ -79,13 +83,24 @@ class OrderController extends Controller
             'ItemWebinar'   => 'webinar',
             'ItemSeminar'   => 'seminar',
             'ItemTraining'  => 'training',
+            'ItemAccountingService' => 'accountingservice',
+            'ItemLayananPt' => 'itemlayananpt',
+            'ItemPajak'     => 'itempajak',
+            'ItemLitigasi'  => 'itemlitagasi',
+            'ItemAudit'     => 'itemaudit',
+            'ItemTransfer'  => 'itemtransfer',
+            'ItemKonsultasi'  => 'itemkonsultasi',
             default         => strtolower($productType), // fallback
         };
 
         $cart[$key] = [
             'id'    => $productId,
             'type'  => $morphType,
-            'image' => $product->img ?? $product->gambar ?? 'default.jpg', 
+            'image' => $product->img ? 'storage/' . ltrim($product->img, '/')
+            : ($product->gambar
+                ? 'storage/' . ltrim($product->gambar, '/')
+                : 'No_image_available.webp'),
+ 
             'name'  => $product->name ?? $product->judul, // Book pakai "name", Bimbel pakai "judul"
             'price' => $product->price ?? $product->harga,
             // 'paper_type' => $morphType === 'paper' ? strtolower(optional($product->categoryPaper)->name) : null,
@@ -115,15 +130,22 @@ class OrderController extends Controller
         
         // Konversi morph type ke model class untuk key
         $productType = match ($morphType) {
-            'item'      => 'Item',
-            'bimbel'    => 'ItemBimbel',
-            'paper'     => 'ItemPaper',
-            'brevetab'  => 'ItemBrevetAB',
-            'brevetc'   => 'ItemBrevetC',
-            'webinar'   => 'ItemWebinar',
-            'seminar'   => 'ItemSeminar',
-            'training'  => 'ItemTraining',
-            default     => ucfirst($morphType),
+            'item'       => 'Item',
+            'bimbel'     => 'ItemBimbel',
+            'paper'      => 'ItemPaper',
+            'brevetab'   => 'ItemBrevetAB',
+            'brevetc'    => 'ItemBrevetC',
+            'webinar'    => 'ItemWebinar',
+            'seminar'    => 'ItemSeminar',
+            'training'   => 'ItemTraining',
+            'accountingservice' => 'ItemAccountingService',
+            'itemlayananpt' => 'ItemLayananPt',
+            'itempajak'     => 'ItemPajak',
+            'itemlitagasi'  => 'ItemLitigasi',
+            'itemaudit'     => 'ItemAudit',
+            'itemtransfer'  => 'ItemTransfer',
+            'itemkonsultasi'  => 'ItemKonsultasi',
+            default         => ucfirst($morphType),
         };
         
         $key = $productType . '-' . $productId;
@@ -161,7 +183,7 @@ class OrderController extends Controller
             return redirect()->route('cart')->with('error', 'Keranjang masih kosong');
         }
 
-        return view('product.book.checkout', compact('cart'));
+        return view('product.checkout.checkout', compact('cart'));
     }
 
     private function generateOrderCode()
@@ -317,7 +339,7 @@ class OrderController extends Controller
                     'email'      => $order->email,
                 ],
                 'callbacks' => [
-                    'finish' => route('product.book.success', $order->order_code),
+                    'finish' => route('product.checkout.success', $order->order_code),
                 ],
             ];
 
@@ -329,7 +351,7 @@ class OrderController extends Controller
         return redirect()->route('checkout.success', $order->order_code);
     }
 
-        return view('product.book.order_pay', compact('order'));
+        return view('product.checkout.order_pay', compact('order'));
     }
 
     public function checkoutSuccess($orderId)
@@ -341,7 +363,7 @@ class OrderController extends Controller
         }
         $orderItems = OrderItem::where('order_id', $order->id)->get();
         
-        return view('product.book.success', compact('order', 'orderItems'));
+        return view('product.checkout.success', compact('order', 'orderItems'));
     }
 
     public function handleNotification()
