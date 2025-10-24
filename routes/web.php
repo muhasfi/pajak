@@ -91,12 +91,15 @@ require __DIR__.'/auth.php';
 // Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('profile', [\App\Http\Controllers\SiteController::class, 'profile'])
+        // Route::get('profile', [\App\Http\Controllers\SiteController::class, 'profile'])
+        //     ->middleware('password.confirm')
+        //     ->name('profile');
+    Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'index'])
         ->middleware('password.confirm')
         ->name('profile');
 
-    Route::get('/bimbel/my-courses', [BimbelController::class, 'list'])->name('bimbel.courses.list');
-    Route::get('/bimbel/{id}', [BimbelController::class, 'show'])->name('bimbel.show');
+    // Route::get('/bimbel/my-courses', [BimbelController::class, 'list'])->name('bimbel.courses.list');
+    // Route::get('/bimbel/{id}', [BimbelController::class, 'show'])->name('bimbel.show');
        
     Route::get('/transactions', [SiteController::class, 'transaction'])->name('transactions.transaction');
     Route::get('/transactions/{id}', [SiteController::class, 'show'])->name('transactions.show');

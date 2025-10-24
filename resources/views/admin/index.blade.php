@@ -56,12 +56,12 @@
 <div class="page-heading mb-4">
     <div class="d-flex justify-content-between align-items-center">
         <h3 class="mb-0">Selamat Datang, Admin! 👋</h3>
-        <form method="POST" action="{{ route('admin.logout') }}" class="d-inline">
+        {{-- <form method="POST" action="{{ route('admin.logout') }}" class="d-inline">
             @csrf
             <button type="submit" class="btn btn-outline-danger btn-sm">
                 <i class="bi bi-box-arrow-right"></i> Logout
             </button>
-        </form>
+        </form> --}}
     </div>
 </div>
 
@@ -143,7 +143,6 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex align-items-center">
-                                <i class="bi bi-graph-up text-primary me-2" style="font-size: 1.5rem;"></i>
                                 <h4>Grafik Penjualan Bulanan ({{ date('Y') }})</h4>
                             </div>
                         </div>
@@ -158,7 +157,6 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex align-items-center">
-                                <i class="bi bi-calendar-check text-success me-2" style="font-size: 1.5rem;"></i>
                                 <h4>Penjualan per Tahun</h4>
                             </div>
                         </div>
@@ -176,7 +174,6 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex align-items-center">
-                                <i class="bi bi-box-seam text-warning me-2" style="font-size: 1.5rem;"></i>
                                 <h4>Total Barang Terjual per Bulan ({{ date('Y') }})</h4>
                             </div>
                         </div>
@@ -191,7 +188,6 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex align-items-center">
-                                <i class="bi bi-pie-chart text-info me-2" style="font-size: 1.5rem;"></i>
                                 <h4>Perbandingan Penjualan vs Barang</h4>
                             </div>
                         </div>

@@ -11,7 +11,8 @@ class ItemLayananPt extends Model
     use HasFactory;
 
     protected $fillable = ['judul', 'harga'];
-    protected $table = 'item_layanan_pts'; // Now it won't look for 'layanan_pts'
+    protected $table = 'item_layanan_pts';
+     // Now it won't look for 'layanan_pts'
     public function detail(): HasOne
     {
         return $this->hasOne(ItemLayananPtDetail::class, 'layanan_id');

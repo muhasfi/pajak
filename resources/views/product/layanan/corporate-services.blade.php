@@ -111,59 +111,38 @@
                             <h3>{{ $layanan->detail->paket }}</h3>
                             <div class="package-price">
                                 <span class="price">{{ 'Rp ' . number_format($layanan->harga, 0, ',', '.') }}</span>
-                                <span class="note">*termasuk biaya notaris</span>
+                                {{-- <span class="note">*termasuk biaya notaris</span> --}}
                             </div>
                         </div>
+                        <p class="text-muted text-center mb-4">
+                            {{ $layanan->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}
+                        </p>
 
                         <div class="card-body">
-                            @if ($layanan->detail && $layanan->detail->deskripsi)
-                                @php
-                                    // Pisahkan setiap baris deskripsi berdasarkan "enter"
-                                    $deskripsiList = preg_split("/\r\n|\n|\r/", $layanan->detail->deskripsi);
-                                @endphp
+                            @if (!empty($layanan->detail->benefit))
+                                    <ul class="list-unstyled fs-5">
+                                        @foreach ($layanan->detail->benefit as $benefit)
+                                            @php
+                                                $trimmed = trim($benefit);
+                                            @endphp
 
-                                <ul class="list-unstyled">
-                            @foreach ($deskripsiList as $desc)
-                                @if (trim($desc) !== '')
-                                    <li>
-                                        <i class="bi bi-check-circle-fill text-success me-1"></i>{{ trim($desc) }}
-                                    </li>
-                                @endif
-                            @endforeach
-                        </ul>
+                                            @if ($trimmed !== '')
+                                                @php
+                                                    $isNegative = Str::startsWith($trimmed, '-');
+                                                    $text = ltrim($trimmed, '+- ');
+                                                @endphp
 
-                            @else
-                                <ul class="feature-list">
-                                    <li class="text-muted">Deskripsi belum tersedia.</li>
-                                </ul>
-                            @endif
-                        </div>
-
-
-                        {{-- <div class="card-body">
-                            <p>
-                                @if ($layanan->detail && $layanan->detail->deskripsi)
-                                    {{ $layanan->detail->deskripsi }}
+                                                <li class="mb-2">
+                                                    <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
+                                                    {{ $text }}
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
                                 @else
-                                    <span class="text-muted">Deskripsi belum tersedia.</span>
+                                    <p class="text-muted fs-5">Benefit belum tersedia.</p>
                                 @endif
-                            </p>
-
-                            @if ($layanan->detail && is_array($layanan->detail->benefit))
-                                <ul class="feature-list">
-                                    @foreach ($layanan->detail->benefit as $benefit)
-                                        <li>
-                                            <i class="bi bi-check-circle-fill text-success me-1"></i>
-                                            {{ $benefit }}
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            @else
-                                <ul class="feature-list">
-                                    <li class="text-muted">Belum ada daftar benefit</li>
-                                </ul>
-                            @endif
-                        </div> --}}
+                        </div>
 
                         <div class="card-footer">
                             <button type="button" 
@@ -708,7 +687,7 @@
 
     .services-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 2rem;
     }
 

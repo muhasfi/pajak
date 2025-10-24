@@ -323,6 +323,23 @@ header {
     background: var(--primary);
 }
 
+/* Tambahan ikon untuk menu profil user */
+.dropdown-item i.fa-id-badge {
+    background: var(--primary); /* biru */
+}
+
+.dropdown-item i.fa-cart-shopping {
+    background: var(--success); /* hijau */
+}
+
+.dropdown-item i.fa-clock-rotate-left {
+    background: var(--accent); /* oranye / kuning tergantung tema */
+}
+
+.dropdown-item i.fa-right-from-bracket {
+    background: var(--danger); /* merah */
+}
+
 /* Login Button Styling */
 .login-btn {
     background: linear-gradient(

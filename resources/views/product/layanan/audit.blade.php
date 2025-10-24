@@ -73,13 +73,6 @@
                 <!-- Service 1 -->
                 <tbody>
                     @forelse ($audits as $audit)
-                    @php
-                        $auditDetail = $audit->detail->first();
-                        $benefits = $auditDetail ? json_decode($auditDetail->benefit) : [];
-                        // Limit deskripsi dan benefit untuk tampilan
-                        $shortDescription = $auditDetail ? Str::limit($auditDetail->deskripsi, 100) : '-';
-                        $limitedBenefits = array_slice($benefits, 0, 3); // Max 3 benefit ditampilkan
-                    @endphp
                     <tr>
                         <div class="service-card">
                             <div class="card-header">
@@ -89,39 +82,31 @@
                                 <h3>{{ $audit->judul }}</h3>
                                 <span class="service-price">Rp {{ number_format($audit->harga, 0, ',', '.') }}</span>
                             </div>
+                            <p class="text-muted text-center mb-4">{{ $audit->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}</p>
                             <div class="card-body">
-                                <p> @if($auditDetail && $auditDetail->deskripsi)
-                                    <div class="audit-description">
-                                        {{ $shortDescription }}
-                                        @if(strlen($auditDetail->deskripsi) > 100)
-                                            <a href="javascript:void(0)" 
-                                               class="text-primary text-decoration-none small"
-                                               data-bs-toggle="tooltip" 
-                                               title="{{ $auditDetail->deskripsi }}">
-                                                selengkapnya
-                                            </a>
-                                        @endif
-                                    </div>
+                                @if (!empty($audit->detail->benefit))
+                                    <ul class="list-unstyled fs-5">
+                                        @foreach ($audit->detail->benefit as $benefit)
+                                            @php
+                                                $trimmed = trim($benefit);
+                                            @endphp
+
+                                            @if ($trimmed !== '')
+                                                @php
+                                                    $isNegative = Str::startsWith($trimmed, '-');
+                                                    $text = ltrim($trimmed, '+- ');
+                                                @endphp
+
+                                                <li class="mb-2">
+                                                    <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
+                                                    {{ $text }}
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
                                 @else
-                                    <span class="text-muted fst-italic">Tidak ada deskripsi</span>
-                                @endif</p>
-                                <ul class="feature-list">
-                                     @if(count($benefits) > 0)
-                                        <div class="">
-                                            <ul class="list-unstyled mb-0">
-                                                @foreach($limitedBenefits as $benefit)
-                                                    <li class="small text-truncate">
-                                                        <i class=""></i>
-                                                        {{ $benefit }}
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        
-                                        </div>
-                                    @else
-                                        
-                                    @endif
-                                </ul>
+                                    <p class="text-muted fs-5">Benefit belum tersedia.</p>
+                                @endif
                             </div>
                             <div class="card-footer">
                                 <button type="button" 

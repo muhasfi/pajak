@@ -40,7 +40,17 @@
                 </div>
                 <div class="sidebar-menu">
                     <ul class="menu">
-                        <li class="sidebar-title">Menu</li>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <span class="sidebar-title mb-0">Menu</span>
+
+                            <form method="POST" action="{{ route('admin.logout') }}" class="d-inline m-0">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                    <i class="bi bi-box-arrow-right"></i> Logout
+                                </button>
+                            </form>
+                        </div>
+
                         
                         <li class="sidebar-item {{ request()->routeIs('admin.index') ? 'active' : '' }}">
                             <a href="{{ route('admin.index') }}" class='sidebar-link'>
