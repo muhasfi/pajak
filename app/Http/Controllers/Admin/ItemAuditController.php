@@ -16,7 +16,7 @@ class ItemAuditController extends Controller
     // Menampilkan semua audit
     public function index(): View
     {
-        $audits = ItemAudit::latest()->paginate(5);
+        $audits = ItemAudit::latest()->get();
         return view('admin.audit.index', compact('audits'));
     }
 

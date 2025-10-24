@@ -7,6 +7,8 @@ use App\Models\CategoryPaper;
 use App\Models\ItemPaper;
 use App\Models\ItemPaperDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class ItemPaperController extends Controller
@@ -37,41 +39,90 @@ class ItemPaperController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        // Debug: uncomment untuk melihat data yang masuk
+        // dd($request->all());
+
+        $validated = $request->validate([
             'name'        => 'required|string|max:255',
-            'description' => 'required',
-            'price'       => 'required|integer',
-            'category_id' => 'nullable|exists:category_papers,id',
+            'description' => 'required|string',
+            'kebutuhan'   => 'nullable|string|max:255',
+            'price'       => 'required|integer|min:0',
+            'category_id' => 'required|exists:category_papers,id',
             'img'         => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'file_type'   => 'required|in:upload,link',
+            'file_upload' => 'required_if:file_type,upload|nullable|file|mimes:pdf,doc,docx|max:20480',
+            'file_link'   => 'required_if:file_type,link|nullable|url|max:500',
             'details.*'   => 'nullable|file|mimes:pdf,doc,docx,xlsx,csv,ppt,pptx,jpg,jpeg,png|max:4096',
+            'is_active'   => 'nullable|boolean',
         ]);
 
-        // Simpan data utama item_papers
-        $paper = new ItemPaper();
-        $paper->name        = $request->name;
-        $paper->description = $request->description;
-        $paper->price       = $request->price;
-        $paper->category_id = $request->category_id;
+        DB::beginTransaction();
+        try {
+            // Upload gambar utama (jika ada)
+            $imgPath = null;
+            if ($request->hasFile('img')) {
+                $imgPath = $request->file('img')->store('papers/img', 'public');
+            }
 
-        // Upload gambar utama
-        if ($request->hasFile('img')) {
-            $paper->img = $request->file('img')->store('papers/img', 'public');
-        }
+            // Simpan data utama ke item_papers
+            $paper = ItemPaper::create([
+                'name'        => $validated['name'],
+                'description' => $validated['description'],
+                'kebutuhan'   => $validated['kebutuhan'],
+                'price'       => $validated['price'],
+                'category_id' => $validated['category_id'],
+                'img'         => $imgPath,
+                'is_active'   => $request->has('is_active') ? $validated['is_active'] : 1,
+            ]);
 
-        $paper->save();
+            // Tentukan path file utama (ebook/link)
+            $filePath = null;
+            $isLink = false;
 
-        // Upload file detail ke item_paper_details
-        if ($request->hasFile('details')) {
-            foreach ($request->file('details') as $file) {
-                $path = $file->store('papers/details', 'public');
+            if ($validated['file_type'] === 'upload' && $request->hasFile('file_upload')) {
+                $filePath = $request->file('file_upload')->store('papers/files', 'public');
+                $isLink = false;
+            } elseif ($validated['file_type'] === 'link' && $request->filled('file_link')) {
+                $filePath = $validated['file_link'];
+                $isLink = true;
+            }
+
+            // Simpan file utama ke item_paper_details
+            if ($filePath) {
                 ItemPaperDetail::create([
                     'paper_id'  => $paper->id,
-                    'file_path' => $path,
+                    'file_path' => $filePath,
+                    'is_link'   => $isLink,
                 ]);
             }
-        }
 
-        return redirect()->route('admin.paper.index')->with('success', 'Item Paper berhasil ditambahkan');
+            // Upload file tambahan dari details[] jika ada
+            if ($request->hasFile('details')) {
+                foreach ($request->file('details') as $file) {
+                    $detailPath = $file->store('papers/details', 'public');
+                    ItemPaperDetail::create([
+                        'paper_id'  => $paper->id,
+                        'file_path' => $detailPath,
+                        'is_link'   => false,
+                    ]);
+                }
+            }
+
+            DB::commit();
+
+            return redirect()->route('admin.paper.index')
+                ->with('success', 'Item Paper berhasil ditambahkan!');
+                
+        } catch (\Exception $e) {
+            DB::rollBack();
+            
+            // // Log error untuk debugging
+            // Log::error('Error saat menyimpan paper: ' . $e->getMessage());
+            
+            return back()
+                ->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()])
+                ->withInput();
+        }
     }
 
     // Controller Methods
@@ -85,89 +136,140 @@ class ItemPaperController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name'        => 'required|string|max:255',
-            'description' => 'required',
-            'price'       => 'required|integer',
-            'category_id' => 'nullable|exists:category_papers,id',
+            'description' => 'required|string',
+            'kebutuhan'   => 'nullable|string|max:255',
+            'price'       => 'required|integer|min:0',
+            'category_id' => 'required|exists:category_papers,id',
             'img'         => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'file_type'   => 'required|in:upload,link',
+            'file_upload' => 'required_if:file_type,upload|nullable|file|mimes:pdf,doc,docx|max:20480',
+            'file_link'   => 'required_if:file_type,link|nullable|url|max:500',
             'details.*'   => 'nullable|file|mimes:pdf,doc,docx,xlsx,csv,ppt,pptx,jpg,jpeg,png|max:4096',
-            'delete_details' => 'nullable|array',
-            'delete_details.*' => 'exists:item_paper_details,id',
+            'is_active'   => 'nullable|boolean',
         ]);
 
-        $paper = ItemPaper::findOrFail($id);
-        
-        // Update data utama
-        $paper->name        = $request->name;
-        $paper->description = $request->description;
-        $paper->kebutuhan   = $request->kebutuhan;
-        $paper->price       = $request->price;
-        $paper->category_id = $request->category_id;
-        $paper->is_active   = $request->is_active ?? 1;
+        DB::beginTransaction();
+        try {
+            $paper = ItemPaper::findOrFail($id);
 
-        // Upload gambar baru jika ada
-        if ($request->hasFile('img')) {
-            // Hapus gambar lama jika ada
-            if ($paper->img && Storage::disk('public')->exists($paper->img)) {
-                Storage::disk('public')->delete($paper->img);
+            // 🔹 Update gambar utama jika diupload baru
+            if ($request->hasFile('img')) {
+                // Hapus gambar lama jika ada
+                if ($paper->img && Storage::disk('public')->exists($paper->img)) {
+                    Storage::disk('public')->delete($paper->img);
+                }
+                $paper->img = $request->file('img')->store('papers/img', 'public');
             }
-            $paper->img = $request->file('img')->store('papers/img', 'public');
-        }
 
-        $paper->save();
+            // 🔹 Update data utama
+            $paper->update([
+                'name'        => $validated['name'],
+                'description' => $validated['description'],
+                'kebutuhan'   => $validated['kebutuhan'] ?? null,
+                'price'       => $validated['price'],
+                'category_id' => $validated['category_id'],
+                'is_active'   => $request->has('is_active') ? $validated['is_active'] : $paper->is_active,
+            ]);
 
-        // Hapus file detail yang dipilih untuk dihapus
-        if ($request->has('delete_details')) {
-            foreach ($request->delete_details as $detailId) {
-                $detail = ItemPaperDetail::find($detailId);
-                if ($detail && $detail->paper_id == $paper->id) {
-                    // Hapus file dari storage
-                    if (Storage::disk('public')->exists($detail->file_path)) {
-                        Storage::disk('public')->delete($detail->file_path);
+            // 🔹 Tentukan file utama (upload/link)
+            $filePath = null;
+            $isLink = false;
+
+            if ($validated['file_type'] === 'upload' && $request->hasFile('file_upload')) {
+                $filePath = $request->file('file_upload')->store('papers/files', 'public');
+                $isLink = false;
+            } elseif ($validated['file_type'] === 'link' && $request->filled('file_link')) {
+                $filePath = $validated['file_link'];
+                $isLink = true;
+            }
+
+            // 🔹 Update atau buat file utama di ItemPaperDetail
+            if ($filePath) {
+                // Cari file utama pertama (yang bukan dari details tambahan)
+                $mainDetail = ItemPaperDetail::where('paper_id', $paper->id)->first();
+
+                if ($mainDetail) {
+                    // Jika file lama upload, hapus dari storage
+                    if (!$mainDetail->is_link && Storage::disk('public')->exists($mainDetail->file_path)) {
+                        Storage::disk('public')->delete($mainDetail->file_path);
                     }
-                    $detail->delete();
+
+                    $mainDetail->update([
+                        'file_path' => $filePath,
+                        'is_link'   => $isLink,
+                    ]);
+                } else {
+                    ItemPaperDetail::create([
+                        'paper_id'  => $paper->id,
+                        'file_path' => $filePath,
+                        'is_link'   => $isLink,
+                    ]);
                 }
             }
-        }
 
-        // Upload file detail baru jika ada
-        if ($request->hasFile('details')) {
-            foreach ($request->file('details') as $file) {
-                $path = $file->store('papers/details', 'public');
-                ItemPaperDetail::create([
-                    'paper_id'  => $paper->id,
-                    'file_path' => $path,
-                ]);
+            // 🔹 Upload file tambahan baru jika ada
+            if ($request->hasFile('details')) {
+                foreach ($request->file('details') as $file) {
+                    $detailPath = $file->store('papers/details', 'public');
+                    ItemPaperDetail::create([
+                        'paper_id'  => $paper->id,
+                        'file_path' => $detailPath,
+                        'is_link'   => false,
+                    ]);
+                }
             }
-        }
 
-        return redirect()->route('admin.paper.index')->with('success', 'Item Paper berhasil diupdate');
+            DB::commit();
+
+            return redirect()->route('admin.paper.index')
+                ->with('success', 'Item Paper berhasil diperbarui!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error saat memperbarui paper: ' . $e->getMessage());
+            return back()
+                ->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()])
+                ->withInput();
+        }
     }
 
     public function destroy($id)
     {
-        $paper = ItemPaper::with('detailPaper')->findOrFail($id);
+        DB::beginTransaction();
+        try {
+            $paper = ItemPaper::findOrFail($id);
 
-        // Hapus file gambar utama jika ada
-        if ($paper->img && Storage::exists('public/'.$paper->img)) {
-            Storage::delete('public/'.$paper->img);
-        }
-
-        // Hapus file lampiran detail jika ada
-        if ($paper->detailPaper) {
-            if ($paper->detailPaper->file_path && Storage::exists('public/'.$paper->detailPaper->file_path)) {
-                Storage::delete('public/'.$paper->detailPaper->file_path);
+            // Hapus gambar utama jika ada
+            if ($paper->img && Storage::disk('public')->exists($paper->img)) {
+                Storage::disk('public')->delete($paper->img);
             }
-            // Hapus record detailPaper
-            $paper->detailPaper->delete();
+
+            // Ambil semua detail terkait
+            $details = ItemPaperDetail::where('paper_id', $paper->id)->get();
+
+            foreach ($details as $detail) {
+                // Hapus file jika bukan link
+                if (!$detail->is_link && Storage::disk('public')->exists($detail->file_path)) {
+                    Storage::disk('public')->delete($detail->file_path);
+                }
+                // Hapus record detail
+                $detail->delete();
+            }
+
+            // Hapus record paper
+            $paper->delete();
+
+            DB::commit();
+
+            return redirect()->route('admin.paper.index')
+                ->with('success', 'Item Paper berhasil dihapus!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error saat menghapus paper: ' . $e->getMessage());
+            return back()
+                ->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
-
-        // Hapus record utama paper
-        $paper->delete();
-
-        return redirect()->route('admin.paper.index')
-            ->with('success', 'Kertas Kerja berhasil dihapus');
     }
 
 

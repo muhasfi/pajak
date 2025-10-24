@@ -41,58 +41,69 @@
 
     <!-- Course Grid -->
     <div class="courses-grid">
-        @foreach($webinars as $webinar)
-            @php
-                $isGratis = $webinar->harga == 0;
-                $kategori = 'webinar';
-                $detail = $webinar->details->first();
-            @endphp
+    @foreach($webinars as $webinar)
+        @php
+            $isGratis = $webinar->harga == 0;
+            $kategori = 'webinar';
+            $detail = $webinar->detailWebinar->first();
+        @endphp
 
-            <div class="course-card {{ $isGratis ? 'gratis' : 'premium' }}" data-category="{{ $isGratis ? 'gratis' : 'premium' }}">
-                <div class="course-image">
-                    <img src="{{ asset('storage/' . $webinar->gambar) }}" alt="{{ $webinar->judul }}" />
-                    <div class="course-badge badge-{{ $kategori }}">{{ strtoupper($kategori) }}</div>
-                    <div class="status-badge {{ $isGratis ? 'status-new' : 'status-hot' }}">
-                        {{ $isGratis ? 'BARU' : 'HOT' }}
-                    </div>
-                </div>
-
-                <div class="course-content">
-                    <h3 class="course-title">{{ $webinar->judul }}</h3>
-                    
-                    @if($detail)
-                        <div class="mentor-info">
-                            <img src="{{ asset('assets/customer/images/mentor1.jpeg') }}" alt="Mentor" class="mentor-avatar">
-                            <div class="mentor-details">
-                                <span class="mentor-name">{{ $detail->pembicara }}</span>
-                                <span class="mentor-role">{{ $detail->topik }}</span>
-                            </div>
-                        </div>
-                    @endif
-                    
-                    <div class="course-meta">
-                        <div class="price {{ $isGratis ? 'free' : '' }}">
-                            {{ $isGratis ? 'GRATIS' : 'Rp ' . number_format($webinar->harga, 0, ',', '.') }}
-                        </div>
-                    </div>
-                    
-                    <div class="course-actions">
-                        <button class="btn btn-outline">
-                            <i class="fas fa-calendar"></i>
-                        </button>
-
-                        <button 
-                            type="button"
-                            class="btn {{ $isGratis ? 'btn-free' : 'btn-premium' }}" 
-                            onclick="addToCart({{ $webinar->id }}, 'ItemWebinar')">
-                            Daftar
-                        </button>
-                    </div>
-
+        <div class="course-card {{ $isGratis ? 'gratis' : 'premium' }}" data-category="{{ $isGratis ? 'gratis' : 'premium' }}">
+            <div class="course-image">
+                <img src="{{ $webinar->gambar ? asset('storage/' . $webinar->gambar) : asset('assets/customer/images/placeholder.png') }}" 
+                     alt="{{ $webinar->judul }}" />
+                <div class="course-badge badge-{{ $kategori }}">{{ strtoupper($kategori) }}</div>
+                <div class="status-badge {{ $isGratis ? 'status-new' : 'status-hot' }}">
+                    {{ $isGratis ? 'BARU' : 'HOT' }}
                 </div>
             </div>
-        @endforeach
-    </div>
+
+            <div class="course-content">
+                <h3 class="course-title">{{ $webinar->judul }}</h3>
+                
+                @if($detail)
+                    <div class="mentor-info">
+                        <img src="{{ asset('assets/customer/images/mentor1.jpeg') }}" alt="Mentor" class="mentor-avatar">
+                        <div class="mentor-details">
+                            <span class="mentor-name">{{ $detail->pembicara }}</span>
+                            <span class="mentor-role">{{ $detail->kategori }} - {{ $detail->level }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="course-meta">
+                        <span><i class="fas fa-calendar-alt"></i> {{ \Carbon\Carbon::parse($webinar->tanggal)->translatedFormat('d M Y') }}</span>
+                        <span><i class="fas fa-clock"></i> {{ $webinar->waktu_pelaksanaan }}</span>
+                        <span><i class="fas fa-map-marker-alt"></i> {{ $detail->lokasi }}</span>
+                        <span><i class="fas fa-users"></i> Kuota: {{ $detail->kuota_peserta }}</span>
+                        <span><i class="fas fa-phone"></i> {{ $detail->kontak_person }}</span>
+                    </div>
+
+                    <div class="course-fasilitas">
+                        <strong>Fasilitas:</strong> {{ $detail->fasilitas }}
+                    </div>
+                @endif
+
+                <div class="course-actions mt-3">
+                    <button class="btn btn-outline">
+                        <i class="fas fa-calendar"></i>
+                    </button>
+
+                    <button 
+                        type="button"
+                        class="btn {{ $isGratis ? 'btn-free' : 'btn-premium' }}" 
+                        onclick="addToCart({{ $webinar->id }}, 'ItemWebinar')">
+                        Daftar
+                    </button>
+                </div>
+
+                <div class="course-price mt-2">
+                    {{ $isGratis ? 'GRATIS' : 'Rp ' . number_format($webinar->harga, 0, ',', '.') }}
+                </div>
+            </div>
+        </div>
+    @endforeach
+</div>
+
 
     
     <!-- Load More Button -->

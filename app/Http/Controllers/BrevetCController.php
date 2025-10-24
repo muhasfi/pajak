@@ -9,7 +9,7 @@ class BrevetCController extends Controller
 {
     public function index()
 {
-    $brevetc = ItemBrevetC::orderBy('harga', 'asc')->get();
+    $brevetc = ItemBrevetC::with('detail')->orderBy('harga', 'asc')->get();
     return view('product.pelatihan.brevet_c', compact('brevetc'));
 }
 

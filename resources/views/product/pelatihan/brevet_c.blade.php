@@ -382,59 +382,63 @@
 
     <!-- Pricing Section -->
     <div id="pricing" class="pricing-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Investasi Brevet C</h2>
+            <p class="section-subtitle">Pilih paket yang sesuai dengan kebutuhan pengembangan karir Anda</p>
+        </div>
+        
+        <div id="pricing" class="pricing-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Investasi Brevet C</h2>
-                <p class="section-subtitle">Pilih paket yang sesuai dengan kebutuhan pengembangan karir Anda</p>
+                <h2 class="section-title">Investasi Pelatihan</h2>
+                <p class="section-subtitle">Pilih paket pelatihan yang sesuai dengan kebutuhan Anda</p>
             </div>
             
             <div class="pricing-grid">
                 @foreach($brevetc as $brevet)
-                    <div class="training-card {{ $loop->iteration == 2 ? 'featured' : '' }}">
-                        @if($loop->iteration == 2)
-                            <div class="card-badge">Best Value</div>
-                        @endif
+                <div class="training-card {{ $loop->iteration == 2 ? 'featured' : '' }}">
+                    @if($loop->iteration == 2)
+                        <div class="card-badge">Best Seller</div>
+                    @endif
 
-                        <div class="card-header">
-                            <h3>{{ $brevet->judul }}</h3>
-                            <div class="price">
-                                <span class="starting-from">mulai dari</span>
-                                <span class="amount">Rp {{ number_format($brevet->harga, 0, ',', '.') }}</span>
-                            </div>
-                            <div class="package-info">{{ $brevet->hari }}</div>
+                    <!-- Header -->
+                    <div class="card-header">
+                        <h3>{{ $brevet->judul }}</h3>
+                        <div class="price">
+                            <span class="starting-from">mulai dari</span>
+                            <span class="amount">Rp {{ number_format($brevet->harga, 0, ',', '.') }}</span>
                         </div>
+                        <div class="package-info">{{ $brevet->detail->first()->level ?? 'Tanpa Level' }}</div>
+                    </div>
 
-                        <div class="card-body">
-                            <ul class="feature-list">
-                                @foreach($brevet->details as $detail)
-                                    <li>
-                                        @if($detail->keterangan)
-                                            <i class="fas fa-check"></i> 
-                                            {{ $detail->fasilitas }} 
-                                            <small class="text-muted">({{ $detail->keterangan }})</small>
-                                        @else
-                                            <i class="fas fa-check"></i> {{ $detail->fasilitas }}
-                                        @endif
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
+                    <!-- Body -->
+                    <div class="card-body">
+                        <ul class="feature-list">
+                            @foreach(preg_split("/\r\n|\n|\r/", $brevet->deskripsi) as $line)
+                                @if(!empty(trim($line)))
+                                    <li><i class="fas fa-check"></i> {{ trim($line) }}</li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </div>
 
-                        <div class="card-footer">
+                    <!-- Footer -->
+                    <div class="card-footer">
                         <button type="button" 
                                 class="btn-order" 
                                 onclick="addToCart({{ $brevet->id }}, 'ItemBrevetC')">
                             Daftar Sekarang
                         </button>
                     </div>
-                        <div class="card-footer">
-                            <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20konsultasi%20tentang%20program%20{{ urlencode($brevet->judul) }}" class="btn-outline-kk">
-                                Konsultasi Program
-                            </a>
-                        </div>
+                    <div class="card-footer">
+                        <a href="https://wa.me/6281234567890?text=Halo, saya tertarik dengan {{ urlencode($brevet->judul) }}" 
+                        class="btn-outline-kk" target="_blank">Hubungi Kami</a>
                     </div>
+                </div>
                 @endforeach
             </div>
+
 
             <!-- Additional Info -->
             <div class="pricing-info">
@@ -442,22 +446,46 @@
                     <div class="info-item">
                         <i class="fas fa-calendar-alt"></i>
                         <h4>Flexible Schedule</h4>
-                        <p>Pilihan weekday evening dan weekend class untuk profesional</p>
+                        <p>Pilihan jadwal pagi, siang, malam, dan weekend class</p>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-hand-holding-usd"></i>
                         <h4>Cicilan 0%</h4>
-                        <p>Kemudahan pembayaran dengan cicilan hingga 24 bulan</p>
+                        <p>Kemudahan pembayaran dengan cicilan hingga 12 bulan</p>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-sync-alt"></i>
                         <h4>Garansi Ulang</h4>
-                        <p>Gratis mengulang jika tidak lulus ujian sertifikasi</p>
+                        <p>Gratis mengulang jika tidak lulus dalam ujian sertifikasi</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+        <!-- Additional Info -->
+        <div class="pricing-info">
+            <div class="info-grid">
+                <div class="info-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h4>Flexible Schedule</h4>
+                    <p>Pilihan weekday evening dan weekend class untuk profesional</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <h4>Cicilan 0%</h4>
+                    <p>Kemudahan pembayaran dengan cicilan hingga 24 bulan</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-sync-alt"></i>
+                    <h4>Garansi Ulang</h4>
+                    <p>Gratis mengulang jika tidak lulus ujian sertifikasi</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
     <!-- Instructors Section -->
     <div class="instructors-section">

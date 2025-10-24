@@ -94,11 +94,40 @@
                 @endif
 
                 <!-- Upload File Baru -->
+                @php
+                    $detail = $paper->detailPaper ?? null;
+                    $isLink = $detail && $detail->file_path && str_starts_with($detail->file_path, 'http');
+                @endphp
+
+                {{-- File --}}
                 <div class="mb-3">
-                    <label for="details" class="form-label">Tambah File Lampiran Baru (opsional)</label>
-                    <input type="file" name="details[]" class="form-control" multiple>
-                    <small class="text-muted">Upload file baru jika ingin menambah lampiran</small>
-                    @error('details.*') <small class="text-danger">{{ $message }}</small> @enderror
+                    <label class="form-label">Sumber File</label>
+                    <div class="input-group">
+                        <select name="file_type" class="form-select" style="max-width: 150px;" onchange="toggleFileInput(this)">
+                            <option value="upload" {{ !$isLink ? 'selected' : '' }}>Upload</option>
+                            <option value="link" {{ $isLink ? 'selected' : '' }}>Link</option>
+                        </select>
+
+                        {{-- Jika sebelumnya upload file --}}
+                        <input type="file" name="file_upload" class="form-control {{ $isLink ? 'd-none' : '' }}"
+                                accept=".pdf,.doc,.docx,.ppt,.pptx,.zip,.rar">
+
+                        {{-- Jika sebelumnya link --}}
+                        <input type="text" name="file_link" class="form-control {{ $isLink ? '' : 'd-none' }}"
+                                placeholder="https://drive.google.com/..."
+                                value="{{ $isLink ? old('file_link', $detail->file_path ?? '') : '' }}">
+                    </div>
+
+                    @if ($detail && $detail->file_path)
+                        <small class="text-muted d-block mt-2">
+                            File Saat Ini:
+                            @if ($isLink)
+                                <a href="{{ $detail->file_path }}" target="_blank">Lihat Link</a>
+                            @else
+                                <a href="{{ asset('storage/' . $detail->file_path) }}" target="_blank">Lihat File</a>
+                            @endif
+                        </small>
+                    @endif
                 </div>
 
                 <div class="mb-3">
@@ -115,4 +144,32 @@
         </div>
     </div>
 </section>
+@endsection
+
+@section('script')
+<script>
+function toggleFileInput(select) {
+    const group = select.closest('.input-group');
+    const fileInput = group.querySelector('[name="file_upload"]');
+    const linkInput = group.querySelector('[name="file_link"]');
+
+    if (select.value === 'upload') {
+        fileInput.classList.remove('d-none');
+        linkInput.classList.add('d-none');
+        fileInput.required = true;
+        linkInput.required = false;
+    } else {
+        fileInput.classList.add('d-none');
+        linkInput.classList.remove('d-none');
+        fileInput.required = false;
+        linkInput.required = true;
+    }
+}
+
+// Panggil saat halaman pertama kali dimuat
+document.addEventListener('DOMContentLoaded', function() {
+    const select = document.querySelector('select[name="file_type"]');
+    toggleFileInput(select);
+});
+</script>
 @endsection

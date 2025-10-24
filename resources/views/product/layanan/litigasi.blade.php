@@ -89,64 +89,79 @@
             <div class="services-grid">
     @foreach ($litigasi as $item)
         <div class="service-card {{ $loop->iteration == 3 ? 'featured' : '' }}">
+            {{-- Badge Populer --}}
             @if ($loop->iteration == 3)
                 <div class="card-badge">Populer</div>
             @endif
 
+            {{-- Header Card --}}
             <div class="card-header">
                 <div class="service-icon">
                     @switch($loop->iteration)
                         @case(1)
                             <i class="fas fa-gavel"></i>
-                            @break
+                        @break
+                        
                         @case(2)
                             <i class="fas fa-balance-scale"></i>
-                            @break
+                        @break
+                        
                         @case(3)
                             <i class="fas fa-handshake"></i>
-                            @break
+                        @break
+                        
                         @default
                             <i class="fas fa-search"></i>
                     @endswitch
                 </div>
 
                 <h3 class="fw-bold">{{ $item->judul }}</h3>
-                <h4 class=" mt-2">
+                <h4 class="mt-2">
                     Rp {{ number_format($item->harga, 0, ',', '.') }}
                 </h4>
             </div>
 
-            <div class="card-body">
-                {{-- Deskripsi --}}
-                @if ($item->detail && $item->detail->deskripsi)
-                    @php
-                        // Pisahkan deskripsi berdasarkan enter (baris baru)
-                        $deskripsiList = preg_split("/\r\n|\n|\r/", $item->detail->deskripsi);
-                    @endphp
+            {{-- Deskripsi --}}
+            <p class="text-muted text-center mb-4">
+                {{ $item->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}
+            </p>
 
-                    <ul class="list-unstyled">
-                        @foreach ($deskripsiList as $desc)
-                            @if (trim($desc) !== '')
-                                <li>
-                                    <i class="bi bi-check-circle-fill text-success me-1"></i>
-                                    {{ trim($desc) }}
+            {{-- Body Card - Benefits --}}
+            <div class="card-body">
+                @if (!empty($item->detail->benefit))
+                    <ul class="list-unstyled fs-5">
+                        @foreach ($item->detail->benefit as $benefit)
+                            @php
+                                $trimmed = trim($benefit);
+                            @endphp
+
+                            @if ($trimmed !== '')
+                                @php
+                                    $isNegative = Str::startsWith($trimmed, '-');
+                                    $text = ltrim($trimmed, '+- ');
+                                @endphp
+
+                                <li class="mb-2">
+                                    <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
+                                    {{ $text }}
                                 </li>
                             @endif
                         @endforeach
                     </ul>
                 @else
-                    <p class="text-muted">Deskripsi belum tersedia.</p>
+                    <p class="text-muted fs-5">Benefit belum tersedia.</p>
                 @endif
             </div>
 
-
+            {{-- Footer Card - Action Buttons --}}
             <div class="card-footer">
                 <button type="button" 
                     class="btn btn-primary"
                     onclick="addToCart({{ $item->id }}, 'ItemLitigasi')">
                     <span>Mulai Layanan</span>
                 </button>
-                <a href="/kontak" class="btn btn-outline">
+                
+                <a href="{{ route('kontak') }}" class="btn btn-outline">
                     <span>Detail Layanan</span>
                 </a>
             </div>

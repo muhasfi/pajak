@@ -87,83 +87,79 @@
             </div>
 
             <div class="services-grid">
-                    @forelse ($pajaks as $pajak)
-                        <div class="service-card {{ $loop->iteration == 1 ? 'featured' : '' }}">
+                @forelse ($pajaks as $pajak)
+                    <div class="service-card {{ $loop->iteration == 1 ? 'featured' : '' }}">
 
-                            <div class="card-header pajak">
-                                <div class="service-icon">
-                                    {{-- Ganti ikon berdasarkan nama/judul pajak (opsional) --}}
-                                    @php
-                                        $judul = strtolower($pajak->judul);
-                                    @endphp
+                        <div class="card-header pajak">
+                            <div class="service-icon">
+                                {{-- Ganti ikon berdasarkan nama/judul pajak (opsional) --}}
+                                @php
+                                    $judul = strtolower($pajak->judul);
+                                @endphp
 
-                                    @if (Str::contains($judul, ['rencana', 'plan']))
-                                        <i class="fas fa-calculator"></i>
-                                    @elseif (Str::contains($judul, ['bphtb', 'pbb']))
-                                        <i class="fas fa-hand-holding-usd"></i>
-                                    @elseif (Str::contains($judul, ['konsul', 'consult']))
-                                        <i class="fas fa-user-tie"></i>
-                                    @else
-                                        <i class="fas fa-file-invoice-dollar"></i>
-                                    @endif
-                                </div>
-                                <h3>{{ $pajak->judul }}</h3>
-                                <h3 class="text-primary fw-bold">
-                                    Rp {{ number_format($pajak->harga, 0, ',', '.') }}
-                                </h3>
-
+                                @if (Str::contains($judul, ['rencana', 'plan']))
+                                    <i class="fas fa-calculator"></i>
+                                @elseif (Str::contains($judul, ['bphtb', 'pbb']))
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                @elseif (Str::contains($judul, ['konsul', 'consult']))
+                                    <i class="fas fa-user-tie"></i>
+                                @else
+                                    <i class="fas fa-file-invoice-dollar"></i>
+                                @endif
                             </div>
+                            <h3>{{ $pajak->judul }}</h3>
+                            <h3 class="text-primary fw-bold">
+                                Rp {{ number_format($pajak->harga, 0, ',', '.') }}
+                            </h3>
 
-                            <div class="card-body">
-                                {{-- Deskripsi (dipecah per baris menjadi list) --}}
-                                @if ($pajak->detail && $pajak->detail->deskripsi)
-                                    @php
-                                        $deskripsiList = preg_split("/\r\n|\n|\r/", $pajak->detail->deskripsi);
-                                    @endphp
-                                    <ul class="list-unstyled">
-                                        @foreach ($deskripsiList as $desc)
-                                            @if (trim($desc) !== '')
-                                                <li>
-                                                    <i class="bi bi-check-circle-fill text-success me-1"></i> {{ trim($desc) }}
+                        </div>
+                        <p class="text-muted text-center mb-4">
+                            {{ $pajak->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}
+                        </p>
+
+                        <div class="card-body">
+                            @if (!empty($pajak->detail->benefit))
+                                    <ul class="list-unstyled mt-2">
+                                        @foreach ($pajak->detail->benefit as $benefit)
+                                            @php
+                                                $trimmed = trim($benefit);
+                                            @endphp
+
+                                            @if ($trimmed !== '')
+                                                @php
+                                                    $isNegative = Str::startsWith($trimmed, '-');
+                                                    $text = ltrim($trimmed, '+- ');
+                                                @endphp
+
+                                                <li class="mb-2">
+                                                    <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
+                                                    {{ $text }}
                                                 </li>
                                             @endif
                                         @endforeach
                                     </ul>
                                 @else
-                                    <p class="text-muted">Deskripsi belum tersedia.</p>
+                                    <p class="text-muted fs-5">Benefit belum tersedia.</p>
                                 @endif
-
-                                {{-- Benefit list (jika ada) --}}
-                                @if ($pajak->detail && is_array($pajak->detail->benefit))
-                                    <ul class="feature-list mt-2">
-                                        @foreach ($pajak->detail->benefit as $benefit)
-                                            <li>
-                                                <i class="bi bi-check-circle-fill text-success me-1"></i> {{ $benefit }}
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                            </div>
-
-                            <div class="card-footer">
-                                <button type="button" 
-                                    class="btn btn-primary"
-                                    onclick="addToCart({{ $pajak->id }}, 'ItemPajak')">
-                                    <span>Mulai Layanan</span>
-                                </button>
-                                <a href="/kontak" class="btn btn-outline">
-                                    <span>Konsultasi</span>
-                                </a>
-                            </div>
                         </div>
-                    @empty
-                        <div class="text-center text-muted py-4">
-                            Belum ada layanan pajak yang tersedia.
+
+                        <div class="card-footer">
+                            <button type="button" 
+                                class="btn btn-primary"
+                                onclick="addToCart({{ $pajak->id }}, 'ItemPajak')">
+                                <span>Mulai pajak</span>
+                            </button>
+                            <a href="/kontak" class="btn btn-outline">
+                                <span>Konsultasi</span>
+                            </a>
                         </div>
-                    @endforelse
-                </div>
-
-
+                    </div>
+                @empty
+                    <div class="text-center text-muted py-4">
+                        Belum ada layanan pajak yang tersedia.
+                    </div>
+                @endforelse
+            </div>
 
         </div>
     </div>
@@ -646,6 +642,9 @@
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         animation: fadeInUp 0.6s ease-out;
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
     }
 
     .service-card::before {

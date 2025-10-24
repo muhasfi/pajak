@@ -377,13 +377,21 @@
                         <div class="card-body">
                             <ul class="feature-list">
                                 @foreach(explode("\n", $paper->description) as $desc)
-                                    @if(trim($desc) !== '')
-                                        <li><i class="fas fa-check"></i> {{ $desc }}</li>
+                                    @php $trimmed = trim($desc); @endphp
+                                    @if($trimmed !== '')
+                                        <li>
+                                            @if(str_starts_with($trimmed, '-'))
+                                                <i class="fas fa-times"></i> {{ ltrim($trimmed, '-') }}
+                                            @elseif(str_starts_with($trimmed, '+'))
+                                                <i class="fas fa-check"></i> {{ ltrim($trimmed, '+') }}
+                                            @else
+                                                {{ $trimmed }}
+                                            @endif
+                                        </li>
                                     @endif
                                 @endforeach
                             </ul>
                         </div>
-
                         <div class="card-footer">
                             <button type="button" 
                                     class="btn-order" 

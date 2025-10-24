@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\ItemSeminarController;
 use App\Http\Controllers\Admin\ItemTrainingController;
 use App\Http\Controllers\Admin\ItemTransferController;
 use App\Http\Controllers\Admin\ItemWebinarController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\WebinarController;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
@@ -58,6 +59,7 @@ Route::prefix('admin-xtz2025')->group(static function () {
         // General routes
         Route::get('profile', [\App\Http\Controllers\Admin\HomeController::class, 'profile'])->middleware('password.confirm.admin')->name('admin.profile');
         Route::get('/', [\App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.index');
+        Route::resource('users', UserController::class)->names('admin.users');
         
         Route::resource('/book', ItemBookController::class)->names('admin.book');
         Route::resource('/bimbel', ItemBimbelController::class)->names('admin.bimbel');

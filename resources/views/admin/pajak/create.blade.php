@@ -95,10 +95,10 @@
                 @enderror
             </div>
 
-            <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-primary">Simpan</button>
-                <a href="{{ route('admin.pajak.index') }}" class="btn btn-secondary">Kembali</a>
-            </div>
+            <div class="d-flex gap-2 justify-content-end">
+    <button type="submit" class="btn btn-primary">Simpan</button>
+    <a href="{{ route('admin.pajak.index') }}" class="btn btn-secondary">Kembali</a>
+</div>
         </form>
     </div>
 </div>

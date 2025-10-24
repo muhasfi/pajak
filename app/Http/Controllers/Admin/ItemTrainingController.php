@@ -17,7 +17,7 @@ class ItemTrainingController extends Controller
      */
     public function index(): View
     {       
-        $trainings = ItemTraining::with('detail')->latest()->paginate(10);
+        $trainings = ItemTraining::with('detail')->latest()->get();
         return view('admin.training.index', compact('trainings'));
     }
 

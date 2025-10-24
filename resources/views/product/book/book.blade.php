@@ -29,19 +29,6 @@
 <!-- Catalog Section -->
 <section class="section">
     <div class="container">
-        <!-- Filters -->
-        <div class="catalog-filters">
-            <h3 class="filter-title">Filter berdasarkan Kategori:</h3>
-            <div class="filter-buttons">
-                <button class="filter-button active" data-filter="all">Semua</button>
-                <button class="filter-button" data-filter="book">Buku</button>
-                <button class="filter-button" data-filter="artikel">Artikel</button>
-                <button class="filter-button" data-filter="other">Lainnya</button>
-                <a href="{{ route('cart') }}" class="position-relative me-4 my-auto">
-                        <i class="fa fa-shopping-bag fa-2x"></i>
-                    </a>
-            </div>
-        </div>
         
         <!-- Products Grid -->
         <div class="catalog-grid">

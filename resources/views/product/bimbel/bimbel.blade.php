@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', 'Program Bimbingan Belajar')
 @section('style')
 <style>
     .category-card, .course-card {

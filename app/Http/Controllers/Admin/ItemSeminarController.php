@@ -12,10 +12,7 @@ class ItemSeminarController extends Controller
 {
     public function index()
     {
-        $seminars = ItemSeminar::with('detailSeminar')
-            ->latest()
-            ->paginate(10); // 10 items per page
-        
+        $seminars = ItemSeminar::with('detailSeminar')->latest()->get();
         return view('admin.seminar.index', compact('seminars'));
     }
 

@@ -111,7 +111,7 @@
                         </a>
                         
                         <div class="mt-3 text-center">
-                            <a href="{{ route('book') }}" class="text-primary">
+                            <a href="{{ route('index') }}" class="text-primary">
                                 <i class="fas fa-arrow-left me-1"></i> Lanjutkan Berbelanja
                             </a>
                         </div>

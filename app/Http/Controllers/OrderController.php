@@ -17,6 +17,10 @@ class OrderController extends Controller
 
     public function cart()
     {
+        if (!session()->has('previous_url')) {
+        session(['previous_url' => url()->previous()]);
+    }
+    
         $cart = Session::get('cart');
         return view('product.checkout.cart', compact('cart'));
     }

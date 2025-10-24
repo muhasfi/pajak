@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ItemLayananPt;
+use App\Models\ItemLayananPtDetail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -27,24 +28,28 @@ class ItemLayananPtController extends Controller
     {
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
-            'harga' => 'required|numeric|min:0',
+            'harga' => 'required|numeric',
             'deskripsi' => 'required|string',
             'paket' => 'required|string',
             'benefit' => 'required|array',
-            'benefit.*' => 'string|distinct|min:1',
+            'benefit.*' => 'string|max:255',
             'file_type'   => 'required|in:upload,link',
             'file_upload' => 'nullable|file|mimes:pdf,doc,docx|max:20480', // max 20MB
             'file_link'   => 'nullable|url'
         ]);
 
-        $layanan = ItemLayananPt::create($request->only(['judul', 'harga']));
+        // Simpan data layanan PT
+        $layananPt = ItemLayananPt::create([
+            'judul' => $request->judul,
+            'harga' => $request->harga
+        ]);
 
         $filePath = null;
-        if ($request->file_option === 'upload') {
-            $filePath = $request->file('file_upload')->store('layanan_pt_files', 'public');
-        } elseif ($request->file_option === 'link') {
-            $filePath = $request->file_link;
-        }
+            if ($request->file_option === 'upload') {
+                $filePath = $request->file('file_upload')->store('layanan_pt_files', 'public');
+            } elseif ($request->file_option === 'link') {
+                $filePath = $request->file_link;
+            }
 
         $filePath = null;
             if ($validated['file_type'] === 'upload' && $request->hasFile('file_upload')) {
@@ -53,15 +58,17 @@ class ItemLayananPtController extends Controller
                 $filePath = $validated['file_link'];
             }
 
-    
-        $layanan->detail()->create([
+        // Simpan detail layanan PT
+        ItemLayananPtDetail::create([
+            'layanan_id' => $layananPt->id,
             'deskripsi' => $request->deskripsi,
-            'paket' => $request->paket,
             'benefit' => $request->benefit,
+            'paket' => $request->paket,
             'file_path' => $filePath
         ]);
 
-        return redirect()->route('admin.layanan-pt.index')->with('success', 'Layanan berhasil dibuat!');
+        return redirect()->route('admin.layanan-pt.index')
+            ->with('success', 'Layanan PT berhasil dibuat.');
     }
 
     public function show(ItemLayananPt $layananPt): View
@@ -84,7 +91,7 @@ class ItemLayananPtController extends Controller
             'deskripsi' => 'required|string',
             'paket' => 'required|string',
             'benefit' => 'required|array',
-            'benefit.*' => 'string|distinct|min:1',
+            'benefit.*' => 'string|min:1',
             'file_type'   => 'required|in:upload,link',
             'file_upload' => 'nullable|file|mimes:pdf,doc,docx|max:20480', // max 20MB
             'file_link'   => 'nullable|url'

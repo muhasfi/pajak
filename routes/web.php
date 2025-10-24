@@ -7,6 +7,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\LayananPtController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PelatihanController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiteController;
 
 /*
@@ -91,12 +92,15 @@ require __DIR__.'/auth.php';
 // Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('profile', [\App\Http\Controllers\SiteController::class, 'profile'])
-        ->middleware('password.confirm')
-        ->name('profile');
+        // Route::get('profile', [\App\Http\Controllers\SiteController::class, 'profile'])
+        //     ->middleware('password.confirm')
+        //     ->name('profile');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
 
-    Route::get('/bimbel/my-courses', [BimbelController::class, 'list'])->name('bimbel.courses.list');
-    Route::get('/bimbel/{id}', [BimbelController::class, 'show'])->name('bimbel.show');
+    // Route::get('/bimbel/my-courses', [BimbelController::class, 'list'])->name('bimbel.courses.list');
+    // Route::get('/bimbel/{id}', [BimbelController::class, 'show'])->name('bimbel.show');
        
     Route::get('/transactions', [SiteController::class, 'transaction'])->name('transactions.transaction');
     Route::get('/transactions/{id}', [SiteController::class, 'show'])->name('transactions.show');

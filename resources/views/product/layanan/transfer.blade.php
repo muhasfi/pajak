@@ -87,65 +87,73 @@
             </div>
 
             <div class="services-grid">
-                @foreach ($transfers as $transfer)
-                    <div class="service-card {{ $loop->iteration == 2 ? 'featured' : '' }}">
-                        {{-- Badge jika item populer --}}
-                        @if ($loop->iteration == 2)
-                            <div class="card-badge">Populer</div>
-                        @endif
+    @foreach ($transfers as $transfer)
+        <div class="service-card {{ $loop->iteration == 2 ? 'featured' : '' }}">
 
-                        <div class="card-header">
-                            <div class="service-icon">
-                                @switch($loop->iteration)
-                                    @case(1)
-                                        <i class="fas fa-file-alt"></i>
-                                        @break
-                                    @case(2)
-                                        <i class="fas fa-map-marked-alt"></i>
-                                        @break
-                                    @case(3)
-                                        <i class="fas fa-globe-americas"></i>
-                                        @break
-                                    @default
-                                        <i class="fas fa-briefcase"></i>
-                                @endswitch
-                            </div>
-                            <h3>{{ $transfer->judul }}</h3>
-                            <h4 class="fw-bold">
-                                Rp{{ number_format($transfer->harga, 0, ',', '.') }}
-                            </h4>
-                        </div>
-
-                        <div class="card-body">
-                            @if ($transfer->detail && $transfer->detail->deskripsi)
-                                @php
-                                    $deskripsiList = preg_split("/\r\n|\n|\r/", $transfer->detail->deskripsi);
-                                @endphp
-                                <ul class="list-unstyled">
-                                    @foreach ($deskripsiList as $desc)
-                                        @if (trim($desc) !== '')
-                                            <li><i class="bi bi-check-circle-fill text-success me-1"></i>{{ trim($desc) }}</li>
-                                        @endif
-                                    @endforeach
-                                </ul>
-                            @else
-                                <p class="text-muted">Deskripsi belum tersedia.</p>
-                            @endif
-                        </div>
-
-                        <div class="card-footer">
-                            <button type="button" 
-                                class="btn btn-primary"
-                                onclick="addToCart({{ $transfer->id }}, 'ItemTransfer')">
-                                <span>Mulai Layanan</span>
-                            </button>
-                            <a href="/kontak" class="btn btn-outline">
-                                <span>Konsultasi</span>
-                            </a>
-                        </div>
-                    </div>
-                @endforeach
+            <div class="card-header">
+                <div class="service-icon">
+                    @switch($loop->iteration)
+                        @case(1)
+                            <i class="fas fa-file-alt"></i>
+                            @break
+                        @case(2)
+                            <i class="fas fa-map-marked-alt"></i>
+                            @break
+                        @case(3)
+                            <i class="fas fa-globe-americas"></i>
+                            @break
+                        @default
+                            <i class="fas fa-briefcase"></i>
+                    @endswitch
+                </div>
+                <h3>{{ $transfer->judul }}</h3>
+                <h4 class="fw-bold">
+                    Rp{{ number_format($transfer->harga, 0, ',', '.') }}
+                </h4>
             </div>
+            <p class="text-muted text-center mb-4">
+                {{ $transfer->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}
+            </p>
+
+            <div class="card-body">
+                @if (!empty($transfer->detail->benefit))
+                    <ul class="list-unstyled mt-2">
+                        @foreach ($transfer->detail->benefit as $benefit)
+                            @php
+                                $trimmed = trim($benefit);
+                            @endphp
+
+                            @if ($trimmed !== '')
+                                @php
+                                    $isNegative = Str::startsWith($trimmed, '-');
+                                    $text = ltrim($trimmed, '+- ');
+                                @endphp
+
+                                <li class="mb-2">
+                                    <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
+                                    {{ $text }}
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                @else
+                    <p class="text-muted fs-5">Benefit belum tersedia.</p>
+                @endif
+            </div>
+
+            <div class="card-footer mt-auto">
+                <button type="button" 
+                    class="btn btn-primary"
+                    onclick="addToCart({{ $transfer->id }}, 'ItemTransfer')">
+                    <span>Mulai Layanan</span>
+                </button>
+                <a href="/kontak" class="btn btn-outline">
+                    <span>Konsultasi</span>
+                </a>
+            </div>
+        </div>
+    @endforeach
+</div>
 
 
 
@@ -726,6 +734,9 @@
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         animation: fadeInUp 0.6s ease-out;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
     }
 
     .service-card::before {
@@ -749,23 +760,7 @@
         transform: scaleX(1);
     }
 
-    .service-card.featured {
-        border: 2px solid var(--primary-teal);
-        background: linear-gradient(135deg, var(--gray-50) 0%, var(--light-teal) 100%);
-    }
 
-    .card-badge {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        padding: 0.5rem 1rem;
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: var(--white);
-        background: #dc2626;
-        border-radius: 20px;
-        text-transform: uppercase;
-    }
 
     .card-header {
         text-align: center;
@@ -798,6 +793,9 @@
         font-weight: 700;
         margin-bottom: 1rem;
         color: var(--gray-800);
+    }
+    .card-body {
+        flex-grow: 1; /* Ini akan membuat body mengambil sisa ruang yang ada */
     }
 
     .card-body p {
@@ -835,7 +833,7 @@
         display: flex;
         flex-direction: column;
         gap: 0.75rem;
-        margin-top: 2rem;
+        margin-top: auto;
     }
 
     /* =========================
