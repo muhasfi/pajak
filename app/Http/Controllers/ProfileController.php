@@ -11,6 +11,11 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth'); // semua method di controller ini harus login
+    }
+    
     public function index()
     {
         return view('profile.index');

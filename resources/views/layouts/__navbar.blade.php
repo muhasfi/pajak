@@ -165,7 +165,7 @@
                     @endguest
 
                     @auth
-                        <a href="#profil" class="nav-link {{ request()->is('profil-saya*') || request()->is('cart*') || request()->is('transactions*') ? 'active' : '' }}">
+                        <a class="nav-link {{ request()->is('profil-saya*') || request()->is('cart*') || request()->is('transactions*') ? 'active' : '' }}">
                             <i class="fa-solid fa-user-circle"></i> Profil <i class="fa-solid fa-chevron-down"></i>
                         </a>
                         <div class="dropdown">

@@ -162,6 +162,7 @@ header {
     color: var(--teal);
 }
 
+
 .nav-link:hover i {
     transform: scale(1.1);
 }

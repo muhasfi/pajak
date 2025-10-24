@@ -1,5 +1,5 @@
 @extends('admin.layouts.master')
-@section('title', 'Daftar Jasa Akuntansi')
+@section('title', 'Daftar Layanan Akuntansi')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets/admin/extensions/simple-datatables/style.css') }}">
@@ -11,13 +11,11 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Jasa Akuntansi</h3>
+                <h3>Layanan Akuntansi</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
-                <a href="{{ route('admin.accounting-services.create') }}" 
-                   class="btn btn-primary float-start float-lg-end">
-                    <i class="bi bi-plus"></i>
-                    Tambah Jasa
+                <a href="{{ route('admin.accounting-services.create') }}" class="btn btn-primary float-start float-lg-end">
+                    <i class="bi bi-plus"></i> Tambah Layanan Baru
                 </a>
             </div>
         </div>
@@ -37,44 +35,45 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Judul</th>
+                            <th>Judul Layanan</th>
                             <th>Harga</th>
                             <th>Deskripsi</th>
                             <th>Benefit</th>
-                            <th>Dibuat</th>
                             <th width="20%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($services as $index => $service)
+                        @forelse ($akuntansis as $index => $item)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $service->judul }}</td>
-                            <td>Rp {{ number_format($service->harga, 0, ',', '.') }}</td>
-                            <td>{{ Str::limit($service->details->deskripsi ?? '-', 50) }}</td>
+                            <td>{{ $item->judul }}</td>
                             <td>
-                                @if($service->details && is_array($service->details->benefit))
+                                <span class="badge bg-success fs-6">
+                                    Rp {{ number_format($item->harga, 0, ',', '.') }}
+                                </span>
+                            </td>
+                            <td>{{ Str::limit($item->details->deskripsi ?? '-', 60) }}</td>
+                            <td>
+                                @if(!empty($item->details->benefit))
                                     <ul class="list-unstyled mb-0">
-                                        @foreach($service->details->benefit as $benefit)
-                                            <li>
-                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
-                                                {{ $benefit }}
+                                        @foreach($item->details->benefit as $benefit)
+                                            <li class="mb-1">
+                                                <i class="bi bi-check-circle-fill text-success me-1"></i>{{ $benefit }}
                                             </li>
                                         @endforeach
                                     </ul>
                                 @else
-                                    <span class="text-muted">-</span>
+                                    <span class="text-muted">Tidak ada benefit</span>
                                 @endif
                             </td>
-                            <td>{{ $service->created_at->format('d-m-Y') }}</td>
                             <td>
-                                <a href="{{ route('admin.accounting-services.edit', $service->id) }}" 
-                                   class="btn btn-warning btn-sm">
+                                <a href="{{ route('admin.accounting-services.show', $item->id) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Detail
+                                </a>
+                                <a href="{{ route('admin.accounting-services.edit', $item->id) }}" class="btn btn-warning btn-sm">
                                     <i class="bi bi-pencil"></i> Ubah
                                 </a>
-                                <form action="{{ route('admin.accounting-services.destroy', $service->id) }}" 
-                                      method="POST" 
-                                      class="d-inline">
+                                <form action="{{ route('admin.accounting-services.destroy', $item->id) }}" method="POST" class="d-inline delete-form">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm delete-btn">
@@ -85,10 +84,11 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="7" class="text-center">Belum ada jasa akuntansi.</td>
+                            <td colspan="6" class="text-center text-muted">Belum ada layanan Akuntansi</td>
                         </tr>
                         @endforelse
                     </tbody>
+
                 </table>
             </div>
         </div>
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             Swal.fire({
                 title: 'Yakin ingin menghapus?',
-                text: "Data jasa akuntansi yang dihapus tidak dapat dikembalikan!",
+                text: "Layanan yang sudah dihapus tidak bisa dikembalikan!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',

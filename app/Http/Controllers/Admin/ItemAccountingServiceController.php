@@ -5,48 +5,53 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ItemAccountingService;
 use App\Models\ItemAccountingServiceDetail;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ItemAccountingServiceController extends Controller
 {
-     public function index()
+      // Menampilkan semua akuntansi
+    public function index(): View
     {
-        $services = ItemAccountingService::with('details')->get();
-        return view('admin.akuntansi.index', compact('services'));
+        $akuntansis = ItemAccountingService::latest()->paginate(5);
+        return view('admin.akuntansi.index', compact('akuntansis'));
     }
 
-    public function create()
+    // Menampilkan form create
+    public function create(): View
     {
         return view('admin.akuntansi.create');
     }
 
-    public function store(Request $request)
+    // Menyimpan data akuntansi baru
+    public function store(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
+       $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'harga' => 'required|numeric',
             'deskripsi' => 'required|string',
             'benefit' => 'required|array',
-            'benefit.*' => 'required|string',
+            'benefit.*' => 'string|max:255',
             'file_type'   => 'required|in:upload,link',
             'file_upload' => 'nullable|file|mimes:pdf,doc,docx|max:20480', // max 20MB
             'file_link'   => 'nullable|url'
         ]);
 
-        // Create main service
-        $service = ItemAccountingService::create([
+        // Simpan data Akuntansi
+        $akuntansi = ItemAccountingService::create([
             'judul' => $request->judul,
             'harga' => $request->harga
         ]);
 
         $filePath = null;
-        if ($request->file_option === 'upload') {
-            $filePath = $request->file('file_upload')->store('layanan_pt_files', 'public');
-        } elseif ($request->file_option === 'link') {
-            $filePath = $request->file_link;
-        }
+            if ($request->file_option === 'upload') {
+                $filePath = $request->file('file_upload')->store('audit', 'public');
+            } elseif ($request->file_option === 'link') {
+                $filePath = $request->file_link;
+            }
 
         $filePath = null;
             if ($validated['file_type'] === 'upload' && $request->hasFile('file_upload')) {
@@ -55,83 +60,86 @@ class ItemAccountingServiceController extends Controller
                 $filePath = $validated['file_link'];
             }
 
-        // Create service details
+        // Simpan detail akuntansi
         ItemAccountingServiceDetail::create([
-            'accounting_service_id' => $service->id,
+            'accounting_service_id' => $akuntansi->id,
             'deskripsi' => $request->deskripsi,
             'benefit' => $request->benefit,
             'file_path' => $filePath
         ]);
 
         return redirect()->route('admin.accounting-services.index')
-            ->with('success', 'Jasa akuntansi berhasil ditambahkan.');
+            ->with('success', 'Layanan Akuntansi berhasil dibuat.');
     }
 
-    public function show(ItemAccountingService $accountingService)
+    // Menampilkan detail akuntansi
+    public function show(ItemAccountingService $akuntansi): View
     {
-        $accountingService->load('details');
-        return view('admin.akuntansi.show', compact('accountingService'));
+        // Load data akuntansi beserta relasi detailnya
+        $akuntansi->load('details');
+        return view('admin.accounting-services.show', compact('akuntansi'));
     }
-
-    public function edit(ItemAccountingService $accountingService)
+    public function edit(ItemAccountingService $accounting_service): View
     {
-        $accountingService->load('details');
-        return view('admin.akuntansi.edit', compact('accountingService'));
+        $accounting_service->load('details');
+        return view('admin.akuntansi.edit', compact('accounting_service'));
     }
 
-    public function update(Request $request, ItemAccountingService $accountingService)
+    public function update(Request $request, ItemAccountingService $accounting_service): RedirectResponse
     {
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'harga' => 'required|numeric',
             'deskripsi' => 'required|string',
             'benefit' => 'required|array',
-            'benefit.*' => 'required|string',
-            'file_type'   => 'required|in:upload,link',
-            'file_upload' => 'nullable|file|mimes:pdf,doc,docx|max:20480', // max 20MB
+            'benefit.*' => 'string|max:255',
+            'file_type'   => 'required|in:upload,link,keep',
+            'file_upload' => 'nullable|file|mimes:pdf,doc,docx|max:20480',
             'file_link'   => 'nullable|url'
         ]);
 
-        // Update main service
-        $accountingService->update([
-            'judul' => $request->judul,
-            'harga' => $request->harga
+        $accounting_service->load('details');
+
+        $accounting_service->update([
+            'judul' => $validated['judul'],
+            'harga' => $validated['harga'],
         ]);
 
-        $detail = $accountingService->detail;
-        $filePath = $detail->file_path; // default: tetap gunakan file lama
+        $filePath = $accounting_service->details->file_path ?? null;
 
-        // Tentukan apakah user upload file baru / ganti link
         if ($validated['file_type'] === 'upload' && $request->hasFile('file_upload')) {
-            // Jika sebelumnya file lokal (bukan link), hapus file lama
-            if ($filePath && !Str::startsWith($filePath, ['http://', 'https://'])) {
+            if ($filePath && Storage::disk('public')->exists($filePath)) {
                 Storage::disk('public')->delete($filePath);
             }
-
-            // Simpan file baru
-            $filePath = $request->file('file_upload')->store('layanan_pt_files', 'public');
+            $filePath = $request->file('file_upload')->store('audit', 'public');
         } elseif ($validated['file_type'] === 'link') {
-            // Jika user mengganti menjadi link
-            if ($filePath && !Str::startsWith($filePath, ['http://', 'https://'])) {
-                Storage::disk('public')->delete($filePath);
-            }
             $filePath = $validated['file_link'];
         }
 
-        // Update service details
-        $accountingService->details->update([
-            'deskripsi' => $request->deskripsi,
-            'benefit' => $request->benefit
-        ]);
+        if ($accounting_service->details) {
+            $accounting_service->details->update([
+                'deskripsi' => $validated['deskripsi'],
+                'benefit'   => $validated['benefit'],
+                'file_path' => $filePath,
+            ]);
+        } else {
+            $accounting_service->details()->create([
+                'deskripsi' => $validated['deskripsi'],
+                'benefit'   => $validated['benefit'],
+                'file_path' => $filePath,
+            ]);
+        }
 
         return redirect()->route('admin.accounting-services.index')
-            ->with('success', 'Jasa akuntansi berhasil diperbarui.');
+            ->with('success', 'Layanan Akuntansi berhasil diperbarui.');
     }
 
-    public function destroy(ItemAccountingService $accountingService)
+
+    // Hapus data akuntansi
+    public function destroy(ItemAccountingService $accounting_service): RedirectResponse
     {
-        $accountingService->delete();
-        return redirect()->route('admin.accounting-services.index')
-            ->with('success', 'Jasa akuntansi berhasil dihapus.');
+        $accounting_service->delete();
+        return redirect()->route('admin.accounting-services.index')->with('success', 'Akuntansi berhasil dihapus.');
     }
+
 }
