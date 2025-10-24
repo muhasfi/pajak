@@ -57,10 +57,12 @@
     <div class="d-flex justify-content-between align-items-center">
         <h3 class="mb-0">Selamat Datang, Admin! 👋</h3>
         {{-- <form method="POST" action="{{ route('admin.logout') }}" class="d-inline">
+        {{-- <form method="POST" action="{{ route('admin.logout') }}" class="d-inline">
             @csrf
             <button type="submit" class="btn btn-outline-danger btn-sm">
                 <i class="bi bi-box-arrow-right"></i> Logout
             </button>
+        </form> --}}
         </form> --}}
     </div>
 </div>

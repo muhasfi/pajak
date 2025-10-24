@@ -100,17 +100,17 @@ class ItemAuditController extends Controller
         'file_link'   => 'nullable|url'
         ]);
 
-        // Ambil data litigasi beserta detail-nya
-        $litigasi = ItemAudit::with('detail')->findOrFail($audit->id);
+        // Ambil data audit beserta detail-nya
+        $audit = ItemAudit::with('detail')->findOrFail($audit->id);
 
         // Update data utama
-        $litigasi->update([
+        $audit->update([
             'judul' => $validated['judul'],
             'harga' => $validated['harga'],
         ]);
 
         // Ambil file path lama (jika ada)
-        $filePath = $litigasi->detail->file_path ?? null;
+        $filePath = $audit->detail->file_path ?? null;
 
         // Jika upload file baru
         if ($validated['file_type'] === 'upload' && $request->hasFile('file_upload')) {
@@ -125,8 +125,8 @@ class ItemAuditController extends Controller
         }
         // Jika 'keep' maka biarkan file lama tetap digunakan
 
-        // Update detail litigasi
-        $litigasi->detail->update([
+        // Update detail audit
+        $audit->detail->update([
             'deskripsi' => $validated['deskripsi'],
             'benefit'   => $validated['benefit'],
             'file_path' => $filePath,

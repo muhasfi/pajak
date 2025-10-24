@@ -16,8 +16,8 @@ class ItemAccountingServiceController extends Controller
       // Menampilkan semua akuntansi
     public function index(): View
     {
-        $akuntansis = ItemAccountingService::latest()->get();
-        return view('admin.akuntansi.index', compact('akuntansis'));
+        $services = ItemAccountingService::with('details')->get();
+        return view('admin.akuntansi.index', compact('services'));
     }
 
     // Menampilkan form create

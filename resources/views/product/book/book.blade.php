@@ -29,7 +29,6 @@
 <!-- Catalog Section -->
 <section class="section">
     <div class="container">
-        
         <!-- Products Grid -->
         <div class="catalog-grid">
             @forelse ($items as $item)
