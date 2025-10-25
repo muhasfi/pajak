@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountingServiceController;
+// use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\ItemBimbelController;
 use App\Http\Controllers\Admin\ItemLayananController;
 use App\Http\Controllers\AuditController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\BrevetABController;
 use App\Http\Controllers\BrevetCController;
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CustomerAuthController;
 use App\Http\Controllers\ItemSeminarController;
 use App\Http\Controllers\LayananPembuatanPtController;
@@ -21,6 +23,7 @@ use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\TransferController;
 use App\Http\Controllers\WebinarController;
 use App\Http\Controllers\LayananPtController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +48,10 @@ Route::prefix('customer')->group(function () {
         Route::get('/dashboard', [CustomerAuthController::class, 'dashboard'])->name('customer.dashboard');
     });
 });
+    Route::get('/forum', [CommentController::class, 'index'])->name('forum');
+    Route::post('/forum/comment', [CommentController::class, 'store'])->name('comment.store');
+
+
 Route::get('/', [\App\Http\Controllers\SiteController::class, 'index'])
     ->name('index');
 Route::get('/book', [\App\Http\Controllers\BookController::class, 'index'])
@@ -102,7 +109,7 @@ Route::get('/audit', [AuditController::class, 'index'])->name('audit.index');
 Route::get('/transfer-pricing', [TransferController::class, 'index'])->name('transfer.index');
 Route::get('/private', [LayananPrivasiController::class, 'index'])->name('transfer.index');
 Route::view('/register', 'auth.register')->name('register');
-// Route::view('/audit', 'customer.layanan.audit')->name('audit');
+// Route::view('/forum', 'customer.konsultasi.forum')->name('forum');
 // Route::view('/litigasi', 'customer.layanan.litigasi')->name('audit');
 // Route::view('/transfer-pricing', 'customer.layanan.transfer')->name('audit');
 // Route::get('/pelatihan', [CatalogController::class, 'index'])->name('catalog.index');

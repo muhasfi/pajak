@@ -168,6 +168,12 @@
                                         <span>Konsultasi Private</span>
                                     </a>
                                 </li>
+                                <li class="sidebar-item {{ request()->routeIs('bimbel') ? 'active' : '' }}">
+                                    <a href="/admin/comments" class='sidebar-link'>
+                                        <i class="bi bi-journal-medical"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>Forum</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     </ul>

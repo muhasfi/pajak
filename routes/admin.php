@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\AccountingServiceController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ArtikelController;
 use App\Http\Controllers\Admin\AuditController;
 use App\Http\Controllers\Admin\BrevetABController;
 use App\Http\Controllers\Admin\BrevetCController;
+use App\Http\Controllers\Admin\CommentAdminController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\ConsultationController;
 use App\Http\Controllers\Admin\InHouseTrainingController;
 use App\Http\Controllers\Admin\ItemBimbelController;
@@ -20,13 +23,16 @@ use App\Http\Controllers\Admin\LitigasiController;
 use App\Http\Controllers\Admin\PajakController;
 use App\Http\Controllers\Admin\PembuatanPtController;
 use App\Http\Controllers\Admin\PrivateController;
+use App\Http\Controllers\Admin\ReplyController as AdminReplyController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\TrainingController;
 use App\Http\Controllers\Admin\TransferController;
 use App\Http\Controllers\Admin\WebinarController;
+
 use App\Http\Controllers\LayananPembuatanPtController;
 use App\Http\Controllers\LayananPrivasiController;
 use App\Http\Controllers\LayananPtController as ControllersLayananPtController;
+use App\Http\Controllers\ReplyController;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 
@@ -63,8 +69,33 @@ Route::prefix('admin')->group(static function () {
     // Authenticated routes
     Route::middleware(['auth:admin', 'verified'])->group(static function () {
 
+        // Routes untuk komentar (hanya admin yang bisa)
+        // Route::resource('comment', CommentController::class);
+        // Route::post('/questions/{question}/comments', [CommentController::class, 'store'])->name('comments.store');
+        // Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
+        // Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
+        // Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
         
-        Route::resource('brevetab', BrevetABController::class);
+        // Routes admin untuk manage pertanyaan
+        // Route::get('/questions', [AdminController::class, 'questions'])->name('admin.questions');
+        // Route::post('/questions/{question}/approve', [AdminController::class, 'approveQuestion'])->name('admin.questions.approve');
+        // Route::post('/questions/{question}/reject', [AdminController::class, 'rejectQuestion'])->name('admin.questions.reject');
+        // Route::delete('/questions/{question}', [AdminController::class, 'destroyQuestion'])->name('admin.questions.destroy');
+        Route::get('/comments', [CommentAdminController::class, 'index'])->name('admin.comments');
+
+        // Approve komentar
+        Route::put('/comments/{comment}/approve', [CommentAdminController::class, 'approve'])->name('admin.comments.approve');
+    
+        // Hapus komentar
+        Route::delete('/comments/{comment}', [CommentAdminController::class, 'destroy'])->name('admin.comments.destroy');
+        
+        Route::post('/reply/{comment}', [AdminReplyController::class, 'store'])->name('reply.store');
+        Route::get('/reply/{reply}/edit', [AdminReplyController::class, 'edit'])->name('reply.edit');
+        Route::put('/reply/{reply}', [AdminReplyController::class, 'update'])->name('reply.update');
+        Route::delete('/reply/{reply}', [AdminReplyController::class, 'destroy'])->name('reply.destroy');
+        
+
+    Route::resource('brevetab', BrevetABController::class);
         // Route::delete('/brevet-ab/{id}', [BrevetABController::class, 'destroy'])->name('brevet-ab.destroy');
         Route::resource('brevet-c', BrevetCController::class);
         Route::resource('webinars', WebinarController::class);
