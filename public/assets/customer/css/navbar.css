@@ -152,7 +152,7 @@ body {
     align-items: center;
     padding: 12px 20px;
     text-decoration: none;
-    color: var(--text-light) !important;
+    color: #ffffff;
     font-weight: 600;
     transition: var(--transition);
     border-radius: var(--radius);
@@ -367,7 +367,6 @@ header {
 .nav-link i.fa-comments {
     color: var(--teal);
 }
-
 
 .nav-link:hover i {
     transform: scale(1.1);

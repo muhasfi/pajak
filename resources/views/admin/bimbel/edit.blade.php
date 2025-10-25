@@ -74,18 +74,18 @@
                                 <div class="mb-2">
                                     <label>Judul Materi</label>
                                     <input type="text" name="detail[judul_materi]" class="form-control"
-                                        value="{{ old('detail.judul_materi', $bimbel->details->first()->judul_materi ?? '') }}"
+                                        value="{{ old('detail.judul_materi', $bimbel->detail->first()->judul_materi ?? '') }}"
                                         placeholder="Masukkan judul materi">
                                 </div>
                                 <div class="mb-2">
                                     <label>Deskripsi Materi</label>
                                     <textarea name="detail[deskripsi]" class="form-control"
-                                        placeholder="Masukkan deskripsi singkat materi">{{ old('detail.deskripsi', $bimbel->details->first()->deskripsi ?? '') }}</textarea>
+                                        placeholder="Masukkan deskripsi singkat materi">{{ old('detail.deskripsi', $bimbel->detail->first()->deskripsi ?? '') }}</textarea>
                                 </div>
                                 <div class="mb-2">
                                     <label>Link Materi (opsional)</label>
                                     <input type="text" name="detail[link]" class="form-control"
-                                        value="{{ old('detail.link', $bimbel->details->first()->link ?? '') }}"
+                                        value="{{ old('detail.link', $bimbel->detail->first()->link ?? '') }}"
                                         placeholder="Contoh: https://drive.google.com/...">
                                 </div>
                         </div>

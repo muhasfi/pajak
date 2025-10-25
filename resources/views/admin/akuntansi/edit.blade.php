@@ -47,38 +47,38 @@
 
                     <div class="mb-3">
                         <label class="form-label"><strong>Deskripsi</strong></label>
-                        <textarea class="form-control" name="deskripsi" rows="4" required>{{ old('deskripsi', $accounting_service->details->deskripsi ?? '') }}</textarea>
+                        <textarea class="form-control" name="deskripsi" rows="4" required>{{ old('deskripsi', $accounting_service->detail->deskripsi ?? '') }}</textarea>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Sumber File</label>
                         <div class="input-group">
                             <select name="file_type" class="form-select" style="max-width: 150px;" onchange="toggleFileInput(this)">
-                                <option value="upload" {{ old('file_type', isset($accounting_service->details) && filter_var($accounting_service->details->file_path, FILTER_VALIDATE_URL) ? '' : 'selected') }}>Upload</option>
-                                <option value="link" {{ old('file_type', isset($accounting_service->details) && filter_var($accounting_service->details->file_path, FILTER_VALIDATE_URL) ? 'selected' : '') }}>Link</option>
+                                <option value="upload" {{ old('file_type', isset($accounting_service->detail) && filter_var($accounting_service->detail->file_path, FILTER_VALIDATE_URL) ? '' : 'selected') }}>Upload</option>
+                                <option value="link" {{ old('file_type', isset($accounting_service->detail) && filter_var($accounting_service->detail->file_path, FILTER_VALIDATE_URL) ? 'selected' : '') }}>Link</option>
                             </select>
 
                             {{-- Input upload file --}}
                             <input type="file"
                                 name="file_upload"
-                                class="form-control {{ old('file_type', isset($accounting_service->details) && filter_var($accounting_service->details->file_path, FILTER_VALIDATE_URL) ? 'd-none' : '') }}"
+                                class="form-control {{ old('file_type', isset($accounting_service->detail) && filter_var($accounting_service->detail->file_path, FILTER_VALIDATE_URL) ? 'd-none' : '') }}"
                                 accept=".pdf,.doc,.docx">
 
                             {{-- Input link --}}
                             <input type="text"
                                 name="file_link"
-                                value="{{ old('file_link', isset($accounting_service->details) && filter_var($accounting_service->details->file_path, FILTER_VALIDATE_URL) ? $accounting_service->details->file_path : '') }}"
-                                class="form-control {{ old('file_type', isset($accounting_service->details) && filter_var($accounting_service->details->file_path, FILTER_VALIDATE_URL) ? '' : 'd-none') }}"
+                                value="{{ old('file_link', isset($accounting_service->detail) && filter_var($accounting_service->detail->file_path, FILTER_VALIDATE_URL) ? $accounting_service->detail->file_path : '') }}"
+                                class="form-control {{ old('file_type', isset($accounting_service->detail) && filter_var($accounting_service->detail->file_path, FILTER_VALIDATE_URL) ? '' : 'd-none') }}"
                                 placeholder="https://drive.google.com/...">
                         </div>
 
-                        @if(isset($accounting_service->details->file_path))
+                        @if(isset($accounting_service->detail->file_path))
                             <small class="text-muted">
                                 File saat ini:
-                                @if(filter_var($accounting_service->details->file_path, FILTER_VALIDATE_URL))
-                                    <a href="{{ $accounting_service->details->file_path }}" target="_blank">Lihat Link</a>
+                                @if(filter_var($accounting_service->detail->file_path, FILTER_VALIDATE_URL))
+                                    <a href="{{ $accounting_service->detail->file_path }}" target="_blank">Lihat Link</a>
                                 @else
-                                    <a href="{{ asset('storage/' . $accounting_service->details->file_path) }}" target="_blank">Lihat File</a>
+                                    <a href="{{ asset('storage/' . $accounting_service->detail->file_path) }}" target="_blank">Lihat File</a>
                                 @endif
                             </small>
                         @endif
@@ -94,8 +94,8 @@
                         </label>
 
                         <div id="benefits-container">
-                            @if($accounting_service->details && $accounting_service->details->benefit)
-                                @foreach($accounting_service->details->benefit as $benefit)
+                            @if($accounting_service->detail && $accounting_service->detail->benefit)
+                                @foreach($accounting_service->detail->benefit as $benefit)
                                     <div class="benefit-input input-group mb-2">
                                         <input type="text" name="benefit[]" class="form-control" 
                                             value="{{ $benefit }}" placeholder="Masukkan benefit" required>

@@ -12,7 +12,7 @@ class ItemWebinarController extends Controller
 {
     public function index()
     {
-        $webinars = ItemWebinar::with('detailWebinar')->latest()->get();
+        $webinars = ItemWebinar::with('detail')->latest()->get();
         
         return view('admin.webinar.index', compact('webinars'));
     }
@@ -57,7 +57,7 @@ class ItemWebinarController extends Controller
             'harga' => $request->harga
         ]);
     
-        // Create DetailWebinar
+        // Create detail
         ItemWebinarDetail::create([
             'item_webinar_id' => $itemWebinar->id,
             'pembicara' => $request->pembicara,
@@ -76,13 +76,13 @@ class ItemWebinarController extends Controller
 
     public function show($id)
     {
-        $webinar = ItemWebinar::with('detailWebinar')->findOrFail($id);
+        $webinar = ItemWebinar::with('detail')->findOrFail($id);
         return view('item_webinar.show', compact('webinar'));
     }
 
     public function edit($id)
     {
-        $webinar = ItemWebinar::with('detailWebinar')->findOrFail($id);
+        $webinar = ItemWebinar::with('detail')->findOrFail($id);
         return view('admin.webinar.edit', compact('webinar'));
     }
 
@@ -105,7 +105,7 @@ class ItemWebinarController extends Controller
             'file_path' => 'nullable|string|max:255'
         ]);
     
-        $itemWebinar = ItemWebinar::with('detailWebinar')->findOrFail($id);
+        $itemWebinar = ItemWebinar::with('detail')->findOrFail($id);
     
         // Update gambar jika ada
         if ($request->hasFile('gambar')) {
@@ -125,8 +125,8 @@ class ItemWebinarController extends Controller
             'harga' => $request->harga
         ]);
     
-        // Update DetailWebinar
-        $itemWebinar->detailWebinar->update([
+        // Update detail
+        $itemWebinar->detail->update([
             'pembicara' => $request->pembicara,
             'lokasi' => $request->lokasi,
             'kuota_peserta' => $request->kuota_peserta,

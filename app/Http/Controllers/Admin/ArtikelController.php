@@ -129,6 +129,22 @@ class ArtikelController extends Controller
             $artikel->thumbnail = $request->file('thumbnail')->store('thumbnails', 'public');
         }
 
+        if ($request->has('remove_thumbnail') && $request->remove_thumbnail) {
+            if ($artikel->thumbnail && Storage::disk('public')->exists($artikel->thumbnail)) {
+                Storage::disk('public')->delete($artikel->thumbnail);
+            }
+            $artikel->thumbnail = null;
+        }
+
+        // Upload thumbnail baru jika ada
+        if ($request->hasFile('thumbnail')) {
+            // hapus thumbnail lama kalau ada
+            if ($artikel->thumbnail && Storage::disk('public')->exists($artikel->thumbnail)) {
+                Storage::disk('public')->delete($artikel->thumbnail);
+            }
+            $artikel->thumbnail = $request->file('thumbnail')->store('thumbnails', 'public');
+        }
+
         // 4. Update data
         $artikel->update([
             'title'       => $validated['title'],

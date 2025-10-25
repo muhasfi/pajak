@@ -207,8 +207,25 @@
 </div>
 @endsection
 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @section('script')
 <script>
+Swal.fire({
+        icon: 'error',
+        title: 'Oops!',
+        text: '{{ session('error') }}'
+    });
+</script>
+@endif
+
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Sukses!',
+        text: '{{ session('success') }}'
+    });
+
 document.addEventListener("DOMContentLoaded", function() {
     const uploadField = document.getElementById('upload_field');
     const linkField = document.getElementById('link_field');

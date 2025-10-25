@@ -45,7 +45,7 @@
         @php
             $isGratis = $webinar->harga == 0;
             $kategori = 'webinar';
-            $detail = $webinar->detailWebinar->first();
+            $detail = $webinar->detail->first();
         @endphp
 
         <div class="course-card {{ $isGratis ? 'gratis' : 'premium' }}" data-category="{{ $isGratis ? 'gratis' : 'premium' }}">

@@ -116,13 +116,13 @@
                         </h4>
                     </div>
                     <p class="text-muted text-center mb-4">
-                            {{ $service->details->deskripsi ?? 'Deskripsi tidak tersedia' }}
+                            {{ $service->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}
                         </p>
 
                     <div class="card-body">
-                        @if (!empty($service->details->benefit))
+                        @if (!empty($service->detail->benefit))
                                     <ul class="list-unstyled mt-2">
-                                        @foreach ($service->details->benefit as $benefit)
+                                        @foreach ($service->detail->benefit as $benefit)
                                             @php
                                                 $trimmed = trim($benefit);
                                             @endphp

@@ -645,6 +645,9 @@
         width: 100%;
         max-width: 400px;
         margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
     .service-card::before {
@@ -737,6 +740,7 @@
         flex-direction: column;
         gap: 0.75rem;
         margin-top: 2rem;
+        justify-content: center;
     }
 
     /* =========================

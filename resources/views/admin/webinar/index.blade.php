@@ -69,18 +69,18 @@
                             <td>{{ Str::limit($webinar->deskripsi, 30) }}</td>
                             <td>{{ $webinar->tanggal ? \Carbon\Carbon::parse($webinar->tanggal)->format('d M Y') : '-' }}</td>
                             <td>{{ $webinar->waktu_pelaksanaan ? \Carbon\Carbon::parse($webinar->waktu_pelaksanaan)->format('H:i') : '-' }}</td>
-                            <td>{{ $webinar->detailwebinar->lokasi ?? '-' }}</td>
-                            <td>{{ $webinar->detailwebinar->pembicara ?? '-' }}</td>
+                            <td>{{ $webinar->detail->lokasi ?? '-' }}</td>
+                            <td>{{ $webinar->detail->pembicara ?? '-' }}</td>
                             <td>Rp{{ number_format($webinar->harga, 0, ',', '.') }}</td>
-                            <td>{{ $webinar->detailwebinar->kuota_peserta ?? '-' }}</td>
+                            <td>{{ $webinar->detail->kuota_peserta ?? '-' }}</td>
                             <td>
                                 <span class="badge 
-                                    @if(($webinar->detailwebinar->level ?? '') == 'Beginner') bg-success
-                                    @elseif(($webinar->detailwebinar->level ?? '') == 'Intermediate') bg-warning text-dark
-                                    @elseif(($webinar->detailwebinar->level ?? '') == 'Advanced') bg-danger
+                                    @if(($webinar->detail->level ?? '') == 'Beginner') bg-success
+                                    @elseif(($webinar->detail->level ?? '') == 'Intermediate') bg-warning text-dark
+                                    @elseif(($webinar->detail->level ?? '') == 'Advanced') bg-danger
                                     @else bg-secondary
                                     @endif">
-                                    {{ $webinar->detailwebinar->level ?? '-' }}
+                                    {{ $webinar->detail->level ?? '-' }}
                                 </span>
                             </td>
                             <td>

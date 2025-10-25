@@ -52,11 +52,11 @@
                                     Rp {{ number_format($item->harga, 0, ',', '.') }}
                                 </span>
                             </td>
-                            <td>{{ Str::limit($item->details->deskripsi ?? '-', 60) }}</td>
+                            <td>{{ Str::limit($item->detail->deskripsi ?? '-', 60) }}</td>
                             <td>
-                                @if(!empty($item->details->benefit))
+                                @if(!empty($item->detail->benefit))
                                     <ul class="list-unstyled mb-0">
-                                        @foreach($item->details->benefit as $benefit)
+                                        @foreach($item->detail->benefit as $benefit)
                                             <li class="mb-1">
                                                 <i class="bi bi-check-circle-fill text-success me-1"></i>{{ $benefit }}
                                             </li>

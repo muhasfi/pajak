@@ -20,7 +20,7 @@ class ItemBimbel extends Model
     ];
 
     // Relasi ke detail
-    public function details()
+    public function detail()
     {
         return $this->hasMany(ItemBimbelDetail::class, 'id_item_bimbels');
     }

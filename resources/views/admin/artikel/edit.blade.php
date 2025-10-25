@@ -95,9 +95,16 @@
                     <div class="col-12 mb-3">
                         <label for="thumbnail" class="form-label">Upload Gambar (Opsional)</label>
                         <input class="form-control" type="file" id="thumbnail" name="thumbnail" accept="image/*">
+
                         @if($artikel->thumbnail)
                             <div class="mt-2">
                                 <img src="{{ asset('storage/'.$artikel->thumbnail) }}" alt="Thumbnail" class="img-thumbnail" width="200">
+                                
+                                {{-- Checkbox untuk hapus gambar --}}
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input" type="checkbox" name="remove_thumbnail" id="remove_thumbnail" value="1">
+                                    <label class="form-check-label" for="remove_thumbnail">Hapus gambar</label>
+                                </div>
                             </div>
                         @endif
                     </div>
@@ -122,22 +129,58 @@
     </div>
 </div>
 
-<script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@blowstack/ckeditor5-full-free-build/build/ckeditor.js"></script>
+
 <script>
-    ClassicEditor
+ClassicEditor
     .create(document.querySelector('#content'), {
-        ckfinder: {
-            uploadUrl: "{{ route('ckeditor.upload').'?_token='.csrf_token() }}"
+        simpleUpload: {
+            uploadUrl: "{{ route('ckeditor.upload') . '?_token=' . csrf_token() }}"
+        },
+        toolbar: [
+            'heading', '|',
+            'bold', 'italic', 'underline', 'strikethrough', '|',
+            'alignment', '|',
+            'fontColor', 'fontBackgroundColor', '|',
+            'link', '|',
+            'bulletedList', 'numberedList', 'blockQuote', '|',
+            'outdent', 'indent', '|',
+            'insertTable', '|',
+            'imageUpload', '|',
+            'undo', 'redo'
+        ],
+        alignment: {
+            options: ['left', 'center', 'right', 'justify']
         },
         image: {
-            resizeOptions: [
-                { name: 'resizeImage:original', label: 'Original', value: null },
-                { name: 'resizeImage:50', label: '50%', value: '50' },
-                { name: 'resizeImage:75', label: '75%', value: '75' }
+            // ✅ pengaturan alignment gambar
+            toolbar: [
+                'imageTextAlternative', '|',
+                'imageStyle:alignLeft', 
+                'imageStyle:alignCenter', 
+                'imageStyle:alignRight'
             ],
-            toolbar: ['imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight', '|', 'resizeImage']
+            styles: [
+                'alignLeft', 
+                'alignCenter', 
+                'alignRight'
+            ]
+        },
+        link: {
+            addTargetToExternalLinks: true, // ✅ otomatis tambahkan target="_blank" untuk link luar
+            decorators: {
+                openInNewTab: {
+                    mode: 'manual',
+                    label: 'Open in a new tab',
+                    defaultValue: true,
+                    attributes: {
+                        target: '_blank',
+                        rel: 'noopener noreferrer'
+                    }
+                }
+            }
         }
     })
-    .catch(error => { console.error(error); });
+    .catch(error => console.error(error));
 </script>
 @endsection

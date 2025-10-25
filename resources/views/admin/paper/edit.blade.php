@@ -95,7 +95,7 @@
 
                 <!-- Upload File Baru -->
                 @php
-                    $detail = $paper->detailPaper ?? null;
+                    $detail = $paper->detail ?? null;
                     $isLink = $detail && $detail->file_path && str_starts_with($detail->file_path, 'http');
                 @endphp
 

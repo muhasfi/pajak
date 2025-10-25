@@ -21,7 +21,7 @@ class ItemPaper extends Model
     }
 
     // Relasi ke detail (1 detail per paper)
-    public function detailPaper()
+    public function detail()
     {
         return $this->hasOne(ItemPaperDetail::class, 'paper_id');
     }

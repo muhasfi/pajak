@@ -115,7 +115,7 @@
                     <div class="mb-3">
                         <label for="pembicara" class="form-label">Pembicara <span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('pembicara') is-invalid @enderror" 
-                               id="pembicara" name="pembicara" value="{{ old('pembicara', $seminar->detailSeminar->pembicara ?? '') }}" required>
+                               id="pembicara" name="pembicara" value="{{ old('pembicara', $seminar->detail->pembicara ?? '') }}" required>
                         @error('pembicara')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -124,7 +124,7 @@
                     <div class="mb-3">
                         <label for="lokasi" class="form-label">Lokasi <span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('lokasi') is-invalid @enderror" 
-                               id="lokasi" name="lokasi" value="{{ old('lokasi', $seminar->detailSeminar->lokasi ?? '') }}" required>
+                               id="lokasi" name="lokasi" value="{{ old('lokasi', $seminar->detail->lokasi ?? '') }}" required>
                         @error('lokasi')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -133,7 +133,7 @@
                     <div class="mb-3">
                         <label for="kuota_peserta" class="form-label">Kuota Peserta <span class="text-danger">*</span></label>
                         <input type="number" class="form-control @error('kuota_peserta') is-invalid @enderror" 
-                               id="kuota_peserta" name="kuota_peserta" value="{{ old('kuota_peserta', $seminar->detailSeminar->kuota_peserta ?? '') }}" min="1" required>
+                               id="kuota_peserta" name="kuota_peserta" value="{{ old('kuota_peserta', $seminar->detail->kuota_peserta ?? '') }}" min="1" required>
                         @error('kuota_peserta')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -142,7 +142,7 @@
                     <div class="mb-3">
                         <label for="kategori" class="form-label">Kategori <span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('kategori') is-invalid @enderror" 
-                               id="kategori" name="kategori" value="{{ old('kategori', $seminar->detailSeminar->kategori ?? '') }}" required>
+                               id="kategori" name="kategori" value="{{ old('kategori', $seminar->detail->kategori ?? '') }}" required>
                         @error('kategori')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -152,9 +152,9 @@
                         <label for="level" class="form-label">Level <span class="text-danger">*</span></label>
                         <select class="form-select @error('level') is-invalid @enderror" id="level" name="level" required>
                             <option value="">Pilih Level</option>
-                            <option value="Beginner" {{ old('level', $seminar->detailSeminar->level ?? '') == 'Beginner' ? 'selected' : '' }}>Beginner</option>
-                            <option value="Intermediate" {{ old('level', $seminar->detailSeminar->level ?? '') == 'Intermediate' ? 'selected' : '' }}>Intermediate</option>
-                            <option value="Advanced" {{ old('level', $seminar->detailSeminar->level ?? '') == 'Advanced' ? 'selected' : '' }}>Advanced</option>
+                            <option value="Beginner" {{ old('level', $seminar->detail->level ?? '') == 'Beginner' ? 'selected' : '' }}>Beginner</option>
+                            <option value="Intermediate" {{ old('level', $seminar->detail->level ?? '') == 'Intermediate' ? 'selected' : '' }}>Intermediate</option>
+                            <option value="Advanced" {{ old('level', $seminar->detail->level ?? '') == 'Advanced' ? 'selected' : '' }}>Advanced</option>
                         </select>
                         @error('level')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -164,7 +164,7 @@
                     <div class="mb-3">
                         <label for="fasilitas" class="form-label">Fasilitas <span class="text-danger">*</span></label>
                         <textarea class="form-control @error('fasilitas') is-invalid @enderror" 
-                                  id="fasilitas" name="fasilitas" rows="3" required>{{ old('fasilitas', $seminar->detailSeminar->fasilitas ?? '') }}</textarea>
+                                  id="fasilitas" name="fasilitas" rows="3" required>{{ old('fasilitas', $seminar->detail->fasilitas ?? '') }}</textarea>
                         @error('fasilitas')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -173,7 +173,7 @@
                     <div class="mb-3">
                         <label for="kontak_person" class="form-label">Kontak Person <span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('kontak_person') is-invalid @enderror" 
-                               id="kontak_person" name="kontak_person" value="{{ old('kontak_person', $seminar->detailSeminar->kontak_person ?? '') }}" required>
+                               id="kontak_person" name="kontak_person" value="{{ old('kontak_person', $seminar->detail->kontak_person ?? '') }}" required>
                         @error('kontak_person')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -182,7 +182,7 @@
                     <div class="mb-3">
                         <label for="file_path" class="form-label">Link Seminar</label>
                         <input type="text" name="file_path" id="file_path" class="form-control"
-                            value="{{ old('file_path', $seminar->detailSeminar->file_path ?? '') }}"
+                            value="{{ old('file_path', $seminar->detail->file_path ?? '') }}"
                             placeholder="Contoh: https://zoom.us/j/xxxxxx">
                     </div>
                 </div>

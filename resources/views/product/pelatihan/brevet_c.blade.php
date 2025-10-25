@@ -416,12 +416,24 @@
                     <div class="card-body">
                         <ul class="feature-list">
                             @foreach(preg_split("/\r\n|\n|\r/", $brevet->deskripsi) as $line)
-                                @if(!empty(trim($line)))
-                                    <li><i class="fas fa-check"></i> {{ trim($line) }}</li>
+                                @php
+                                    $trimLine = trim($line);
+                                @endphp
+                                @if(!empty($trimLine))
+                                    <li>
+                                        @if(str_starts_with($trimLine, '+'))
+                                            <i class="fas fa-check"></i> {{ ltrim($trimLine, '+ ') }}
+                                        @elseif(str_starts_with($trimLine, '-'))
+                                            <i class="fas fa-times"></i> {{ ltrim($trimLine, '- ') }}
+                                        @else
+                                            <i class="fas fa-check"></i> {{ $trimLine }}
+                                        @endif
+                                    </li>
                                 @endif
                             @endforeach
                         </ul>
                     </div>
+
 
                     <!-- Footer -->
                     <div class="card-footer">
@@ -1449,6 +1461,9 @@
 }
 
 .training-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
     background-color: var(--white);
     border-radius: 16px;
     overflow: hidden;
@@ -1456,6 +1471,7 @@
     transition: all 0.3s ease;
     position: relative;
     border: 1px solid #e2e8f0;
+    min-height: 450px;
 }
 
 .training-card:hover {
@@ -1463,10 +1479,6 @@
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
 }
 
-.training-card.featured {
-    border: 2px solid var(--primary-navy);
-    transform: scale(1.05);
-}
 
 .training-card.featured:hover {
     transform: scale(1.05) translateY(-10px);

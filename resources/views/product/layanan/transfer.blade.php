@@ -87,73 +87,73 @@
             </div>
 
             <div class="services-grid">
-    @foreach ($transfers as $transfer)
-        <div class="service-card {{ $loop->iteration == 2 ? 'featured' : '' }}">
+                @foreach ($transfers as $transfer)
+                    <div class="service-card {{ $loop->iteration == 3 ? 'featured' : '' }}">
 
-            <div class="card-header">
-                <div class="service-icon">
-                    @switch($loop->iteration)
-                        @case(1)
-                            <i class="fas fa-file-alt"></i>
-                            @break
-                        @case(2)
-                            <i class="fas fa-map-marked-alt"></i>
-                            @break
-                        @case(3)
-                            <i class="fas fa-globe-americas"></i>
-                            @break
-                        @default
-                            <i class="fas fa-briefcase"></i>
-                    @endswitch
-                </div>
-                <h3>{{ $transfer->judul }}</h3>
-                <h4 class="fw-bold">
-                    Rp{{ number_format($transfer->harga, 0, ',', '.') }}
-                </h4>
-            </div>
-            <p class="text-muted text-center mb-4">
-                {{ $transfer->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}
-            </p>
+                        <div class="card-header">
+                            <div class="service-icon">
+                                @switch($loop->iteration)
+                                    @case(1)
+                                        <i class="fas fa-file-alt"></i>
+                                        @break
+                                    @case(2)
+                                        <i class="fas fa-map-marked-alt"></i>
+                                        @break
+                                    @case(3)
+                                        <i class="fas fa-globe-americas"></i>
+                                        @break
+                                    @default
+                                        <i class="fas fa-briefcase"></i>
+                                @endswitch
+                            </div>
+                            <h3>{{ $transfer->judul }}</h3>
+                            <h4 class="fw-bold">
+                                Rp{{ number_format($transfer->harga, 0, ',', '.') }}
+                            </h4>
+                        </div>
+                        <p class="text-muted text-center mb-4">
+                            {{ $transfer->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}
+                        </p>
 
-            <div class="card-body">
-                @if (!empty($transfer->detail->benefit))
-                    <ul class="list-unstyled mt-2">
-                        @foreach ($transfer->detail->benefit as $benefit)
-                            @php
-                                $trimmed = trim($benefit);
-                            @endphp
+                        <div class="card-body">
+                            @if (!empty($transfer->detail->benefit))
+                                <ul class="list-unstyled mt-2">
+                                    @foreach ($transfer->detail->benefit as $benefit)
+                                        @php
+                                            $trimmed = trim($benefit);
+                                        @endphp
 
-                            @if ($trimmed !== '')
-                                @php
-                                    $isNegative = Str::startsWith($trimmed, '-');
-                                    $text = ltrim($trimmed, '+- ');
-                                @endphp
+                                        @if ($trimmed !== '')
+                                            @php
+                                                $isNegative = Str::startsWith($trimmed, '-');
+                                                $text = ltrim($trimmed, '+- ');
+                                            @endphp
 
-                                <li class="mb-2">
-                                    <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
-                                    {{ $text }}
-                                </li>
+                                            <li class="mb-2">
+                                                <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
+                                                {{ $text }}
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            @else
+                                <p class="text-muted fs-5">Benefit belum tersedia.</p>
                             @endif
-                        @endforeach
-                    </ul>
-                @else
-                    <p class="text-muted fs-5">Benefit belum tersedia.</p>
-                @endif
-            </div>
+                        </div>
 
-            <div class="card-footer mt-auto">
-                <button type="button" 
-                    class="btn btn-primary"
-                    onclick="addToCart({{ $transfer->id }}, 'ItemTransfer')">
-                    <span>Mulai Layanan</span>
-                </button>
-                <a href="/kontak" class="btn btn-outline">
-                    <span>Konsultasi</span>
-                </a>
+                        <div class="card-footer mt-auto">
+                            <button type="button" 
+                                class="btn btn-primary"
+                                onclick="addToCart({{ $transfer->id }}, 'ItemTransfer')">
+                                <span>Mulai Layanan</span>
+                            </button>
+                            <a href="/kontak" class="btn btn-outline">
+                                <span>Konsultasi</span>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-        </div>
-    @endforeach
-</div>
 
 
 
@@ -720,7 +720,7 @@
 
     .services-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+        grid-template-columns: repeat(3, 1fr);
         gap: 2rem;
     }
 

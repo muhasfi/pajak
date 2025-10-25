@@ -12,7 +12,7 @@ class ItemBimbelController extends Controller
 {
     public function index()
     {
-        $bimbels = ItemBimbel::with('details')->get();
+        $bimbels = ItemBimbel::with('detail')->get();
         return view('admin.bimbel.index', compact('bimbels'));
     }
 
@@ -56,7 +56,7 @@ class ItemBimbelController extends Controller
         // Simpan data detail ke tabel item_bimbel_detail (jika ada)
         if (!empty($validated['detail'])) {
             foreach ($validated['detail'] as $d) {
-                $bimbel->details()->create([
+                $bimbel->detail()->create([
                     'item_bimbel_id' => $bimbel->id, // foreign key
                     'judul_materi'   => $d['judul_materi'] ?? null,
                     'deskripsi'      => $d['deskripsi'] ?? null,
@@ -81,7 +81,7 @@ class ItemBimbelController extends Controller
 
     public function show($id)
     {
-        $bimbel = ItemBimbel::with('details')->findOrFail($id);
+        $bimbel = ItemBimbel::with('detail')->findOrFail($id);
         return view('admin.bimbel.show', compact('bimbel'));
     }
 
@@ -126,12 +126,12 @@ class ItemBimbelController extends Controller
             $detailData = $validated['detail'] ?? null;
 
             if ($detailData) {
-                $existingDetail = $bimbel->details()->first();
+                $existingDetail = $bimbel->detail()->first();
 
                 if ($existingDetail) {
                     $existingDetail->update($detailData);
                 } else {
-                    $bimbel->details()->create($detailData);
+                    $bimbel->detail()->create($detailData);
                 }
             }
 

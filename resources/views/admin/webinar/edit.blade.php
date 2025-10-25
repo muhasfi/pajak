@@ -115,7 +115,7 @@
                     <div class="mb-3">
                         <label for="pembicara" class="form-label">Pembicara <span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('pembicara') is-invalid @enderror" 
-                               id="pembicara" name="pembicara" value="{{ old('pembicara', $webinar->detailwebinar->pembicara ?? '') }}" required>
+                               id="pembicara" name="pembicara" value="{{ old('pembicara', $webinar->detail->pembicara ?? '') }}" required>
                         @error('pembicara')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -124,7 +124,7 @@
                     <div class="mb-3">
                         <label for="lokasi" class="form-label">Lokasi <span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('lokasi') is-invalid @enderror" 
-                               id="lokasi" name="lokasi" value="{{ old('lokasi', $webinar->detailwebinar->lokasi ?? '') }}" required>
+                               id="lokasi" name="lokasi" value="{{ old('lokasi', $webinar->detail->lokasi ?? '') }}" required>
                         @error('lokasi')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -133,7 +133,7 @@
                     <div class="mb-3">
                         <label for="kuota_peserta" class="form-label">Kuota Peserta <span class="text-danger">*</span></label>
                         <input type="number" class="form-control @error('kuota_peserta') is-invalid @enderror" 
-                               id="kuota_peserta" name="kuota_peserta" value="{{ old('kuota_peserta', $webinar->detailwebinar->kuota_peserta ?? '') }}" min="1" required>
+                               id="kuota_peserta" name="kuota_peserta" value="{{ old('kuota_peserta', $webinar->detail->kuota_peserta ?? '') }}" min="1" required>
                         @error('kuota_peserta')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -142,7 +142,7 @@
                     <div class="mb-3">
                         <label for="kategori" class="form-label">Kategori <span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('kategori') is-invalid @enderror" 
-                               id="kategori" name="kategori" value="{{ old('kategori', $webinar->detailwebinar->kategori ?? '') }}" required>
+                               id="kategori" name="kategori" value="{{ old('kategori', $webinar->detail->kategori ?? '') }}" required>
                         @error('kategori')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -152,9 +152,9 @@
                         <label for="level" class="form-label">Level <span class="text-danger">*</span></label>
                         <select class="form-select @error('level') is-invalid @enderror" id="level" name="level" required>
                             <option value="">Pilih Level</option>
-                            <option value="Beginner" {{ old('level', $webinar->detailwebinar->level ?? '') == 'Beginner' ? 'selected' : '' }}>Beginner</option>
-                            <option value="Intermediate" {{ old('level', $webinar->detailwebinar->level ?? '') == 'Intermediate' ? 'selected' : '' }}>Intermediate</option>
-                            <option value="Advanced" {{ old('level', $webinar->detailwebinar->level ?? '') == 'Advanced' ? 'selected' : '' }}>Advanced</option>
+                            <option value="Beginner" {{ old('level', $webinar->detail->level ?? '') == 'Beginner' ? 'selected' : '' }}>Beginner</option>
+                            <option value="Intermediate" {{ old('level', $webinar->detail->level ?? '') == 'Intermediate' ? 'selected' : '' }}>Intermediate</option>
+                            <option value="Advanced" {{ old('level', $webinar->detail->level ?? '') == 'Advanced' ? 'selected' : '' }}>Advanced</option>
                         </select>
                         @error('level')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -164,7 +164,7 @@
                     <div class="mb-3">
                         <label for="fasilitas" class="form-label">Fasilitas <span class="text-danger">*</span></label>
                         <textarea class="form-control @error('fasilitas') is-invalid @enderror" 
-                                  id="fasilitas" name="fasilitas" rows="3" required>{{ old('fasilitas', $webinar->detailwebinar->fasilitas ?? '') }}</textarea>
+                                  id="fasilitas" name="fasilitas" rows="3" required>{{ old('fasilitas', $webinar->detail->fasilitas ?? '') }}</textarea>
                         @error('fasilitas')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -173,7 +173,7 @@
                     <div class="mb-3">
                         <label for="kontak_person" class="form-label">Kontak Person <span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('kontak_person') is-invalid @enderror" 
-                               id="kontak_person" name="kontak_person" value="{{ old('kontak_person', $webinar->detailwebinar->kontak_person ?? '') }}" required>
+                               id="kontak_person" name="kontak_person" value="{{ old('kontak_person', $webinar->detail->kontak_person ?? '') }}" required>
                         @error('kontak_person')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -182,7 +182,7 @@
                     <div class="mb-3">
                         <label for="file_path" class="form-label">Link <span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('file_path') is-invalid @enderror" 
-                               id="file_path" name="file_path" value="{{ old('file_path', $webinar->detailwebinar->file_path ?? '') }}" required>
+                               id="file_path" name="file_path" value="{{ old('file_path', $webinar->detail->file_path ?? '') }}" required>
                         @error('kontak_person')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
