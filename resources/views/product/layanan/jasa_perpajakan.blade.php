@@ -57,24 +57,6 @@
                     </div>
                 </div>
             </div>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number">1000+</span>
-                    <span class="stat-label">Klien Terlayani</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">98%</span>
-                    <span class="stat-label">Kepuasan Klien</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">15+</span>
-                    <span class="stat-label">Tahun Pengalaman</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">50+</span>
-                    <span class="stat-label">Ahli Pajak</span>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -153,10 +135,6 @@
                                 <span>Konsultasi</span>
                             </a>
                         </div>
-<<<<<<< HEAD
-                    @endforelse
-                </div>
-=======
                     </div>
                 @empty
                     <div class="text-center text-muted py-4">
@@ -164,8 +142,6 @@
                     </div>
                 @endforelse
             </div>
-
->>>>>>> d02faebeab8747a5de3202ff73c4b998d7308c51
         </div>
     </div>
 
@@ -248,7 +224,6 @@
                     </div>
                 </div>
                 <div class="process-step">
-
                     <div class="step-content">
                         <h4>Data Collection</h4>
                         <p>Pengumpulan dokumen dan data pendukung yang diperlukan</p>
@@ -276,90 +251,16 @@
         </div>
     </div>
 
-    <!-- Pricing Section -->
-    <div class="pricing-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Paket Layanan</h2>
-                <p class="section-subtitle">Pilih paket yang sesuai dengan kebutuhan bisnis Anda</p>
-            </div>
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h3>Paket Dasar</h3>
-                        <div class="price">
-                            <span class="amount">Rp 750K</span>
-                            <span class="period">/bulan</span>
-                        </div>
-                    </div>
-                    <div class="pricing-features">
-                        <ul>
-                            <li><i class="fas fa-check"></i> SPT Masa PPh 21</li>
-                            <li><i class="fas fa-check"></i> SPT Masa PPh 23</li>
-                            <li><i class="fas fa-check"></i> SPT Masa PPN</li>
-                            <li><i class="fas fa-times"></i> SPT Tahunan</li>
-                            <li><i class="fas fa-times"></i> Konsultasi Pajak</li>
-                        </ul>
-                    </div>
-                    <div class="pricing-footer">
-                        <a href="#" class="btn btn-outline">Pilih Paket</a>
-                    </div>
-                </div>
-
-                <div class="pricing-card featured">
-                    <div class="pricing-badge">Rekomendasi</div>
-                    <div class="pricing-header">
-                        <h3>Paket Professional</h3>
-                        <div class="price">
-                            <span class="amount">Rp 1.5JT</span>
-                            <span class="period">/bulan</span>
-                        </div>
-                    </div>
-                    <div class="pricing-features">
-                        <ul>
-                            <li><i class="fas fa-check"></i> Semua SPT Masa</li>
-                            <li><i class="fas fa-check"></i> SPT Tahunan Badan</li>
-                            <li><i class="fas fa-check"></i> Konsultasi 4x/bulan</li>
-                            <li><i class="fas fa-check"></i> Tax Planning Dasar</li>
-                            <li><i class="fas fa-times"></i> Audit Support</li>
-                        </ul>
-                    </div>
-                    <div class="pricing-footer">
-                        <a href="#" class="btn btn-primary">Pilih Paket</a>
-                    </div>
-                </div>
-
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h3>Paket Enterprise</h3>
-                        <div class="price">
-                            <span class="amount">Rp 3JT</span>
-                            <span class="period">/bulan</span>
-                        </div>
-                    </div>
-                    <div class="pricing-features">
-                        <ul>
-                            <li><i class="fas fa-check"></i> Semua Layanan Pajak</li>
-                            <li><i class="fas fa-check"></i> Konsultasi Unlimited</li>
-                            <li><i class="fas fa-check"></i> Tax Planning Komprehensif</li>
-                            <li><i class="fas fa-check"></i> Audit & Litigation Support</li>
-                            <li><i class="fas fa-check"></i> Dedicated Consultant</li>
-                        </ul>
-                    </div>
-                    <div class="pricing-footer">
-                        <a href="#" class="btn btn-outline">Pilih Paket</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- CTA Section -->
     <div class="cta-section">
         <div class="container">
             <div class="cta-content">
                 <h3>Siap Optimalkan Kepatuhan Pajak Bisnis Anda?</h3>
                 <p>Konsultasikan kebutuhan perpajakan Anda dengan ahli kami dan dapatkan solusi terbaik untuk efisiensi dan compliance</p>
+                <div class="cta-buttons">
+                    <a href="/kontak" class="btn btn-light">Konsultasi Sekarang</a>
+                    <a href="tel:+628123456789" class="btn btn-outline-light">Hubungi Kami</a>
+                </div>
             </div>
         </div>
     </div>
@@ -474,7 +375,7 @@
     }
 
     .hero-title {
-        font-size: 3.5rem;
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
         font-weight: 800;
         line-height: 1.1;
         margin-bottom: 1.5rem;
@@ -492,7 +393,7 @@
     }
 
     .hero-subtitle {
-        font-size: 1.3rem;
+        font-size: clamp(1.1rem, 2vw, 1.3rem);
         line-height: 1.6;
         margin-bottom: 1.5rem;
         opacity: 0.9;
@@ -504,7 +405,7 @@
     }
 
     .hero-description {
-        font-size: 1.1rem;
+        font-size: clamp(1rem, 1.5vw, 1.1rem);
         line-height: 1.7;
         margin-bottom: 2.5rem;
         opacity: 0.8;
@@ -574,58 +475,28 @@
         animation-delay: 2s;
     }
 
-    .hero-stats {
-        position: relative;
-        z-index: 2;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 2rem;
-        padding: 3rem 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .stat-item {
-        text-align: center;
-        background: transparent;
-    }
-
-    .stat-number {
-        display: block;
-        font-size: 2.5rem;
-        font-weight: 800;
-        margin-bottom: 0.5rem;
-        color: var(--white);
-    }
-
-    .stat-label {
-        font-size: 0.9rem;
-        font-weight: 500;
-        opacity: 0.8;
-        color: white;
-    }
-
     /* =========================
        SERVICES SECTION
        ========================= */
     .services-section {
-        padding: 100px 0;
+        padding: clamp(60px, 8vw, 100px) 0;
         background: var(--gray-50);
     }
 
     .section-header {
         text-align: center;
-        margin-bottom: 4rem;
+        margin-bottom: clamp(2rem, 5vw, 4rem);
     }
 
     .section-title {
-        font-size: 2.8rem;
+        font-size: clamp(2rem, 4vw, 2.8rem);
         font-weight: 700;
         margin-bottom: 1rem;
         color: var(--gray-800);
     }
 
     .section-subtitle {
-        font-size: 1.2rem;
+        font-size: clamp(1rem, 2vw, 1.2rem);
         max-width: 600px;
         margin: 0 auto;
         color: var(--gray-600);
@@ -633,14 +504,14 @@
 
     .services-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+        gap: clamp(1.5rem, 3vw, 2rem);
     }
 
     .service-card {
         position: relative;
         overflow: hidden;
-        padding: 2.5rem;
+        padding: clamp(1.5rem, 3vw, 2.5rem);
         border-radius: 20px;
         border: 1px solid var(--gray-100);
         background: var(--white);
@@ -648,7 +519,6 @@
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         animation: fadeInUp 0.6s ease-out;
         width: 100%;
-        max-width: 400px;
         margin: 0 auto;
         display: flex;
         flex-direction: column;
@@ -703,7 +573,7 @@
     }
 
     .service-card h3 {
-        font-size: 1.5rem;
+        font-size: clamp(1.25rem, 2vw, 1.5rem);
         font-weight: 700;
         margin-bottom: 1rem;
         color: var(--gray-800);
@@ -752,20 +622,20 @@
        TAX TYPES SECTION
        ========================= */
     .tax-types-section {
-        padding: 100px 0;
+        padding: clamp(60px, 8vw, 100px) 0;
         background: var(--white);
     }
 
     .tax-types-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+        gap: clamp(1.5rem, 3vw, 2rem);
     }
 
     .tax-type-card {
         background: var(--gray-50);
         border-radius: 16px;
-        padding: 2.5rem 2rem;
+        padding: clamp(2rem, 3vw, 2.5rem) clamp(1.5rem, 2vw, 2rem);
         text-align: center;
         transition: transform 0.3s ease;
     }
@@ -788,7 +658,7 @@
     }
 
     .tax-type-card h4 {
-        font-size: 1.25rem;
+        font-size: clamp(1.1rem, 1.5vw, 1.25rem);
         font-weight: 600;
         margin-bottom: 1rem;
         color: var(--gray-800);
@@ -829,21 +699,21 @@
        PROCESS SECTION
        ========================= */
     .process-section {
-        padding: 100px 0;
+        padding: clamp(60px, 8vw, 100px) 0;
         background: var(--gray-50);
     }
 
     .process-steps {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+        gap: clamp(1.5rem, 3vw, 2rem);
         max-width: 1000px;
         margin: 0 auto;
     }
 
     .process-step {
         text-align: center;
-        padding: 2rem 1rem;
+        padding: clamp(1.5rem, 2vw, 2rem) 1rem;
         position: relative;
     }
 
@@ -862,7 +732,7 @@
     }
 
     .step-content h4 {
-        font-size: 1.25rem;
+        font-size: clamp(1.1rem, 1.5vw, 1.25rem);
         font-weight: 600;
         margin-bottom: 1rem;
         color: var(--gray-800);
@@ -874,121 +744,34 @@
     }
 
     /* =========================
-       PRICING SECTION
+       CTA SECTION
        ========================= */
-    .pricing-section {
-        padding: 100px 0;
-        background: var(--white);
-    }
-
-    .pricing-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-
-    .pricing-card {
-        background: var(--white);
-        border: 2px solid var(--gray-100);
-        border-radius: 20px;
-        padding: 2.5rem;
-        text-align: center;
-        position: relative;
-        transition: all 0.3s ease;
-    }
-
-    .pricing-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    }
-
-    .pricing-card.featured {
-        border-color: var(--primary-green);
-        background: linear-gradient(135deg, var(--gray-50) 0%, var(--light-green) 100%);
-        transform: scale(1.05);
-    }
-
-    .pricing-card.featured:hover {
-        transform: scale(1.05) translateY(-5px);
-    }
-
-    .pricing-badge {
-        position: absolute;
-        top: -12px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: var(--primary-green);
+    .cta-section {
+        padding: clamp(60px, 8vw, 100px) 0;
+        background: linear-gradient(135deg, var(--dark-green) 0%, var(--primary-green) 100%);
         color: var(--white);
-        padding: 0.5rem 1.5rem;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        text-transform: uppercase;
+        text-align: center;
     }
 
-    .pricing-header {
-        margin-bottom: 2rem;
-    }
-
-    .pricing-header h3 {
-        font-size: 1.5rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-        color: var(--gray-800);
-    }
-
-    .price {
-        display: flex;
-        align-items: baseline;
-        justify-content: center;
-        gap: 0.5rem;
-    }
-
-    .amount {
-        font-size: 2.5rem;
+    .cta-content h3 {
+        font-size: clamp(2rem, 4vw, 2.5rem);
         font-weight: 700;
-        color: var(--primary-green);
+        margin-bottom: 1rem;
+        color: var(--white);
     }
 
-    .period {
-        font-size: 1rem;
-        color: var(--gray-600);
+    .cta-content p {
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        margin: 0 auto 2.5rem;
+        max-width: 600px;
+        opacity: 0.9;
     }
 
-    .pricing-features {
-        margin-bottom: 2rem;
-    }
-
-    .pricing-features ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    .pricing-features li {
-        padding: 0.75rem 0;
-        color: var(--gray-600);
-        border-bottom: 1px solid var(--gray-100);
+    .cta-buttons {
         display: flex;
-        align-items: center;
-        gap: 0.75rem;
-    }
-
-    .pricing-features li:last-child {
-        border-bottom: none;
-    }
-
-    .pricing-features .fa-check {
-        color: var(--success);
-    }
-
-    .pricing-features .fa-times {
-        color: #ef4444;
-    }
-
-    .pricing-footer {
-        margin-top: auto;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
     }
 
     /* =========================
@@ -999,8 +782,8 @@
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
-        padding: 1rem 2rem;
-        font-size: 1rem;
+        padding: clamp(0.875rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
+        font-size: clamp(0.9rem, 1.5vw, 1rem);
         font-weight: 600;
         text-decoration: none;
         border: 2px solid transparent;
@@ -1008,6 +791,7 @@
         cursor: pointer;
         transition: all 0.3s ease;
         text-align: center;
+        min-height: 50px;
     }
 
     .btn-primary {
@@ -1055,37 +839,6 @@
     }
 
     /* =========================
-       CTA SECTION
-       ========================= */
-    .cta-section {
-        padding: 100px 0;
-        background: linear-gradient(135deg, var(--dark-green) 0%, var(--primary-green) 100%);
-        color: var(--white);
-        text-align: center;
-    }
-
-    .cta-content h3 {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-        color: var(--white);
-    }
-
-    .cta-content p {
-        font-size: 1.2rem;
-        margin: 0 auto 2.5rem;
-        max-width: 600px;
-        opacity: 0.9;
-    }
-
-    .cta-buttons {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-
-    /* =========================
        ANIMATIONS
        ========================= */
     @keyframes float {
@@ -1119,20 +872,12 @@
         }
 
         .hero-title {
-            font-size: 3rem;
+            font-size: clamp(2.5rem, 5vw, 3rem);
         }
 
         .floating-cards {
             width: 250px;
             height: 250px;
-        }
-
-        .pricing-card.featured {
-            transform: none;
-        }
-
-        .pricing-card.featured:hover {
-            transform: translateY(-5px);
         }
     }
 
@@ -1146,24 +891,15 @@
         }
 
         .hero-title {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 4vw, 2.5rem);
         }
 
         .hero-subtitle {
-            font-size: 1.1rem;
-        }
-
-        .hero-stats {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-        }
-
-        .stat-number {
-            font-size: 2rem;
+            font-size: clamp(1rem, 2vw, 1.1rem);
         }
 
         .section-title {
-            font-size: 2.2rem;
+            font-size: clamp(1.8rem, 3vw, 2.2rem);
         }
 
         .services-grid {
@@ -1172,7 +908,7 @@
         }
 
         .service-card {
-            padding: 2rem;
+            padding: clamp(1.5rem, 3vw, 2rem);
         }
 
         .tax-types-grid {
@@ -1183,12 +919,8 @@
             grid-template-columns: 1fr;
         }
 
-        .pricing-grid {
-            grid-template-columns: 1fr;
-        }
-
         .cta-content h3 {
-            font-size: 2rem;
+            font-size: clamp(1.75rem, 3vw, 2rem);
         }
 
         .hero-actions {
@@ -1197,6 +929,7 @@
 
         .btn {
             padding: 0.875rem 1.5rem;
+            min-height: 44px;
         }
     }
 
@@ -1206,35 +939,27 @@
         }
 
         .hero-title {
-            font-size: 2rem;
+            font-size: clamp(1.8rem, 3vw, 2rem);
         }
 
         .hero-subtitle {
-            font-size: 1rem;
-        }
-
-        .hero-stats {
-            grid-template-columns: 1fr;
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
         }
 
         .section-title {
-            font-size: 1.8rem;
+            font-size: clamp(1.5rem, 2.5vw, 1.8rem);
         }
 
         .service-card {
             padding: 1.5rem;
         }
 
-        .pricing-card {
-            padding: 2rem 1.5rem;
-        }
-
         .cta-section {
-            padding: 80px 0;
+            padding: 60px 0;
         }
 
         .cta-content h3 {
-            font-size: 1.75rem;
+            font-size: clamp(1.5rem, 2.5vw, 1.75rem);
         }
 
         .cta-buttons {
@@ -1250,29 +975,47 @@
         .floating-cards {
             display: none;
         }
+        
+        .hero-actions {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .hero-actions .btn {
+            width: 100%;
+            max-width: 280px;
+        }
     }
 
     /* Smooth scrolling */
     html {
         scroll-behavior: smooth;
     }
+    
+    /* Improve touch targets on mobile */
+    @media (max-width: 768px) {
+        .service-card .btn,
+        .tax-type-card,
+        .process-step {
+            min-height: 44px;
+        }
+    }
 </style>
 @endsection
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-
     function addToCart(id, type) {
-    fetch("{{ route('cart.add', [], false) }}", {
-        method: "POST",
-        headers: {
-            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: id, type: type }),
-    })
-    .then(response => response.json())
-            .then(data => {
+        fetch("{{ route('cart.add', [], false) }}", {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id: id, type: type }),
+        })
+        .then(response => response.json())
+        .then(data => {
             if (data.status === 'success') {
                 Swal.fire({
                     icon: 'success',
@@ -1281,16 +1024,16 @@
                     timer: 1500,
                     showConfirmButton: false
                 });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: data.message
-                        });
-                    }
-                })
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.message
+                });
+            }
+        })
         .catch((error) => {
-                console.error('Error:', error);
-            });
-    } 
+            console.error('Error:', error);
+        });
+    }
 </script>

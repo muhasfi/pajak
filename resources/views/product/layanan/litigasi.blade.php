@@ -57,24 +57,6 @@
                     </div>
                 </div>
             </div>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number">95%</span>
-                    <span class="stat-label">Tingkat Keberhasilan</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">500+</span>
-                    <span class="stat-label">Kasus Diselesaikan</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">25+</span>
-                    <span class="stat-label">Tahun Pengalaman</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">50+</span>
-                    <span class="stat-label">Klien Perusahaan</span>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -88,8 +70,7 @@
 
             <div class="services-grid">
                 @foreach ($litigasi as $item)
-                    <div class="service-card {{ $loop->iteration == 3 ? 'featured' : '' }}">
-
+                    <div class="service-card">
                         {{-- Header Card --}}
                         <div class="card-header">
                             <div class="service-icon">
@@ -111,21 +92,21 @@
                                 @endswitch
                             </div>
 
-                            <h3 class="fw-bold">{{ $item->judul }}</h3>
-                            <h4 class="mt-2">
+                            <h3 class="service-title">{{ $item->judul }}</h3>
+                            <h4 class="service-price">
                                 Rp {{ number_format($item->harga, 0, ',', '.') }}
                             </h4>
                         </div>
 
                         {{-- Deskripsi --}}
-                        <p class="text-muted text-center mb-4">
+                        <p class="service-description">
                             {{ $item->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}
                         </p>
 
                         {{-- Body Card - Benefits --}}
                         <div class="card-body">
                             @if (!empty($item->detail->benefit))
-                                <ul class="list-unstyled fs-5">
+                                <ul class="benefits-list">
                                     @foreach ($item->detail->benefit as $benefit)
                                         @php
                                             $trimmed = trim($benefit);
@@ -137,7 +118,7 @@
                                                 $text = ltrim($trimmed, '+- ');
                                             @endphp
 
-                                            <li class="mb-2">
+                                            <li class="benefit-item">
                                                 <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
                                                 {{ $text }}
                                             </li>
@@ -145,7 +126,7 @@
                                     @endforeach
                                 </ul>
                             @else
-                                <p class="text-muted fs-5">Benefit belum tersedia.</p>
+                                <p class="no-benefits">Benefit belum tersedia.</p>
                             @endif
                         </div>
 
@@ -164,7 +145,8 @@
                     </div>
                 @endforeach
             </div>
-
+        </div>
+    </div>
 
     <!-- Process Section -->
     <div class="process-section">
@@ -175,100 +157,27 @@
             </div>
             <div class="process-steps">
                 <div class="process-step">
-                    <div class="step-number">01</div>
                     <div class="step-content">
                         <h4>Konsultasi Awal</h4>
                         <p>Analisis dokumen dan identifikasi masalah hukum untuk menentukan strategi terbaik</p>
                     </div>
                 </div>
                 <div class="process-step">
-                    <div class="step-number">02</div>
                     <div class="step-content">
                         <h4>Penyusunan Dokumen</h4>
                         <p>Pembuatan memorandum banding, gugatan, atau tanggapan hukum yang komprehensif</p>
                     </div>
                 </div>
                 <div class="process-step">
-                    <div class="step-number">03</div>
                     <div class="step-content">
                         <h4>Proses Hukum</h4>
                         <p>Pendampingan dalam setiap tahap proses hukum dari banding hingga pengadilan</p>
                     </div>
                 </div>
                 <div class="process-step">
-                    <div class="step-number">04</div>
                     <div class="step-content">
                         <h4>Monitoring & Evaluasi</h4>
                         <p>Pemantauan berkelanjutan dan evaluasi perkembangan kasus untuk hasil optimal</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Case Studies -->
-    <div class="case-studies">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Studi Kasus Berhasil</h2>
-                <p class="section-subtitle">Bukti keberhasilan dalam menangani berbagai kompleksitas sengketa perpajakan</p>
-            </div>
-            <div class="cases-grid">
-                <div class="case-card">
-                    <div class="case-header">
-                        <span class="case-badge success">Berhasil</span>
-                        <h4>PT. Maju Jaya Abadi</h4>
-                    </div>
-                    <div class="case-body">
-                        <p>Pembatalan SKPKB senilai Rp 2,3 M melalui banding yang efektif dengan strategi bukti yang kuat.</p>
-                        <div class="case-details">
-                            <div class="case-detail">
-                                <span class="label">Nilai Sengketa</span>
-                                <span class="value">Rp 2,3 Miliar</span>
-                            </div>
-                            <div class="case-detail">
-                                <span class="label">Durasi</span>
-                                <span class="value">4 Bulan</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card">
-                    <div class="case-header">
-                        <span class="case-badge success">Berhasil</span>
-                        <h4>CV. Sentosa Mandiri</h4>
-                    </div>
-                    <div class="case-body">
-                        <p>Kemenangan di Pengadilan Pajak untuk sengketa PPN dengan nilai Rp 850 juta.</p>
-                        <div class="case-details">
-                            <div class="case-detail">
-                                <span class="label">Nilai Sengketa</span>
-                                <span class="value">Rp 850 Juta</span>
-                            </div>
-                            <div class="case-detail">
-                                <span class="label">Durasi</span>
-                                <span class="value">6 Bulan</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card">
-                    <div class="case-header">
-                        <span class="case-badge success">Berhasil</span>
-                        <h4>PT. Global Teknologi</h4>
-                    </div>
-                    <div class="case-body">
-                        <p>Penyelesaian melalui mediasi dengan pengurangan pokok pajak sebesar 65%.</p>
-                        <div class="case-details">
-                            <div class="case-detail">
-                                <span class="label">Nilai Sengketa</span>
-                                <span class="value">Rp 1,5 Miliar</span>
-                            </div>
-                            <div class="case-detail">
-                                <span class="label">Durasi</span>
-                                <span class="value">3 Bulan</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -281,6 +190,10 @@
             <div class="cta-content">
                 <h3>Hadapi Sengketa Pajak dengan Percaya Diri</h3>
                 <p>Konsultasikan kasus Anda dengan tim litigasi berpengalaman kami dan dapatkan solusi terbaik untuk perlindungan hukum perpajakan Anda</p>
+                <div class="cta-buttons">
+                    <a href="/kontak" class="btn btn-light">Konsultasi Gratis</a>
+                    <a href="tel:+62123456789" class="btn btn-outline-light">Hubungi Kami</a>
+                </div>
             </div>
         </div>
     </div>
@@ -395,7 +308,7 @@
     }
 
     .hero-title {
-        font-size: 3.5rem;
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
         font-weight: 800;
         line-height: 1.1;
         margin-bottom: 1.5rem;
@@ -413,7 +326,7 @@
     }
 
     .hero-subtitle {
-        font-size: 1.3rem;
+        font-size: clamp(1.1rem, 2vw, 1.3rem);
         line-height: 1.6;
         margin-bottom: 1.5rem;
         opacity: 0.9;
@@ -425,7 +338,7 @@
     }
 
     .hero-description {
-        font-size: 1.1rem;
+        font-size: clamp(1rem, 1.5vw, 1.1rem);
         line-height: 1.7;
         margin-bottom: 2.5rem;
         opacity: 0.8;
@@ -495,36 +408,6 @@
         animation-delay: 2s;
     }
 
-    .hero-stats {
-        position: relative;
-        z-index: 2;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 2rem;
-        padding: 3rem 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .stat-item {
-        text-align: center;
-        background: transparent;
-    }
-
-    .stat-number {
-        display: block;
-        font-size: 2.5rem;
-        font-weight: 800;
-        margin-bottom: 0.5rem;
-        color: var(--white);
-    }
-
-    .stat-label {
-        font-size: 0.9rem;
-        font-weight: 500;
-        opacity: 0.8;
-        color: var(--white);
-    }
-
     /* =========================
        SERVICES SECTION
        ========================= */
@@ -539,37 +422,43 @@
     }
 
     .section-title {
-        font-size: 2.8rem;
+        font-size: clamp(2rem, 4vw, 2.8rem);
         font-weight: 700;
         margin-bottom: 1rem;
         color: var(--gray-800);
     }
 
     .section-subtitle {
-        font-size: 1.2rem;
+        font-size: clamp(1rem, 2vw, 1.2rem);
         max-width: 600px;
         margin: 0 auto;
         color: var(--gray-600);
     }
 
+    /* Services Grid - Responsive dengan jumlah card yang fleksibel */
     .services-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         gap: 2rem;
+        justify-items: center;
     }
 
+    /* Service Card - Tetap konsisten ukurannya */
     .service-card {
         position: relative;
         overflow: hidden;
-        padding: 2.5rem;
+        width: 100%;
+        max-width: 380px;
+        min-height: 500px;
+        padding: 2rem;
         border-radius: 20px;
         border: 1px solid var(--gray-100);
         background: var(--white);
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         animation: fadeInUp 0.6s ease-out;
-        display: flex;               /* flex column */
-        flex-direction: column;      
+        display: flex;
+        flex-direction: column;
         justify-content: space-between;
     }
 
@@ -593,7 +482,6 @@
     .service-card:hover::before {
         transform: scaleX(1);
     }
-
 
     .card-header {
         text-align: center;
@@ -620,54 +508,58 @@
         background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
     }
 
-    .service-card h3 {
+    .service-title {
         font-size: 1.5rem;
         font-weight: 700;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
         color: var(--gray-800);
     }
 
-    .card-body p {
-        margin-bottom: 1.5rem;
-        line-height: 1.6;
-        color: var(--gray-600);
+    .service-price {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--primary-blue);
+        margin: 0;
     }
 
-    .feature-list {
-        margin: 1.5rem 0;
+    .service-description {
+        text-align: center;
+        color: var(--gray-600);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    .card-body {
+        flex-grow: 1;
+        margin-bottom: 1.5rem;
+    }
+
+    .benefits-list {
+        margin: 0;
         padding: 0;
         list-style: none;
     }
 
-    .feature-list li {
-        position: relative;
-        padding: 0.5rem 0 0.5rem 1.5rem;
-        color: var(--gray-600);
+    .benefit-item {
+        padding: 0.5rem 0;
         border-bottom: 1px solid var(--gray-100);
+        font-size: 0.95rem;
     }
 
-    .feature-list li:last-child {
+    .benefit-item:last-child {
         border-bottom: none;
     }
 
-    .feature-list li::before {
-        content: '✓';
-        position: absolute;
-        left: 0;
-        font-weight: 600;
-        color: var(--success);
+    .no-benefits {
+        color: var(--gray-600);
+        text-align: center;
+        font-style: italic;
     }
 
     .card-footer {
-        display: flex;    
-        gap: 0.75rem;          
-        flex-wrap: wrap;        
-        margin-top: 2rem;
-        justify-content: center;
-    }
-
-    .card-footer .btn {
-        width: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
     }
 
     /* =========================
@@ -719,91 +611,34 @@
     }
 
     /* =========================
-       CASE STUDIES
+       CTA SECTION
        ========================= */
-    .case-studies {
+    .cta-section {
         padding: 100px 0;
-        background: var(--gray-50);
+        background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
+        color: var(--white);
+        text-align: center;
     }
 
-    .cases-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
+    .cta-content h3 {
+        font-size: clamp(2rem, 4vw, 2.5rem);
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--white);
     }
 
-    .case-card {
-        background: var(--white);
-        border-radius: 16px;
-        padding: 2rem;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        transition: transform 0.3s ease;
+    .cta-content p {
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        margin: 0 auto 2.5rem;
+        max-width: 600px;
+        opacity: 0.9;
     }
 
-    .case-card:hover {
-        transform: translateY(-5px);
-    }
-
-    .case-header {
+    .cta-buttons {
         display: flex;
-        justify-content: between;
-        align-items: flex-start;
-        margin-bottom: 1.5rem;
-    }
-
-    .case-header h4 {
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: var(--gray-800);
-        flex: 1;
-        margin-right: 1rem;
-    }
-
-    .case-badge {
-        padding: 0.25rem 0.75rem;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        text-transform: uppercase;
-    }
-
-    .case-badge.success {
-        background: #d1fae5;
-        color: #065f46;
-    }
-
-    .case-body p {
-        line-height: 1.6;
-        color: var(--gray-600);
-        margin-bottom: 1.5rem;
-    }
-
-    .case-details {
-        display: grid;
-        gap: 0.75rem;
-    }
-
-    .case-detail {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.5rem 0;
-        border-bottom: 1px solid var(--gray-100);
-    }
-
-    .case-detail:last-child {
-        border-bottom: none;
-    }
-
-    .label {
-        font-size: 0.9rem;
-        color: var(--gray-600);
-    }
-
-    .value {
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: var(--gray-800);
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
     }
 
     /* =========================
@@ -823,6 +658,7 @@
         cursor: pointer;
         transition: all 0.3s ease;
         text-align: center;
+        min-height: 54px;
     }
 
     .btn-primary {
@@ -870,37 +706,6 @@
     }
 
     /* =========================
-       CTA SECTION
-       ========================= */
-    .cta-section {
-        padding: 100px 0;
-        background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
-        color: var(--white);
-        text-align: center;
-    }
-
-    .cta-content h3 {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-        color: var(--white);
-    }
-
-    .cta-content p {
-        font-size: 1.2rem;
-        margin: 0 auto 2.5rem;
-        max-width: 600px;
-        opacity: 0.9;
-    }
-
-    .cta-buttons {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-
-    /* =========================
        ANIMATIONS
        ========================= */
     @keyframes float {
@@ -926,51 +731,46 @@
     /* =========================
        RESPONSIVE DESIGN
        ========================= */
+    
+    /* Tablet Landscape dan Desktop Kecil */
     @media (max-width: 1024px) {
         .hero-content {
             grid-template-columns: 1fr;
             gap: 3rem;
             text-align: center;
+            padding: 100px 0 60px;
         }
 
-        .hero-title {
-            font-size: 3rem;
+        .hero-text {
+            max-width: 100%;
         }
 
         .floating-cards {
             width: 250px;
             height: 250px;
         }
+
+        .services-grid {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
     }
 
+    /* Tablet Portrait */
     @media (max-width: 768px) {
         .modern-hero {
             min-height: 90vh;
         }
 
         .hero-content {
-            padding: 100px 0 60px;
+            padding: 80px 0 40px;
         }
 
-        .hero-title {
-            font-size: 2.5rem;
+        .hero-actions {
+            justify-content: center;
         }
 
-        .hero-subtitle {
-            font-size: 1.1rem;
-        }
-
-        .hero-stats {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-        }
-
-        .section-title {
-            font-size: 2.2rem;
+        .services-section {
+            padding: 80px 0;
         }
 
         .services-grid {
@@ -979,52 +779,21 @@
         }
 
         .service-card {
-            padding: 2rem;
+            max-width: 100%;
+            min-height: auto;
+            padding: 1.5rem;
+        }
+
+        .process-section {
+            padding: 80px 0;
         }
 
         .process-steps {
             grid-template-columns: 1fr;
+            gap: 1.5rem;
         }
 
-        .cases-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .cta-content h3 {
-            font-size: 2rem;
-        }
-
-        .hero-actions {
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 0.875rem 1.5rem;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .container {
-            padding: 0 15px;
-        }
-
-        .hero-title {
-            font-size: 2rem;
-        }
-
-        .hero-subtitle {
-            font-size: 1rem;
-        }
-
-        .hero-stats {
-            grid-template-columns: 1fr;
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-        }
-
-        .service-card {
+        .process-step {
             padding: 1.5rem;
         }
 
@@ -1032,8 +801,105 @@
             padding: 80px 0;
         }
 
-        .cta-content h3 {
-            font-size: 1.75rem;
+        .btn {
+            padding: 0.875rem 1.5rem;
+            min-height: 48px;
+        }
+    }
+
+    /* Mobile Devices */
+    @media (max-width: 480px) {
+        .container {
+            padding: 0 15px;
+        }
+
+        .hero-content {
+            padding: 60px 0 30px;
+        }
+
+        .hero-actions {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-actions .btn {
+            width: 100%;
+            max-width: 280px;
+        }
+
+        .floating-cards {
+            display: none;
+        }
+
+        .services-section {
+            padding: 60px 0;
+        }
+
+        .section-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .service-card {
+            padding: 1.25rem;
+            border-radius: 16px;
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-title {
+            font-size: 1.25rem;
+        }
+
+        .service-price {
+            font-size: 1.1rem;
+        }
+
+        .service-description {
+            font-size: 0.9rem;
+        }
+
+        .benefit-item {
+            font-size: 0.85rem;
+        }
+
+        .card-footer {
+            gap: 0.5rem;
+        }
+
+        .card-footer .btn {
+            width: 100%;
+        }
+
+        .process-section {
+            padding: 60px 0;
+        }
+
+        .process-step {
+            padding: 1rem;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-content h4 {
+            font-size: 1.1rem;
+        }
+
+        .step-content p {
+            font-size: 0.9rem;
+        }
+
+        .cta-section {
+            padding: 60px 0;
         }
 
         .cta-buttons {
@@ -1041,13 +907,25 @@
             align-items: center;
         }
 
-        .btn {
+        .cta-buttons .btn {
             width: 100%;
-            max-width: 300px;
+            max-width: 280px;
+        }
+    }
+
+    /* Very Small Mobile Devices */
+    @media (max-width: 360px) {
+        .services-grid {
+            grid-template-columns: 1fr;
         }
 
-        .floating-cards {
-            display: none;
+        .service-card {
+            padding: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
         }
     }
 
@@ -1055,23 +933,33 @@
     html {
         scroll-behavior: smooth;
     }
+
+    /* Touch device optimizations */
+    @media (hover: none) {
+        .service-card:hover {
+            transform: none;
+        }
+        
+        .btn:hover {
+            transform: none;
+        }
+    }
 </style>
 @endsection
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-
     function addToCart(id, type) {
-    fetch("{{ route('cart.add', [], false) }}", {
-        method: "POST",
-        headers: {
-            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: id, type: type }),
-    })
-    .then(response => response.json())
-            .then(data => {
+        fetch("{{ route('cart.add', [], false) }}", {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id: id, type: type }),
+        })
+        .then(response => response.json())
+        .then(data => {
             if (data.status === 'success') {
                 Swal.fire({
                     icon: 'success',
@@ -1080,16 +968,16 @@
                     timer: 1500,
                     showConfirmButton: false
                 });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: data.message
-                        });
-                    }
-                })
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.message
+                });
+            }
+        })
         .catch((error) => {
-                console.error('Error:', error);
-            });
-    } 
+            console.error('Error:', error);
+        });
+    }
 </script>

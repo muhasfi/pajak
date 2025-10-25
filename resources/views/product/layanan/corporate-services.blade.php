@@ -400,11 +400,8 @@
 </section>
 
 <style>
-<<<<<<< HEAD
- :root {
-=======
 :root {
->>>>>>> d02faebeab8747a5de3202ff73c4b998d7308c51
+
     --primary-orange: #ea580c;
     --secondary-orange: #c2410c;
     --dark-orange: #9a3412;

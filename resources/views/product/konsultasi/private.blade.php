@@ -33,6 +33,7 @@
         background-color: #f5f7fb;
         color: var(--dark);
         line-height: 1.6;
+        overflow-x: hidden;
     }
 
     .consultation-page h1, 
@@ -47,15 +48,15 @@
     }
 
     .consultation-page h1 {
-        font-size: 2.5rem;
+        font-size: clamp(1.8rem, 5vw, 2.5rem);
     }
 
     .consultation-page h2 {
-        font-size: 2rem;
+        font-size: clamp(1.6rem, 4vw, 2rem);
     }
 
     .consultation-page h3 {
-        font-size: 1.75rem;
+        font-size: clamp(1.4rem, 3.5vw, 1.75rem);
     }
 
     .consultation-page p {
@@ -82,7 +83,7 @@
     .consultation-hero {
         background: linear-gradient(135deg, var(--primary), var(--secondary));
         color: var(--white);
-        padding: 4rem 0;
+        padding: clamp(2rem, 6vw, 4rem) 0;
         border-radius: 0 0 30px 30px;
         margin-bottom: 3rem;
         position: relative;
@@ -113,13 +114,13 @@
     }
 
     .consultation-hero p {
-        font-size: 1.2rem;
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
         opacity: 0.9;
         margin-bottom: 2rem;
     }
 
     .hero-icon {
-        font-size: 5rem;
+        font-size: clamp(3rem, 10vw, 5rem);
         margin-bottom: 1.5rem;
         opacity: 0.9;
     }
@@ -133,11 +134,12 @@
     .hero-feature i {
         margin-right: 0.75rem;
         font-size: 1.2rem;
+        min-width: 20px;
     }
 
     /* ===== CONSULTATION CARDS ===== */
     .consultation-cards {
-        padding: 2rem 0;
+        padding: clamp(1.5rem, 4vw, 2rem) 0;
     }
 
     .card-consultation {
@@ -160,7 +162,7 @@
     .card-header {
         background: linear-gradient(to right, var(--primary), var(--secondary));
         color: var(--white);
-        padding: 1.5rem;
+        padding: clamp(1rem, 3vw, 1.5rem);
         border-bottom: none;
         text-align: center;
         position: relative;
@@ -169,10 +171,11 @@
     .card-header h3 {
         margin-bottom: 0;
         color: var(--white);
+        font-size: clamp(1.2rem, 3vw, 1.5rem);
     }
 
     .card-body {
-        padding: 2.5rem;
+        padding: clamp(1.25rem, 3vw, 2.5rem);
         flex-grow: 1;
         display: flex;
         flex-direction: column;
@@ -188,6 +191,7 @@
         align-items: center;
         margin-bottom: 1.5rem;
         align-self: flex-start;
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
     }
 
     .duration-badge i {
@@ -195,14 +199,14 @@
     }
 
     .price {
-        font-size: 2.5rem;
+        font-size: clamp(1.8rem, 5vw, 2.5rem);
         font-weight: 800;
         color: var(--primary);
         margin: 1rem 0;
     }
 
     .price-period {
-        font-size: 1rem;
+        font-size: clamp(0.8rem, 2vw, 1rem);
         font-weight: 500;
         color: var(--gray);
     }
@@ -219,6 +223,7 @@
         display: flex;
         align-items: center;
         border-bottom: 1px solid var(--light-gray);
+        font-size: clamp(0.85rem, 2vw, 1rem);
     }
 
     .feature-list li:last-child {
@@ -231,6 +236,7 @@
         font-size: 1.1rem;
         width: 20px;
         text-align: center;
+        flex-shrink: 0;
     }
 
     .feature-list .disabled {
@@ -251,6 +257,7 @@
         width: 100%;
         transition: var(--transition);
         margin-top: auto;
+        font-size: clamp(0.9rem, 2vw, 1rem);
     }
 
     .btn-consult:hover {
@@ -261,14 +268,14 @@
 
     /* ===== HOW IT WORKS ===== */
     .how-it-works {
-        padding: 4rem 0;
+        padding: clamp(2rem, 6vw, 4rem) 0;
         background-color: var(--white);
     }
 
     .consultation-steps {
         background-color: var(--white);
         border-radius: var(--radius);
-        padding: 3rem;
+        padding: clamp(1.5rem, 4vw, 3rem);
         box-shadow: var(--shadow);
     }
 
@@ -285,8 +292,8 @@
     .step-number {
         background: linear-gradient(to right, var(--primary), var(--secondary));
         color: var(--white);
-        width: 50px;
-        height: 50px;
+        width: clamp(40px, 8vw, 50px);
+        height: clamp(40px, 8vw, 50px);
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -294,29 +301,31 @@
         font-weight: 700;
         margin-right: 1.5rem;
         flex-shrink: 0;
-        font-size: 1.2rem;
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
         box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
     }
 
     .step-content h4 {
         margin-bottom: 0.75rem;
         color: var(--primary);
+        font-size: clamp(1.1rem, 2.5vw, 1.3rem);
     }
 
     .step-content p {
         color: var(--dark-gray);
+        font-size: clamp(0.9rem, 2vw, 1rem);
     }
 
     /* ===== TESTIMONIALS ===== */
     .testimonials {
-        padding: 4rem 0;
+        padding: clamp(2rem, 6vw, 4rem) 0;
         background-color: #f5f7fb;
     }
 
     .testimonial-card {
         background-color: var(--white);
         border-radius: var(--radius);
-        padding: 3rem;
+        padding: clamp(1.5rem, 4vw, 3rem);
         box-shadow: var(--shadow);
     }
 
@@ -331,6 +340,7 @@
         padding: 1.5rem;
         background-color: var(--light);
         border-radius: 10px;
+        font-size: clamp(0.9rem, 2vw, 1rem);
     }
 
     .testimonial-text:before {
@@ -350,8 +360,8 @@
     }
 
     .testimonial-avatar {
-        width: 60px;
-        height: 60px;
+        width: clamp(50px, 10vw, 60px);
+        height: clamp(50px, 10vw, 60px);
         border-radius: 50%;
         background: linear-gradient(to right, var(--primary), var(--secondary));
         display: flex;
@@ -360,21 +370,24 @@
         color: var(--white);
         font-weight: 700;
         margin-right: 1rem;
-        font-size: 1.2rem;
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
+        flex-shrink: 0;
     }
 
     .testimonial-info h5 {
         margin-bottom: 0.25rem;
+        font-size: clamp(1rem, 2.5vw, 1.1rem);
     }
 
     .testimonial-info p {
         margin-bottom: 0;
         color: var(--gray);
+        font-size: clamp(0.85rem, 2vw, 0.9rem);
     }
 
     /* ===== FAQ SECTION ===== */
     .faq-section {
-        padding: 4rem 0;
+        padding: clamp(2rem, 6vw, 4rem) 0;
         background-color: var(--white);
     }
 
@@ -393,6 +406,7 @@
         padding: 1.25rem 1.5rem;
         border: none;
         box-shadow: none;
+        font-size: clamp(0.9rem, 2vw, 1rem);
     }
 
     .accordion-button:not(.collapsed) {
@@ -408,11 +422,12 @@
     .accordion-body {
         padding: 1.5rem;
         background-color: var(--light);
+        font-size: clamp(0.9rem, 2vw, 1rem);
     }
 
     /* ===== CTA SECTION ===== */
     .cta-section {
-        padding: 5rem 0;
+        padding: clamp(3rem, 8vw, 5rem) 0;
         background: linear-gradient(135deg, var(--primary), var(--secondary));
         color: var(--white);
         text-align: center;
@@ -422,10 +437,11 @@
     .cta-section h2 {
         color: var(--white);
         margin-bottom: 1.5rem;
+        font-size: clamp(1.6rem, 4vw, 2.2rem);
     }
 
     .cta-section p {
-        font-size: 1.2rem;
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
         opacity: 0.9;
         margin-bottom: 2rem;
         max-width: 700px;
@@ -441,6 +457,7 @@
         border-radius: 50px;
         font-weight: 600;
         transition: var(--transition);
+        font-size: clamp(0.9rem, 2vw, 1rem);
     }
 
     .btn-cta:hover {
@@ -472,49 +489,75 @@
     }
 
     /* ===== RESPONSIVE STYLES ===== */
-    @media (max-width: 992px) {
-        .consultation-page h1 {
-            font-size: 2.2rem;
-        }
-        
-        .consultation-page h2 {
-            font-size: 1.8rem;
-        }
-        
-        .consultation-hero {
-            padding: 3rem 0;
-        }
-        
-        .card-body {
-            padding: 2rem;
+    /* Mobile First Approach - Default is for mobile */
+    
+    /* Small devices (landscape phones, 576px and up) */
+    @media (min-width: 576px) {
+        .hero-feature {
+            justify-content: flex-start;
         }
         
         .step-item {
-            margin-bottom: 2rem;
+            flex-direction: row;
+            text-align: left;
+        }
+        
+        .testimonial-author {
+            justify-content: flex-start;
         }
     }
-
-    @media (max-width: 768px) {
-        .consultation-page h1 {
-            font-size: 2rem;
-        }
-        
-        .consultation-page h2 {
-            font-size: 1.6rem;
-        }
-        
+    
+    /* Medium devices (tablets, 768px and up) */
+    @media (min-width: 768px) {
         .consultation-hero {
-            text-align: center;
-            padding: 2.5rem 0;
+            text-align: left;
+        }
+        
+        .hero-feature {
+            justify-content: flex-start;
+        }
+        
+        .step-item {
+            margin-bottom: 2.5rem;
+        }
+        
+        .testimonial-item {
+            margin-bottom: 0;
+        }
+    }
+    
+    /* Large devices (desktops, 992px and up) */
+    @media (min-width: 992px) {
+        .consultation-hero {
+            padding: 4rem 0;
         }
         
         .card-body {
-            padding: 1.5rem;
+            padding: 2.5rem;
         }
         
         .consultation-steps,
         .testimonial-card {
-            padding: 2rem;
+            padding: 3rem;
+        }
+    }
+    
+    /* Extra large devices (large desktops, 1200px and up) */
+    @media (min-width: 1200px) {
+        .container {
+            max-width: 1140px;
+        }
+    }
+    
+    /* Specific fixes for very small screens */
+    @media (max-width: 400px) {
+        .card-body {
+            padding: 1rem;
+        }
+        
+        .consultation-steps,
+        .testimonial-card {
+            padding: 1rem;
         }
         
         .step-item {
@@ -528,30 +571,36 @@
         }
         
         .testimonial-author {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .testimonial-avatar {
+            margin-right: 0;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero-feature {
             justify-content: center;
+            text-align: center;
         }
     }
-
-    @media (max-width: 576px) {
-        .consultation-page h1 {
-            font-size: 1.8rem;
-        }
-        
+    
+    /* Fix for landscape orientation on mobile */
+    @media (max-height: 500px) and (orientation: landscape) {
         .consultation-hero {
-            padding: 2rem 0;
+            padding: 1.5rem 0;
         }
         
-        .card-body {
-            padding: 1.25rem;
+        .hero-icon {
+            margin-bottom: 0.5rem;
         }
-        
-        .consultation-steps,
-        .testimonial-card {
-            padding: 1.5rem;
-        }
-        
-        .price {
-            font-size: 2rem;
+    }
+    
+    /* High DPI screens */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        .consultation-hero:before {
+            background-size: contain;
         }
     }
 </style>

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Seminar & Workshop Perpajakan')
+@section('title', 'Seminar Perpajakan')
 
 @section('content')
 <section class="seminars-page">
@@ -10,12 +10,12 @@
             <div class="hero-content">
                 <div class="hero-text">
                     <h1 class="hero-title">
-                        <span class="title-line">Seminar &</span>
-                        <span class="title-line highlight">Workshop</span>
+                        <span class="title-line">Seminar</span>
+                        <span class="title-line highlight">Perpajakan</span>
                     </h1>
                     <p class="hero-subtitle">
                         Tingkatkan kompetensi perpajakan Anda melalui <span class="text-highlight">seminar</span> dan 
-                        <span class="text-highlight">workshop</span> dengan pembicara ahli di bidangnya
+                        <span class="text-highlight"></span> dengan pembicara ahli di bidangnya
                     </p>
                     <p class="hero-description">
                         Dapatkan insight terbaru seputar regulasi perpajakan, strategi perencanaan, 
@@ -104,7 +104,7 @@
     <div id="seminar-list" class="seminar-list-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Seminar & Workshop Terbaru</h2>
+                <h2 class="section-title">Seminar Terbaru</h2>
                 <p class="section-subtitle">Pilih dan daftar seminar yang sesuai dengan jadwal dan kebutuhan Anda</p>
             </div>
 

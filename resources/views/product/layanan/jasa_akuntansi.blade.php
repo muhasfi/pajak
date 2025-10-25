@@ -57,24 +57,6 @@
                     </div>
                 </div>
             </div>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number">500+</span>
-                    <span class="stat-label">Klien Terlayani</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">99%</span>
-                    <span class="stat-label">Kepuasan Klien</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">24/7</span>
-                    <span class="stat-label">Support</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">50+</span>
-                    <span class="stat-label">Ahli Profesional</span>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -210,6 +192,10 @@
             <div class="cta-content">
                 <h3>Siap Mengoptimalkan Keuangan Bisnis Anda?</h3>
                 <p>Konsultasikan kebutuhan akuntansi Anda dengan ahli kami dan dapatkan solusi terbaik untuk perkembangan bisnis</p>
+                <div class="cta-buttons">
+                    <a href="/kontak" class="btn btn-light">Konsultasi Sekarang</a>
+                    <a href="tel:+628123456789" class="btn btn-outline-light">Hubungi Kami</a>
+                </div>
             </div>
         </div>
     </div>
@@ -237,7 +223,7 @@
     .container {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 20px;
+        padding: 0 clamp(15px, 3vw, 20px);
     }
 
     /* =========================
@@ -276,32 +262,32 @@
     }
 
     .shape-1 {
-        width: 300px;
-        height: 300px;
+        width: clamp(150px, 25vw, 300px);
+        height: clamp(150px, 25vw, 300px);
         top: 10%;
         left: 5%;
         animation-delay: 0s;
     }
 
     .shape-2 {
-        width: 200px;
-        height: 200px;
+        width: clamp(100px, 20vw, 200px);
+        height: clamp(100px, 20vw, 200px);
         top: 60%;
         right: 10%;
         animation-delay: 2s;
     }
 
     .shape-3 {
-        width: 150px;
-        height: 150px;
+        width: clamp(80px, 15vw, 150px);
+        height: clamp(80px, 15vw, 150px);
         bottom: 20%;
         left: 20%;
         animation-delay: 4s;
     }
 
     .shape-4 {
-        width: 100px;
-        height: 100px;
+        width: clamp(60px, 10vw, 100px);
+        height: clamp(60px, 10vw, 100px);
         top: 20%;
         right: 20%;
         animation-delay: 1s;
@@ -312,9 +298,9 @@
         z-index: 2;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 4rem;
+        gap: clamp(2rem, 4vw, 4rem);
         align-items: center;
-        padding: 120px 0 80px;
+        padding: clamp(80px, 10vw, 120px) 0 clamp(60px, 8vw, 80px);
     }
 
     .hero-text {
@@ -322,10 +308,10 @@
     }
 
     .hero-title {
-        font-size: 4rem;
+        font-size: clamp(2.5rem, 5vw, 4rem);
         font-weight: 800;
         line-height: 1.1;
-        margin-bottom: 1.5rem;
+        margin-bottom: clamp(1rem, 2vw, 1.5rem);
     }
 
     .title-line {
@@ -340,9 +326,9 @@
     }
 
     .hero-subtitle {
-        font-size: 1.5rem;
+        font-size: clamp(1.1rem, 2vw, 1.5rem);
         line-height: 1.6;
-        margin-bottom: 1.5rem;
+        margin-bottom: clamp(1rem, 2vw, 1.5rem);
         opacity: 0.9;
     }
 
@@ -352,15 +338,15 @@
     }
 
     .hero-description {
-        font-size: 1.1rem;
+        font-size: clamp(1rem, 1.5vw, 1.1rem);
         line-height: 1.7;
-        margin-bottom: 2.5rem;
+        margin-bottom: clamp(2rem, 3vw, 2.5rem);
         opacity: 0.8;
     }
 
     .hero-actions {
         display: flex;
-        gap: 1rem;
+        gap: clamp(0.75rem, 1.5vw, 1rem);
         flex-wrap: wrap;
     }
 
@@ -372,8 +358,8 @@
 
     .floating-cards {
         position: relative;
-        width: 300px;
-        height: 300px;
+        width: clamp(200px, 30vw, 300px);
+        height: clamp(200px, 30vw, 300px);
     }
 
     .floating-card {
@@ -382,7 +368,7 @@
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 20px;
-        padding: 1.5rem;
+        padding: clamp(1rem, 2vw, 1.5rem);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -390,15 +376,16 @@
         color: var(--white);
         animation: float 3s ease-in-out infinite;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        text-align: center;
     }
 
     .floating-card i {
-        font-size: 2rem;
+        font-size: clamp(1.5rem, 3vw, 2rem);
         margin-bottom: 0.5rem;
     }
 
     .floating-card span {
-        font-size: 0.9rem;
+        font-size: clamp(0.8rem, 1.5vw, 0.9rem);
         font-weight: 600;
     }
 
@@ -421,58 +408,28 @@
         animation-delay: 2s;
     }
 
-    .hero-stats {
-        position: relative;
-        z-index: 2;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 2rem;
-        padding: 3rem 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .stat-item {
-        text-align: center;
-        background-color: transparent;
-    }
-
-    .stat-number {
-        display: block;
-        font-size: 2.5rem;
-        font-weight: 800;
-        margin-bottom: 0.5rem;
-        color: var(--white);
-    }
-
-    .stat-label {
-        font-size: 0.9rem;
-        font-weight: 500;
-        opacity: 0.8;
-        color: var(--white);
-    }
-
     /* =========================
        SERVICES SECTION
        ========================= */
     .services-section {
-        padding: 100px 0;
+        padding: clamp(60px, 8vw, 100px) 0;
         background: var(--gray-50);
     }
 
     .section-header {
         text-align: center;
-        margin-bottom: 4rem;
+        margin-bottom: clamp(2rem, 5vw, 4rem);
     }
 
     .section-title {
-        font-size: 3rem;
+        font-size: clamp(2rem, 4vw, 3rem);
         font-weight: 700;
         margin-bottom: 1rem;
         color: var(--gray-800);
     }
 
     .section-subtitle {
-        font-size: 1.2rem;
+        font-size: clamp(1rem, 2vw, 1.2rem);
         max-width: 600px;
         margin: 0 auto;
         color: var(--gray-600);
@@ -480,14 +437,14 @@
 
     .services-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+        gap: clamp(1.5rem, 3vw, 2rem);
     }
 
     .service-card {
         position: relative;
         overflow: hidden;
-        padding: 2.5rem;
+        padding: clamp(1.5rem, 3vw, 2.5rem);
         border-radius: 24px;
         border: 1px solid var(--gray-100);
         background: var(--white);
@@ -495,8 +452,10 @@
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         animation: fadeInUp 0.6s ease-out;
         width: 100%;
-        max-width: 400px;
         margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
     .service-card::before {
@@ -547,10 +506,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 80px;
-        height: 80px;
+        width: clamp(60px, 8vw, 80px);
+        height: clamp(60px, 8vw, 80px);
         margin: 0 auto 1.5rem;
-        font-size: 2rem;
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
         color: var(--primary-blue);
         border-radius: 20px;
         background: linear-gradient(135deg, var(--light-blue) 0%, #eff6ff 100%);
@@ -564,7 +523,7 @@
     }
 
     .service-card h3 {
-        font-size: 1.5rem;
+        font-size: clamp(1.25rem, 2vw, 1.5rem);
         font-weight: 700;
         margin-bottom: 1rem;
         color: var(--gray-800);
@@ -600,7 +559,7 @@
         display: flex;
         flex-direction: column;
         gap: 0.75rem;
-        margin-top: 2rem;
+        margin-top: auto;
     }
 
     /* =========================
@@ -611,8 +570,8 @@
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
-        padding: 1rem 2rem;
-        font-size: 1rem;
+        padding: clamp(0.875rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
+        font-size: clamp(0.9rem, 1.5vw, 1rem);
         font-weight: 600;
         text-decoration: none;
         border: 2px solid transparent;
@@ -620,6 +579,7 @@
         cursor: pointer;
         transition: all 0.3s ease;
         text-align: center;
+        min-height: 50px;
     }
 
     .btn-primary {
@@ -670,29 +630,29 @@
        FEATURES SECTION
        ========================= */
     .features-section {
-        padding: 100px 0;
+        padding: clamp(60px, 8vw, 100px) 0;
         background: var(--white);
     }
 
     .features-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 3rem;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+        gap: clamp(2rem, 3vw, 3rem);
     }
 
     .feature-item {
         text-align: center;
-        padding: 2rem 1rem;
+        padding: clamp(1.5rem, 2vw, 2rem) 1rem;
     }
 
     .feature-icon {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 80px;
-        height: 80px;
+        width: clamp(60px, 8vw, 80px);
+        height: clamp(60px, 8vw, 80px);
         margin: 0 auto 1.5rem;
-        font-size: 2rem;
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
         color: var(--primary-blue);
         border-radius: 20px;
         background: linear-gradient(135deg, var(--light-blue) 0%, #eff6ff 100%);
@@ -706,7 +666,7 @@
     }
 
     .feature-item h4 {
-        font-size: 1.25rem;
+        font-size: clamp(1.1rem, 1.5vw, 1.25rem);
         font-weight: 600;
         margin-bottom: 1rem;
         color: var(--gray-800);
@@ -715,28 +675,29 @@
     .feature-item p {
         line-height: 1.6;
         color: var(--gray-600);
+        font-size: clamp(0.9rem, 1.2vw, 1rem);
     }
 
     /* =========================
        CTA SECTION
        ========================= */
     .cta-section {
-        padding: 100px 0;
+        padding: clamp(60px, 8vw, 100px) 0;
         background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
         color: var(--white);
         text-align: center;
     }
 
     .cta-content h3 {
-        font-size: 2.5rem;
+        font-size: clamp(2rem, 4vw, 2.5rem);
         font-weight: 700;
         margin-bottom: 1rem;
         color: var(--white);
     }
 
     .cta-content p {
-        font-size: 1.2rem;
-        margin: 0 auto 2.5rem;
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        margin: 0 auto clamp(2rem, 3vw, 2.5rem);
         max-width: 600px;
         opacity: 0.9;
         color: var(--white);
@@ -783,12 +744,12 @@
         }
 
         .hero-title {
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
         }
 
         .floating-cards {
-            width: 250px;
-            height: 250px;
+            width: clamp(180px, 25vw, 250px);
+            height: clamp(180px, 25vw, 250px);
         }
     }
 
@@ -798,28 +759,19 @@
         }
 
         .hero-content {
-            padding: 100px 0 60px;
+            padding: clamp(80px, 10vw, 100px) 0 clamp(40px, 6vw, 60px);
         }
 
         .hero-title {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 4vw, 2.5rem);
         }
 
         .hero-subtitle {
-            font-size: 1.2rem;
-        }
-
-        .hero-stats {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-        }
-
-        .stat-number {
-            font-size: 2rem;
+            font-size: clamp(1rem, 1.8vw, 1.2rem);
         }
 
         .section-title {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
         }
 
         .services-grid {
@@ -828,7 +780,7 @@
         }
 
         .service-card {
-            padding: 2rem;
+            padding: clamp(1.5rem, 2.5vw, 2rem);
         }
 
         .features-grid {
@@ -837,7 +789,7 @@
         }
 
         .cta-content h3 {
-            font-size: 2rem;
+            font-size: clamp(1.75rem, 3vw, 2rem);
         }
 
         .hero-actions {
@@ -846,40 +798,37 @@
 
         .btn {
             padding: 0.875rem 1.5rem;
+            min-height: 44px;
         }
     }
 
     @media (max-width: 480px) {
         .container {
-            padding: 0 15px;
+            padding: 0 12px;
         }
 
         .hero-title {
-            font-size: 2rem;
+            font-size: clamp(1.8rem, 3vw, 2rem);
         }
 
         .hero-subtitle {
-            font-size: 1.1rem;
-        }
-
-        .hero-stats {
-            grid-template-columns: 1fr;
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
         }
 
         .section-title {
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
         }
 
         .service-card {
-            padding: 1.5rem;
+            padding: 1.25rem;
         }
 
         .cta-section {
-            padding: 80px 0;
+            padding: 60px 0;
         }
 
         .cta-content h3 {
-            font-size: 1.75rem;
+            font-size: clamp(1.5rem, 2.5vw, 1.75rem);
         }
 
         .cta-buttons {
@@ -889,11 +838,57 @@
 
         .btn {
             width: 100%;
-            max-width: 300px;
+            max-width: 280px;
         }
 
         .floating-cards {
             display: none;
+        }
+        
+        .hero-actions {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .hero-actions .btn {
+            width: 100%;
+            max-width: 280px;
+        }
+        
+        .card-footer {
+            flex-direction: column;
+        }
+        
+        .card-footer .btn {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 360px) {
+        .service-card {
+            padding: 1rem;
+        }
+        
+        .hero-title {
+            font-size: 1.6rem;
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+        }
+        
+        .btn {
+            min-height: 42px;
+            font-size: 0.85rem;
+        }
+    }
+
+    /* Improve touch targets on mobile */
+    @media (max-width: 768px) {
+        .service-card .btn,
+        .feature-item,
+        .floating-card {
+            min-height: 44px;
         }
     }
 
@@ -901,23 +896,27 @@
     html {
         scroll-behavior: smooth;
     }
+    
+    /* Prevent horizontal scroll */
+    body {
+        overflow-x: hidden;
+    }
 </style>
 @endsection
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-
     function addToCart(id, type) {
-    fetch("{{ route('cart.add', [], false) }}", {
-        method: "POST",
-        headers: {
-            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: id, type: type }),
-    })
-    .then(response => response.json())
-            .then(data => {
+        fetch("{{ route('cart.add', [], false) }}", {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id: id, type: type }),
+        })
+        .then(response => response.json())
+        .then(data => {
             if (data.status === 'success') {
                 Swal.fire({
                     icon: 'success',
@@ -926,16 +925,16 @@
                     timer: 1500,
                     showConfirmButton: false
                 });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: data.message
-                        });
-                    }
-                })
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.message
+                });
+            }
+        })
         .catch((error) => {
-                console.error('Error:', error);
-            });
-    } 
+            console.error('Error:', error);
+        });
+    }
 </script>

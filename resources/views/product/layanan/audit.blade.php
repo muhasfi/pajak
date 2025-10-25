@@ -70,63 +70,58 @@
             </div>
 
             <div class="services-grid">
-                <!-- Service 1 -->
-                <tbody>
-                    @forelse ($audits as $audit)
-                    <tr>
-                        <div class="service-card">
-                            <div class="card-header">
-                                <div class="service-icon">
-                                    <i class="fas fa-balance-scale"></i>
-                                </div>
-                                <h3>{{ $audit->judul }}</h3>
-                                <span class="service-price">Rp {{ number_format($audit->harga, 0, ',', '.') }}</span>
+                @forelse ($audits as $audit)
+                    <div class="service-card">
+                        <div class="card-header">
+                            <div class="service-icon">
+                                <i class="fas fa-balance-scale"></i>
                             </div>
-                            <p class="text-muted text-center mb-4">{{ $audit->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}</p>
-                            <div class="card-body">
-                                @if (!empty($audit->detail->benefit))
-                                    <ul class="list-unstyled fs-5">
-                                        @foreach ($audit->detail->benefit as $benefit)
+                            <h3>{{ $audit->judul }}</h3>
+                            <span class="service-price">Rp {{ number_format($audit->harga, 0, ',', '.') }}</span>
+                        </div>
+                        <p class="service-description">{{ $audit->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}</p>
+                        <div class="card-body">
+                            @if (!empty($audit->detail->benefit))
+                                <ul class="benefit-list">
+                                    @foreach ($audit->detail->benefit as $benefit)
+                                        @php
+                                            $trimmed = trim($benefit);
+                                        @endphp
+
+                                        @if ($trimmed !== '')
                                             @php
-                                                $trimmed = trim($benefit);
+                                                $isNegative = Str::startsWith($trimmed, '-');
+                                                $text = ltrim($trimmed, '+- ');
                                             @endphp
 
-                                            @if ($trimmed !== '')
-                                                @php
-                                                    $isNegative = Str::startsWith($trimmed, '-');
-                                                    $text = ltrim($trimmed, '+- ');
-                                                @endphp
-
-                                                <li class="mb-2">
-                                                    <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
-                                                    {{ $text }}
-                                                </li>
-                                            @endif
-                                        @endforeach
-                                    </ul>
-                                @else
-                                    <p class="text-muted fs-5">Benefit belum tersedia.</p>
-                                @endif
-                            </div>
-                            <div class="card-footer">
-                                <button type="button" 
-                                    class="btn btn-primary"
-                                    onclick="addToCart({{ $audit->id }}, 'ItemAudit')">
-                                    <span>Mulai Layanan</span>
-                                </button>
-                                <a href="/kontak" class="btn btn-outline">
-                                    <span>Konsultasi</span>
-                                </a>
-                            </div>
+                                            <li class="benefit-item">
+                                                <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
+                                                {{ $text }}
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            @else
+                                <p class="no-benefit">Benefit belum tersedia.</p>
+                            @endif
                         </div>
- 
-                    </tr>
-                    @empty
-                  
-                    @endforelse
-                </tbody>
+                        <div class="card-footer">
+                            <button type="button" 
+                                class="btn btn-primary"
+                                onclick="addToCart({{ $audit->id }}, 'ItemAudit')">
+                                <span>Mulai Layanan</span>
+                            </button>
+                            <a href="/kontak" class="btn btn-outline">
+                                <span>Konsultasi</span>
+                            </a>
+                        </div>
+                    </div>
+                @empty
+                    <div class="no-services">
+                        <p>Tidak ada layanan audit yang tersedia saat ini.</p>
+                    </div>
+                @endforelse
             </div>
-
         </div>
     </div>
 
@@ -296,6 +291,20 @@
             </div>
         </div>
     </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h3>Siap Audit Laporan Keuangan Perusahaan Anda?</h3>
+                <p>Konsultasikan kebutuhan audit Anda dengan tim profesional kami dan dapatkan laporan audit yang akurat dan terpercaya</p>
+                <div class="cta-buttons">
+                    <a href="/kontak" class="btn btn-light">Mulai Audit Sekarang</a>
+                    <a href="tel:+628123456789" class="btn btn-outline-light">Hubungi Konsultan</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <style>
@@ -307,28 +316,13 @@
         --white: #ffffff;
         --gray-50: #f8fafc;
         --gray-100: #f1f5f9;
+        --gray-200: #e2e8f0;
         --gray-800: #1e293b;
         --gray-600: #475569;
         --gray-400: #94a3b8;
         --success: #10b981;
         --warning: #f59e0b;
     }
-    .service-price {
-    display: inline-block;
-    margin-top: 0.5rem;
-    font-size: 1.5rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, #7e22ce, #9333ea, #a855f7);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-}
-
-.service-card:hover .service-price {
-    transform: scale(1.1);
-    transition: all 0.3s ease;
-}
 
     .audit-service {
         min-height: 100vh;
@@ -338,7 +332,7 @@
     .container {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 20px;
+        padding: 0 clamp(15px, 3vw, 20px);
     }
 
     /* =========================
@@ -377,32 +371,32 @@
     }
 
     .shape-1 {
-        width: 300px;
-        height: 300px;
+        width: clamp(150px, 25vw, 300px);
+        height: clamp(150px, 25vw, 300px);
         top: 10%;
         left: 5%;
         animation-delay: 0s;
     }
 
     .shape-2 {
-        width: 200px;
-        height: 200px;
+        width: clamp(100px, 20vw, 200px);
+        height: clamp(100px, 20vw, 200px);
         top: 60%;
         right: 10%;
         animation-delay: 2s;
     }
 
     .shape-3 {
-        width: 150px;
-        height: 150px;
+        width: clamp(80px, 15vw, 150px);
+        height: clamp(80px, 15vw, 150px);
         bottom: 20%;
         left: 20%;
         animation-delay: 4s;
     }
 
     .shape-4 {
-        width: 100px;
-        height: 100px;
+        width: clamp(60px, 10vw, 100px);
+        height: clamp(60px, 10vw, 100px);
         top: 20%;
         right: 20%;
         animation-delay: 1s;
@@ -413,9 +407,9 @@
         z-index: 2;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 4rem;
+        gap: clamp(2rem, 4vw, 4rem);
         align-items: center;
-        padding: 120px 0 80px;
+        padding: clamp(80px, 10vw, 120px) 0 clamp(60px, 8vw, 80px);
     }
 
     .hero-text {
@@ -423,10 +417,10 @@
     }
 
     .hero-title {
-        font-size: 3.5rem;
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
         font-weight: 800;
         line-height: 1.1;
-        margin-bottom: 1.5rem;
+        margin-bottom: clamp(1rem, 2vw, 1.5rem);
     }
 
     .title-line {
@@ -441,9 +435,9 @@
     }
 
     .hero-subtitle {
-        font-size: 1.3rem;
+        font-size: clamp(1.1rem, 2vw, 1.3rem);
         line-height: 1.6;
-        margin-bottom: 1.5rem;
+        margin-bottom: clamp(1rem, 2vw, 1.5rem);
         opacity: 0.9;
     }
 
@@ -453,15 +447,15 @@
     }
 
     .hero-description {
-        font-size: 1.1rem;
+        font-size: clamp(1rem, 1.5vw, 1.1rem);
         line-height: 1.7;
-        margin-bottom: 2.5rem;
+        margin-bottom: clamp(2rem, 3vw, 2.5rem);
         opacity: 0.8;
     }
 
     .hero-actions {
         display: flex;
-        gap: 1rem;
+        gap: clamp(0.75rem, 1.5vw, 1rem);
         flex-wrap: wrap;
     }
 
@@ -473,8 +467,8 @@
 
     .floating-cards {
         position: relative;
-        width: 300px;
-        height: 300px;
+        width: clamp(200px, 30vw, 300px);
+        height: clamp(200px, 30vw, 300px);
     }
 
     .floating-card {
@@ -483,7 +477,7 @@
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 20px;
-        padding: 1.5rem;
+        padding: clamp(1rem, 2vw, 1.5rem);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -491,17 +485,17 @@
         color: var(--white);
         animation: float 3s ease-in-out infinite;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        text-align: center;
     }
 
     .floating-card i {
-        font-size: 2rem;
+        font-size: clamp(1.5rem, 3vw, 2rem);
         margin-bottom: 0.5rem;
     }
 
     .floating-card span {
-        font-size: 0.9rem;
+        font-size: clamp(0.8rem, 1.5vw, 0.9rem);
         font-weight: 600;
-        text-align: center;
     }
 
     .card-1 {
@@ -523,85 +517,60 @@
         animation-delay: 2s;
     }
 
-    .hero-stats {
-        position: relative;
-        z-index: 2;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 2rem;
-        padding: 3rem 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .stat-item {
-        text-align: center;
-        background: transparent;
-    }
-
-    .stat-number {
-        display: block;
-        font-size: 2.5rem;
-        font-weight: 800;
-        margin-bottom: 0.5rem;
-        color: var(--white);
-    }
-
-    .stat-label {
-        font-size: 0.9rem;
-        font-weight: 500;
-        opacity: 0.8;
-        color: var(--white);
-    }
-
     /* =========================
-       SERVICES SECTION
+       SERVICES SECTION - PERBAIKAN UTAMA
        ========================= */
     .services-section {
-        padding: 100px 0;
+        padding: clamp(60px, 8vw, 100px) 0;
         background: var(--gray-50);
     }
 
     .section-header {
         text-align: center;
-        margin-bottom: 4rem;
+        margin-bottom: clamp(2rem, 5vw, 4rem);
     }
 
     .section-title {
-        font-size: 2.8rem;
+        font-size: clamp(2rem, 4vw, 2.8rem);
         font-weight: 700;
         margin-bottom: 1rem;
         color: var(--gray-800);
     }
 
     .section-subtitle {
-        font-size: 1.2rem;
+        font-size: clamp(1rem, 2vw, 1.2rem);
         max-width: 600px;
         margin: 0 auto;
         color: var(--gray-600);
     }
 
+    /* PERBAIKAN: Grid yang memaksa ukuran card tetap kecil */
     .services-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 2rem;
+        gap: clamp(1.5rem, 3vw, 2rem);
+        justify-content: center;
+        max-width: 1000px;
+        margin: 0 auto;
     }
 
+    /* PERBAIKAN: Membatasi lebar maksimum card */
     .service-card {
         position: relative;
         overflow: hidden;
-        padding: 2.5rem;
+        padding: clamp(1.5rem, 3vw, 2rem);
         border-radius: 20px;
         border: 1px solid var(--gray-100);
         background: var(--white);
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         animation: fadeInUp 0.6s ease-out;
-        width: 100%;
-        max-width: 400px;
-        margin: 0 auto;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        max-width: 400px;
+        margin: 0 auto;
+        width: 100%;
     }
 
     .service-card::before {
@@ -625,38 +594,19 @@
         transform: scaleX(1);
     }
 
-    .service-card.featured {
-        border: 2px solid var(--primary-purple);
-        background: linear-gradient(135deg, var(--gray-50) 0%, var(--light-purple) 100%);
-    }
-
-    .card-badge {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        padding: 0.5rem 1rem;
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: var(--white);
-        background: #dc2626;
-        border-radius: 20px;
-        text-transform: uppercase;
-    }
-
     .card-header {
         text-align: center;
         margin-bottom: 1.5rem;
-        background: transparent;
     }
 
     .service-icon {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
         margin: 0 auto 1.5rem;
-        font-size: 2rem;
+        font-size: 1.75rem;
         color: var(--primary-purple);
         border-radius: 20px;
         background: linear-gradient(135deg, var(--light-purple) 0%, #f3f4f6 100%);
@@ -670,56 +620,83 @@
     }
 
     .service-card h3 {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         font-weight: 700;
         margin-bottom: 1rem;
         color: var(--gray-800);
+        line-height: 1.3;
     }
 
-    .card-body p {
+    .service-price {
+        display: inline-block;
+        margin-top: 0.5rem;
+        font-size: 1.4rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #7e22ce, #9333ea, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+    }
+
+    .service-card:hover .service-price {
+        transform: scale(1.05);
+    }
+
+    .service-description {
+        text-align: center;
+        color: var(--gray-600);
         margin-bottom: 1.5rem;
         line-height: 1.6;
-        color: var(--gray-600);
+        font-size: 0.95rem;
     }
 
-    .feature-list {
+    .benefit-list {
         margin: 1.5rem 0;
         padding: 0;
         list-style: none;
     }
 
-    .feature-list li {
+    .benefit-item {
         position: relative;
-        padding: 0.5rem 0 0.5rem 1.5rem;
+        padding: 0.5rem 0;
         color: var(--gray-600);
         border-bottom: 1px solid var(--gray-100);
+        font-size: 0.9rem;
+        line-height: 1.5;
     }
 
-    .feature-list li:last-child {
+    .benefit-item:last-child {
         border-bottom: none;
     }
 
-    .feature-list li::before {
-        content: '✓';
-        position: absolute;
-        left: 0;
-        font-weight: 600;
-        color: var(--success);
+    .no-benefit {
+        text-align: center;
+        color: var(--gray-600);
+        font-style: italic;
+        font-size: 0.9rem;
     }
 
     .card-footer {
         display: flex;
         flex-direction: column;
         gap: 0.75rem;
-        margin-top: 2rem;
-        justify-content: center; 
+        margin-top: auto;
+        padding-top: 1.5rem;
+    }
+
+    .no-services {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 3rem;
+        color: var(--gray-600);
     }
 
     /* =========================
        PROCESS TIMELINE
        ========================= */
     .process-section {
-        padding: 100px 0;
+        padding: clamp(60px, 8vw, 100px) 0;
         background: var(--white);
     }
 
@@ -731,8 +708,8 @@
     .process-item {
         display: flex;
         align-items: flex-start;
-        gap: 2rem;
-        margin-bottom: 3rem;
+        gap: clamp(1rem, 2vw, 2rem);
+        margin-bottom: clamp(2rem, 3vw, 3rem);
         position: relative;
     }
 
@@ -747,15 +724,15 @@
     }
 
     .process-icon {
-        width: 80px;
-        height: 80px;
+        width: clamp(60px, 8vw, 80px);
+        height: clamp(60px, 8vw, 80px);
         background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
         color: var(--white);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.5rem;
+        font-size: clamp(1.25rem, 2vw, 1.5rem);
         flex-shrink: 0;
     }
 
@@ -764,7 +741,7 @@
     }
 
     .process-content h4 {
-        font-size: 1.25rem;
+        font-size: clamp(1.1rem, 1.5vw, 1.25rem);
         font-weight: 600;
         margin-bottom: 0.5rem;
         color: var(--gray-800);
@@ -774,10 +751,11 @@
         line-height: 1.6;
         color: var(--gray-600);
         margin-bottom: 0.5rem;
+        font-size: clamp(0.9rem, 1.2vw, 1rem);
     }
 
     .process-duration {
-        font-size: 0.875rem;
+        font-size: clamp(0.8rem, 1.1vw, 0.875rem);
         color: var(--primary-purple);
         font-weight: 600;
     }
@@ -786,20 +764,20 @@
        STANDARDS SECTION
        ========================= */
     .standards-section {
-        padding: 100px 0;
+        padding: clamp(60px, 8vw, 100px) 0;
         background: var(--gray-50);
     }
 
     .standards-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+        gap: clamp(1.5rem, 3vw, 2rem);
     }
 
     .standard-card {
         background: var(--white);
         border-radius: 16px;
-        padding: 2.5rem 2rem;
+        padding: clamp(2rem, 3vw, 2.5rem) clamp(1.5rem, 2vw, 2rem);
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         transition: transform 0.3s ease;
     }
@@ -809,20 +787,20 @@
     }
 
     .standard-icon {
-        width: 80px;
-        height: 80px;
+        width: clamp(60px, 8vw, 80px);
+        height: clamp(60px, 8vw, 80px);
         background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
         color: var(--white);
         border-radius: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 2rem;
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
         margin-bottom: 1.5rem;
     }
 
     .standard-card h4 {
-        font-size: 1.25rem;
+        font-size: clamp(1.1rem, 1.5vw, 1.25rem);
         font-weight: 600;
         margin-bottom: 1rem;
         color: var(--gray-800);
@@ -832,6 +810,7 @@
         line-height: 1.6;
         color: var(--gray-600);
         margin-bottom: 1.5rem;
+        font-size: clamp(0.9rem, 1.2vw, 1rem);
     }
 
     .standard-card ul {
@@ -843,7 +822,7 @@
         padding: 0.5rem 0;
         color: var(--gray-600);
         border-bottom: 1px solid var(--gray-100);
-        font-size: 0.9rem;
+        font-size: clamp(0.85rem, 1.1vw, 0.9rem);
     }
 
     .standard-card li:last-child {
@@ -863,19 +842,19 @@
        INDUSTRIES SECTION
        ========================= */
     .industries-section {
-        padding: 100px 0;
+        padding: clamp(60px, 8vw, 100px) 0;
         background: var(--white);
     }
 
     .industries-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+        gap: clamp(1.5rem, 3vw, 2rem);
     }
 
     .industry-card {
         text-align: center;
-        padding: 2rem 1.5rem;
+        padding: clamp(1.5rem, 2vw, 2rem) clamp(1rem, 1.5vw, 1.5rem);
         background: var(--gray-50);
         border-radius: 16px;
         transition: all 0.3s ease;
@@ -887,20 +866,20 @@
     }
 
     .industry-icon {
-        width: 70px;
-        height: 70px;
+        width: clamp(50px, 7vw, 70px);
+        height: clamp(50px, 7vw, 70px);
         background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
         color: var(--white);
         border-radius: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.5rem;
+        font-size: clamp(1.25rem, 2vw, 1.5rem);
         margin: 0 auto 1rem;
     }
 
     .industry-card h4 {
-        font-size: 1.1rem;
+        font-size: clamp(1rem, 1.3vw, 1.1rem);
         font-weight: 600;
         margin-bottom: 0.75rem;
         color: var(--gray-800);
@@ -909,7 +888,7 @@
     .industry-card p {
         line-height: 1.5;
         color: var(--gray-600);
-        font-size: 0.9rem;
+        font-size: clamp(0.85rem, 1.1vw, 0.9rem);
     }
 
     /* =========================
@@ -920,8 +899,8 @@
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
-        padding: 1rem 2rem;
-        font-size: 1rem;
+        padding: clamp(0.875rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
+        font-size: clamp(0.9rem, 1.5vw, 1rem);
         font-weight: 600;
         text-decoration: none;
         border: 2px solid transparent;
@@ -929,6 +908,7 @@
         cursor: pointer;
         transition: all 0.3s ease;
         text-align: center;
+        min-height: 50px;
     }
 
     .btn-primary {
@@ -979,22 +959,22 @@
        CTA SECTION
        ========================= */
     .cta-section {
-        padding: 100px 0;
+        padding: clamp(60px, 8vw, 100px) 0;
         background: linear-gradient(135deg, var(--dark-purple) 0%, var(--primary-purple) 100%);
         color: var(--white);
         text-align: center;
     }
 
     .cta-content h3 {
-        font-size: 2.5rem;
+        font-size: clamp(2rem, 4vw, 2.5rem);
         font-weight: 700;
         margin-bottom: 1rem;
         color: var(--white);
     }
 
     .cta-content p {
-        font-size: 1.2rem;
-        margin: 0 auto 2.5rem;
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        margin: 0 auto clamp(2rem, 3vw, 2.5rem);
         max-width: 600px;
         opacity: 0.9;
     }
@@ -1040,12 +1020,12 @@
         }
 
         .hero-title {
-            font-size: 3rem;
+            font-size: clamp(2.5rem, 5vw, 3rem);
         }
 
         .floating-cards {
-            width: 250px;
-            height: 250px;
+            width: clamp(180px, 25vw, 250px);
+            height: clamp(180px, 25vw, 250px);
         }
 
         .process-item {
@@ -1059,6 +1039,21 @@
             top: 80px;
             bottom: -3rem;
         }
+
+        .cart-content {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .cart-summary {
+            position: static;
+        }
+
+        /* PERBAIKAN: Tetap kecil di tablet */
+        .services-grid {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            max-width: 900px;
+        }
     }
 
     @media (max-width: 768px) {
@@ -1067,37 +1062,31 @@
         }
 
         .hero-content {
-            padding: 100px 0 60px;
+            padding: clamp(80px, 10vw, 100px) 0 clamp(40px, 6vw, 60px);
         }
 
         .hero-title {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 4vw, 2.5rem);
         }
 
         .hero-subtitle {
-            font-size: 1.1rem;
-        }
-
-        .hero-stats {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-        }
-
-        .stat-number {
-            font-size: 2rem;
+            font-size: clamp(1rem, 1.8vw, 1.1rem);
         }
 
         .section-title {
-            font-size: 2.2rem;
+            font-size: clamp(1.8rem, 3vw, 2.2rem);
         }
 
+        /* PERBAIKAN: Tetap kecil di mobile */
         .services-grid {
             grid-template-columns: 1fr;
             gap: 1.5rem;
+            max-width: 400px;
         }
 
         .service-card {
-            padding: 2rem;
+            padding: 1.5rem;
+            max-width: 100%;
         }
 
         .standards-grid {
@@ -1109,7 +1098,7 @@
         }
 
         .cta-content h3 {
-            font-size: 2rem;
+            font-size: clamp(1.75rem, 3vw, 2rem);
         }
 
         .hero-actions {
@@ -1118,32 +1107,43 @@
 
         .btn {
             padding: 0.875rem 1.5rem;
+            min-height: 44px;
+        }
+
+        .card-footer {
+            flex-direction: column;
+        }
+
+        .cart-item {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem;
+        }
+
+        .cart-item-actions {
+            justify-content: center;
         }
     }
 
     @media (max-width: 480px) {
         .container {
-            padding: 0 15px;
+            padding: 0 12px;
         }
 
         .hero-title {
-            font-size: 2rem;
+            font-size: clamp(1.8rem, 3vw, 2rem);
         }
 
         .hero-subtitle {
-            font-size: 1rem;
-        }
-
-        .hero-stats {
-            grid-template-columns: 1fr;
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
         }
 
         .section-title {
-            font-size: 1.8rem;
+            font-size: clamp(1.5rem, 2.5vw, 1.8rem);
         }
 
         .service-card {
-            padding: 1.5rem;
+            padding: 1.25rem;
         }
 
         .industries-grid {
@@ -1151,11 +1151,11 @@
         }
 
         .cta-section {
-            padding: 80px 0;
+            padding: 60px 0;
         }
 
         .cta-content h3 {
-            font-size: 1.75rem;
+            font-size: clamp(1.5rem, 2.5vw, 1.75rem);
         }
 
         .cta-buttons {
@@ -1165,11 +1165,65 @@
 
         .btn {
             width: 100%;
-            max-width: 300px;
+            max-width: 280px;
         }
 
         .floating-cards {
             display: none;
+        }
+        
+        .hero-actions {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .hero-actions .btn {
+            width: 100%;
+            max-width: 280px;
+        }
+
+        .cart-summary {
+            padding: 1.5rem;
+        }
+    }
+
+    @media (max-width: 360px) {
+        .service-card {
+            padding: 1rem;
+        }
+        
+        .hero-title {
+            font-size: 1.6rem;
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+        }
+        
+        .btn {
+            min-height: 42px;
+            font-size: 0.85rem;
+            padding: 0.75rem 1rem;
+        }
+        
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            font-size: 1.25rem;
+        }
+
+        /* PERBAIKAN: Tetap kecil di layar sangat kecil */
+        .services-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Improve touch targets on mobile */
+    @media (max-width: 768px) {
+        .service-card .btn,
+        .process-item,
+        .floating-card {
+            min-height: 44px;
         }
     }
 
@@ -1177,23 +1231,50 @@
     html {
         scroll-behavior: smooth;
     }
+    
+    /* Prevent horizontal scroll */
+    body {
+        overflow-x: hidden;
+    }
 </style>
 @endsection
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-function addToCart(id, type) {
-    fetch("{{ route('cart.add', [], false) }}", {
-        method: "POST",
-        headers: {
-            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: id, type: type }),
-    })
-    .then(response => response.json())
-            .then(data => {
+    // Cart functionality
+    let cart = JSON.parse(localStorage.getItem('audit_cart')) || [];
+
+    function addToCart(id, type) {
+        fetch("{{ route('cart.add', [], false) }}", {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id: id, type: type }),
+        })
+        .then(response => response.json())
+        .then(data => {
             if (data.status === 'success') {
+                // Add to local cart for UI
+                const service = {
+                    id: id,
+                    type: type,
+                    name: data.item_name || 'Layanan Audit',
+                    price: data.item_price || 0,
+                    quantity: 1
+                };
+                
+                const existingItem = cart.find(item => item.id === id && item.type === type);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push(service);
+                }
+                
+                localStorage.setItem('audit_cart', JSON.stringify(cart));
+                updateCartUI();
+                
                 Swal.fire({
                     icon: 'success',
                     title: 'Berhasil',
@@ -1201,17 +1282,149 @@ function addToCart(id, type) {
                     timer: 1500,
                     showConfirmButton: false
                 });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: data.message
-                        });
-                    }
-                })
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.message
+                });
+            }
+        })
         .catch((error) => {
-                console.error('Error:', error);
+            console.error('Error:', error);
+        });
+    }
+
+    function updateCartUI() {
+        const cartItems = document.querySelector('.cart-items');
+        const cartSubtotal = document.getElementById('cart-subtotal');
+        const cartTax = document.getElementById('cart-tax');
+        const cartTotal = document.getElementById('cart-total');
+        
+        if (cart.length === 0) {
+            cartItems.innerHTML = `
+                <div class="empty-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3>Keranjang Kosong</h3>
+                    <p>Tambahkan layanan audit ke keranjang Anda</p>
+                </div>
+            `;
+            cartSubtotal.textContent = 'Rp 0';
+            cartTax.textContent = 'Rp 0';
+            cartTotal.textContent = 'Rp 0';
+            return;
+        }
+        
+        let subtotal = 0;
+        cartItems.innerHTML = '';
+        
+        cart.forEach((item, index) => {
+            const itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
+            
+            const cartItem = document.createElement('div');
+            cartItem.className = 'cart-item';
+            cartItem.innerHTML = `
+                <div class="cart-item-icon">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                <div class="cart-item-details">
+                    <h4 class="cart-item-title">${item.name}</h4>
+                    <div class="cart-item-price">Rp ${item.price.toLocaleString('id-ID')}</div>
+                </div>
+                <div class="cart-item-actions">
+                    <div class="quantity-control">
+                        <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <input type="number" class="quantity-input" value="${item.quantity}" min="1" 
+                               onchange="updateQuantityInput(${index}, this.value)">
+                        <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <button class="remove-btn" onclick="removeFromCart(${index})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+            cartItems.appendChild(cartItem);
+        });
+        
+        const tax = subtotal * 0.1;
+        const total = subtotal + tax;
+        
+        cartSubtotal.textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
+        cartTax.textContent = `Rp ${tax.toLocaleString('id-ID')}`;
+        cartTotal.textContent = `Rp ${total.toLocaleString('id-ID')}`;
+    }
+
+    function updateQuantity(index, change) {
+        cart[index].quantity += change;
+        if (cart[index].quantity < 1) {
+            cart[index].quantity = 1;
+        }
+        localStorage.setItem('audit_cart', JSON.stringify(cart));
+        updateCartUI();
+    }
+
+    function updateQuantityInput(index, value) {
+        const quantity = parseInt(value);
+        if (quantity > 0) {
+            cart[index].quantity = quantity;
+            localStorage.setItem('audit_cart', JSON.stringify(cart));
+            updateCartUI();
+        }
+    }
+
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        localStorage.setItem('audit_cart', JSON.stringify(cart));
+        updateCartUI();
+        
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: 'Item berhasil dihapus dari keranjang',
+            timer: 1500,
+            showConfirmButton: false
+        });
+    }
+
+    function clearCart() {
+        cart = [];
+        localStorage.setItem('audit_cart', JSON.stringify(cart));
+        updateCartUI();
+        
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: 'Keranjang berhasil dikosongkan',
+            timer: 1500,
+            showConfirmButton: false
+        });
+    }
+
+    function checkout() {
+        if (cart.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Keranjang Kosong',
+                text: 'Tambahkan layanan ke keranjang sebelum melanjutkan'
             });
-    } 
+            return;
+        }
+        
+        // Redirect to checkout page or show checkout modal
+        window.location.href = '/checkout';
+    }
+
+    // Initialize cart UI when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCartUI();
+        
+        // Add event listeners for cart buttons
+        document.getElementById('clear-cart-btn').addEventListener('click', clearCart);
+        document.getElementById('checkout-btn').addEventListener('click', checkout);
+    });
 </script>
-    
