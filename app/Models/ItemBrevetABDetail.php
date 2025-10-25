@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ItemBrevetABDetail extends Model
 {
+    use HasFactory;
+
     protected $table = 'item_brevetab_detail';
 
     protected $fillable = [

@@ -56,6 +56,7 @@
                                     width="60"
                                     class="img-fluid rounded-top"
                                     alt="Gambar {{ $item->name }}"
+<<<<<<< HEAD
                                     onerror="this.onerror=null;this.src='{{ asset('images/default.png') }}';">  
 >>>>>>> d02faebeab8747a5de3202ff73c4b998d7308c51
                 </div>
@@ -83,6 +84,21 @@
                                 </a>
                             </div>
                         </div>
+=======
+                                    onerror="this.onerror=null;this.src='{{ asset('No_image_available.webp') }}';">  
+                </div>
+                
+                <div class="product-content">
+                    <h3 class="product-title">{{ $item->name }}</h3>
+                    <p class="product-description">{{ $item->description }}</p>
+                    
+                    <div class="product-footer">
+                        <div class="product-price">{{ 'Rp'. number_format($item->price, 0, ',','.') }}</div>
+                       <a href="{{ route('product.book.show', $item->id) }}" class="add-to-cart-btn">
+                            <i class="fas fa-info-circle me-1"></i> Lihat Detail
+                        </a>
+
+>>>>>>> 0f935732cb88fa8dd06facf269357e61c0ffc923
                     </div>
                 @empty
                     <div class="empty-state">

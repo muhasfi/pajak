@@ -324,11 +324,10 @@
 
                     <!-- Footer -->
                     <div class="card-footer">
-                        <button type="button" 
-                                class="btn-order" 
-                                onclick="addToCart({{ $brevet->id }}, 'ItemBrevetAB')">
-                            Daftar Sekarang
-                        </button>
+                        <a href="{{ route('product.brevet_ab.show', $brevet->id) }}" class="btn-order">
+                            <i class="fas fa-eye me-1"></i> Lihat Detail
+                        </a>
+
                     </div>
                     <div class="card-footer">
                         <a href="https://wa.me/6281234567890?text=Halo, saya tertarik dengan {{ urlencode($brevet->judul) }}" 

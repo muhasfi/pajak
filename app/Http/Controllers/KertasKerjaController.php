@@ -42,4 +42,14 @@ class KertasKerjaController extends Controller
 
         return view('product.paper.spt_masa_unifikasi.kertas_spt_unifikasi', compact('papers'));
     }
+
+    public function show($id)
+    {
+        $paper = ItemPaper::with('categoryPaper')->findOrFail($id);
+
+        // Bisa tambahkan kondisi kalau kamu mau redirect berdasarkan kategori
+        // tapi biasanya cukup 1 view saja
+        return view('product.paper.show', compact('paper'));
+    }
+
 }

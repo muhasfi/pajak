@@ -1,5 +1,6 @@
 @extends('layouts.master')
 
+<<<<<<< HEAD
 @section('title', $item->name . ' - Paham Pajak')
 
 @section('content')
@@ -139,6 +140,51 @@
                         <span class="meta-value {{ ($item->stock ?? 0) > 0 ? 'in-stock' : 'out-of-stock' }}">
                             {{ ($item->stock ?? 0) > 0 ? 'Tersedia' : 'Habis' }}
                         </span>
+=======
+@section('title', $item->name)
+
+@section('content')
+<section class="section">
+    <div class="container">
+        <div class="product-detail animate-fade-in">
+            <div class="row align-items-center">
+                <!-- Gambar -->
+                <div class="col-md-5 text-center">
+                    <img src="{{ Str::startsWith($item->img, ['http://', 'https://']) 
+                        ? $item->img 
+                        : asset('storage/' . $item->img) }}"
+                        class="img-fluid rounded shadow"
+                        alt="{{ $item->name }}"
+                        onerror="this.onerror=null;this.src='{{ asset('No_image_available.webp') }}';">
+                </div>
+
+                <!-- Detail -->
+                <div class="col-md-7">
+                    <h2 class="mb-2">{{ $item->name }}</h2>
+                    <p class="text-muted mb-2">Harga</p>
+                    <h4 class="text-primary mb-4">
+                        Rp {{ number_format($item->price, 0, ',', '.') }}
+                    </h4>
+
+                    @if($item->description)
+                        <div class="product-description mb-4">
+                            <h5>Deskripsi</h5>
+                            <p class="text-secondary" style="white-space: pre-line;">
+                                {{ $item->description }}
+                            </p>
+                        </div>
+                    @endif
+
+                    <div class="d-flex gap-3 mt-4">
+                        <button type="button" class="btn btn-primary" 
+                                onclick="addToCart({{ $item->id }}, 'Item')">
+                            <i class="fas fa-shopping-cart me-2"></i> Tambah ke Keranjang
+                        </button>
+
+                        <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i> Kembali
+                        </a>
+>>>>>>> 0f935732cb88fa8dd06facf269357e61c0ffc923
                     </div>
                 </div>
             </div>
@@ -146,6 +192,7 @@
     </div>
 </section>
 
+<<<<<<< HEAD
 <!-- Product Tabs Section -->
 <section class="product-tabs-section section-padding">
     <div class="container">
@@ -1137,17 +1184,26 @@ function decreaseQuantity() {
 function addToCart(id, type) {
     const quantity = document.getElementById('quantity').value;
     
+=======
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+function addToCart(id, type) {
+>>>>>>> 0f935732cb88fa8dd06facf269357e61c0ffc923
     fetch("{{ route('cart.add', [], false) }}", {
         method: "POST",
         headers: {
             "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
             "Content-Type": "application/json",
         },
+<<<<<<< HEAD
         body: JSON.stringify({ 
             id: id, 
             type: type,
             quantity: quantity
         }),
+=======
+        body: JSON.stringify({ id: id, type: type }),
+>>>>>>> 0f935732cb88fa8dd06facf269357e61c0ffc923
     })
     .then(response => response.json())
     .then(data => {
@@ -1156,8 +1212,15 @@ function addToCart(id, type) {
                 icon: 'success',
                 title: 'Berhasil',
                 text: data.message,
+<<<<<<< HEAD
                 timer: 1500,
                 showConfirmButton: false
+=======
+                timer: 1200,
+                showConfirmButton: false
+            }).then(() => {
+                window.location.href = "{{ route('cart') }}";
+>>>>>>> 0f935732cb88fa8dd06facf269357e61c0ffc923
             });
         } else {
             Swal.fire({
@@ -1167,6 +1230,7 @@ function addToCart(id, type) {
             });
         }
     })
+<<<<<<< HEAD
     .catch((error) => {
         console.error('Error:', error);
     });
@@ -1193,3 +1257,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 @endsection
+=======
+    .catch(error => console.error('Error:', error));
+}
+</script>
+@endsection
+>>>>>>> 0f935732cb88fa8dd06facf269357e61c0ffc923
