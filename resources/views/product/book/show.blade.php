@@ -1,1265 +1,906 @@
 @extends('layouts.master')
-
-<<<<<<< HEAD
-@section('title', $item->name . ' - Paham Pajak')
-
-@section('content')
-<!-- Loading Overlay -->
-<div class="loading-overlay" id="loadingOverlay">
-    <div class="spinner"></div>
-</div>
-
-<!-- Breadcrumb -->
-<section class="breadcrumb-section">
-    <div class="container">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('home') }}">Beranda</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('book') }}">Katalog</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ Str::limit($item->name, 30) }}</li>
-            </ol>
-        </nav>
-    </div>
-</section>
-
-<!-- Product Detail Section -->
-<section class="product-detail-section section-padding">
-    <div class="container">
-        <div class="product-detail-grid">
-            <!-- Product Images -->
-            <div class="product-images">
-                <div class="main-image">
-                    <img src="{{ Str::startsWith($item->img, ['http://', 'https://']) 
-                                ? $item->img 
-                                : asset('storage/' . $item->img) }}"
-                         alt="{{ $item->name }}"
-                         class="img-fluid"
-                         id="mainImage"
-                         onerror="this.onerror=null;this.src='{{ asset('images/default-book.png') }}';">
-                </div>
-                @if(isset($item->images) && is_array($item->images) && count($item->images) > 0)
-                <div class="image-thumbnails">
-                    @foreach($item->images as $image)
-                    <div class="thumbnail">
-                        <img src="{{ asset('storage/' . $image) }}" 
-                             alt="Thumbnail {{ $loop->iteration }}"
-                             class="img-fluid"
-                             onclick="changeImage(this.src)">
-                    </div>
-                    @endforeach
-                </div>
-                @endif
-            </div>
-
-            <!-- Product Info -->
-            <div class="product-info">
-                <div class="product-badge">
-                    <span class="badge {{ $item->type === 'book' ? 'badge-book' : ($item->type === 'article' ? 'badge-article' : 'badge-other') }}">
-                        {{ $item->type === 'book' ? 'Buku' : ($item->type === 'article' ? 'Artikel' : 'Lainnya') }}
-                    </span>
-                </div>
-                
-                <h1 class="product-title">{{ $item->name }}</h1>
-                
-                <div class="product-rating">
-                    <div class="stars">
-                        @php
-                            // Handle jika reviews tidak ada
-                            $averageRating = 0;
-                            $reviewsCount = 0;
-                            
-                            if (isset($item->reviews) && method_exists($item->reviews, 'avg')) {
-                                $averageRating = $item->reviews->avg('rating') ?? 0;
-                                $reviewsCount = $item->reviews->count() ?? 0;
-                            }
-                        @endphp
-                        @for($i = 1; $i <= 5; $i++)
-                            <i class="fas fa-star {{ $i <= $averageRating ? 'active' : '' }}"></i>
-                        @endfor
-                    </div>
-                    <span class="rating-text">({{ $reviewsCount }} ulasan)</span>
-                </div>
-
-                <div class="product-price-section">
-                    <span class="current-price">Rp{{ number_format($item->price, 0, ',', '.') }}</span>
-                    @if(isset($item->original_price) && $item->original_price > $item->price)
-                    <span class="original-price">Rp{{ number_format($item->original_price, 0, ',', '.') }}</span>
-                    <span class="discount-badge">-{{ number_format(($item->original_price - $item->price) / $item->original_price * 100, 0) }}%</span>
-                    @endif
-                </div>
-
-                <div class="product-description">
-                    <p>{{ $item->description }}</p>
-                </div>
-
-                <div class="product-features">
-                    <div class="feature-item">
-                        <i class="fas fa-shipping-fast"></i>
-                        <span>Gratis Pengiriman</span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-undo-alt"></i>
-                        <span>Garansi 30 Hari</span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-headset"></i>
-                        <span>Dukungan 24/7</span>
-                    </div>
-                </div>
-
-                <div class="product-actions">
-                    <div class="quantity-selector">
-                        <button type="button" class="quantity-btn" onclick="decreaseQuantity()">-</button>
-                        <input type="number" id="quantity" value="1" min="1" max="10" readonly>
-                        <button type="button" class="quantity-btn" onclick="increaseQuantity()">+</button>
-                    </div>
-                    
-                    <button class="btn-primary btn-add-to-cart" onclick="addToCart({{ $item->id }}, 'Item')">
-                        <i class="fas fa-shopping-bag me-2"></i>
-                        Tambah ke Keranjang
-                    </button>
-                    
-                    <button class="btn-secondary btn-wishlist">
-                        <i class="far fa-heart"></i>
-                    </button>
-                </div>
-
-                <div class="product-meta">
-                    <div class="meta-item">
-                        <span class="meta-label">Kategori:</span>
-                        <span class="meta-value">
-                            @if(isset($item->category) && isset($item->category->name))
-                                {{ $item->category->name }}
-                            @else
-                                Umum
-                            @endif
-                        </span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Stok:</span>
-                        <span class="meta-value {{ ($item->stock ?? 0) > 0 ? 'in-stock' : 'out-of-stock' }}">
-                            {{ ($item->stock ?? 0) > 0 ? 'Tersedia' : 'Habis' }}
-                        </span>
-=======
 @section('title', $item->name)
 
-@section('content')
-<section class="section">
-    <div class="container">
-        <div class="product-detail animate-fade-in">
-            <div class="row align-items-center">
-                <!-- Gambar -->
-                <div class="col-md-5 text-center">
-                    <img src="{{ Str::startsWith($item->img, ['http://', 'https://']) 
-                        ? $item->img 
-                        : asset('storage/' . $item->img) }}"
-                        class="img-fluid rounded shadow"
-                        alt="{{ $item->name }}"
-                        onerror="this.onerror=null;this.src='{{ asset('No_image_available.webp') }}';">
-                </div>
-
-                <!-- Detail -->
-                <div class="col-md-7">
-                    <h2 class="mb-2">{{ $item->name }}</h2>
-                    <p class="text-muted mb-2">Harga</p>
-                    <h4 class="text-primary mb-4">
-                        Rp {{ number_format($item->price, 0, ',', '.') }}
-                    </h4>
-
-                    @if($item->description)
-                        <div class="product-description mb-4">
-                            <h5>Deskripsi</h5>
-                            <p class="text-secondary" style="white-space: pre-line;">
-                                {{ $item->description }}
-                            </p>
-                        </div>
-                    @endif
-
-                    <div class="d-flex gap-3 mt-4">
-                        <button type="button" class="btn btn-primary" 
-                                onclick="addToCart({{ $item->id }}, 'Item')">
-                            <i class="fas fa-shopping-cart me-2"></i> Tambah ke Keranjang
-                        </button>
-
-                        <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">
-                            <i class="fas fa-arrow-left me-2"></i> Kembali
-                        </a>
->>>>>>> 0f935732cb88fa8dd06facf269357e61c0ffc923
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<<<<<<< HEAD
-<!-- Product Tabs Section -->
-<section class="product-tabs-section section-padding">
-    <div class="container">
-        <div class="tabs-container">
-            <ul class="tabs-nav">
-                <li class="tab-nav-item active" data-tab="description">Deskripsi</li>
-                <li class="tab-nav-item" data-tab="specifications">Spesifikasi</li>
-                <li class="tab-nav-item" data-tab="reviews">Ulasan ({{ $reviewsCount }})</li>
-            </ul>
-
-            <div class="tabs-content">
-                <!-- Description Tab -->
-                <div class="tab-content active" id="description">
-                    <div class="tab-content-inner">
-                        <h3>Tentang Produk Ini</h3>
-                        <p>{{ $item->full_description ?? $item->description }}</p>
-                        
-                        <div class="features-list">
-                            <h4>Keunggulan Produk:</h4>
-                            <ul>
-                                <li>Materi lengkap dan terupdate</li>
-                                <li>Ditulis oleh pakar perpajakan</li>
-                                <li>Contoh kasus praktis</li>
-                                <li>Bahasa mudah dipahami</li>
-                                <li>Format digital dan fisik tersedia</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Specifications Tab -->
-                <div class="tab-content" id="specifications">
-                    <div class="tab-content-inner">
-                        <h3>Spesifikasi Produk</h3>
-                        <div class="specs-table">
-                            <div class="spec-row">
-                                <div class="spec-label">Judul</div>
-                                <div class="spec-value">{{ $item->name }}</div>
-                            </div>
-                            <div class="spec-row">
-                                <div class="spec-label">Penulis</div>
-                                <div class="spec-value">{{ $item->author ?? 'Tim Paham Pajak' }}</div>
-                            </div>
-                            <div class="spec-row">
-                                <div class="spec-label">Penerbit</div>
-                                <div class="spec-value">{{ $item->publisher ?? 'Paham Pajak Publishing' }}</div>
-                            </div>
-                            <div class="spec-row">
-                                <div class="spec-label">Tahun Terbit</div>
-                                <div class="spec-value">{{ $item->published_year ?? date('Y') }}</div>
-                            </div>
-                            <div class="spec-row">
-                                <div class="spec-label">Halaman</div>
-                                <div class="spec-value">{{ $item->pages ?? '150' }} halaman</div>
-                            </div>
-                            <div class="spec-row">
-                                <div class="spec-label">Bahasa</div>
-                                <div class="spec-value">Indonesia</div>
-                            </div>
-                            <div class="spec-row">
-                                <div class="spec-label">Format</div>
-                                <div class="spec-value">Soft Cover / Digital PDF</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Reviews Tab -->
-                <div class="tab-content" id="reviews">
-                    <div class="tab-content-inner">
-                        <h3>Ulasan Pembeli</h3>
-                        
-                        <div class="reviews-summary">
-                            <div class="overall-rating">
-                                <div class="rating-score">{{ number_format($averageRating, 1) }}</div>
-                                <div class="stars">
-                                    @for($i = 1; $i <= 5; $i++)
-                                        <i class="fas fa-star {{ $i <= $averageRating ? 'active' : '' }}"></i>
-                                    @endfor
-                                </div>
-                                <div class="total-reviews">{{ $reviewsCount }} ulasan</div>
-                            </div>
-                            
-                            @if($reviewsCount > 0)
-                            <div class="rating-bars">
-                                @php
-                                    // Hitung persentase rating untuk setiap bintang
-                                    $ratingPercentages = [];
-                                    for ($i = 1; $i <= 5; $i++) {
-                                        if (isset($item->reviews)) {
-                                            $starCount = $item->reviews->where('rating', $i)->count();
-                                            $ratingPercentages[$i] = $reviewsCount > 0 ? ($starCount / $reviewsCount) * 100 : 0;
-                                        } else {
-                                            $ratingPercentages[$i] = 0;
-                                        }
-                                    }
-                                @endphp
-                                @for($i = 5; $i >= 1; $i--)
-                                <div class="rating-bar">
-                                    <span class="star-count">{{ $i }} bintang</span>
-                                    <div class="bar-container">
-                                        <div class="bar" style="width: {{ $ratingPercentages[$i] }}%"></div>
-                                    </div>
-                                    <span class="percentage">{{ number_format($ratingPercentages[$i], 0) }}%</span>
-                                </div>
-                                @endfor
-                            </div>
-                            @endif
-                        </div>
-
-                        <div class="reviews-list">
-                            @if(isset($item->reviews) && $item->reviews->count() > 0)
-                                @foreach($item->reviews as $review)
-                                <div class="review-item">
-                                    <div class="review-header">
-                                        <div class="reviewer-info">
-                                            <div class="reviewer-avatar">
-                                                @if(isset($review->user) && isset($review->user->name))
-                                                    {{ substr($review->user->name, 0, 1) }}
-                                                @else
-                                                    U
-                                                @endif
-                                            </div>
-                                            <div class="reviewer-details">
-                                                <h5>
-                                                    @if(isset($review->user) && isset($review->user->name))
-                                                        {{ $review->user->name }}
-                                                    @else
-                                                        User
-                                                    @endif
-                                                </h5>
-                                                <div class="review-rating">
-                                                    @for($i = 1; $i <= 5; $i++)
-                                                        <i class="fas fa-star {{ $i <= ($review->rating ?? 0) ? 'active' : '' }}"></i>
-                                                    @endfor
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <span class="review-date">{{ $review->created_at->format('d M Y') }}</span>
-                                    </div>
-                                    <div class="review-content">
-                                        <p>{{ $review->comment ?? 'Tidak ada komentar' }}</p>
-                                    </div>
-                                </div>
-                                @endforeach
-                            @else
-                            <div class="empty-reviews">
-                                <i class="fas fa-comment-dots"></i>
-                                <p>Belum ada ulasan untuk produk ini</p>
-                            </div>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Related Products -->
-@if(isset($relatedItems) && $relatedItems->count() > 0)
-<section class="related-products-section section-padding">
-    <div class="container">
-        <div class="section-header">
-            <h2>Produk Terkait</h2>
-            <p>Temukan produk lain yang mungkin Anda sukai</p>
-        </div>
-        
-        <div class="related-products-grid">
-            @foreach($relatedItems as $relatedItem)
-            <div class="related-product-card">
-                <div class="product-image">
-                    <img src="{{ Str::startsWith($relatedItem->img, ['http://', 'https://']) 
-                                ? $relatedItem->img 
-                                : asset('storage/' . $relatedItem->img) }}"
-                         alt="{{ $relatedItem->name }}"
-                         class="img-fluid"
-                         onerror="this.onerror=null;this.src='{{ asset('images/default-book.png') }}';">
-                </div>
-                <div class="product-content">
-                    <h4>{{ Str::limit($relatedItem->name, 50) }}</h4>
-                    <div class="product-price">Rp{{ number_format($relatedItem->price, 0, ',', '.') }}</div>
-                    <a href="{{ route('book.show', $relatedItem->id) }}" class="btn-view-detail">
-                        Lihat Detail
-                    </a>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-@endif
-@endsection
-
-@section('script')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    // Quantity functions
-    function increaseQuantity() {
-        const quantityInput = document.getElementById('quantity');
-        let quantity = parseInt(quantityInput.value);
-        if (quantity < 10) {
-            quantityInput.value = quantity + 1;
-        }
-    }
-
-    function decreaseQuantity() {
-        const quantityInput = document.getElementById('quantity');
-        let quantity = parseInt(quantityInput.value);
-        if (quantity > 1) {
-            quantityInput.value = quantity - 1;
-        }
-    }
-
-    // Image change function
-    function changeImage(src) {
-        document.getElementById('mainImage').src = src;
-    }
-
-    // Add to cart function
-    function addToCart(id, type) {
-        const quantity = document.getElementById('quantity').value;
-        
-        // Show loading
-        document.getElementById('loadingOverlay').style.display = 'flex';
-        
-        fetch("{{ route('cart.add') }}", {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ 
-                id: id, 
-                type: type,
-                quantity: quantity
-            }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Hide loading
-            document.getElementById('loadingOverlay').style.display = 'none';
-            
-            if (data.status === 'success') {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil',
-                    text: data.message,
-                    timer: 1500,
-                    showConfirmButton: false
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: data.message
-                });
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            document.getElementById('loadingOverlay').style.display = 'none';
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Terjadi kesalahan saat menambahkan ke keranjang'
-            });
-        });
-    }
-
-    // Tab functionality
-    document.addEventListener('DOMContentLoaded', function() {
-        const tabNavItems = document.querySelectorAll('.tab-nav-item');
-        const tabContents = document.querySelectorAll('.tab-content');
-        
-        tabNavItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const tabId = item.getAttribute('data-tab');
-                
-                // Remove active class from all tabs
-                tabNavItems.forEach(nav => nav.classList.remove('active'));
-                tabContents.forEach(content => content.classList.remove('active'));
-                
-                // Add active class to current tab
-                item.classList.add('active');
-                document.getElementById(tabId).classList.add('active');
-            });
-        });
-    });
-</script>
-@endsection
-
-@section('styles')
+@section('style')
 <style>
-/* Product Detail Styles */
-.breadcrumb-section {
-    background: #f8fafc;
-    padding: 1.5rem 0;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.breadcrumb {
-    margin: 0;
-    font-size: 0.9rem;
-}
-
-.breadcrumb-item a {
-    color: var(--primary);
-    text-decoration: none;
-}
-
-.breadcrumb-item.active {
-    color: var(--secondary);
-}
-
-.section-padding {
-    padding: 3rem 0;
-}
-
-.product-detail-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
-}
-
-.product-images {
-    position: sticky;
-    top: 2rem;
-}
-
-.main-image {
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
-    margin-bottom: 1rem;
-}
-
-.main-image img {
-    width: 100%;
-    height: 500px;
-    object-fit: cover;
-}
-
-.image-thumbnails {
-    display: flex;
-    gap: 0.5rem;
-    justify-content: center;
-}
-
-.thumbnail {
-    width: 80px;
-    height: 80px;
-    border-radius: 8px;
-    overflow: hidden;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: var(--transition);
-}
-
-.thumbnail:hover,
-.thumbnail.active {
-    border-color: var(--primary);
-}
-
-.thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.product-info {
-    padding: 1rem 0;
-}
-
-.product-badge {
-    margin-bottom: 1rem;
-}
-
-.badge {
-    padding: 0.5rem 1rem;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.badge-book { background: var(--accent); color: white; }
-.badge-article { background: var(--primary); color: white; }
-.badge-other { background: var(--success); color: white; }
-
-.product-title {
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: var(--dark);
-    margin-bottom: 1rem;
-    line-height: 1.3;
-}
-
-.product-rating {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.stars {
-    display: flex;
-    gap: 0.2rem;
-}
-
-.stars .fa-star {
-    color: #cbd5e1;
-    font-size: 1.1rem;
-}
-
-.stars .fa-star.active {
-    color: #f59e0b;
-}
-
-.rating-text {
-    color: var(--secondary);
-    font-size: 0.9rem;
-}
-
-.product-price-section {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-}
-
-.current-price {
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--primary);
-}
-
-.original-price {
-    font-size: 1.2rem;
-    color: var(--secondary);
-    text-decoration: line-through;
-}
-
-.discount-badge {
-    background: #ef4444;
-    color: white;
-    padding: 0.3rem 0.8rem;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    font-weight: 700;
-}
-
-.product-description {
-    margin-bottom: 2rem;
-}
-
-.product-description p {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: var(--secondary);
-}
-
-.product-features {
-    display: flex;
-    gap: 2rem;
-    margin-bottom: 2rem;
-    padding: 1.5rem;
-    background: #f8fafc;
-    border-radius: var(--radius);
-}
-
-.feature-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--secondary);
-}
-
-.feature-item i {
-    color: var(--primary);
-    font-size: 1.1rem;
-}
-
-.product-actions {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    align-items: center;
-}
-
-.quantity-selector {
-    display: flex;
-    align-items: center;
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.quantity-btn {
-    background: #f8fafc;
-    border: none;
-    padding: 0.8rem 1rem;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.quantity-btn:hover {
-    background: #e2e8f0;
-}
-
-#quantity {
-    width: 60px;
-    border: none;
-    text-align: center;
-    font-weight: 600;
-    background: white;
-}
-
-.btn-primary {
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-    flex: 1;
-}
-
-.btn-primary:hover {
-    background: var(--primary-dark);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-}
-
-.btn-secondary {
-    background: white;
-    border: 2px solid #e2e8f0;
-    padding: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.btn-secondary:hover {
-    border-color: var(--primary);
-    color: var(--primary);
-}
-
-.product-meta {
-    border-top: 1px solid #e2e8f0;
-    padding-top: 1.5rem;
-}
-
-.meta-item {
-    display: flex;
-    justify-content: between;
-    margin-bottom: 0.8rem;
-}
-
-.meta-label {
-    font-weight: 600;
-    color: var(--dark);
-    min-width: 100px;
-}
-
-.meta-value {
-    color: var(--secondary);
-}
-
-.meta-value.in-stock {
-    color: var(--success);
-    font-weight: 600;
-}
-
-.meta-value.out-of-stock {
-    color: #ef4444;
-    font-weight: 600;
-}
-
-/* Tabs Styles */
-.tabs-container {
-    background: white;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-}
-
-.tabs-nav {
-    display: flex;
-    background: #f8fafc;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.tab-nav-item {
-    padding: 1.2rem 2rem;
-    cursor: pointer;
-    font-weight: 600;
-    color: var(--secondary);
-    border-bottom: 3px solid transparent;
-    transition: var(--transition);
-}
-
-.tab-nav-item.active {
-    color: var(--primary);
-    border-bottom-color: var(--primary);
-    background: white;
-}
-
-.tabs-content {
-    padding: 0;
-}
-
-.tab-content {
-    display: none;
-    padding: 2.5rem;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-.tab-content-inner h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    color: var(--dark);
-}
-
-.tab-content-inner p {
-    line-height: 1.7;
-    color: var(--secondary);
-    margin-bottom: 1.5rem;
-}
-
-.features-list h4 {
-    margin-bottom: 1rem;
-    color: var(--dark);
-}
-
-.features-list ul {
-    list-style: none;
-    padding: 0;
-}
-
-.features-list li {
-    padding: 0.5rem 0;
-    padding-left: 1.5rem;
-    position: relative;
-    color: var(--secondary);
-}
-
-.features-list li:before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    color: var(--success);
-    font-weight: bold;
-}
-
-/* Specifications Table */
-.specs-table {
-    display: grid;
-    gap: 0.5rem;
-}
-
-.spec-row {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    padding: 1rem;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.spec-row:last-child {
-    border-bottom: none;
-}
-
-.spec-label {
-    font-weight: 600;
-    color: var(--dark);
-}
-
-.spec-value {
-    color: var(--secondary);
-}
-
-/* Reviews Styles */
-.reviews-summary {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 3rem;
-    margin-bottom: 3rem;
-    padding: 2rem;
-    background: #f8fafc;
-    border-radius: var(--radius);
-}
-
-.overall-rating {
-    text-align: center;
-}
-
-.rating-score {
-    font-size: 3rem;
-    font-weight: 800;
-    color: var(--dark);
-    margin-bottom: 0.5rem;
-}
-
-.rating-bars {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.rating-bar {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.star-count {
-    min-width: 80px;
-    font-size: 0.9rem;
-    color: var(--secondary);
-}
-
-.bar-container {
-    flex: 1;
-    height: 8px;
-    background: #e2e8f0;
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.bar {
-    height: 100%;
-    background: #f59e0b;
-    transition: width 0.5s ease;
-}
-
-.percentage {
-    min-width: 40px;
-    font-size: 0.9rem;
-    color: var(--secondary);
-    text-align: right;
-}
-
-/* Review Items */
-.review-item {
-    padding: 2rem 0;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.review-item:last-child {
-    border-bottom: none;
-}
-
-.review-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    margin-bottom: 1rem;
-}
-
-.reviewer-info {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.reviewer-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: var(--primary);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 1.2rem;
-}
-
-.reviewer-details h5 {
-    margin: 0 0 0.3rem 0;
-    color: var(--dark);
-}
-
-.review-date {
-    color: var(--secondary);
-    font-size: 0.9rem;
-}
-
-.review-content p {
-    margin: 0;
-    line-height: 1.6;
-    color: var(--secondary);
-}
-
-.empty-reviews {
-    text-align: center;
-    padding: 3rem;
-    color: var(--secondary);
-}
-
-.empty-reviews i {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    color: #cbd5e1;
-}
-
-/* Related Products */
-.related-products-section {
-    background: #f8fafc;
-}
-
-.section-header {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.section-header h2 {
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: var(--dark);
-    margin-bottom: 1rem;
-}
-
-.section-header p {
-    color: var(--secondary);
-    font-size: 1.1rem;
-}
-
-.related-products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-}
-
-.related-product-card {
-    background: white;
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-}
-
-.related-product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
-}
-
-.related-product-card .product-image {
-    height: 200px;
-    overflow: hidden;
-}
-
-.related-product-card .product-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.related-product-card:hover .product-image img {
-    transform: scale(1.05);
-}
-
-.related-product-card .product-content {
-    padding: 1.5rem;
-}
-
-.related-product-card h4 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 0.8rem;
-    color: var(--dark);
-    line-height: 1.4;
-}
-
-.related-product-card .product-price {
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: var(--primary);
-    margin-bottom: 1rem;
-}
-
-.btn-view-detail {
-    display: block;
-    text-align: center;
-    padding: 0.8rem 1.5rem;
-    background: transparent;
-    border: 2px solid var(--primary);
-    color: var(--primary);
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: var(--transition);
-}
-
-.btn-view-detail:hover {
-    background: var(--primary);
-    color: white;
-}
-
-/* Responsive Design */
-@media (max-width: 968px) {
-    .product-detail-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+    :root {
+        --primary: #2563eb;
+        --primary-light: #3b82f6;
+        --primary-dark: #1d4ed8;
+        --secondary: #64748b;
+        --accent: #f59e0b;
+        --light: #f8fafc;
+        --light-gray: #f1f5f9;
+        --dark: #1e293b;
+        --dark-gray: #475569;
+        --success: #10b981;
+        --danger: #ef4444;
+        --white: #ffffff;
+        
+        --gradient-primary: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        --gradient-light: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        
+        --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.08), 0 4px 6px rgba(0, 0, 0, 0.05);
+        --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+        
+        --radius-sm: 8px;
+        --radius: 12px;
+        --radius-lg: 16px;
+        --radius-xl: 20px;
+        
+        --transition: all 0.3s ease;
     }
-    
-    .product-images {
-        position: static;
-    }
-    
-    .reviews-summary {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-}
 
-@media (max-width: 768px) {
-    .product-title {
-        font-size: 1.8rem;
+    /* Base Styles - Mobile First */
+    .product-detail-section {
+        padding: 1rem 0;
+        background: var(--light);
+        min-height: 100vh;
     }
-    
-    .product-actions {
-        flex-direction: column;
+
+    .breadcrumb-nav {
+        margin-bottom: 1.5rem;
     }
-    
-    .quantity-selector {
+
+    .breadcrumb {
+        background: transparent;
+        padding: 0;
+        margin: 0;
+        font-size: 0.875rem;
+    }
+
+    .breadcrumb-item a {
+        color: var(--secondary);
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .breadcrumb-item a:hover {
+        color: var(--primary);
+    }
+
+    .breadcrumb-item.active {
+        color: var(--dark);
+        font-weight: 600;
+    }
+
+    .product-detail-card {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+
+    .product-image-container {
+        position: relative;
+        height: 280px;
+        overflow: hidden;
+        background: var(--light-gray);
+    }
+
+    .product-image {
         width: 100%;
-        justify-content: center;
+        height: 100%;
+        object-fit: contain;
+        padding: 1.5rem;
+        transition: var(--transition);
     }
-    
-    .tabs-nav {
-        flex-direction: column;
-    }
-    
-    .spec-row {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-    }
-    
-    .product-features {
-        flex-direction: column;
-        gap: 1rem;
-    }
-}
 
-@media (max-width: 480px) {
-    .tab-content {
+    .product-badge {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        background: var(--accent);
+        color: var(--white);
+        z-index: 2;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .product-info {
         padding: 1.5rem;
     }
-    
-    .main-image img {
-        height: 300px;
-    }
-    
-    .current-price {
+
+    .product-title {
         font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--dark);
+        margin-bottom: 1rem;
+        line-height: 1.3;
+        word-wrap: break-word;
     }
-}
+
+    .product-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-bottom: 1.25rem;
+        padding-bottom: 1.25rem;
+        border-bottom: 1px solid var(--light-gray);
+    }
+
+    .product-rating, .product-type {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .product-rating {
+        color: var(--accent);
+        font-weight: 600;
+    }
+
+    .product-type {
+        color: var(--secondary);
+        font-weight: 500;
+    }
+
+    .product-price-section {
+        margin-bottom: 1.5rem;
+    }
+
+    .price-label {
+        font-size: 0.8rem;
+        color: var(--secondary);
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 600;
+    }
+
+    .product-price {
+        font-size: 1.75rem;
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 0;
+        line-height: 1.2;
+    }
+
+    .product-description-section {
+        margin-bottom: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--dark);
+        margin-bottom: 0.875rem;
+        position: relative;
+        padding-bottom: 0.5rem;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background: var(--primary);
+        border-radius: 2px;
+    }
+
+    .product-description {
+        color: var(--dark-gray);
+        line-height: 1.6;
+        font-size: 0.95rem;
+        white-space: pre-line;
+        word-wrap: break-word;
+    }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .btn-primary, .btn-outline {
+        border: none;
+        padding: 1rem 1.5rem;
+        border-radius: var(--radius);
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transition: var(--transition);
+        text-decoration: none;
+        font-size: 0.95rem;
+        width: 100%;
+        min-height: 44px;
+    }
+
+    .btn-primary {
+        background: var(--primary);
+        color: var(--white);
+    }
+
+    .btn-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-outline {
+        background: transparent;
+        border: 2px solid var(--light-gray);
+        color: var(--secondary);
+    }
+
+    .btn-outline:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+        transform: translateY(-2px);
+    }
+
+    .product-features {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+        margin-top: 1.25rem;
+    }
+
+    .feature-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem;
+        background: var(--light);
+        border-radius: var(--radius);
+        transition: var(--transition);
+    }
+
+    .feature-item:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .feature-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: var(--radius);
+        background: var(--gradient-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        font-size: 1.1rem;
+        flex-shrink: 0;
+    }
+
+    .feature-content h4 {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--dark);
+        margin-bottom: 0.375rem;
+    }
+
+    .feature-content p {
+        color: var(--dark-gray);
+        margin: 0;
+        line-height: 1.5;
+        font-size: 0.9rem;
+    }
+
+    .related-products {
+        margin-top: 2.5rem;
+    }
+
+    .related-title {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--dark);
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .related-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .related-card {
+        background: var(--white);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        transition: var(--transition);
+    }
+
+    .related-card:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .related-image {
+        height: 160px;
+        overflow: hidden;
+    }
+
+    .related-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+    }
+
+    .related-card:hover .related-image img {
+        transform: scale(1.05);
+    }
+
+    .related-content {
+        padding: 1.25rem;
+    }
+
+    .related-content h4 {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--dark);
+        margin-bottom: 0.5rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-height: 1.4;
+    }
+
+    .related-price {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 1rem;
+    }
+
+    .view-detail-btn {
+        width: 100%;
+        background: var(--primary);
+        color: var(--white);
+        border: none;
+        border-radius: var(--radius);
+        padding: 0.75rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transition: var(--transition);
+        font-size: 0.9rem;
+        min-height: 44px;
+    }
+
+    .view-detail-btn:hover {
+        background: var(--primary-dark);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fadeIn 0.6s ease-out forwards;
+    }
+
+    /* Tablet Styles (768px and up) */
+    @media (min-width: 768px) {
+        .product-detail-section {
+            padding: 2rem 0;
+        }
+
+        .product-image-container {
+            height: 350px;
+        }
+
+        .product-info {
+            padding: 2rem;
+        }
+
+        .product-title {
+            font-size: 1.75rem;
+        }
+
+        .product-meta {
+            flex-direction: row;
+            gap: 1.5rem;
+        }
+
+        .product-price {
+            font-size: 2rem;
+        }
+
+        .action-buttons {
+            flex-direction: row;
+            gap: 1rem;
+        }
+
+        .btn-primary, .btn-outline {
+            width: auto;
+            flex: 1;
+        }
+
+        .features-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .related-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .related-image {
+            height: 180px;
+        }
+
+        .product-features {
+            padding: 2rem;
+        }
+    }
+
+    /* Desktop Styles (992px and up) */
+    @media (min-width: 992px) {
+        .product-detail-section {
+            padding: 3rem 0;
+        }
+
+        .product-image-container {
+            height: 400px;
+        }
+
+        .product-info {
+            padding: 2.5rem;
+        }
+
+        .product-title {
+            font-size: 2rem;
+        }
+
+        .product-price {
+            font-size: 2.2rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+        }
+
+        .features-grid {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .related-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .related-image {
+            height: 200px;
+        }
+
+        .related-title {
+            font-size: 1.8rem;
+        }
+    }
+
+    /* Large Desktop Styles (1200px and up) */
+    @media (min-width: 1200px) {
+        .product-image-container {
+            height: 450px;
+        }
+
+        .product-title {
+            font-size: 2.2rem;
+        }
+
+        .product-price {
+            font-size: 2.5rem;
+        }
+    }
+
+    /* Small Mobile Styles (480px and down) */
+    @media (max-width: 480px) {
+        .product-detail-section {
+            padding: 0.75rem 0;
+        }
+
+        .product-image-container {
+            height: 240px;
+            padding: 1rem;
+        }
+
+        .product-image {
+            padding: 1rem;
+        }
+
+        .product-badge {
+            top: 0.75rem;
+            left: 0.75rem;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.7rem;
+        }
+
+        .product-info {
+            padding: 1.25rem;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+        }
+
+        .product-features {
+            padding: 1.25rem;
+        }
+
+        .feature-item {
+            padding: 0.875rem;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 1rem;
+        }
+
+        .related-content {
+            padding: 1rem;
+        }
+
+        .related-image {
+            height: 140px;
+        }
+    }
+
+    /* Extra Small Mobile Styles (360px and down) */
+    @media (max-width: 360px) {
+        .product-image-container {
+            height: 200px;
+        }
+
+        .product-info {
+            padding: 1rem;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            gap: 1rem;
+        }
+
+        .feature-item {
+            padding: 0.75rem;
+            gap: 0.75rem;
+        }
+
+        .feature-icon {
+            width: 36px;
+            height: 36px;
+        }
+
+        .related-grid {
+            gap: 1rem;
+        }
+
+        .related-image {
+            height: 120px;
+        }
+    }
+
+    /* Utility Classes */
+    .text-wrap-balance {
+        text-wrap: balance;
+    }
+
+    .img-responsive {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Improve touch targets for mobile */
+    @media (max-width: 768px) {
+        .btn-primary, .btn-outline, .view-detail-btn {
+            min-height: 44px;
+        }
+
+        .feature-item, .related-card {
+            min-height: 44px;
+        }
+    }
+
+    /* Prevent horizontal scroll */
+    .container {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Smooth scrolling for better UX */
+    html {
+        scroll-behavior: smooth;
+    }
 </style>
 @endsection
 
+@section('content')
+<section class="product-detail-section">
+    <div class="container">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb-nav">
+            <ol class="breadcrumb">
+                {{-- <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-decoration-none">Beranda</a></li> --}}
+                <li class="breadcrumb-item"><a href="{{ route('book') }}" class="text-decoration-none">Katalog</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ Str::limit($item->name, 25) }}</li>
+            </ol>
+        </nav>
+
+        <!-- Main Product Detail -->
+        <div class="product-detail-card animate-fade-in">
+            <div class="row g-0">
+                <!-- Product Image -->
+                <div class="col-12 col-lg-6">
+                    <div class="product-image-container">
+                        <img src="{{ Str::startsWith($item->img, ['http://', 'https://']) 
+                            ? $item->img 
+                            : asset('storage/' . $item->img) }}"
+                            class="product-image img-responsive"
+                            alt="{{ $item->name }}"
+                            onerror="this.onerror=null;this.src='{{ asset('No_image_available.webp') }}';">
+                        <div class="product-badge">
+                            {{ $item->type ?? 'Produk' }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="col-12 col-lg-6">
+                    <div class="product-info">
+                        <h1 class="product-title text-wrap-balance">{{ $item->name }}</h1>
+                        
+                        <div class="product-meta">
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.8 (128 reviews)</span>
+                            </div>
+                            <div class="product-type">
+                                <i class="fas fa-tag"></i>
+                                <span>{{ $item->category ?? 'Umum' }}</span>
+                            </div>
+                        </div>
+
+                        <div class="product-price-section">
+                            <div class="price-label">Harga</div>
+                            <div class="product-price">Rp {{ number_format($item->price, 0, ',', '.') }}</div>
+                        </div>
+
+                        @if($item->description)
+                            <div class="product-description-section">
+                                <h3 class="section-title">Deskripsi Produk</h3>
+                                <div class="product-description">
+                                    {{ $item->description }}
+                                </div>
+                            </div>
+                        @endif
+
+                        <div class="action-buttons">
+                            <button type="button" class="btn btn-primary" 
+                                    onclick="addToCart({{ $item->id }}, 'Item')">
+                                <i class="fas fa-shopping-cart"></i>
+                                Tambah ke Keranjang
+                            </button>
+
+                            <a href="{{ url()->previous() }}" class="btn btn-outline">
+                                <i class="fas fa-arrow-left"></i>
+                                Kembali
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Features -->
+        <div class="product-features animate-fade-in">
+            <h3 class="section-title">Keunggulan Produk</h3>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Konten Terpercaya</h4>
+                        <p>Ditulis oleh ahli perpajakan bersertifikat dengan pengalaman praktis</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Update Terkini</h4>
+                        <p>Mengikuti regulasi perpajakan terbaru dan perubahan undang-undang</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Mudah Dipahami</h4>
+                        <p>Disajikan dengan bahasa yang jelas dan contoh kasus praktis</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Dukungan Konsultasi</h4>
+                        <p>Akses konsultasi dengan tim ahli untuk pertanyaan lebih lanjut</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Products -->
+        @if(isset($relatedProducts) && $relatedProducts->count() > 0)
+            <div class="related-products animate-fade-in">
+                <h3 class="related-title">Produk Terkait</h3>
+                <div class="related-grid">
+                    @foreach($relatedProducts as $related)
+                        <div class="related-card">
+                            <div class="related-image">
+                                <img src="{{ Str::startsWith($related->img, ['http://', 'https://']) 
+                                    ? $related->img 
+                                    : asset('storage/' . $related->img) }}"
+                                    alt="{{ $related->name }}"
+                                    class="img-responsive"
+                                    onerror="this.onerror=null;this.src='{{ asset('No_image_available.webp') }}';">
+                            </div>
+                            <div class="related-content">
+                                <h4 class="text-wrap-balance">{{ $related->name }}</h4>
+                                <div class="related-price">Rp {{ number_format($related->price, 0, ',', '.') }}</div>
+                                <a href="{{ route('product.book.show', $related->id) }}" class="view-detail-btn">
+                                    <i class="fas fa-eye"></i>
+                                    Lihat Detail
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+    </div>
+</section>
+@endsection
+
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-function changeImage(src) {
-    document.getElementById('mainImage').src = src;
-}
-
-function increaseQuantity() {
-    const quantityInput = document.getElementById('quantity');
-    quantityInput.value = parseInt(quantityInput.value) + 1;
-}
-
-function decreaseQuantity() {
-    const quantityInput = document.getElementById('quantity');
-    if (parseInt(quantityInput.value) > 1) {
-        quantityInput.value = parseInt(quantityInput.value) - 1;
-    }
-}
-
 function addToCart(id, type) {
-    const quantity = document.getElementById('quantity').value;
+    const button = event.target;
+    const originalText = button.innerHTML;
     
-=======
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-function addToCart(id, type) {
->>>>>>> 0f935732cb88fa8dd06facf269357e61c0ffc923
+    // Show loading state
+    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menambahkan...';
+    button.disabled = true;
+
     fetch("{{ route('cart.add', [], false) }}", {
         method: "POST",
         headers: {
             "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
             "Content-Type": "application/json",
         },
-<<<<<<< HEAD
-        body: JSON.stringify({ 
-            id: id, 
-            type: type,
-            quantity: quantity
-        }),
-=======
         body: JSON.stringify({ id: id, type: type }),
->>>>>>> 0f935732cb88fa8dd06facf269357e61c0ffc923
     })
     .then(response => response.json())
     .then(data => {
         if (data.status === 'success') {
             Swal.fire({
                 icon: 'success',
-                title: 'Berhasil',
+                title: 'Berhasil!',
                 text: data.message,
-<<<<<<< HEAD
                 timer: 1500,
-                showConfirmButton: false
-=======
-                timer: 1200,
-                showConfirmButton: false
+                showConfirmButton: false,
+                background: '#fff',
+                iconColor: '#10b981'
             }).then(() => {
                 window.location.href = "{{ route('cart') }}";
->>>>>>> 0f935732cb88fa8dd06facf269357e61c0ffc923
             });
         } else {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: data.message
+                text: data.message,
+                background: '#fff',
+                confirmButtonColor: '#2563eb'
             });
+            
+            // Reset button
+            button.innerHTML = originalText;
+            button.disabled = false;
         }
     })
-<<<<<<< HEAD
-    .catch((error) => {
+    .catch(error => {
         console.error('Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Terjadi Kesalahan',
+            text: 'Silakan coba lagi nanti',
+            background: '#fff',
+            confirmButtonColor: '#2563eb'
+        });
+        
+        // Reset button
+        button.innerHTML = originalText;
+        button.disabled = false;
     });
 }
 
-// Tab functionality
+// Animation on scroll
 document.addEventListener('DOMContentLoaded', function() {
-    const tabNavItems = document.querySelectorAll('.tab-nav-item');
-    const tabContents = document.querySelectorAll('.tab-content');
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
     
-    tabNavItems.forEach(item => {
-        item.addEventListener('click', function() {
-            const tabId = this.getAttribute('data-tab');
-            
-            // Remove active class from all tabs
-            tabNavItems.forEach(nav => nav.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active'));
-            
-            // Add active class to current tab
-            this.classList.add('active');
-            document.getElementById(tabId).classList.add('active');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
         });
+    }, observerOptions);
+    
+    // Observe all animated elements
+    document.querySelectorAll('.animate-fade-in').forEach(el => {
+        observer.observe(el);
     });
+
+    // Improve mobile experience
+    if (window.innerWidth <= 768) {
+        // Add touch improvements
+        document.querySelectorAll('.btn-primary, .btn-outline, .view-detail-btn').forEach(btn => {
+            btn.style.webkitTapHighlightColor = 'transparent';
+        });
+    }
 });
 </script>
 @endsection
-=======
-    .catch(error => console.error('Error:', error));
-}
-</script>
-@endsection
->>>>>>> 0f935732cb88fa8dd06facf269357e61c0ffc923
