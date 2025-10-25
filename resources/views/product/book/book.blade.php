@@ -40,7 +40,7 @@
                                     width="60"
                                     class="img-fluid rounded-top"
                                     alt="Gambar {{ $item->name }}"
-                                    onerror="this.onerror=null;this.src='{{ asset('images/default.png') }}';">  
+                                    onerror="this.onerror=null;this.src='{{ asset('No_image_available.webp') }}';">  
                 </div>
                 
                 <div class="product-content">
@@ -49,9 +49,10 @@
                     
                     <div class="product-footer">
                         <div class="product-price">{{ 'Rp'. number_format($item->price, 0, ',','.') }}</div>
-                        <button onclick="addToCart({{ $item->id }}, 'Item')" class="add-to-cart-btn">
-                            <i class="fas fa-shopping-bag me-1"></i> Tambah
-                        </button>
+                       <a href="{{ route('product.book.show', $item->id) }}" class="add-to-cart-btn">
+                            <i class="fas fa-info-circle me-1"></i> Lihat Detail
+                        </a>
+
                     </div>
                 </div>
             </div>
