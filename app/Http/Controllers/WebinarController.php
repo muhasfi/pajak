@@ -10,7 +10,7 @@ class WebinarController extends Controller
     public function index()
     {
         // Ambil data webinar + detail pembicara
-        $webinars = ItemWebinar::with('detailWebinar')->latest()->get();
+        $webinars = ItemWebinar::with('detail')->latest()->get();
 
         return view('product.pelatihan.webinar', compact('webinars'));
     }

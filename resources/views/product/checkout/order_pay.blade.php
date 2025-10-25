@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Pembayaran Kelas')
+@section('title', 'Halaman Pembayaran')
 
 @section('content')
 <div class="container py-5 my-5 d-flex justify-content-center">
@@ -41,7 +41,14 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const snapToken = "{{ $order->snap_token }}";
+    const orderStatus = "{{ $order->status }}";
+    const expiredUrl = "{{ route('checkout.expired', $order->order_code) }}";
     const orderCode = "{{ $order->order_code }}";
+
+    if(orderStatus === "expired"){
+        window.location.href = expiredUrl;
+        return;
+    }
 
     function processPayment() {
         snap.pay(snapToken, {
@@ -49,8 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 Swal.fire({
                     icon: 'success',
                     title: 'Pembayaran Berhasil 🎉',
-                    // text: 'Selamat! Kamu sekarang terdaftar di kelas yang kamu pilih.',
-                    confirmButtonText: 'Lihat Kelas Saya',
                     confirmButtonColor: '#28a745'
                 }).then(() => {
                     window.location.href = "/checkout/success/" + orderCode;

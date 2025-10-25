@@ -87,87 +87,83 @@
             </div>
 
             <div class="services-grid">
-    @foreach ($litigasi as $item)
-        <div class="service-card {{ $loop->iteration == 3 ? 'featured' : '' }}">
-            {{-- Badge Populer --}}
-            @if ($loop->iteration == 3)
-                <div class="card-badge">Populer</div>
-            @endif
+                @foreach ($litigasi as $item)
+                    <div class="service-card {{ $loop->iteration == 3 ? 'featured' : '' }}">
 
-            {{-- Header Card --}}
-            <div class="card-header">
-                <div class="service-icon">
-                    @switch($loop->iteration)
-                        @case(1)
-                            <i class="fas fa-gavel"></i>
-                        @break
-                        
-                        @case(2)
-                            <i class="fas fa-balance-scale"></i>
-                        @break
-                        
-                        @case(3)
-                            <i class="fas fa-handshake"></i>
-                        @break
-                        
-                        @default
-                            <i class="fas fa-search"></i>
-                    @endswitch
-                </div>
+                        {{-- Header Card --}}
+                        <div class="card-header">
+                            <div class="service-icon">
+                                @switch($loop->iteration)
+                                    @case(1)
+                                        <i class="fas fa-gavel"></i>
+                                    @break
+                                    
+                                    @case(2)
+                                        <i class="fas fa-balance-scale"></i>
+                                    @break
+                                    
+                                    @case(3)
+                                        <i class="fas fa-handshake"></i>
+                                    @break
+                                    
+                                    @default
+                                        <i class="fas fa-search"></i>
+                                @endswitch
+                            </div>
 
-                <h3 class="fw-bold">{{ $item->judul }}</h3>
-                <h4 class="mt-2">
-                    Rp {{ number_format($item->harga, 0, ',', '.') }}
-                </h4>
-            </div>
+                            <h3 class="fw-bold">{{ $item->judul }}</h3>
+                            <h4 class="mt-2">
+                                Rp {{ number_format($item->harga, 0, ',', '.') }}
+                            </h4>
+                        </div>
 
-            {{-- Deskripsi --}}
-            <p class="text-muted text-center mb-4">
-                {{ $item->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}
-            </p>
+                        {{-- Deskripsi --}}
+                        <p class="text-muted text-center mb-4">
+                            {{ $item->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}
+                        </p>
 
-            {{-- Body Card - Benefits --}}
-            <div class="card-body">
-                @if (!empty($item->detail->benefit))
-                    <ul class="list-unstyled fs-5">
-                        @foreach ($item->detail->benefit as $benefit)
-                            @php
-                                $trimmed = trim($benefit);
-                            @endphp
+                        {{-- Body Card - Benefits --}}
+                        <div class="card-body">
+                            @if (!empty($item->detail->benefit))
+                                <ul class="list-unstyled fs-5">
+                                    @foreach ($item->detail->benefit as $benefit)
+                                        @php
+                                            $trimmed = trim($benefit);
+                                        @endphp
 
-                            @if ($trimmed !== '')
-                                @php
-                                    $isNegative = Str::startsWith($trimmed, '-');
-                                    $text = ltrim($trimmed, '+- ');
-                                @endphp
+                                        @if ($trimmed !== '')
+                                            @php
+                                                $isNegative = Str::startsWith($trimmed, '-');
+                                                $text = ltrim($trimmed, '+- ');
+                                            @endphp
 
-                                <li class="mb-2">
-                                    <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
-                                    {{ $text }}
-                                </li>
+                                            <li class="mb-2">
+                                                <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
+                                                {{ $text }}
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            @else
+                                <p class="text-muted fs-5">Benefit belum tersedia.</p>
                             @endif
-                        @endforeach
-                    </ul>
-                @else
-                    <p class="text-muted fs-5">Benefit belum tersedia.</p>
-                @endif
-            </div>
+                        </div>
 
-            {{-- Footer Card - Action Buttons --}}
-            <div class="card-footer">
-                <button type="button" 
-                    class="btn btn-primary"
-                    onclick="addToCart({{ $item->id }}, 'ItemLitigasi')">
-                    <span>Mulai Layanan</span>
-                </button>
-                
-                <a href="{{ route('kontak') }}" class="btn btn-outline">
-                    <span>Detail Layanan</span>
-                </a>
+                        {{-- Footer Card - Action Buttons --}}
+                        <div class="card-footer">
+                            <button type="button" 
+                                class="btn btn-primary"
+                                onclick="addToCart({{ $item->id }}, 'ItemLitigasi')">
+                                <span>Mulai Layanan</span>
+                            </button>
+                            
+                            <a href="{{ route('kontak') }}" class="btn btn-outline">
+                                <span>Detail Layanan</span>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-        </div>
-    @endforeach
-</div>
 
 
     <!-- Process Section -->
@@ -572,6 +568,9 @@
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         animation: fadeInUp 0.6s ease-out;
+        display: flex;               /* flex column */
+        flex-direction: column;      
+        justify-content: space-between;
     }
 
     .service-card::before {
@@ -595,23 +594,6 @@
         transform: scaleX(1);
     }
 
-    .service-card.featured {
-        border: 2px solid var(--primary-blue);
-        background: linear-gradient(135deg, var(--gray-50) 0%, var(--light-blue) 100%);
-    }
-
-    .card-badge {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        padding: 0.5rem 1rem;
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: var(--white);
-        background: #dc2626;
-        border-radius: 20px;
-        text-transform: uppercase;
-    }
 
     .card-header {
         text-align: center;
@@ -677,10 +659,15 @@
     }
 
     .card-footer {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
+        display: flex;    
+        gap: 0.75rem;          
+        flex-wrap: wrap;        
         margin-top: 2rem;
+        justify-content: center;
+    }
+
+    .card-footer .btn {
+        width: 400px;
     }
 
     /* =========================

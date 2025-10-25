@@ -10,7 +10,7 @@ class SeminarController extends Controller
      public function index()
     {
         // Ambil data seminar beserta detailnya
-        $seminars = ItemSeminar::with('detailSeminar')->latest()->get();
+        $seminars = ItemSeminar::with('detail')->latest()->get();
 
         return view('product.pelatihan.seminar', compact('seminars'));
     }

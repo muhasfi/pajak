@@ -191,7 +191,7 @@
 
             <div class="row g-4 justify-content-center">
                 @forelse($bimbels as $bimbel)
-                    <div class="col-lg-5 col-md-6 mb-4">
+                    <div class="col-lg-4 col-md-6 mb-4"><!-- col-lg-4 = 3 kartu per baris -->
                         <div class="class-card card border-0 shadow-lg h-100 position-relative overflow-hidden">
 
                             {{-- Header --}}
@@ -211,18 +211,14 @@
                                     <span class="text-muted">/paket</span>
                                 </div>
 
-                               {{-- Deskripsi dijadikan poin-poin otomatis --}}
+                                {{-- Deskripsi poin-poin --}}
                                 <div class="features-list">
                                     @foreach(explode("\n", $bimbel->deskripsi) as $line)
                                         @php
                                             $trimmed = trim($line);
                                             if ($trimmed === '') continue;
-
-                                            // Tentukan ikon berdasarkan awalan
                                             $isPositive = Str::startsWith($trimmed, '+');
                                             $isNegative = Str::startsWith($trimmed, '-');
-
-                                            // Bersihkan tanda di awal
                                             $text = ltrim($trimmed, '+- ');
                                         @endphp
 
@@ -232,7 +228,7 @@
                                             @elseif($isNegative)
                                                 <i class="fa fa-times-circle text-danger me-3 mt-1"></i>
                                             @else
-                                                <i class="fa fa-circle text-secondary me-3 mt-1 opacity-50"></i>
+                                                <i class="fa fa-check-circle text-success me-3 mt-1"></i>
                                             @endif
                                             <div>
                                                 <p class="mb-0 text-muted small">{{ $text }}</p>
@@ -242,16 +238,13 @@
                                 </div>
 
                                 <div class="features-list">
-                                    @foreach($bimbel->details as $detail)
+                                    @foreach($bimbel->detail as $details)
                                         <div class="mb-2">
-                                            <p class="text-muted small mb-0">{{ Str::limit($detail->deskripsi, 200) }}</p>
+                                            <p class="text-muted small mb-0">{{ Str::limit($details->deskripsi, 200) }}</p>
                                         </div>
                                     @endforeach
                                 </div>
-
-
                             </div>
-                            
 
                             {{-- Footer --}}
                             <div class="card-footer bg-transparent p-4">
@@ -259,17 +252,6 @@
                                         class="btn btn-outline-primary btn-lg w-100 rounded-pill fw-semibold shadow-sm">
                                     <i class="fa fa-arrow-right me-2"></i> Pilih {{ $bimbel->judul }}
                                 </button>
-                                {{-- @auth
-                                    <button onclick="addToCart('{{ $bimbel->id }}', 'ItemBimbel')" 
-                                            class="btn btn-outline-primary btn-lg w-100 rounded-pill fw-semibold shadow-sm">
-                                        <i class="fa fa-arrow-right me-2"></i> Pilih {{ $bimbel->judul }}
-                                    </button>
-                                @else
-                                    <a href="{{ route('login') }}" 
-                                    class="btn btn-outline-primary btn-lg w-100 rounded-pill fw-semibold shadow-sm">
-                                        <i class="fa fa-sign-in-alt me-2"></i> Login untuk pilih {{ $bimbel->judul }}
-                                    </a>
-                                @endauth --}}
                             </div>
 
                         </div>
@@ -280,6 +262,7 @@
                     </div>
                 @endforelse
             </div>
+
         </div>
             
                 
@@ -362,32 +345,6 @@
             </a>
         </div>
     </div>
-
-    {{-- TESTIMONI --}}
-    <div class="mt-5 text-center">
-        <h2 class="fw-bold mb-4">Apa Kata Peserta</h2>
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card shadow-sm border-0 p-3 h-100">
-                    <p>"Materinya jelas dan mudah dipahami. Cocok untuk pemula pajak!"</p>
-                    <strong>- Andi</strong>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card shadow-sm border-0 p-3 h-100">
-                    <p>"Mentornya profesional dan bisa tanya langsung saat live class."</p>
-                    <strong>- Siti</strong>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card shadow-sm border-0 p-3 h-100">
-                    <p>"BimbelKu sangat membantu saya persiapan ujian sertifikasi akuntansi."</p>
-                    <strong>- Budi</strong>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
 @endsection
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

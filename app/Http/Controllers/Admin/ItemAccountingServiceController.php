@@ -16,8 +16,8 @@ class ItemAccountingServiceController extends Controller
       // Menampilkan semua akuntansi
     public function index(): View
     {
-        $services = ItemAccountingService::with('details')->get();
-        return view('admin.akuntansi.index', compact('services'));
+        $akuntansis = ItemAccountingService::with('detail')->get();
+        return view('admin.akuntansi.index', compact('akuntansis'));
     }
 
     // Menampilkan form create
@@ -76,12 +76,12 @@ class ItemAccountingServiceController extends Controller
     public function show(ItemAccountingService $akuntansi): View
     {
         // Load data akuntansi beserta relasi detailnya
-        $akuntansi->load('details');
+        $akuntansi->load('detail');
         return view('admin.accounting-services.show', compact('akuntansi'));
     }
     public function edit(ItemAccountingService $accounting_service): View
     {
-        $accounting_service->load('details');
+        $accounting_service->load('detail');
         return view('admin.akuntansi.edit', compact('accounting_service'));
     }
 
@@ -98,14 +98,14 @@ class ItemAccountingServiceController extends Controller
             'file_link'   => 'nullable|url'
         ]);
 
-        $accounting_service->load('details');
+        $accounting_service->load('detail');
 
         $accounting_service->update([
             'judul' => $validated['judul'],
             'harga' => $validated['harga'],
         ]);
 
-        $filePath = $accounting_service->details->file_path ?? null;
+        $filePath = $accounting_service->detail->file_path ?? null;
 
         if ($validated['file_type'] === 'upload' && $request->hasFile('file_upload')) {
             if ($filePath && Storage::disk('public')->exists($filePath)) {
@@ -116,14 +116,14 @@ class ItemAccountingServiceController extends Controller
             $filePath = $validated['file_link'];
         }
 
-        if ($accounting_service->details) {
-            $accounting_service->details->update([
+        if ($accounting_service->detail) {
+            $accounting_service->detail->update([
                 'deskripsi' => $validated['deskripsi'],
                 'benefit'   => $validated['benefit'],
                 'file_path' => $filePath,
             ]);
         } else {
-            $accounting_service->details()->create([
+            $accounting_service->detail()->create([
                 'deskripsi' => $validated['deskripsi'],
                 'benefit'   => $validated['benefit'],
                 'file_path' => $filePath,

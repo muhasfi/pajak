@@ -13,7 +13,7 @@ class BimbelController extends Controller
     {
         $categories = [];
         $courses = [];
-        $bimbels = ItemBimbel::with('details')->where('is_active', 1)->get();
+        $bimbels = ItemBimbel::with('detail')->where('is_active', 1)->get();
         return view('product.bimbel.bimbel', compact('bimbels', 'categories', 'courses'));
     }
 

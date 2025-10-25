@@ -9,7 +9,7 @@ class AccountingServiceController extends Controller
 {
     public function index()
     {
-        $services = ItemAccountingService::with('details')->get();
+        $services = ItemAccountingService::with('detail')->get();
         return view('product.layanan.jasa_akuntansi', compact('services'));
     }
 }

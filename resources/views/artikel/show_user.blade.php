@@ -2,6 +2,24 @@
 
 @section('title', $artikel->title)
 
+<<<<<<< HEAD
+=======
+@section('meta')
+<meta property="og:title" content="{{ $artikel->judul }}">
+<meta property="og:description" content="{{ Str::limit(strip_tags($artikel->isi), 150) }}">
+<meta property="og:image" content="{{ asset('storage/' . $artikel->gambar) }}">
+<meta property="og:url" content="{{ url()->current() }}">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="https://www.alodokter.com/">
+
+<!-- Untuk Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ $artikel->judul }}">
+<meta name="twitter:description" content="{{ Str::limit(strip_tags($artikel->isi), 150) }}">
+<meta name="twitter:image" content="{{ asset('storage/' . $artikel->gambar) }}">
+@endsection
+
+>>>>>>> 98f4dc16aaafa2ce28596bd298307eb94b2005b8
 @section('style')
 <style>
 :root {
@@ -139,11 +157,48 @@
 }
 
 /* Article Content */
+<<<<<<< HEAD
+=======
+.article-content img {
+    max-width: 100%;
+    height: auto;
+}
+
+.article-content .image-style-align-left {
+    display: block;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.article-content .image-style-align-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.article-content .image-style-align-right {
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.content-wrapper {
+    display: flex;
+    gap: 20px;
+}
+
+>>>>>>> 98f4dc16aaafa2ce28596bd298307eb94b2005b8
 .article-content-wrapper {
     background: var(--white);
     border-radius: var(--radius);
     padding: 0;
 }
+<<<<<<< HEAD
+=======
+.main-content {
+    flex: 3;
+}
+>>>>>>> 98f4dc16aaafa2ce28596bd298307eb94b2005b8
 
 .article-featured-image {
     width: 100%;
@@ -156,8 +211,15 @@
 
 .article-featured-image img {
     width: 100%;
+<<<<<<< HEAD
     height: 100%;
     object-fit: cover;
+=======
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    max-height: 500px;
+>>>>>>> 98f4dc16aaafa2ce28596bd298307eb94b2005b8
 }
 
 .image-caption {
@@ -203,6 +265,18 @@
     margin-bottom: 24px;
 }
 
+<<<<<<< HEAD
+=======
+.article-content a {
+    color: #007bff; /* biru seperti link standar */
+    text-decoration: underline; /* optional, biar mirip link web umum */
+}
+.article-content a:hover {
+    color: #0056b3; /* warna biru lebih gelap saat hover */
+    text-decoration: underline;
+}
+
+>>>>>>> 98f4dc16aaafa2ce28596bd298307eb94b2005b8
 .article-content blockquote {
     border-left: 4px solid var(--primary);
     background: var(--primary-light);
@@ -360,6 +434,10 @@
 .sidebar {
     display: flex;
     flex-direction: column;
+<<<<<<< HEAD
+=======
+    flex: 1;
+>>>>>>> 98f4dc16aaafa2ce28596bd298307eb94b2005b8
     gap: 32px;
     position: sticky;
     top: 100px;
@@ -729,6 +807,12 @@
     .article-container {
         padding: 0 20px;
     }
+<<<<<<< HEAD
+=======
+    .content-wrapper {
+        flex-direction: column; /* ✅ ini yang bikin sidebar ke bawah */
+    }
+>>>>>>> 98f4dc16aaafa2ce28596bd298307eb94b2005b8
     
     .article-hero {
         padding: 60px 0 40px;
@@ -824,6 +908,16 @@ a:focus-visible {
     outline: 2px solid var(--primary);
     outline-offset: 2px;
 }
+<<<<<<< HEAD
+=======
+
+.rank-thumb {
+    width: 70px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+>>>>>>> 98f4dc16aaafa2ce28596bd298307eb94b2005b8
 </style>
 @endsection
 
@@ -863,10 +957,13 @@ a:focus-visible {
                     </div>
                     @endif
                     <div class="meta-item">
+<<<<<<< HEAD
                         <i class="fas fa-eye"></i>
                         <span>{{ number_format(rand(500, 2000)) }} dilihat</span>
                     </div>
                     <div class="meta-item">
+=======
+>>>>>>> 98f4dc16aaafa2ce28596bd298307eb94b2005b8
                         <i class="fas fa-clock"></i>
                         <span>{{ rand(3, 8) }} menit dibaca</span>
                     </div>
@@ -880,6 +977,7 @@ a:focus-visible {
         <div class="article-main">
             <!-- Article Content -->
             <article class="article-content-wrapper">
+<<<<<<< HEAD
                 <!-- Featured Image -->
                 @if($artikel->thumbnail)
                     <div class="article-featured-image">
@@ -924,6 +1022,64 @@ a:focus-visible {
                         </div>
                     </div>
                 </div>
+=======
+                <main class="main-content">
+                    <!-- Featured Image -->
+                    @if($artikel->thumbnail)
+                        <div class="article-featured-image">
+                            <img src="{{ asset('storage/'.$artikel->thumbnail) }}" alt="{{ $artikel->title }}">
+                            <div class="image-caption">
+                                Ilustrasi: {{ $artikel->title }}
+                            </div>
+                        </div>
+                    @endif
+
+                    <!-- Article Content -->
+                    <div class="article-content">
+                        {!! $artikel->content !!}
+                    </div>
+
+                    <!-- Article Actions -->
+                    <div class="article-actions">
+                        <a href="{{ route('artikel.index') }}" class="back-button">
+                            <i class="fas fa-arrow-left"></i>
+                            Kembali ke Artikel
+                        </a>
+
+                        <div class="share-section">
+                            <span class="share-label">Bagikan Artikel:</span>
+                            <div class="share-buttons">
+                                <a href="#" class="share-button facebook" title="Share on Facebook" id="share-facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                    <span class="share-tooltip">Facebook</span>
+                                </a>
+
+                                <a href="#" class="share-button twitter" title="Share on Twitter" id="share-twitter">
+                                    <i class="fab fa-twitter"></i>
+                                    <span class="share-tooltip">Twitter</span>
+                                </a>
+
+                                <a href="#" class="share-button whatsapp" title="Share on WhatsApp" id="share-whatsapp">
+                                    <i class="fab fa-whatsapp"></i>
+                                    <span class="share-tooltip">WhatsApp</span>
+                                </a>
+
+                                <button class="share-button link copy-link" title="Copy Link" id="copy-link">
+                                    <i class="fas fa-link"></i>
+                                    <span class="share-tooltip">Copy Link</span>
+                                </button>
+                            </div>
+                        </div>
+
+
+                        <!-- Notifikasi copy -->
+                        <div id="copy-notification"
+                            style="display:none;position:fixed;bottom:20px;right:20px;background:#333;color:#fff;padding:10px 20px;border-radius:8px;">
+                            Link berhasil disalin!
+                        </div>
+                    </div>
+                </main>
+>>>>>>> 98f4dc16aaafa2ce28596bd298307eb94b2005b8
             </article>
 
             <!-- Sidebar -->
@@ -936,6 +1092,7 @@ a:focus-visible {
                         </div>
                         <h3 class="widget-title">Artikel Populer</h3>
                     </div>
+<<<<<<< HEAD
                     <div class="popular-list">
                         @for($i = 1; $i <= 5; $i++)
                             <div class="popular-item">
@@ -984,6 +1141,39 @@ a:focus-visible {
                 </div>
 
             </aside>
+=======
+
+                    <div class="popular-list">
+                        @foreach($popularArticles as $index => $item)
+                            <div class="popular-item">
+                                <div class="popular-rank">
+                                    @if($item->thumbnail)
+                                        <img src="{{ asset('storage/'.$item->thumbnail) }}" alt="{{ $item->title }}" class="rank-thumb">
+                                    @else
+                                        <img src="{{ asset('No_image_available.webp') }}" alt="{{ $item->title }}" class="rank-thumb">
+                                    @endif
+                                </div>
+
+                                <div class="popular-content">
+                                    <h4>
+                                        <a href="{{ route('artikel.user.show', $item->slug) }}">
+                                            {{ Str::limit($item->title, 60) }}
+                                        </a>
+                                    </h4>
+                                    <div class="popular-meta">
+                                        <span>{{ number_format($item->views ?? 0) }} views</span>
+                                        <span>•</span>
+                                        <span>{{ \Carbon\Carbon::parse($item->publish_date)->diffForHumans() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </aside>
+
+            
+>>>>>>> 98f4dc16aaafa2ce28596bd298307eb94b2005b8
         </div>
 
         <!-- Related Articles -->
@@ -1023,6 +1213,7 @@ a:focus-visible {
             </section>
         @endif
     </div>
+<<<<<<< HEAD
 </div>
 @endsection
 
@@ -1060,6 +1251,51 @@ document.addEventListener('DOMContentLoaded', function() {
                     block: 'start'
                 });
             }
+=======
+
+</div>
+@endsection
+
+@section('script')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+   const articleUrl = "{{ url()->current() }}";
+    const articleTitle = "{{ $artikel->judul }}";
+    const articleImage = "{{ asset('storage/' . $artikel->gambar) }}";
+
+    // FACEBOOK
+    document.getElementById('share-facebook').addEventListener('click', function (e) {
+        e.preventDefault();
+        const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(articleUrl)}`;
+        window.open(fbUrl, '_blank', 'width=600,height=400');
+    });
+
+    // TWITTER
+    document.getElementById('share-twitter').addEventListener('click', function (e) {
+        e.preventDefault();
+        const twUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(articleUrl)}&text=${encodeURIComponent(articleTitle)}`;
+        window.open(twUrl, '_blank', 'width=600,height=400');
+    });
+
+    // WHATSAPP
+    document.getElementById('share-whatsapp').addEventListener('click', function (e) {
+        e.preventDefault();
+        const waText = `${articleTitle} - ${articleUrl}`;
+        const waUrl = `https://wa.me/?text=${encodeURIComponent(waText)}`;
+        window.open(waUrl, '_blank');
+    });
+
+    // COPY LINK
+    document.getElementById('copy-link').addEventListener('click', function () {
+        navigator.clipboard.writeText(articleUrl).then(() => {
+            const notif = document.getElementById('copy-notification');
+            notif.style.display = 'block';
+            setTimeout(() => {
+                notif.style.display = 'none';
+            }, 2000);
+        }).catch(err => {
+            alert('Gagal menyalin link: ' + err);
+>>>>>>> 98f4dc16aaafa2ce28596bd298307eb94b2005b8
         });
     });
 
@@ -1089,6 +1325,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+<<<<<<< HEAD
     // Social share buttons
     const shareButtons = document.querySelectorAll('.share-button.facebook, .share-button.twitter, .share-button.linkedin');
     shareButtons.forEach(button => {
@@ -1109,6 +1346,8 @@ document.addEventListener('DOMContentLoaded', function() {
             window.open(shareUrl, '_blank', 'width=600,height=400');
         });
     });
+=======
+>>>>>>> 98f4dc16aaafa2ce28596bd298307eb94b2005b8
 
     // Intersection Observer untuk animasi related articles
     const observerOptions = {
@@ -1134,4 +1373,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<<<<<<< HEAD
 @endpush
+=======
+@endsection
+>>>>>>> 98f4dc16aaafa2ce28596bd298307eb94b2005b8

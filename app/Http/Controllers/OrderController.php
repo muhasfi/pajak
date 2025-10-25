@@ -347,12 +347,17 @@ class OrderController extends Controller
             $order->update(['snap_token' => $snapToken]);
         }
 
-        if ($order->status !== 'pending') {
-        return redirect()->route('checkout.success', $order->order_code);
-    }
+        // Cek status order
+        if ($order->status === 'success' || $order->status === 'paid') {
+            return redirect()->route('checkout.success', $order->order_code);
+        } elseif ($order->status === 'expire') {
+            return redirect()->route('checkout.expired', $order->order_code);
+        }
 
+        // Status masih pending → tampilkan halaman pembayaran
         return view('product.checkout.order_pay', compact('order'));
     }
+
 
     public function checkoutSuccess($orderId)
     {
@@ -364,6 +369,18 @@ class OrderController extends Controller
         $orderItems = OrderItem::where('order_id', $order->id)->get();
         
         return view('product.checkout.success', compact('order', 'orderItems'));
+    }
+
+    public function checkoutCancel($orderId)
+    {
+        $order = Order::where('order_code', $orderId)->first();
+
+        if (!$order) {
+            return response()->view('errors.order-not-found', [], 404);
+        }
+        $orderItems = OrderItem::where('order_id', $order->id)->get();
+        
+        return view('product.checkout.expired', compact('order', 'orderItems'));
     }
 
     public function handleNotification()

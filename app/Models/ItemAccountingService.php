@@ -11,7 +11,7 @@ class ItemAccountingService extends Model
 
     protected $fillable = ['judul', 'harga','gambar'];
 
-    public function details()
+    public function detail()
     {
         return $this->hasOne(ItemAccountingServiceDetail::class, 'accounting_service_id');
     }

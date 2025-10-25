@@ -66,12 +66,14 @@
                                     $subTotal += $itemTotal;
                                 @endphp
                                 <div class="order-item">
-                                    <div class="order-item-image">
-                                        <img 
-                                            src="{{ asset('img_item_upload/'. $item['image']) }}" 
-                                            alt="{{ $item['name'] }}"
-                                            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';">
-                                    </div>
+                                    <div class="cart-item-image">
+                                    <img 
+                                        src="{{ asset($item['image'] ?? 'No_image_available.webp') }}" 
+                                        class="img-fluid me-5 rounded-circle" 
+                                        style="width: 80px; height: 80px;" 
+                                        alt="gambar produk"
+                                        onerror="this.onerror=null;this.src='{{ asset('No_image_available.webp') }}';">
+                                </div>
                                     <div class="order-item-details">
                                         <div class="order-item-name">{{ $item['name'] }}</div>
                                         <div class="order-item-price">Rp{{ number_format($item['price'], 0, ',', '.') }}</div>

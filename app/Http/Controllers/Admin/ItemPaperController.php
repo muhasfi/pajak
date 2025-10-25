@@ -129,7 +129,7 @@ class ItemPaperController extends Controller
 
     public function edit($id)
     {
-        $paper = ItemPaper::with('detailPaper')->findOrFail($id);
+        $paper = ItemPaper::with('detail')->findOrFail($id);
         $categories = CategoryPaper::all();
         return view('admin.paper.edit', compact('paper', 'categories'));
     }

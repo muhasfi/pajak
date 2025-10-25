@@ -84,10 +84,11 @@
                     <div class="col-12 mb-3">
                         <label for="content" class="form-label fw-bold">Isi Artikel</label>
                         <div class="editor-wrapper border rounded shadow-sm p-2">
-                            <textarea id="content" class="form-control d-none" name="content">{{ old('content') }}</textarea>
+                            <textarea id="content" class="form-control d-none" name="content">{{ old('content', $artikel->content ?? '') }}</textarea>
                         </div>
                         <small class="text-muted">Tulis artikelmu di sini, bisa menambahkan teks, gambar, atau media lain.</small>
                     </div>
+
 
 
                     <!-- Thumbnail -->
@@ -115,36 +116,45 @@
         </form>
     </div>
 </div>
-<script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@blowstack/ckeditor5-full-free-build/build/ckeditor.js"></script>
+
 <script>
-    ClassicEditor
+ClassicEditor
     .create(document.querySelector('#content'), {
-        ckfinder: {
-            uploadUrl: "{{ route('ckeditor.upload').'?_token='.csrf_token() }}"
+        simpleUpload: {
+            uploadUrl: "{{ route('ckeditor.upload') . '?_token=' . csrf_token() }}"
+        },
+        toolbar: [
+            'heading', '|',
+            'bold', 'italic', 'underline', 'strikethrough', '|',
+            'alignment', '|',
+            'fontColor', 'fontBackgroundColor', '|',
+            'link', '|',
+            'bulletedList', 'numberedList', 'blockQuote', '|',
+            'outdent', 'indent', '|',
+            'insertTable', '|',
+            'imageUpload', '|',
+            'undo', 'redo'
+        ],
+        alignment: {
+            options: ['left', 'center', 'right', 'justify']
         },
         image: {
-            resizeOptions: [
-                {
-                    name: 'resizeImage:original',
-                    label: 'Original',
-                    value: null
-                },
-                {
-                    name: 'resizeImage:50',
-                    label: '50%',
-                    value: '50'
-                },
-                {
-                    name: 'resizeImage:75',
-                    label: '75%',
-                    value: '75'
-                }
+            // ✅ pengaturan alignment gambar
+            toolbar: [
+                'imageTextAlternative', '|',
+                'imageStyle:alignLeft', 
+                'imageStyle:alignCenter', 
+                'imageStyle:alignRight'
             ],
-            toolbar: ['imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight', '|', 'resizeImage']
+            styles: [
+                'alignLeft', 
+                'alignCenter', 
+                'alignRight'
+            ]
         }
     })
-    .catch(error => { console.error(error); });
-
+    .catch(error => console.error(error));
 </script>
 
 

@@ -1,60 +1,81 @@
 @component('mail::message')
 # Halo, {{ $order->fullname }}
 
-Pesanan dengan kode **{{ $order->order_code }}** berhasil dibayar 🎉  
+Pesanan Anda dengan kode **{{ $order->order_code }}** telah **berhasil dibayar 🎉**  
+Berikut detail akses item yang Anda beli:
 
-Detail akses item Anda:
+---
 
 @foreach($order->orderItems as $orderItem)
-### {{ Str::limit($orderItem->product->name ?? $orderItem->product->judul, 25) }}
+@php
+    $type = strtolower(class_basename($orderItem->product_type));
+    $filePath = $orderItem->product->detail->file_path ?? null;
+    $isLink = $filePath && Str::startsWith($filePath, ['http://', 'https://']);
+    $eventDate = $orderItem->product->detail->event_date ?? null;
+    $duration = $orderItem->product->detail->duration_days ?? null;
+@endphp
 
-{{-- Link ke file (misal ebook/pdf) --}}
-{{-- @if($orderItem->product->detail && $orderItem->product->detail->file_path)
-@component('mail::button', ['url' => asset('storage/'.$orderItem->product->detail->file_path)])
-Download File
-@endcomponent
-@endif --}}
-{{-- Link ke file (misal ebook/pdf) --}}
-@if($orderItem->product->detail && $orderItem->product->detail->file_path)
-    @php
-        $filePath = $orderItem->product->detail->file_path;
-        $isLink = Str::startsWith($filePath, ['http://', 'https://']);
-    @endphp
+## 🎓 {{ $orderItem->product->name ?? $orderItem->product->judul ?? 'Produk Tanpa Nama' }}
 
+{{-- Pesan khusus per jenis produk --}}
+@switch($type)
+    @case('itemwebinar')
+        🎥 Anda telah terdaftar di **Webinar** kami.  
+        Link Zoom atau akses akan dikirim menjelang acara dimulai.
+        @break
+
+    @case('itemseminar')
+        🏛️ Terima kasih telah mendaftar **Seminar** kami.  
+        Detail lokasi dan jadwal akan kami kirimkan H-1 sebelum acara.
+        @break
+
+    @case('itemtraining')
+        💼 Selamat bergabung di **Training Program** kami!  
+        Pastikan Anda membaca panduan peserta sebelum memulai.
+        @break
+
+    @case('itembimbel')
+        📘 Anda resmi terdaftar di **Bimbingan Belajar Online**.  
+        Akses materi dan jadwal akan tersedia di halaman akun Anda.
+        @break
+
+    @case('itempajak')
+        💡 Berikut materi atau dokumen terkait layanan **Pajak** Anda.
+        @break
+
+    @default
+        🛒 Terima kasih telah membeli produk kami!
+@endswitch
+
+{{-- Tombol akses file atau link --}}
+@if($filePath)
     @if($isLink)
-        {{-- Kalau admin isi link (Google Drive, Dropbox, dll) --}}
         @component('mail::button', ['url' => $filePath])
-        Download E-Book
+        📥 Unduh File / Akses Materi / Link
         @endcomponent
     @else
-        {{-- Kalau admin upload file ke storage --}}
         @component('mail::button', ['url' => asset('storage/'.$filePath)])
-        Download E-Book
+        📂 Lihat File
         @endcomponent
     @endif
 @endif
 
-
-{{-- Link video (misalnya YouTube) --}}
-@if($orderItem->product->detail && $orderItem->product->detail->video_url)
-@component('mail::button', ['url' => $orderItem->product->detail->video_url])
-Tonton Video
-@endcomponent
+{{-- Info tambahan --}}
+@if($eventDate)
+📅 **Tanggal:** {{ \Carbon\Carbon::parse($eventDate)->translatedFormat('d F Y H:i') }}
 @endif
 
-{{-- Link Zoom (misal untuk bimbel/event) --}}
-@if($orderItem->product->detail && $orderItem->product->detail->zoom_link)
-@component('mail::button', ['url' => $orderItem->product->detail->zoom_link])
-Join Zoom
-@endcomponent
-
-📅 Tanggal: {{ \Carbon\Carbon::parse($orderItem->product->detail->event_date)->translatedFormat('d F Y H:i') }}  
-⏳ Durasi: {{ $orderItem->product->detail->duration_days }} hari  
+@if($duration)
+⏳ **Durasi:** {{ $duration }} hari
 @endif
 
 ---
 
 @endforeach
 
-Terima kasih telah berbelanja di **{{ config('app.name') }}**  
+Terima kasih telah berbelanja di **Paham Pajak**  
+Jika Anda memiliki pertanyaan, cukup balas email ini — kami siap membantu 💬  
+
+Salam hangat,  
+**Tim Paham Pajak**
 @endcomponent

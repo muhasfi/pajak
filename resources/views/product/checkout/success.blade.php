@@ -67,7 +67,7 @@
                 </p>
             @elseif ($order->payment_method == 'qris')
                 <p class="small text-muted mt-3">
-                    Yeay! Pembayaranmu telah dikonfirmasi. Terima kasih sudah berbelanja di <span class="text-success fw-semibold">Fruitables</span> 🍉
+                    Yeay! Pembayaranmu telah dikonfirmasi. Terima kasih sudah berbelanja di <span class="text-success fw-semibold">PahamPajak</span>
                 </p>
             @endif
 

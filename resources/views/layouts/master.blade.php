@@ -43,6 +43,7 @@
     <link rel="stylesheet" href="{{ asset('assets/customer/css/footer.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('assets/customer/css/webinar.css') }}"> --}}
     @yield('style')
+    @yield('meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>

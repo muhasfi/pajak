@@ -23,6 +23,17 @@ class Artikel extends Model
         'publish_time'
     ];
 
+    protected $casts = [
+    'publish_date' => 'datetime',
+];
+
+
+
+    public function views()
+    {
+        return $this->hasMany(ArtikelView::class);
+    }
+
     // auto generate slug dari title
     protected static function boot()
     {

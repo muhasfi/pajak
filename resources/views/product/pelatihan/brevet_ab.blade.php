@@ -303,12 +303,24 @@
                     <div class="card-body">
                         <ul class="feature-list">
                             @foreach(preg_split("/\r\n|\n|\r/", $brevet->deskripsi) as $line)
-                                @if(!empty(trim($line)))
-                                    <li><i class="fas fa-check"></i> {{ trim($line) }}</li>
+                                @php
+                                    $trimLine = trim($line);
+                                @endphp
+                                @if(!empty($trimLine))
+                                    <li>
+                                        @if(str_starts_with($trimLine, '+'))
+                                            <i class="fas fa-check"></i> {{ ltrim($trimLine, '+ ') }}
+                                        @elseif(str_starts_with($trimLine, '-'))
+                                            <i class="fas fa-times"></i> {{ ltrim($trimLine, '- ') }}
+                                        @else
+                                            <i class="fas fa-check"></i> {{ $trimLine }}
+                                        @endif
+                                    </li>
                                 @endif
                             @endforeach
                         </ul>
                     </div>
+
 
                     <!-- Footer -->
                     <div class="card-footer">
@@ -969,15 +981,23 @@
 }
 
 .training-card {
+    display: flex;
+    flex-direction: column;       /* header-body-footer vertikal */
+    justify-content: space-between; /* body stretch, footer di bawah */
     background-color: var(--white);
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     position: relative;
+<<<<<<< HEAD
     border: 1px solid var(--gray-200);
     width: 100%;
     max-width: 400px;
+=======
+    border: 1px solid #e2e8f0;
+    min-height: 450px; /* sesuaikan tinggi minimum agar rata */
+>>>>>>> 98f4dc16aaafa2ce28596bd298307eb94b2005b8
 }
 
 .training-card:hover {

@@ -36,6 +36,7 @@ Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
 Route::post('/checkout/store', [OrderController::class, 'storeOrder'])->name('checkout.store');
 Route::get('/checkout/order-pay/{order_code}', [OrderController::class, 'orderPay'])->name('checkout.orderPay');
 Route::get('/checkout/success/{orderId}', [OrderController::class, 'checkoutSuccess'])->name('checkout.success');
+Route::get('/checkout/cancel/{orderId}', [OrderController::class, 'checkoutCancel'])->name('checkout.expired');
 
 Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel.index');
 Route::get('/artikel/{slug}', [ArtikelController::class, 'show'])->name('artikel.user.show');

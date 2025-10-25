@@ -398,12 +398,24 @@
                     <div class="card-body">
                         <ul class="feature-list">
                             @foreach(preg_split("/\r\n|\n|\r/", $brevet->deskripsi) as $line)
-                                @if(!empty(trim($line)))
-                                    <li><i class="fas fa-check"></i> {{ trim($line) }}</li>
+                                @php
+                                    $trimLine = trim($line);
+                                @endphp
+                                @if(!empty($trimLine))
+                                    <li>
+                                        @if(str_starts_with($trimLine, '+'))
+                                            <i class="fas fa-check"></i> {{ ltrim($trimLine, '+ ') }}
+                                        @elseif(str_starts_with($trimLine, '-'))
+                                            <i class="fas fa-times"></i> {{ ltrim($trimLine, '- ') }}
+                                        @else
+                                            <i class="fas fa-check"></i> {{ $trimLine }}
+                                        @endif
+                                    </li>
                                 @endif
                             @endforeach
                         </ul>
                     </div>
+
 
                     <!-- Footer -->
                     <div class="card-footer">
@@ -471,64 +483,6 @@
 </div>
 
 
-    <!-- Instructors Section -->
-    <div class="instructors-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Pengajar Expert Brevet C</h2>
-                <p class="section-subtitle">Belajar langsung dari konsultan pajak senior dan praktisi berpengalaman</p>
-            </div>
-            <div class="instructors-grid">
-                <div class="instructor-card">
-                    <div class="instructor-avatar">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <div class="instructor-info">
-                        <h4>Dr. Ahmad Wijaya, S.E., M.Ak., CA.</h4>
-                        <span>Senior Tax Partner - Big Four</span>
-                        <p>20+ tahun pengalaman, ahli transfer pricing dan international taxation, mantan Pejabat DJP</p>
-                        <div class="instructor-expertise">
-                            <span class="expertise-tag">Transfer Pricing</span>
-                            <span class="expertise-tag">International Tax</span>
-                            <span class="expertise-tag">M&A</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="instructor-card">
-                    <div class="instructor-avatar">
-                        <i class="fas fa-user-graduate"></i>
-                    </div>
-                    <div class="instructor-info">
-                        <h4>Prof. Sarah Indah, S.E., M.Ak., BKP.</h4>
-                        <span>Tax Litigation Expert</span>
-                        <p>15+ tahun pengalaman di tax court, spesialis keberatan, banding, dan gugatan pajak</p>
-                        <div class="instructor-expertise">
-                            <span class="expertise-tag">Tax Dispute</span>
-                            <span class="expertise-tag">Tax Court</span>
-                            <span class="expertise-tag">Litigation</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="instructor-card">
-                    <div class="instructor-avatar">
-                        <i class="fas fa-user-cog"></i>
-                    </div>
-                    <div class="instructor-info">
-                        <h4>Budi Santoso, S.E., Ak., CA.</h4>
-                        <span>Managing Partner Tax Firm</span>
-                        <p>18+ tahun pengalaman, ahli tax planning untuk perusahaan multinasional dan konglomerasi</p>
-                        <div class="instructor-expertise">
-                            <span class="expertise-tag">Tax Planning</span>
-                            <span class="expertise-tag">Corporate Tax</span>
-                            <span class="expertise-tag">Business Restructuring</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
->>>>>>> d02faebeab8747a5de3202ff73c4b998d7308c51
     <!-- Certification Benefits -->
     <div class="certification-section">
         <div class="container">
@@ -1403,15 +1357,17 @@
 }
 
 .training-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
     background-color: var(--white);
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     position: relative;
-    border: 1px solid var(--gray-200);
-    width: 100%;
-    max-width: 400px;
+    border: 1px solid #e2e8f0;
+    min-height: 450px;
 }
 
 .training-card:hover {
@@ -1419,8 +1375,9 @@
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
 }
 
-.training-card.featured {
-    border: 2px solid var(--primary-navy);
+
+.training-card.featured:hover {
+    transform: scale(1.05) translateY(-10px);
 }
 
 .card-badge {

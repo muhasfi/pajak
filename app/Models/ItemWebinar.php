@@ -24,7 +24,7 @@ class ItemWebinar extends Model
         'harga' => 'decimal:2'
     ];
 
-    public function detailWebinar()
+    public function detail()
     {
         return $this->hasOne(ItemWebinarDetail::class, 'item_webinar_id');
     }

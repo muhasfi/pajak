@@ -112,7 +112,7 @@
             <div class="courses-grid">
                 @foreach($seminars as $seminar)
                     @php
-                        $detail = $seminar->detailSeminar;
+                        $detail = $seminar->detail;
                         $isGratis = $seminar->harga == 0;
                         $hargaFormatted = $isGratis ? 'GRATIS' : 'Rp ' . number_format($seminar->harga, 0, ',', '.');
                         $kategoriClass = strtolower($detail->kategori ?? 'seminar');
