@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('item_bimbels', function (Blueprint $table) {
-            $table->id();
-            $table->string('judul', 255);
-            $table->decimal('harga', 12, 2)->default(0);
-            $table->text('deskripsi')->nullable();
-            $table->string('gambar')->nullable();
-            $table->boolean('status')->default(true);
-            $table->timestamps();
-        });
-    }
+      
+    }  // Schema::create('item_bimbels', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('judul', 255);
+        //     $table->decimal('harga', 12, 2)->default(0);
+        //     $table->text('deskripsi')->nullable();
+        //     $table->string('gambar')->nullable();
+        //     $table->boolean('status')->default(true);
+        //     $table->timestamps();
+        // });
 
     /**
      * Reverse the migrations.

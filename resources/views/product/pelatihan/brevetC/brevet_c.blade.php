@@ -107,7 +107,7 @@
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-chart-network"></i>
+                        <i class="fas fa-globe"></i>
                     </div>
                     <h4>Networking Eksklusif</h4>
                     <p>Akses ke komunitas konsultan pajak dan profesional perpajakan tingkat atas</p>
@@ -365,13 +365,6 @@
     <!-- Pricing Section -->
     <div id="pricing" class="pricing-section">
     <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Investasi Brevet C</h2>
-            <p class="section-subtitle">Pilih paket yang sesuai dengan kebutuhan pengembangan karir Anda</p>
-        </div>
-        
-        <div id="pricing" class="pricing-section">
-        <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Investasi Pelatihan</h2>
                 <p class="section-subtitle">Pilih paket pelatihan yang sesuai dengan kebutuhan Anda</p>
@@ -380,9 +373,9 @@
             <div class="pricing-grid">
                 @foreach($brevetc as $brevet)
                 <div class="training-card {{ $loop->iteration == 2 ? 'featured' : '' }}">
-                    @if($loop->iteration == 2)
+                    {{-- @if($loop->iteration == 2)
                         <div class="card-badge">Best Seller</div>
-                    @endif
+                    @endif --}}
 
                     <!-- Header -->
                     <div class="card-header">
@@ -454,8 +447,6 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-=======
 
         <!-- Additional Info -->
         <div class="pricing-info">

@@ -92,19 +92,20 @@
                             @endswitch
                         </div>
 
-                        <h3 class="fw-bold">{{ $service->judul }}</h3>
-                        <h4 class="mt-2">
+                        <h3 class="service-title">{{ $service->judul }}</h3>
+                        <h4 class="service-price">
                             Rp {{ number_format($service->harga, 0, ',', '.') }}
                         </h4>
                     </div>
-                    <p class="text-muted text-center mb-4">
-                            {{ $service->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}
+                    
+                    <div class="card-body">
+                        <p class="service-description">
+                            {{ Str::limit($service->detail->deskripsi ?? 'Deskripsi tidak tersedia', 120) }}
                         </p>
 
-                    <div class="card-body">
                         @if (!empty($service->detail->benefit))
-                            <ul class="list-unstyled mt-2">
-                                @foreach ($service->detail->benefit as $benefit)
+                            <ul class="benefit-list">
+                                @foreach (array_slice($service->detail->benefit, 0, 4) as $benefit)
                                     @php
                                         $trimmed = trim($benefit);
                                     @endphp
@@ -115,32 +116,29 @@
                                             $text = ltrim($trimmed, '+- ');
                                         @endphp
 
-                                        <li class="mb-2">
-                                            <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
-                                            {{ $text }}
+                                        <li class="benefit-item {{ $isNegative ? 'negative' : '' }}">
+                                            <i class="fas fa-{{ $isNegative ? 'times' : 'check' }}"></i>
+                                            <span>{{ Str::limit($text, 50) }}</span>
                                         </li>
                                     @endif
                                 @endforeach
                             </ul>
                         @else
-                            <p class="text-muted fs-5">Benefit belum tersedia.</p>
+                            <p class="no-benefit">Benefit belum tersedia.</p>
                         @endif
                     </div>
 
                     <div class="card-footer">
                         <a href="{{ route('jasa.akuntansi.show', $service->id) }}" class="btn btn-primary">
-                            Pilih Layanan Ini
+                            Pilih Layanan
                         </a>
                         <a href="/kontak" class="btn btn-outline">
-                            <span>Konsultasi Gratis</span>
+                            Konsultasi
                         </a>
                     </div>
                 </div>
-
                 @endforeach
             </div>
-
-
         </div>
     </div>
 
@@ -407,7 +405,7 @@
     }
 
     /* =========================
-       SERVICES SECTION
+       SERVICES SECTION - IMPROVED
        ========================= */
     .services-section {
         padding: clamp(60px, 8vw, 100px) 0;
@@ -433,151 +431,240 @@
         color: var(--gray-600);
     }
 
-    .services-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-        gap: clamp(1.5rem, 3vw, 2rem);
-    }
+    /* Improved Services Grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: clamp(1.25rem, 2vw, 1.5rem);
+    max-width: 1100px; /* sedikit lebih lebar */
+    margin: 0 auto;
+}
 
-    .service-card {
-        position: relative;
-        overflow: hidden;
-        padding: clamp(1.5rem, 3vw, 2.5rem);
-        border-radius: 24px;
-        border: 1px solid var(--gray-100);
-        background: var(--white);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        animation: fadeInUp 0.6s ease-out;
-        width: 100%;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
+/* Compact Service Card */
+.service-card {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(1.5rem, 2.5vw, 1.75rem); /* sedikit lebih lega */
+    border-radius: 16px;
+    border: 1px solid var(--gray-100);
+    background: var(--white);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 0.6s ease-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 420px; /* sebelumnya 380px → agar card lebih panjang */
+    height: 100%;
+}
 
-    .service-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
-        transform: scaleX(0);
-        transition: transform 0.3s ease;
-    }
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
 
-    .service-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-    }
+.service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
 
-    .service-card:hover::before {
-        transform: scaleX(1);
-    }
+.service-card:hover::before {
+    transform: scaleX(1);
+}
 
-    .service-card.featured {
-        border: 2px solid var(--primary-blue);
-        background: linear-gradient(135deg, var(--gray-50) 0%, var(--light-blue) 100%);
-    }
+.service-card.featured {
+    border: 2px solid var(--primary-blue);
+    background: linear-gradient(135deg, var(--gray-50) 0%, var(--light-blue) 100%);
+}
 
-    .card-badge {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        padding: 0.5rem 1rem;
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: var(--white);
-        background: #dc2626;
-        border-radius: 20px;
-        text-transform: uppercase;
-    }
+.card-badge {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--white);
+    background: #dc2626;
+    border-radius: 12px;
+    text-transform: uppercase;
+}
 
-    .card-header {
-        text-align: center;
-        margin-bottom: 1.5rem;
-    }
+.card-header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
 
-    .service-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: clamp(60px, 8vw, 80px);
-        height: clamp(60px, 8vw, 80px);
-        margin: 0 auto 1.5rem;
-        font-size: clamp(1.5rem, 2.5vw, 2rem);
-        color: var(--primary-blue);
-        border-radius: 20px;
-        background: linear-gradient(135deg, var(--light-blue) 0%, #eff6ff 100%);
-        transition: all 0.3s ease;
-    }
+.service-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px; /* sedikit lebih besar */
+    height: 60px;
+    margin: 0 auto 1rem;
+    font-size: 1.5rem; /* lebih proporsional */
+    color: var(--primary-blue);
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--light-blue) 0%, #eff6ff 100%);
+    transition: all 0.3s ease;
+}
 
-    .service-card:hover .service-icon {
-        transform: scale(1.1);
-        color: var(--white);
-        background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
-    }
+.service-card:hover .service-icon {
+    transform: scale(1.05);
+    color: var(--white);
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+}
 
-    .service-card h3 {
-        font-size: clamp(1.25rem, 2vw, 1.5rem);
-        font-weight: 700;
-        margin-bottom: 1rem;
-        color: var(--gray-800);
-    }
+.service-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--gray-800);
+    line-height: 1.3;
+}
 
-    .card-body p {
-        margin-bottom: 1.5rem;
-        line-height: 1.6;
-        color: var(--gray-600);
-    }
+.service-price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin-bottom: 0.75rem;
+}
 
-    .feature-list {
-        margin: 1.5rem 0;
-        padding: 0;
-        list-style: none;
-    }
+.card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
 
-    .feature-list li {
-        position: relative;
-        padding: 0.5rem 0 0.5rem 1.5rem;
-        color: var(--gray-600);
-    }
+.service-description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    color: var(--gray-600);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 
-    .feature-list li::before {
-        content: '✓';
-        position: absolute;
-        left: 0;
-        font-weight: 600;
-        color: #10b981;
-    }
+.benefit-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    flex: 1;
+}
 
-    .card-footer {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-        margin-top: auto;
-    }
+.benefit-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.4rem 0;
+    font-size: 0.85rem;
+    color: var(--gray-600);
+    line-height: 1.4;
+}
+
+.benefit-item i {
+    font-size: 0.75rem;
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+}
+
+.benefit-item.negative i {
+    color: #dc2626;
+}
+
+.benefit-item:not(.negative) i {
+    color: #10b981;
+}
+
+.benefit-item span {
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.no-benefit {
+    font-size: 0.85rem;
+    color: var(--gray-400);
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.card-footer {
+    display: flex;
+    flex-direction: column; /* tombol ditumpuk vertikal */
+    gap: 0.6rem;
+    margin-top: 1.25rem;
+}
+
+/* Tombol utama */
+.card-footer .btn {
+    display: inline-block;
+    width: 100%; /* biar tombol memanjang penuh */
+    text-align: center;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+/* Tombol biru utama */
+.card-footer .btn-primary {
+    background: var(--primary-blue);
+    color: #fff;
+    border: none;
+}
+
+.card-footer .btn-primary:hover {
+    background: var(--secondary-blue);
+    transform: translateY(-2px);
+}
+
+/* Tombol outline */
+.card-footer .btn-outline {
+    background: transparent;
+    color: var(--primary-blue);
+    border: 1.5px solid var(--primary-blue);
+}
+
+.card-footer .btn-outline:hover {
+    background: var(--primary-blue);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+
 
     /* =========================
-       BUTTONS
+       COMPACT BUTTONS
        ========================= */
     .btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 0.5rem;
-        padding: clamp(0.875rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
-        font-size: clamp(0.9rem, 1.5vw, 1rem);
+        gap: 0.4rem;
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
         font-weight: 600;
         text-decoration: none;
-        border: 2px solid transparent;
-        border-radius: 12px;
+        border: 1.5px solid transparent;
+        border-radius: 8px;
         cursor: pointer;
         transition: all 0.3s ease;
         text-align: center;
-        min-height: 50px;
+        min-height: 40px;
+        flex: 1;
     }
 
     .btn-primary {
@@ -586,32 +673,32 @@
     }
 
     .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
     }
 
     .btn-outline {
         color: var(--gray-600);
         background: var(--white);
-        border: 2px solid var(--gray-400);
+        border: 1.5px solid var(--gray-300);
     }
 
     .btn-outline:hover {
         color: var(--primary-blue);
         border-color: var(--primary-blue);
-        transform: translateY(-2px);
+        transform: translateY(-1px);
     }
 
     .btn-outline-light {
         color: var(--white);
         background: transparent;
-        border: 2px solid var(--white);
+        border: 1.5px solid var(--white);
     }
 
     .btn-outline-light:hover {
         color: var(--primary-blue);
         background: var(--white);
-        transform: translateY(-2px);
+        transform: translateY(-1px);
     }
 
     .btn-light {
@@ -620,8 +707,8 @@
     }
 
     .btn-light:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     /* =========================
@@ -734,6 +821,17 @@
     /* =========================
        RESPONSIVE DESIGN
        ========================= */
+    @media (min-width: 1024px) {
+        .services-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .service-card {
+            min-height: 360px;
+        }
+    }
+
     @media (max-width: 1024px) {
         .hero-content {
             grid-template-columns: 1fr;
@@ -748,6 +846,10 @@
         .floating-cards {
             width: clamp(180px, 25vw, 250px);
             height: clamp(180px, 25vw, 250px);
+        }
+        
+        .services-grid {
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
         }
     }
 
@@ -774,11 +876,13 @@
 
         .services-grid {
             grid-template-columns: 1fr;
-            gap: 1.5rem;
+            gap: 1.25rem;
+            max-width: 400px;
         }
 
         .service-card {
-            padding: clamp(1.5rem, 2.5vw, 2rem);
+            padding: 1.25rem;
+            min-height: auto;
         }
 
         .features-grid {
@@ -795,7 +899,7 @@
         }
 
         .btn {
-            padding: 0.875rem 1.5rem;
+            padding: 0.75rem 1.25rem;
             min-height: 44px;
         }
     }
@@ -818,7 +922,7 @@
         }
 
         .service-card {
-            padding: 1.25rem;
+            padding: 1rem;
         }
 
         .cta-section {
@@ -864,7 +968,7 @@
 
     @media (max-width: 360px) {
         .service-card {
-            padding: 1rem;
+            padding: 0.875rem;
         }
         
         .hero-title {
@@ -877,7 +981,7 @@
         
         .btn {
             min-height: 42px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
     }
 

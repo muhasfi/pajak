@@ -515,89 +515,34 @@
             </div>
         </div>
     </section>
+
     <!-- Catalog Section -->
     <section class="catalog-section">
         <div class="container">
-            <!-- Products Grid -->
             <div class="catalog-grid">
-                @forelse($items as $index => $item)
-                    @php
-                        $type = $item->type ?? 'other';
-                        $badgeClass = 'badge-' . $type;
-                        $delayClass = $index % 3 == 1 ? 'delay-100' : ($index % 3 == 2 ? 'delay-200' : '');
-                    @endphp
-
-<<<<<<< HEAD
-                    <div class="product-card animate-fade-in {{ $delayClass }}" data-category="{{ $type }}">
+                @forelse ($items as $item)
+                    <div class="product-card animate-fade-in">
                         <div class="product-image">
                             <img src="{{ Str::startsWith($item->img, ['http://', 'https://']) 
-                                ? $item->img 
-                                : asset('storage/' . $item->img) }}"
+                                    ? $item->img 
+                                    : asset('storage/' . $item->img) }}"
+                                width="60"
+                                class="img-fluid rounded-top"
                                 alt="Gambar {{ $item->name }}"
-                                onerror="this.onerror=null;this.src='{{ asset('images/default-book.jpg') }}';">
-                            <div class="product-badge {{ $badgeClass }}">
-                                {{ ucfirst($type) }}
-                            </div>
+                                onerror="this.onerror=null;this.src='{{ asset('No_image_available.webp') }}';">
                         </div>
-
+                        
                         <div class="product-content">
                             <h3 class="product-title">{{ $item->name }}</h3>
-                            <p class="product-description">{{ Str::limit($item->description, 120) }}</p>
-
-                            <div class="product-meta">
-                                <div class="product-type">
-                                    @if($type == 'book')
-                                        <i class="far fa-file-alt"></i>
-                                        <span>Buku Fisik</span>
-                                    @elseif($type == 'article')
-                                        <i class="far fa-newspaper"></i>
-                                        <span>Artikel Digital</span>
-                                    @else
-                                        <i class="fas fa-tablet-alt"></i>
-                                        <span>E-Book</span>
-                                    @endif
-                                </div>
-                                <div class="product-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>{{ $item->rating ?? '4.5' }}</span>
-                                </div>
-                            </div>
-
+                            <p class="product-description">{{ $item->description }}</p>
+                            
                             <div class="product-footer">
-                                <div class="product-price">{{ 'Rp' . number_format($item->price, 0, ',', '.') }}</div>
+                                <div class="product-price">{{ 'Rp'. number_format($item->price, 0, ',','.') }}</div>
                                 <a href="{{ route('product.book.show', $item->id) }}" class="add-to-cart-btn">
-                                    <i class="fas fa-eye"></i> Lihat Detail
+                                    <i class="fas fa-info-circle me-1"></i> Lihat Detail
                                 </a>
                             </div>
                         </div>
-=======
-<!-- Catalog Section -->
-<section class="section">
-    <div class="container">
-        <!-- Products Grid -->
-        <div class="catalog-grid">
-            @forelse ($items as $item)
-            <div class="product-card animate-fade-in">
-                <div class="product-image">
-                    <img src="{{ Str::startsWith($item->img, ['http://', 'https://']) 
-                            ? $item->img 
-                            : asset('storage/' . $item->img) }}"
-                    width="60"
-                    class="img-fluid rounded-top"
-                    alt="Gambar {{ $item->name }}"
-                    onerror="this.onerror=null;this.src='{{ asset('No_image_available.webp') }}';">  
-                </div>
-                
-                <div class="product-content">
-                    <h3 class="product-title">{{ $item->name }}</h3>
-                    <p class="product-description">{{ $item->description }}</p>
-                    
-                    <div class="product-footer">
-                        <div class="product-price">{{ 'Rp'. number_format($item->price, 0, ',','.') }}</div>
-                       <a href="{{ route('product.book.show', $item->id) }}" class="add-to-cart-btn">
-                            <i class="fas fa-info-circle me-1"></i> Lihat Detail
-                        </a>
->>>>>>> 57a570d935c2354eaad6227ce1f0de83c30beef7
                     </div>
                 @empty
                     <div class="empty-state">
@@ -616,12 +561,10 @@
                 <div class="pagination-container">
                     <nav aria-label="Page navigation">
                         <ul class="pagination custom-pagination">
-                            {{-- Previous Page Link --}}
+                            {{-- Previous --}}
                             @if($items->onFirstPage())
                                 <li class="page-item disabled">
-                                    <span class="page-link">
-                                        <i class="fas fa-chevron-left"></i>
-                                    </span>
+                                    <span class="page-link"><i class="fas fa-chevron-left"></i></span>
                                 </li>
                             @else
                                 <li class="page-item">
@@ -631,20 +574,16 @@
                                 </li>
                             @endif
 
-                            {{-- Pagination Elements --}}
+                            {{-- Pages --}}
                             @foreach(range(1, $items->lastPage()) as $i)
                                 @if($i == $items->currentPage())
-                                    <li class="page-item active">
-                                        <span class="page-link">{{ $i }}</span>
-                                    </li>
+                                    <li class="page-item active"><span class="page-link">{{ $i }}</span></li>
                                 @else
-                                    <li class="page-item">
-                                        <a class="page-link" href="{{ $items->url($i) }}">{{ $i }}</a>
-                                    </li>
+                                    <li class="page-item"><a class="page-link" href="{{ $items->url($i) }}">{{ $i }}</a></li>
                                 @endif
                             @endforeach
 
-                            {{-- Next Page Link --}}
+                            {{-- Next --}}
                             @if($items->hasMorePages())
                                 <li class="page-item">
                                     <a class="page-link" href="{{ $items->nextPageUrl() }}">
@@ -653,9 +592,7 @@
                                 </li>
                             @else
                                 <li class="page-item disabled">
-                                    <span class="page-link">
-                                        <i class="fas fa-chevron-right"></i>
-                                    </span>
+                                    <span class="page-link"><i class="fas fa-chevron-right"></i></span>
                                 </li>
                             @endif
                         </ul>
@@ -682,87 +619,30 @@
             }, 500);
         });
 
-        // Filter functionality
-        const filterButtons = document.querySelectorAll('.filter-button');
-        const productCards = document.querySelectorAll('.product-card');
-        
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                
-                // Add active class to clicked button
-                button.classList.add('active');
-                
-                const filterValue = button.getAttribute('data-filter');
-                
-                // Filter products
-                productCards.forEach(card => {
-                    const category = card.getAttribute('data-category');
-                    
-                    if (filterValue === 'all' || category === filterValue) {
-                        card.style.display = 'flex';
-                        card.classList.add('animate-fade-in');
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        });
-        
-        // Search functionality
+        // Search
         const searchInput = document.querySelector('.search-input');
         const searchButton = document.querySelector('.search-button');
+        const productCards = document.querySelectorAll('.product-card');
         
         const performSearch = () => {
             const searchTerm = searchInput.value.toLowerCase().trim();
-            
             productCards.forEach(card => {
                 const title = card.querySelector('.product-title').textContent.toLowerCase();
                 const description = card.querySelector('.product-description').textContent.toLowerCase();
-                
-                if (title.includes(searchTerm) || description.includes(searchTerm)) {
-                    card.style.display = 'flex';
-                    card.classList.add('animate-fade-in');
-                } else {
-                    card.style.display = 'none';
-                }
+                card.style.display = (title.includes(searchTerm) || description.includes(searchTerm)) ? 'flex' : 'none';
             });
         };
         
         searchButton.addEventListener('click', performSearch);
-        searchInput.addEventListener('keyup', (e) => {
-            if (e.key === 'Enter') performSearch();
-        });
+        searchInput.addEventListener('keyup', e => { if (e.key === 'Enter') performSearch(); });
 
-        // Animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-        
-        // Observe all product cards
-        productCards.forEach(card => {
-            observer.observe(card);
-        });
-
-        // Add loading state to detail buttons
+        // Button loading
         const detailButtons = document.querySelectorAll('.add-to-cart-btn');
         detailButtons.forEach(button => {
-            button.addEventListener('click', function(e) {
+            button.addEventListener('click', function() {
                 const originalText = this.innerHTML;
                 this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memuat...';
                 this.disabled = true;
-                
                 setTimeout(() => {
                     this.innerHTML = originalText;
                     this.disabled = false;

@@ -61,7 +61,7 @@
         </div>
     </div>
 
-    <!-- Services Grid -->
+    <!-- Services Grid - PERBAIKAN UTAMA -->
     <div id="services" class="services-section">
         <div class="container">
             <div class="section-header">
@@ -79,7 +79,9 @@
                             <h3>{{ $audit->judul }}</h3>
                             <span class="service-price">Rp {{ number_format($audit->harga, 0, ',', '.') }}</span>
                         </div>
+
                         <p class="service-description">{{ $audit->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}</p>
+
                         <div class="card-body">
                             @if (!empty($audit->detail->benefit))
                                 <ul class="benefit-list">
@@ -94,8 +96,7 @@
                                                 $text = ltrim($trimmed, '+- ');
                                             @endphp
 
-<<<<<<< HEAD:resources/views/product/layanan/audit.blade.php
-                                            <li class="benefit-item">
+                                            <li class="mb-2">
                                                 <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
                                                 {{ $text }}
                                             </li>
@@ -103,42 +104,14 @@
                                     @endforeach
                                 </ul>
                             @else
-                                <p class="no-benefit">Benefit belum tersedia.</p>
+                                <p class="text-muted fs-5">Benefit belum tersedia.</p>
                             @endif
-=======
-                                            @if ($trimmed !== '')
-                                                @php
-                                                    $isNegative = Str::startsWith($trimmed, '-');
-                                                    $text = ltrim($trimmed, '+- ');
-                                                @endphp
-
-                                                <li class="mb-2">
-                                                    <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
-                                                    {{ $text }}
-                                                </li>
-                                            @endif
-                                        @endforeach
-                                    </ul>
-                                @else
-                                    <p class="text-muted fs-5">Benefit belum tersedia.</p>
-                                @endif
-                            </div>
-                            <div class="card-footer">
-                                <a href="{{ route('audit.show', $audit->id) }}" class="btn btn-primary">
-                                    Pilih Layanan Ini
-                                </a>
-                                <a href="/kontak" class="btn btn-outline">
-                                    <span>Konsultasi</span>
-                                </a>
-                            </div>
->>>>>>> 57a570d935c2354eaad6227ce1f0de83c30beef7:resources/views/product/layanan/audit/audit.blade.php
                         </div>
+
                         <div class="card-footer">
-                            <button type="button" 
-                                class="btn btn-primary"
-                                onclick="addToCart({{ $audit->id }}, 'ItemAudit')">
-                                <span>Mulai Layanan</span>
-                            </button>
+                            <a href="{{ route('audit.show', $audit->id) }}" class="btn btn-primary">
+                                Pilih Layanan Ini
+                            </a>
                             <a href="/kontak" class="btn btn-outline">
                                 <span>Konsultasi</span>
                             </a>
@@ -210,111 +183,6 @@
                         <p>Monitoring implementasi rekomendasi dan evaluasi peningkatan sistem</p>
                         <span class="process-duration">Berkelanjutan</span>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Audit Standards Section -->
-    <div class="standards-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Standar Audit yang Kami Terapkan</h2>
-                <p class="section-subtitle">Mengikuti standar profesional tertinggi untuk menjamin kualitas audit</p>
-            </div>
-            <div class="standards-grid">
-                <div class="standard-card">
-                    <div class="standard-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <h4>International Standards</h4>
-                    <p>Menerapkan International Standards on Auditing (ISA) dan IFRS untuk konsistensi global</p>
-                    <ul>
-                        <li>ISA 200 - Overall Objectives</li>
-                        <li>ISA 300 - Planning</li>
-                        <li>ISA 500 - Audit Evidence</li>
-                        <li>ISA 700 - Forming Opinion</li>
-                    </ul>
-                </div>
-                <div class="standard-card">
-                    <div class="standard-icon">
-                        <i class="fas fa-landmark"></i>
-                    </div>
-                    <h4>National Standards</h4>
-                    <p>Kepatuhan terhadap Standar Profesional Akuntan Publik (SPAP) Indonesia</p>
-                    <ul>
-                        <li>SA 200 - Tujuan Keseluruhan</li>
-                        <li>SA 300 - Perencanaan Audit</li>
-                        <li>SA 500 - Bukti Audit</li>
-                        <li>SA 700 - Laporan Auditor</li>
-                    </ul>
-                </div>
-                <div class="standard-card">
-                    <div class="standard-icon">
-                        <i class="fas fa-user-shield"></i>
-                    </div>
-                    <h4>Quality Control</h4>
-                    <p>Sistem kendali mutu yang ketat untuk memastikan independensi dan profesionalisme</p>
-                    <ul>
-                        <li>Peer review system</li>
-                        <li>Quality assurance</li>
-                        <li>Independence monitoring</li>
-                        <li>Continuous training</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Client Industries -->
-    <div class="industries-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Industri yang Kami Layani</h2>
-                <p class="section-subtitle">Pengalaman luas dalam berbagai sektor industri dan bisnis</p>
-            </div>
-            <div class="industries-grid">
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-industry"></i>
-                    </div>
-                    <h4>Manufaktur</h4>
-                    <p>Audit untuk perusahaan manufaktur dengan kompleksitas inventory dan cost accounting</p>
-                </div>
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-shopping-cart"></i>
-                    </div>
-                    <h4>Retail & E-commerce</h4>
-                    <p>Audit perusahaan retail dengan multi-channel revenue recognition</p>
-                </div>
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-hand-holding-usd"></i>
-                    </div>
-                    <h4>Keuangan & Perbankan</h4>
-                    <p>Audit lembaga keuangan dengan regulasi khusus dan risk management</p>
-                </div>
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-hard-hat"></i>
-                    </div>
-                    <h4>Konstruksi & Property</h4>
-                    <p>Audit perusahaan konstruksi dengan percentage of completion method</p>
-                </div>
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-truck"></i>
-                    </div>
-                    <h4>Logistik & Transportasi</h4>
-                    <p>Audit perusahaan logistik dengan asset-heavy operations</p>
-                </div>
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <h4>Teknologi & Startup</h4>
-                    <p>Audit perusahaan teknologi dengan revenue model yang inovatif</p>
                 </div>
             </div>
         </div>
@@ -572,33 +440,34 @@
         color: var(--gray-600);
     }
 
-    /* PERBAIKAN: Grid yang memaksa ukuran card tetap kecil */
+    /* PERBAIKAN UTAMA: Grid dengan 3 card per baris di desktop */
     .services-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         gap: clamp(1.5rem, 3vw, 2rem);
         justify-content: center;
-        max-width: 1000px;
+        max-width: 1200px;
         margin: 0 auto;
     }
 
-    /* PERBAIKAN: Membatasi lebar maksimum card */
+    /* PERBAIKAN: Membuat card lebih kecil dan konsisten */
     .service-card {
         position: relative;
         overflow: hidden;
-        padding: clamp(1.5rem, 3vw, 2rem);
-        border-radius: 20px;
+        padding: clamp(1.25rem, 2vw, 1.5rem);
+        border-radius: 16px;
         border: 1px solid var(--gray-100);
         background: var(--white);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         animation: fadeInUp 0.6s ease-out;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        max-width: 400px;
+        max-width: 380px;
         margin: 0 auto;
         width: 100%;
+        min-height: 480px;
     }
 
     .service-card::before {
@@ -607,15 +476,15 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 4px;
+        height: 3px;
         background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
         transform: scaleX(0);
         transition: transform 0.3s ease;
     }
 
     .service-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        transform: translateY(-5px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
     }
 
     .service-card:hover::before {
@@ -624,33 +493,33 @@
 
     .card-header {
         text-align: center;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.25rem;
     }
 
     .service-icon {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 70px;
-        height: 70px;
-        margin: 0 auto 1.5rem;
-        font-size: 1.75rem;
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 1.25rem;
+        font-size: 1.5rem;
         color: var(--primary-purple);
-        border-radius: 20px;
+        border-radius: 16px;
         background: linear-gradient(135deg, var(--light-purple) 0%, #f3f4f6 100%);
         transition: all 0.3s ease;
     }
 
     .service-card:hover .service-icon {
-        transform: scale(1.1);
+        transform: scale(1.05);
         color: var(--white);
         background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
     }
 
     .service-card h3 {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         font-weight: 700;
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
         color: var(--gray-800);
         line-height: 1.3;
     }
@@ -658,7 +527,7 @@
     .service-price {
         display: inline-block;
         margin-top: 0.5rem;
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         font-weight: 800;
         background: linear-gradient(135deg, #7e22ce, #9333ea, #a855f7);
         -webkit-background-clip: text;
@@ -668,41 +537,71 @@
     }
 
     .service-card:hover .service-price {
-        transform: scale(1.05);
+        transform: scale(1.03);
     }
 
     .service-description {
         text-align: center;
         color: var(--gray-600);
-        margin-bottom: 1.5rem;
-        line-height: 1.6;
-        font-size: 0.95rem;
+        margin-bottom: 1.25rem;
+        line-height: 1.5;
+        font-size: 0.9rem;
+        min-height: 60px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .card-body {
+        flex: 1;
+        margin-bottom: 1.25rem;
     }
 
     .benefit-list {
-        margin: 1.5rem 0;
+        margin: 1rem 0;
         padding: 0;
         list-style: none;
+        max-height: 180px;
+        overflow-y: auto;
     }
 
-    .benefit-item {
+    .benefit-list li {
         position: relative;
-        padding: 0.5rem 0;
+        padding: 0.4rem 0;
         color: var(--gray-600);
         border-bottom: 1px solid var(--gray-100);
-        font-size: 0.9rem;
-        line-height: 1.5;
+        font-size: 0.85rem;
+        line-height: 1.4;
     }
 
-    .benefit-item:last-child {
+    .benefit-list li:last-child {
         border-bottom: none;
+    }
+
+    .benefit-list::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .benefit-list::-webkit-scrollbar-track {
+        background: var(--gray-100);
+        border-radius: 2px;
+    }
+
+    .benefit-list::-webkit-scrollbar-thumb {
+        background: var(--gray-400);
+        border-radius: 2px;
+    }
+
+    .benefit-list::-webkit-scrollbar-thumb:hover {
+        background: var(--gray-600);
     }
 
     .no-benefit {
         text-align: center;
         color: var(--gray-600);
         font-style: italic;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
 
     .card-footer {
@@ -710,7 +609,8 @@
         flex-direction: column;
         gap: 0.75rem;
         margin-top: auto;
-        padding-top: 1.5rem;
+        padding-top: 1.25rem;
+        border-top: 1px solid var(--gray-100);
     }
 
     .no-services {
@@ -789,137 +689,6 @@
     }
 
     /* =========================
-       STANDARDS SECTION
-       ========================= */
-    .standards-section {
-        padding: clamp(60px, 8vw, 100px) 0;
-        background: var(--gray-50);
-    }
-
-    .standards-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
-        gap: clamp(1.5rem, 3vw, 2rem);
-    }
-
-    .standard-card {
-        background: var(--white);
-        border-radius: 16px;
-        padding: clamp(2rem, 3vw, 2.5rem) clamp(1.5rem, 2vw, 2rem);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        transition: transform 0.3s ease;
-    }
-
-    .standard-card:hover {
-        transform: translateY(-5px);
-    }
-
-    .standard-icon {
-        width: clamp(60px, 8vw, 80px);
-        height: clamp(60px, 8vw, 80px);
-        background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
-        color: var(--white);
-        border-radius: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: clamp(1.5rem, 2.5vw, 2rem);
-        margin-bottom: 1.5rem;
-    }
-
-    .standard-card h4 {
-        font-size: clamp(1.1rem, 1.5vw, 1.25rem);
-        font-weight: 600;
-        margin-bottom: 1rem;
-        color: var(--gray-800);
-    }
-
-    .standard-card p {
-        line-height: 1.6;
-        color: var(--gray-600);
-        margin-bottom: 1.5rem;
-        font-size: clamp(0.9rem, 1.2vw, 1rem);
-    }
-
-    .standard-card ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    .standard-card li {
-        padding: 0.5rem 0;
-        color: var(--gray-600);
-        border-bottom: 1px solid var(--gray-100);
-        font-size: clamp(0.85rem, 1.1vw, 0.9rem);
-    }
-
-    .standard-card li:last-child {
-        border-bottom: none;
-    }
-
-    .standard-card li::before {
-        content: '•';
-        color: var(--primary-purple);
-        font-weight: bold;
-        display: inline-block;
-        width: 1em;
-        margin-left: -1em;
-    }
-
-    /* =========================
-       INDUSTRIES SECTION
-       ========================= */
-    .industries-section {
-        padding: clamp(60px, 8vw, 100px) 0;
-        background: var(--white);
-    }
-
-    .industries-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
-        gap: clamp(1.5rem, 3vw, 2rem);
-    }
-
-    .industry-card {
-        text-align: center;
-        padding: clamp(1.5rem, 2vw, 2rem) clamp(1rem, 1.5vw, 1.5rem);
-        background: var(--gray-50);
-        border-radius: 16px;
-        transition: all 0.3s ease;
-    }
-
-    .industry-card:hover {
-        transform: translateY(-5px);
-        background: var(--light-purple);
-    }
-
-    .industry-icon {
-        width: clamp(50px, 7vw, 70px);
-        height: clamp(50px, 7vw, 70px);
-        background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
-        color: var(--white);
-        border-radius: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: clamp(1.25rem, 2vw, 1.5rem);
-        margin: 0 auto 1rem;
-    }
-
-    .industry-card h4 {
-        font-size: clamp(1rem, 1.3vw, 1.1rem);
-        font-weight: 600;
-        margin-bottom: 0.75rem;
-        color: var(--gray-800);
-    }
-
-    .industry-card p {
-        line-height: 1.5;
-        color: var(--gray-600);
-        font-size: clamp(0.85rem, 1.1vw, 0.9rem);
-    }
-
-    /* =========================
        BUTTONS
        ========================= */
     .btn {
@@ -927,16 +696,16 @@
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
-        padding: clamp(0.875rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
-        font-size: clamp(0.9rem, 1.5vw, 1rem);
+        padding: clamp(0.75rem, 1.5vw, 0.875rem) clamp(1.25rem, 2.5vw, 1.5rem);
+        font-size: clamp(0.85rem, 1.3vw, 0.9rem);
         font-weight: 600;
         text-decoration: none;
         border: 2px solid transparent;
-        border-radius: 12px;
+        border-radius: 10px;
         cursor: pointer;
         transition: all 0.3s ease;
         text-align: center;
-        min-height: 50px;
+        min-height: 44px;
     }
 
     .btn-primary {
@@ -946,7 +715,7 @@
 
     .btn-primary:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+        box-shadow: 0 6px 16px rgba(124, 58, 237, 0.25);
     }
 
     .btn-outline {
@@ -980,7 +749,7 @@
 
     .btn-light:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
     }
 
     /* =========================
@@ -1022,14 +791,14 @@
             transform: translateY(0);
         }
         50% {
-            transform: translateY(-20px);
+            transform: translateY(-15px);
         }
     }
 
     @keyframes fadeInUp {
         from {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(20px);
         }
         to {
             opacity: 1;
@@ -1038,200 +807,129 @@
     }
 
     /* =========================
-       RESPONSIVE DESIGN
+       RESPONSIVE DESIGN - PERBAIKAN UTAMA
        ========================= */
-    @media (max-width: 1024px) {
+    
+    /* Desktop Large - 3 card per baris */
+    @media (min-width: 1200px) {
+        .services-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .service-card {
+            max-width: 100%;
+            min-height: 460px;
+        }
+    }
+
+    /* Desktop Medium - 3 card per baris */
+    @media (min-width: 1024px) and (max-width: 1199px) {
+        .services-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.75rem;
+        }
+        
+        .service-card {
+            max-width: 100%;
+            min-height: 480px;
+            padding: 1.25rem;
+        }
+        
+        .service-icon {
+            width: 55px;
+            height: 55px;
+            font-size: 1.4rem;
+        }
+        
+        .service-card h3 {
+            font-size: 1.15rem;
+        }
+        
+        .service-price {
+            font-size: 1.2rem;
+        }
+    }
+
+    /* Tablet - 2 card per baris */
+    @media (min-width: 768px) and (max-width: 1023px) {
+        .services-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .service-card {
+            max-width: 100%;
+            min-height: 460px;
+        }
+        
         .hero-content {
             grid-template-columns: 1fr;
             gap: 3rem;
             text-align: center;
         }
-
-        .hero-title {
-            font-size: clamp(2.5rem, 5vw, 3rem);
-        }
-
-        .floating-cards {
-            width: clamp(180px, 25vw, 250px);
-            height: clamp(180px, 25vw, 250px);
-        }
-
-        .process-item {
-            flex-direction: column;
-            text-align: center;
-            gap: 1rem;
-        }
-
-        .process-item:not(:last-child)::after {
-            left: 50%;
-            top: 80px;
-            bottom: -3rem;
-        }
-
-        .cart-content {
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        .cart-summary {
-            position: static;
-        }
-
-        /* PERBAIKAN: Tetap kecil di tablet */
-        .services-grid {
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            max-width: 900px;
-        }
     }
 
-    @media (max-width: 768px) {
-        .modern-hero {
-            min-height: 90vh;
-        }
-
-        .hero-content {
-            padding: clamp(80px, 10vw, 100px) 0 clamp(40px, 6vw, 60px);
-        }
-
-        .hero-title {
-            font-size: clamp(2rem, 4vw, 2.5rem);
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1rem, 1.8vw, 1.1rem);
-        }
-
-        .section-title {
-            font-size: clamp(1.8rem, 3vw, 2.2rem);
-        }
-
-        /* PERBAIKAN: Tetap kecil di mobile */
+    /* Mobile - 1 card per baris */
+    @media (max-width: 767px) {
         .services-grid {
             grid-template-columns: 1fr;
             gap: 1.5rem;
             max-width: 400px;
         }
-
+        
         .service-card {
-            padding: 1.5rem;
             max-width: 100%;
-        }
-
-        .standards-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .industries-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        .cta-content h3 {
-            font-size: clamp(1.75rem, 3vw, 2rem);
-        }
-
-        .hero-actions {
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 0.875rem 1.5rem;
-            min-height: 44px;
-        }
-
-        .card-footer {
-            flex-direction: column;
-        }
-
-        .cart-item {
-            flex-direction: column;
-            text-align: center;
-            gap: 1rem;
-        }
-
-        .cart-item-actions {
-            justify-content: center;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .container {
-            padding: 0 12px;
-        }
-
-        .hero-title {
-            font-size: clamp(1.8rem, 3vw, 2rem);
-        }
-
-        .hero-subtitle {
-            font-size: clamp(0.9rem, 1.5vw, 1rem);
-        }
-
-        .section-title {
-            font-size: clamp(1.5rem, 2.5vw, 1.8rem);
-        }
-
-        .service-card {
+            min-height: auto;
             padding: 1.25rem;
         }
-
-        .industries-grid {
+        
+        .hero-content {
             grid-template-columns: 1fr;
+            gap: 2rem;
+            text-align: center;
+            padding: clamp(60px, 8vw, 80px) 0 clamp(40px, 6vw, 60px);
         }
-
-        .cta-section {
-            padding: 60px 0;
+        
+        .hero-title {
+            font-size: clamp(2rem, 4vw, 2.5rem);
         }
-
-        .cta-content h3 {
-            font-size: clamp(1.5rem, 2.5vw, 1.75rem);
-        }
-
-        .cta-buttons {
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .btn {
-            width: 100%;
-            max-width: 280px;
-        }
-
+        
         .floating-cards {
             display: none;
         }
         
-        .hero-actions {
+        .process-item {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem;
+        }
+        
+        .process-item:not(:last-child)::after {
+            left: 50%;
+            top: 80px;
+            bottom: -3rem;
+        }
+        
+        .cta-buttons {
             flex-direction: column;
             align-items: center;
         }
         
-        .hero-actions .btn {
+        .btn {
             width: 100%;
             max-width: 280px;
         }
-
-        .cart-summary {
-            padding: 1.5rem;
-        }
     }
 
-    @media (max-width: 360px) {
+    /* Small Mobile */
+    @media (max-width: 480px) {
+        .container {
+            padding: 0 12px;
+        }
+        
         .service-card {
             padding: 1rem;
-        }
-        
-        .hero-title {
-            font-size: 1.6rem;
-        }
-        
-        .section-title {
-            font-size: 1.4rem;
-        }
-        
-        .btn {
-            min-height: 42px;
-            font-size: 0.85rem;
-            padding: 0.75rem 1rem;
         }
         
         .service-icon {
@@ -1239,14 +937,21 @@
             height: 50px;
             font-size: 1.25rem;
         }
-
-        /* PERBAIKAN: Tetap kecil di layar sangat kecil */
-        .services-grid {
-            grid-template-columns: 1fr;
+        
+        .service-card h3 {
+            font-size: 1.1rem;
+        }
+        
+        .service-price {
+            font-size: 1.1rem;
+        }
+        
+        .benefit-list {
+            max-height: 150px;
         }
     }
 
-    /* Improve touch targets on mobile */
+    /* Improve touch targets */
     @media (max-width: 768px) {
         .service-card .btn,
         .process-item,
@@ -1266,193 +971,3 @@
     }
 </style>
 @endsection
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    // Cart functionality
-    let cart = JSON.parse(localStorage.getItem('audit_cart')) || [];
-
-    function addToCart(id, type) {
-        fetch("{{ route('cart.add', [], false) }}", {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ id: id, type: type }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                // Add to local cart for UI
-                const service = {
-                    id: id,
-                    type: type,
-                    name: data.item_name || 'Layanan Audit',
-                    price: data.item_price || 0,
-                    quantity: 1
-                };
-                
-                const existingItem = cart.find(item => item.id === id && item.type === type);
-                if (existingItem) {
-                    existingItem.quantity += 1;
-                } else {
-                    cart.push(service);
-                }
-                
-                localStorage.setItem('audit_cart', JSON.stringify(cart));
-                updateCartUI();
-                
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil',
-                    text: data.message,
-                    timer: 1500,
-                    showConfirmButton: false
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: data.message
-                });
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-    }
-
-    function updateCartUI() {
-        const cartItems = document.querySelector('.cart-items');
-        const cartSubtotal = document.getElementById('cart-subtotal');
-        const cartTax = document.getElementById('cart-tax');
-        const cartTotal = document.getElementById('cart-total');
-        
-        if (cart.length === 0) {
-            cartItems.innerHTML = `
-                <div class="empty-cart">
-                    <i class="fas fa-shopping-cart"></i>
-                    <h3>Keranjang Kosong</h3>
-                    <p>Tambahkan layanan audit ke keranjang Anda</p>
-                </div>
-            `;
-            cartSubtotal.textContent = 'Rp 0';
-            cartTax.textContent = 'Rp 0';
-            cartTotal.textContent = 'Rp 0';
-            return;
-        }
-        
-        let subtotal = 0;
-        cartItems.innerHTML = '';
-        
-        cart.forEach((item, index) => {
-            const itemTotal = item.price * item.quantity;
-            subtotal += itemTotal;
-            
-            const cartItem = document.createElement('div');
-            cartItem.className = 'cart-item';
-            cartItem.innerHTML = `
-                <div class="cart-item-icon">
-                    <i class="fas fa-balance-scale"></i>
-                </div>
-                <div class="cart-item-details">
-                    <h4 class="cart-item-title">${item.name}</h4>
-                    <div class="cart-item-price">Rp ${item.price.toLocaleString('id-ID')}</div>
-                </div>
-                <div class="cart-item-actions">
-                    <div class="quantity-control">
-                        <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <input type="number" class="quantity-input" value="${item.quantity}" min="1" 
-                               onchange="updateQuantityInput(${index}, this.value)">
-                        <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                    </div>
-                    <button class="remove-btn" onclick="removeFromCart(${index})">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            `;
-            cartItems.appendChild(cartItem);
-        });
-        
-        const tax = subtotal * 0.1;
-        const total = subtotal + tax;
-        
-        cartSubtotal.textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
-        cartTax.textContent = `Rp ${tax.toLocaleString('id-ID')}`;
-        cartTotal.textContent = `Rp ${total.toLocaleString('id-ID')}`;
-    }
-
-    function updateQuantity(index, change) {
-        cart[index].quantity += change;
-        if (cart[index].quantity < 1) {
-            cart[index].quantity = 1;
-        }
-        localStorage.setItem('audit_cart', JSON.stringify(cart));
-        updateCartUI();
-    }
-
-    function updateQuantityInput(index, value) {
-        const quantity = parseInt(value);
-        if (quantity > 0) {
-            cart[index].quantity = quantity;
-            localStorage.setItem('audit_cart', JSON.stringify(cart));
-            updateCartUI();
-        }
-    }
-
-    function removeFromCart(index) {
-        cart.splice(index, 1);
-        localStorage.setItem('audit_cart', JSON.stringify(cart));
-        updateCartUI();
-        
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil',
-            text: 'Item berhasil dihapus dari keranjang',
-            timer: 1500,
-            showConfirmButton: false
-        });
-    }
-
-    function clearCart() {
-        cart = [];
-        localStorage.setItem('audit_cart', JSON.stringify(cart));
-        updateCartUI();
-        
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil',
-            text: 'Keranjang berhasil dikosongkan',
-            timer: 1500,
-            showConfirmButton: false
-        });
-    }
-
-    function checkout() {
-        if (cart.length === 0) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Keranjang Kosong',
-                text: 'Tambahkan layanan ke keranjang sebelum melanjutkan'
-            });
-            return;
-        }
-        
-        // Redirect to checkout page or show checkout modal
-        window.location.href = '/checkout';
-    }
-
-    // Initialize cart UI when page loads
-    document.addEventListener('DOMContentLoaded', function() {
-        updateCartUI();
-        
-        // Add event listeners for cart buttons
-        document.getElementById('clear-cart-btn').addEventListener('click', clearCart);
-        document.getElementById('checkout-btn').addEventListener('click', checkout);
-    });
-</script>

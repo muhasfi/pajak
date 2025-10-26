@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('item_bimbel_details', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('id_item_bimbels')
-                ->constrained('item_bimbels')
-                ->onDelete('cascade');
-            $table->string('judul_materi', 255)->nullable();
-            $table->text('deskripsi')->nullable();
-            $table->string('link')->nullable();
-            $table->timestamps();
-        });
+        // Schema::create('item_bimbel_details', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->foreignId('id_item_bimbels')
+        //         ->constrained('item_bimbels')
+        //         ->onDelete('cascade');
+        //     $table->string('judul_materi', 255)->nullable();
+        //     $table->text('deskripsi')->nullable();
+        //     $table->string('link')->nullable();
+        //     $table->timestamps();
+        // });
     }
 
     /**

@@ -122,20 +122,10 @@
                                 <p class="no-benefits">Benefit belum tersedia.</p>
                             @endif
                         </div>
-
-<<<<<<< HEAD:resources/views/product/layanan/transfer.blade.php
-                        <div class="card-footer">
-                            <button type="button" 
-                                class="btn btn-primary"
-                                onclick="addToCart({{ $transfer->id }}, 'ItemTransfer')">
-                                <span>Mulai Layanan</span>
-                            </button>
-=======
                         <div class="card-footer mt-auto">
                             <a href="{{ route('transfer.show', $transfer->id) }}" class="btn btn-primary">
                                 Pilih Layanan Ini
                             </a>
->>>>>>> 57a570d935c2354eaad6227ce1f0de83c30beef7:resources/views/product/layanan/transfer/transfer.blade.php
                             <a href="/kontak" class="btn btn-outline">
                                 <span>Konsultasi</span>
                             </a>
