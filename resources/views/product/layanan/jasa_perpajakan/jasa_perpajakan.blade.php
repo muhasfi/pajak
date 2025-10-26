@@ -1,9 +1,9 @@
 @extends('layouts.master')
 
-@section('title', 'Audit Laporan Keuangan Profesional')
+@section('title', 'Jasa Perpajakan Profesional')
 
 @section('content')
-<section class="audit-service">
+<section class="tax-service">
     <!-- Hero Section -->
     <div class="modern-hero">
         <div class="hero-background">
@@ -18,17 +18,16 @@
             <div class="hero-content">
                 <div class="hero-text">
                     <h1 class="hero-title">
-                        <span class="title-line">Audit Laporan</span>
-                        <span class="title-line highlight">Keuangan</span>
+                        <span class="title-line">Konsultan</span>
+                        <span class="title-line highlight">Perpajakan</span>
                     </h1>
                     <p class="hero-subtitle">
-                        Jasa audit profesional untuk memastikan <span class="text-highlight">akurasi</span>, 
-                        <span class="text-highlight">transparansi</span>, dan <span class="text-highlight">kepatuhan</span> 
-                        laporan keuangan perusahaan Anda
+                        Solusi lengkap perpajakan untuk bisnis Anda dengan pendekatan <span class="text-highlight">strategis</span>, 
+                        <span class="text-highlight">komprehensif</span>, dan <span class="text-highlight">sesuai regulasi</span>
                     </p>
                     <p class="hero-description">
-                        Tim auditor berpengalaman kami memberikan opini wajar tanpa pengecualian 
-                        dengan pendekatan komprehensif dan standar audit tertinggi.
+                        Tim konsultan pajak berpengalaman kami siap membantu optimasi kewajiban perpajakan, 
+                        penyusunan laporan, dan compliance management untuk kemudahan bisnis Anda.
                     </p>
                     <div class="hero-actions">
                         <a href="#services" class="btn btn-primary">
@@ -44,18 +43,36 @@
                 <div class="hero-visual">
                     <div class="floating-cards">
                         <div class="floating-card card-1">
-                            <i class="fas fa-search-dollar"></i>
-                            <span>Audit Evidence</span>
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span>SPT & Laporan</span>
                         </div>
                         <div class="floating-card card-2">
-                            <i class="fas fa-clipboard-check"></i>
-                            <span>Compliance Check</span>
+                            <i class="fas fa-chart-line"></i>
+                            <span>Perencanaan Pajak</span>
                         </div>
                         <div class="floating-card card-3">
-                            <i class="fas fa-chart-bar"></i>
-                            <span>Financial Analysis</span>
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Kepatuhan</span>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">1000+</span>
+                    <span class="stat-label">Klien Terlayani</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">Kepuasan Klien</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label">Tahun Pengalaman</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Ahli Pajak</span>
                 </div>
             </div>
         </div>
@@ -65,28 +82,45 @@
     <div id="services" class="services-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Jenis Layanan Audit</h2>
-                <p class="section-subtitle">Solusi audit komprehensif untuk berbagai kebutuhan perusahaan</p>
+                <h2 class="section-title">Layanan Perpajakan Kami</h2>
+                <p class="section-subtitle">Solusi lengkap untuk semua kebutuhan perpajakan bisnis Anda</p>
             </div>
 
             <div class="services-grid">
-                <!-- Service 1 -->
-                <tbody>
-                    @forelse ($audits as $audit)
-                    <tr>
-                        <div class="service-card">
-                            <div class="card-header">
-                                <div class="service-icon">
-                                    <i class="fas fa-balance-scale"></i>
-                                </div>
-                                <h3>{{ $audit->judul }}</h3>
-                                <span class="service-price">Rp {{ number_format($audit->harga, 0, ',', '.') }}</span>
+                @forelse ($pajaks as $pajak)
+                    <div class="service-card {{ $loop->iteration == 1 ? 'featured' : '' }}">
+
+                        <div class="card-header pajak">
+                            <div class="service-icon">
+                                {{-- Ganti ikon berdasarkan nama/judul pajak (opsional) --}}
+                                @php
+                                    $judul = strtolower($pajak->judul);
+                                @endphp
+
+                                @if (Str::contains($judul, ['rencana', 'plan']))
+                                    <i class="fas fa-calculator"></i>
+                                @elseif (Str::contains($judul, ['bphtb', 'pbb']))
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                @elseif (Str::contains($judul, ['konsul', 'consult']))
+                                    <i class="fas fa-user-tie"></i>
+                                @else
+                                    <i class="fas fa-file-invoice-dollar"></i>
+                                @endif
                             </div>
-                            <p class="text-muted text-center mb-4">{{ $audit->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}</p>
-                            <div class="card-body">
-                                @if (!empty($audit->detail->benefit))
-                                    <ul class="list-unstyled fs-5">
-                                        @foreach ($audit->detail->benefit as $benefit)
+                            <h3>{{ $pajak->judul }}</h3>
+                            <h3 class="text-primary fw-bold">
+                                Rp {{ number_format($pajak->harga, 0, ',', '.') }}
+                            </h3>
+
+                        </div>
+                        <p class="text-muted text-center mb-4">
+                            {{ $pajak->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}
+                        </p>
+
+                        <div class="card-body">
+                            @if (!empty($pajak->detail->benefit))
+                                    <ul class="list-unstyled mt-2">
+                                        @foreach ($pajak->detail->benefit as $benefit)
                                             @php
                                                 $trimmed = trim($benefit);
                                             @endphp
@@ -107,192 +141,218 @@
                                 @else
                                     <p class="text-muted fs-5">Benefit belum tersedia.</p>
                                 @endif
-                            </div>
-                            <div class="card-footer">
-                                <button type="button" 
-                                    class="btn btn-primary"
-                                    onclick="addToCart({{ $audit->id }}, 'ItemAudit')">
-                                    <span>Mulai Layanan</span>
-                                </button>
-                                <a href="/kontak" class="btn btn-outline">
-                                    <span>Konsultasi</span>
-                                </a>
-                            </div>
                         </div>
- 
-                    </tr>
-                    @empty
-                  
-                    @endforelse
-                </tbody>
+
+                        <div class="card-footer">
+                            <a href="{{ route('jasa.perpajakan.show', $pajak->id) }}" class="btn btn-primary">
+                                Pilih Layanan Ini
+                            </a>
+                            <a href="/kontak" class="btn btn-outline">
+                                <span>Konsultasi</span>
+                            </a>
+                        </div>
+                    </div>
+                @empty
+                    <div class="text-center text-muted py-4">
+                        Belum ada layanan pajak yang tersedia.
+                    </div>
+                @endforelse
             </div>
 
         </div>
     </div>
 
-    <!-- Audit Process Section -->
+    <!-- Tax Types Section -->
+    <div class="tax-types-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Jenis Pajak yang Kami Tangani</h2>
+                <p class="section-subtitle">Komprehensif coverage untuk semua jenis kewajiban perpajakan</p>
+            </div>
+            <div class="tax-types-grid">
+                <div class="tax-type-card">
+                    <div class="tax-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h4>PPh Badan</h4>
+                    <p>Pajak Penghasilan untuk perusahaan dan badan usaha dengan berbagai skema</p>
+                    <ul>
+                        <li>PPh 21 Karyawan</li>
+                        <li>PPh 23 Jasa</li>
+                        <li>PPh 25 Angsuran</li>
+                        <li>PPh 29 Kurang Bayar</li>
+                    </ul>
+                </div>
+                <div class="tax-type-card">
+                    <div class="tax-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h4>PPh Orang Pribadi</h4>
+                    <p>Pajak Penghasilan untuk individu, profesional, dan pekerja bebas</p>
+                    <ul>
+                        <li>PPh 21 Karyawan</li>
+                        <li>PPh Final PP 23</li>
+                        <li>PPh 25 OP</li>
+                        <li>PPh 29 Tahunan</li>
+                    </ul>
+                </div>
+                <div class="tax-type-card">
+                    <div class="tax-icon">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                    <h4>PPN & PPnBM</h4>
+                    <p>Pajak Pertambahan Nilai dan Pajak Penjualan Barang Mewah</p>
+                    <ul>
+                        <li>PPN Masukan/Keluaran</li>
+                        <li>PPnBM Barang Mewah</li>
+                        <li>Restitusi PPN</li>
+                        <li>Pengusaha Kena Pajak</li>
+                    </ul>
+                </div>
+                <div class="tax-type-card">
+                    <div class="tax-icon">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <h4>Pajak Daerah</h4>
+                    <p>Pajak dan retribusi daerah untuk properti dan transaksi lokal</p>
+                    <ul>
+                        <li>PBB Perkotaan/Pedesaan</li>
+                        <li>BPHTB</li>
+                        <li>Pajak Kendaraan</li>
+                        <li>Retribusi Daerah</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Process Section -->
     <div class="process-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Proses Audit Kami</h2>
-                <p class="section-subtitle">Tahapan sistematis yang menjamin kualitas dan akurasi hasil audit</p>
+                <h2 class="section-title">Proses Layanan Kami</h2>
+                <p class="section-subtitle">Tahapan terstruktur untuk pelayanan perpajakan yang optimal</p>
             </div>
-            <div class="process-timeline">
-                <div class="process-item">
-                    <div class="process-icon">
-                        <i class="fas fa-clipboard-list"></i>
-                    </div>
-                    <div class="process-content">
-                        <h4>Perencanaan & Pemahaman</h4>
-                        <p>Analisis risiko, pemahaman bisnis client, dan penyusunan program audit yang komprehensif</p>
-                        <span class="process-duration">1-2 Minggu</span>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-content">
+                        <h4>Konsultasi Awal</h4>
+                        <p>Identifikasi kebutuhan dan analisis kondisi perpajakan saat ini</p>
                     </div>
                 </div>
-                <div class="process-item">
-                    <div class="process-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <div class="process-content">
-                        <h4>Pelaksanaan Audit</h4>
-                        <p>Pengumpulan bukti audit, testing substantif, dan evaluasi pengendalian internal</p>
-                        <span class="process-duration">2-4 Minggu</span>
+                <div class="process-step">
+
+                    <div class="step-content">
+                        <h4>Data Collection</h4>
+                        <p>Pengumpulan dokumen dan data pendukung yang diperlukan</p>
                     </div>
                 </div>
-                <div class="process-item">
-                    <div class="process-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="process-content">
-                        <h4>Analisis & Evaluasi</h4>
-                        <p>Analytical review, penilaian materialitas, dan evaluasi temuan audit</p>
-                        <span class="process-duration">1 Minggu</span>
+                <div class="process-step">
+                    <div class="step-content">
+                        <h4>Processing & Analysis</h4>
+                        <p>Pengolahan data, perhitungan, dan analisis perpajakan</p>
                     </div>
                 </div>
-                <div class="process-item">
-                    <div class="process-icon">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <div class="process-content">
-                        <h4>Pelaporan</h4>
-                        <p>Penyusunan laporan audit, management letter, dan presentasi hasil kepada manajemen</p>
-                        <span class="process-duration">1 Minggu</span>
+                <div class="process-step">
+                    <div class="step-content">
+                        <h4>Reporting & Filing</h4>
+                        <p>Penyusunan laporan dan pelaporan melalui sistem elektronik</p>
                     </div>
                 </div>
-                <div class="process-item">
-                    <div class="process-icon">
-                        <i class="fas fa-tasks"></i>
-                    </div>
-                    <div class="process-content">
+                <div class="process-step">
+                    <div class="step-content">
                         <h4>Follow Up</h4>
-                        <p>Monitoring implementasi rekomendasi dan evaluasi peningkatan sistem</p>
-                        <span class="process-duration">Berkelanjutan</span>
+                        <p>Monitoring dan evaluasi berkelanjutan untuk compliance</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Audit Standards Section -->
-    <div class="standards-section">
+    <!-- Pricing Section -->
+    <div class="pricing-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Standar Audit yang Kami Terapkan</h2>
-                <p class="section-subtitle">Mengikuti standar profesional tertinggi untuk menjamin kualitas audit</p>
+                <h2 class="section-title">Paket Layanan</h2>
+                <p class="section-subtitle">Pilih paket yang sesuai dengan kebutuhan bisnis Anda</p>
             </div>
-            <div class="standards-grid">
-                <div class="standard-card">
-                    <div class="standard-icon">
-                        <i class="fas fa-globe"></i>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Paket Dasar</h3>
+                        <div class="price">
+                            <span class="amount">Rp 750K</span>
+                            <span class="period">/bulan</span>
+                        </div>
                     </div>
-                    <h4>International Standards</h4>
-                    <p>Menerapkan International Standards on Auditing (ISA) dan IFRS untuk konsistensi global</p>
-                    <ul>
-                        <li>ISA 200 - Overall Objectives</li>
-                        <li>ISA 300 - Planning</li>
-                        <li>ISA 500 - Audit Evidence</li>
-                        <li>ISA 700 - Forming Opinion</li>
-                    </ul>
+                    <div class="pricing-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> SPT Masa PPh 21</li>
+                            <li><i class="fas fa-check"></i> SPT Masa PPh 23</li>
+                            <li><i class="fas fa-check"></i> SPT Masa PPN</li>
+                            <li><i class="fas fa-times"></i> SPT Tahunan</li>
+                            <li><i class="fas fa-times"></i> Konsultasi Pajak</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-footer">
+                        <a href="#" class="btn btn-outline">Pilih Paket</a>
+                    </div>
                 </div>
-                <div class="standard-card">
-                    <div class="standard-icon">
-                        <i class="fas fa-landmark"></i>
+
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Rekomendasi</div>
+                    <div class="pricing-header">
+                        <h3>Paket Professional</h3>
+                        <div class="price">
+                            <span class="amount">Rp 1.5JT</span>
+                            <span class="period">/bulan</span>
+                        </div>
                     </div>
-                    <h4>National Standards</h4>
-                    <p>Kepatuhan terhadap Standar Profesional Akuntan Publik (SPAP) Indonesia</p>
-                    <ul>
-                        <li>SA 200 - Tujuan Keseluruhan</li>
-                        <li>SA 300 - Perencanaan Audit</li>
-                        <li>SA 500 - Bukti Audit</li>
-                        <li>SA 700 - Laporan Auditor</li>
-                    </ul>
+                    <div class="pricing-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Semua SPT Masa</li>
+                            <li><i class="fas fa-check"></i> SPT Tahunan Badan</li>
+                            <li><i class="fas fa-check"></i> Konsultasi 4x/bulan</li>
+                            <li><i class="fas fa-check"></i> Tax Planning Dasar</li>
+                            <li><i class="fas fa-times"></i> Audit Support</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-footer">
+                        <a href="#" class="btn btn-primary">Pilih Paket</a>
+                    </div>
                 </div>
-                <div class="standard-card">
-                    <div class="standard-icon">
-                        <i class="fas fa-user-shield"></i>
+
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Paket Enterprise</h3>
+                        <div class="price">
+                            <span class="amount">Rp 3JT</span>
+                            <span class="period">/bulan</span>
+                        </div>
                     </div>
-                    <h4>Quality Control</h4>
-                    <p>Sistem kendali mutu yang ketat untuk memastikan independensi dan profesionalisme</p>
-                    <ul>
-                        <li>Peer review system</li>
-                        <li>Quality assurance</li>
-                        <li>Independence monitoring</li>
-                        <li>Continuous training</li>
-                    </ul>
+                    <div class="pricing-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Semua Layanan Pajak</li>
+                            <li><i class="fas fa-check"></i> Konsultasi Unlimited</li>
+                            <li><i class="fas fa-check"></i> Tax Planning Komprehensif</li>
+                            <li><i class="fas fa-check"></i> Audit & Litigation Support</li>
+                            <li><i class="fas fa-check"></i> Dedicated Consultant</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-footer">
+                        <a href="#" class="btn btn-outline">Pilih Paket</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Client Industries -->
-    <div class="industries-section">
+    <!-- CTA Section -->
+    <div class="cta-section">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Industri yang Kami Layani</h2>
-                <p class="section-subtitle">Pengalaman luas dalam berbagai sektor industri dan bisnis</p>
-            </div>
-            <div class="industries-grid">
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-industry"></i>
-                    </div>
-                    <h4>Manufaktur</h4>
-                    <p>Audit untuk perusahaan manufaktur dengan kompleksitas inventory dan cost accounting</p>
-                </div>
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-shopping-cart"></i>
-                    </div>
-                    <h4>Retail & E-commerce</h4>
-                    <p>Audit perusahaan retail dengan multi-channel revenue recognition</p>
-                </div>
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-hand-holding-usd"></i>
-                    </div>
-                    <h4>Keuangan & Perbankan</h4>
-                    <p>Audit lembaga keuangan dengan regulasi khusus dan risk management</p>
-                </div>
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-hard-hat"></i>
-                    </div>
-                    <h4>Konstruksi & Property</h4>
-                    <p>Audit perusahaan konstruksi dengan percentage of completion method</p>
-                </div>
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-truck"></i>
-                    </div>
-                    <h4>Logistik & Transportasi</h4>
-                    <p>Audit perusahaan logistik dengan asset-heavy operations</p>
-                </div>
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <h4>Teknologi & Startup</h4>
-                    <p>Audit perusahaan teknologi dengan revenue model yang inovatif</p>
-                </div>
+            <div class="cta-content">
+                <h3>Siap Optimalkan Kepatuhan Pajak Bisnis Anda?</h3>
+                <p>Konsultasikan kebutuhan perpajakan Anda dengan ahli kami dan dapatkan solusi terbaik untuk efisiensi dan compliance</p>
             </div>
         </div>
     </div>
@@ -300,10 +360,10 @@
 
 <style>
     :root {
-        --primary-purple: #7c3aed;
-        --secondary-purple: #6d28d9;
-        --dark-purple: #5b21b6;
-        --light-purple: #ede9fe;
+        --primary-green: #059669;
+        --secondary-green: #047857;
+        --dark-green: #065f46;
+        --light-green: #d1fae5;
         --white: #ffffff;
         --gray-50: #f8fafc;
         --gray-100: #f1f5f9;
@@ -313,24 +373,8 @@
         --success: #10b981;
         --warning: #f59e0b;
     }
-    .service-price {
-    display: inline-block;
-    margin-top: 0.5rem;
-    font-size: 1.5rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, #7e22ce, #9333ea, #a855f7);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-}
 
-.service-card:hover .service-price {
-    transform: scale(1.1);
-    transition: all 0.3s ease;
-}
-
-    .audit-service {
+    .tax-service {
         min-height: 100vh;
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
@@ -346,7 +390,7 @@
        ========================= */
     .modern-hero {
         min-height: 100vh;
-        background: linear-gradient(135deg, #5b21b6 0%, #7c3aed 50%, #8b5cf6 100%);
+        background: linear-gradient(135deg, #065f46 0%, #059669 50%, #10b981 100%);
         color: var(--white);
         position: relative;
         overflow: hidden;
@@ -550,7 +594,7 @@
         font-size: 0.9rem;
         font-weight: 500;
         opacity: 0.8;
-        color: var(--white);
+        color: white;
     }
 
     /* =========================
@@ -611,7 +655,7 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+        background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
         transform: scaleX(0);
         transition: transform 0.3s ease;
     }
@@ -625,28 +669,10 @@
         transform: scaleX(1);
     }
 
-    .service-card.featured {
-        border: 2px solid var(--primary-purple);
-        background: linear-gradient(135deg, var(--gray-50) 0%, var(--light-purple) 100%);
-    }
-
-    .card-badge {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        padding: 0.5rem 1rem;
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: var(--white);
-        background: #dc2626;
-        border-radius: 20px;
-        text-transform: uppercase;
-    }
-
-    .card-header {
+    .card-header.pajak {
         text-align: center;
         margin-bottom: 1.5rem;
-        background: transparent;
+        background-color: transparent;
     }
 
     .service-icon {
@@ -657,16 +683,16 @@
         height: 80px;
         margin: 0 auto 1.5rem;
         font-size: 2rem;
-        color: var(--primary-purple);
+        color: var(--primary-green);
         border-radius: 20px;
-        background: linear-gradient(135deg, var(--light-purple) 0%, #f3f4f6 100%);
+        background: linear-gradient(135deg, var(--light-green) 0%, #ecfdf5 100%);
         transition: all 0.3s ease;
     }
 
     .service-card:hover .service-icon {
         transform: scale(1.1);
         color: var(--white);
-        background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
+        background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
     }
 
     .service-card h3 {
@@ -712,147 +738,80 @@
         flex-direction: column;
         gap: 0.75rem;
         margin-top: 2rem;
-        justify-content: center; 
-    }
-
-    /* =========================
-       PROCESS TIMELINE
-       ========================= */
-    .process-section {
-        padding: 100px 0;
-        background: var(--white);
-    }
-
-    .process-timeline {
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    .process-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 2rem;
-        margin-bottom: 3rem;
-        position: relative;
-    }
-
-    .process-item:not(:last-child)::after {
-        content: '';
-        position: absolute;
-        left: 40px;
-        top: 80px;
-        bottom: -3rem;
-        width: 2px;
-        background: var(--gray-200);
-    }
-
-    .process-icon {
-        width: 80px;
-        height: 80px;
-        background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
-        color: var(--white);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
         justify-content: center;
-        font-size: 1.5rem;
-        flex-shrink: 0;
-    }
-
-    .process-content {
-        flex: 1;
-    }
-
-    .process-content h4 {
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-        color: var(--gray-800);
-    }
-
-    .process-content p {
-        line-height: 1.6;
-        color: var(--gray-600);
-        margin-bottom: 0.5rem;
-    }
-
-    .process-duration {
-        font-size: 0.875rem;
-        color: var(--primary-purple);
-        font-weight: 600;
     }
 
     /* =========================
-       STANDARDS SECTION
+       TAX TYPES SECTION
        ========================= */
-    .standards-section {
+    .tax-types-section {
         padding: 100px 0;
-        background: var(--gray-50);
+        background: var(--white);
     }
 
-    .standards-grid {
+    .tax-types-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 2rem;
     }
 
-    .standard-card {
-        background: var(--white);
+    .tax-type-card {
+        background: var(--gray-50);
         border-radius: 16px;
         padding: 2.5rem 2rem;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        text-align: center;
         transition: transform 0.3s ease;
     }
 
-    .standard-card:hover {
+    .tax-type-card:hover {
         transform: translateY(-5px);
     }
 
-    .standard-icon {
+    .tax-icon {
         width: 80px;
         height: 80px;
-        background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+        background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
         color: var(--white);
         border-radius: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 2rem;
-        margin-bottom: 1.5rem;
+        margin: 0 auto 1.5rem;
     }
 
-    .standard-card h4 {
+    .tax-type-card h4 {
         font-size: 1.25rem;
         font-weight: 600;
         margin-bottom: 1rem;
         color: var(--gray-800);
     }
 
-    .standard-card p {
+    .tax-type-card p {
         line-height: 1.6;
         color: var(--gray-600);
         margin-bottom: 1.5rem;
     }
 
-    .standard-card ul {
+    .tax-type-card ul {
         list-style: none;
         padding: 0;
+        text-align: left;
     }
 
-    .standard-card li {
+    .tax-type-card li {
         padding: 0.5rem 0;
         color: var(--gray-600);
         border-bottom: 1px solid var(--gray-100);
-        font-size: 0.9rem;
     }
 
-    .standard-card li:last-child {
+    .tax-type-card li:last-child {
         border-bottom: none;
     }
 
-    .standard-card li::before {
+    .tax-type-card li::before {
         content: '•';
-        color: var(--primary-purple);
+        color: var(--primary-green);
         font-weight: bold;
         display: inline-block;
         width: 1em;
@@ -860,56 +819,169 @@
     }
 
     /* =========================
-       INDUSTRIES SECTION
+       PROCESS SECTION
        ========================= */
-    .industries-section {
+    .process-section {
         padding: 100px 0;
-        background: var(--white);
-    }
-
-    .industries-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 2rem;
-    }
-
-    .industry-card {
-        text-align: center;
-        padding: 2rem 1.5rem;
         background: var(--gray-50);
-        border-radius: 16px;
-        transition: all 0.3s ease;
     }
 
-    .industry-card:hover {
-        transform: translateY(-5px);
-        background: var(--light-purple);
+    .process-steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
     }
 
-    .industry-icon {
-        width: 70px;
-        height: 70px;
-        background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+    .process-step {
+        text-align: center;
+        padding: 2rem 1rem;
+        position: relative;
+    }
+
+    .step-number {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
         color: var(--white);
-        border-radius: 16px;
+        border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 1.5rem;
-        margin: 0 auto 1rem;
+        font-weight: 700;
+        margin: 0 auto 1.5rem;
     }
 
-    .industry-card h4 {
-        font-size: 1.1rem;
+    .step-content h4 {
+        font-size: 1.25rem;
         font-weight: 600;
-        margin-bottom: 0.75rem;
+        margin-bottom: 1rem;
         color: var(--gray-800);
     }
 
-    .industry-card p {
-        line-height: 1.5;
+    .step-content p {
+        line-height: 1.6;
         color: var(--gray-600);
-        font-size: 0.9rem;
+    }
+
+    /* =========================
+       PRICING SECTION
+       ========================= */
+    .pricing-section {
+        padding: 100px 0;
+        background: var(--white);
+    }
+
+    .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .pricing-card {
+        background: var(--white);
+        border: 2px solid var(--gray-100);
+        border-radius: 20px;
+        padding: 2.5rem;
+        text-align: center;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .pricing-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .pricing-card.featured {
+        border-color: var(--primary-green);
+        background: linear-gradient(135deg, var(--gray-50) 0%, var(--light-green) 100%);
+        transform: scale(1.05);
+    }
+
+    .pricing-card.featured:hover {
+        transform: scale(1.05) translateY(-5px);
+    }
+
+    .pricing-badge {
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--primary-green);
+        color: var(--white);
+        padding: 0.5rem 1.5rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .pricing-header {
+        margin-bottom: 2rem;
+    }
+
+    .pricing-header h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--gray-800);
+    }
+
+    .price {
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .amount {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary-green);
+    }
+
+    .period {
+        font-size: 1rem;
+        color: var(--gray-600);
+    }
+
+    .pricing-features {
+        margin-bottom: 2rem;
+    }
+
+    .pricing-features ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .pricing-features li {
+        padding: 0.75rem 0;
+        color: var(--gray-600);
+        border-bottom: 1px solid var(--gray-100);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .pricing-features li:last-child {
+        border-bottom: none;
+    }
+
+    .pricing-features .fa-check {
+        color: var(--success);
+    }
+
+    .pricing-features .fa-times {
+        color: #ef4444;
+    }
+
+    .pricing-footer {
+        margin-top: auto;
     }
 
     /* =========================
@@ -933,12 +1005,12 @@
 
     .btn-primary {
         color: var(--white);
-        background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
+        background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
     }
 
     .btn-primary:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+        box-shadow: 0 8px 20px rgba(5, 150, 105, 0.3);
     }
 
     .btn-outline {
@@ -948,8 +1020,8 @@
     }
 
     .btn-outline:hover {
-        color: var(--primary-purple);
-        border-color: var(--primary-purple);
+        color: var(--primary-green);
+        border-color: var(--primary-green);
         transform: translateY(-2px);
     }
 
@@ -960,7 +1032,7 @@
     }
 
     .btn-outline-light:hover {
-        color: var(--primary-purple);
+        color: var(--primary-green);
         background: var(--white);
         transform: translateY(-2px);
     }
@@ -980,7 +1052,7 @@
        ========================= */
     .cta-section {
         padding: 100px 0;
-        background: linear-gradient(135deg, var(--dark-purple) 0%, var(--primary-purple) 100%);
+        background: linear-gradient(135deg, var(--dark-green) 0%, var(--primary-green) 100%);
         color: var(--white);
         text-align: center;
     }
@@ -1048,16 +1120,12 @@
             height: 250px;
         }
 
-        .process-item {
-            flex-direction: column;
-            text-align: center;
-            gap: 1rem;
+        .pricing-card.featured {
+            transform: none;
         }
 
-        .process-item:not(:last-child)::after {
-            left: 50%;
-            top: 80px;
-            bottom: -3rem;
+        .pricing-card.featured:hover {
+            transform: translateY(-5px);
         }
     }
 
@@ -1100,12 +1168,16 @@
             padding: 2rem;
         }
 
-        .standards-grid {
+        .tax-types-grid {
             grid-template-columns: 1fr;
         }
 
-        .industries-grid {
-            grid-template-columns: repeat(2, 1fr);
+        .process-steps {
+            grid-template-columns: 1fr;
+        }
+
+        .pricing-grid {
+            grid-template-columns: 1fr;
         }
 
         .cta-content h3 {
@@ -1146,8 +1218,8 @@
             padding: 1.5rem;
         }
 
-        .industries-grid {
-            grid-template-columns: 1fr;
+        .pricing-card {
+            padding: 2rem 1.5rem;
         }
 
         .cta-section {
@@ -1182,7 +1254,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-function addToCart(id, type) {
+
+    function addToCart(id, type) {
     fetch("{{ route('cart.add', [], false) }}", {
         method: "POST",
         headers: {
@@ -1214,4 +1287,3 @@ function addToCart(id, type) {
             });
     } 
 </script>
-    

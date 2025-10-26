@@ -121,36 +121,34 @@
 
                     <div class="card-body">
                         @if (!empty($service->detail->benefit))
-                                    <ul class="list-unstyled mt-2">
-                                        @foreach ($service->detail->benefit as $benefit)
-                                            @php
-                                                $trimmed = trim($benefit);
-                                            @endphp
+                            <ul class="list-unstyled mt-2">
+                                @foreach ($service->detail->benefit as $benefit)
+                                    @php
+                                        $trimmed = trim($benefit);
+                                    @endphp
 
-                                            @if ($trimmed !== '')
-                                                @php
-                                                    $isNegative = Str::startsWith($trimmed, '-');
-                                                    $text = ltrim($trimmed, '+- ');
-                                                @endphp
+                                    @if ($trimmed !== '')
+                                        @php
+                                            $isNegative = Str::startsWith($trimmed, '-');
+                                            $text = ltrim($trimmed, '+- ');
+                                        @endphp
 
-                                                <li class="mb-2">
-                                                    <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
-                                                    {{ $text }}
-                                                </li>
-                                            @endif
-                                        @endforeach
-                                    </ul>
-                                @else
-                                    <p class="text-muted fs-5">Benefit belum tersedia.</p>
-                                @endif
+                                        <li class="mb-2">
+                                            <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
+                                            {{ $text }}
+                                        </li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        @else
+                            <p class="text-muted fs-5">Benefit belum tersedia.</p>
+                        @endif
                     </div>
 
                     <div class="card-footer">
-                        <button type="button" 
-                                    class="btn btn-primary"
-                                    onclick="addToCart({{ $service->id }}, 'ItemAccountingService')">
-                                <span>Daftar Sekarang</span>
-                            </button>
+                        <a href="{{ route('jasa.akuntansi.show', $service->id) }}" class="btn btn-primary">
+                            Pilih Layanan Ini
+                        </a>
                         <a href="/kontak" class="btn btn-outline">
                             <span>Konsultasi Gratis</span>
                         </a>

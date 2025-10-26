@@ -338,14 +338,11 @@
                             @endforeach
                         </ul>
                     </div>
-
-
                     <!-- Footer -->
                     <div class="card-footer">
                         <a href="{{ route('product.brevet_ab.show', $brevet->id) }}" class="btn-order">
-                            <i class="fas fa-eye me-1"></i> Lihat Detail
+                            Daftar Sekarang
                         </a>
-
                     </div>
                     <div class="card-footer">
                         <a href="https://wa.me/6281234567890?text=Halo, saya tertarik dengan {{ urlencode($brevet->judul) }}" 

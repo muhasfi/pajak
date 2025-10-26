@@ -13,6 +13,12 @@ class TransferController extends Controller
         $transfers = ItemTransfer::with('detail')->latest()->get();
 
         // Kirim ke tampilan customer
-        return view('product.layanan.transfer', compact('transfers'));
+        return view('product.layanan.transfer.transfer', compact('transfers'));
+    }
+
+    public function show($id)
+    {
+        $layanan = ItemTransfer::with('detail')->findOrFail($id);
+        return view('product.layanan.transfer.transfer_show', compact('layanan'));
     }
 }

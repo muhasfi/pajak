@@ -142,11 +142,9 @@
                         </div>
 
                         <div class="card-footer mt-auto">
-                            <button type="button" 
-                                class="btn btn-primary"
-                                onclick="addToCart({{ $transfer->id }}, 'ItemTransfer')">
-                                <span>Mulai Layanan</span>
-                            </button>
+                            <a href="{{ route('transfer.show', $transfer->id) }}" class="btn btn-primary">
+                                Pilih Layanan Ini
+                            </a>
                             <a href="/kontak" class="btn btn-outline">
                                 <span>Konsultasi</span>
                             </a>

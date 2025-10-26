@@ -1,4 +1,5 @@
 @extends('admin.layouts.master')
+@section('title', 'Edit In House Training')
 
 @section('content')
 <div class="card">

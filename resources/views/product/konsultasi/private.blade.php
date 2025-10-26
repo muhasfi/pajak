@@ -594,74 +594,81 @@
             <h2 class="section-title fade-in">Pilih Paket Konsultasi</h2>
 
             <div class="row justify-content-center g-4">
-                @forelse($layanan as $index => $item)
-                    @php
-                        $detail = $item->detail->first();
-                    @endphp
+    @forelse($layanan as $index => $item)
+        @php
+            // Jika relasi detail hanya satu (hasOne), tidak perlu ->first()
+            $detail = $item->detail;
+        @endphp
 
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="card card-consultation h-100 fade-in {{ $index == 1 ? 'delay-1' : ($index == 2 ? 'delay-2' : '') }}">
-                            <div class="card-header text-center">
-                                <h3 class="mb-0">{{ $item->judul }}</h3>
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                @if($detail)
-                                    <div class="text-center mb-3">
-                                        <span class="duration-badge">
-                                            <i class="far fa-clock me-1"></i>{{ $item->detail->waktu_menit }} Menit
-                                        </span>
-                                    </div>
-                                @endif
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card card-consultation h-100 fade-in 
+                {{ $index == 1 ? 'delay-1' : ($index == 2 ? 'delay-2' : '') }}">
+                
+                <div class="card-header text-center">
+                    <h3 class="mb-0">{{ $item->judul }}</h3>
+                </div>
 
-                                <div class="text-center mb-3">
-                                    <p class="price mb-0">Rp {{ number_format($item->harga, 0, ',', '.') }}</p>
-                                </div>
-
-                                <p class="text-muted text-center mb-4">
-                                    {{ strtolower($item->detail->deskripsi) }}
-                                </p>
-
-                                @if($detail && is_array($detail->benefit))
-                                    <ul class="feature-list flex-grow-1 mb-4">
-                                        @foreach($detail->benefit as $benefit)
-                                            @php
-                                                $isPositive = Str::startsWith(trim($benefit), '-');
-                                                $text = ltrim(trim($benefit), '+- ');
-                                            @endphp
-
-                                            <li>
-                                                @if($isPositive)
-                                                    <i class="fas fa-times text-danger me-2"></i>{{ $text }}
-                                                @else
-                                                    <i class="fas fa-check text-success me-2"></i>{{ $text }}
-                                                @endif
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @else
-                                    <ul class="feature-list flex-grow-1 mb-4">
-                                        <li class="text-muted"><i class="fas fa-times me-2"></i>Belum ada benefit</li>
-                                    </ul>
-                                @endif
-
-                                <div class="mt-auto">
-                                    <button type="button" 
-                                        class="btn btn-consult w-100"
-                                        onclick="addToCart({{ $item->id }}, 'ItemKonsultasi')">
-                                        <span>Pilih Paket Ini</span>
-                                    </button>
-                                </div>
-                            </div>
+                <div class="card-body d-flex flex-column">
+                    @if($detail)
+                        <div class="text-center mb-3">
+                            <span class="duration-badge">
+                                <i class="far fa-clock me-1"></i>{{ $detail->waktu_menit }} Menit
+                            </span>
                         </div>
+                    @endif
+
+                    <div class="text-center mb-3">
+                        <p class="price mb-0">Rp {{ number_format($item->harga, 0, ',', '.') }}</p>
                     </div>
-                @empty
-                    <div class="col-12">
-                        <div class="text-center py-5">
-                            <p class="text-muted mb-0">Belum ada layanan konsultasi tersedia saat ini.</p>
-                        </div>
+
+                    <p class="text-muted text-center mb-4">
+                        {{ strtolower($detail->deskripsi ?? 'Belum ada deskripsi') }}
+                    </p>
+
+                    @if($detail && is_array($detail->benefit))
+                        <ul class="feature-list flex-grow-1 mb-4">
+                            @foreach($detail->benefit as $benefit)
+                                @php
+                                    $isNegative = Str::startsWith(trim($benefit), '-');
+                                    $text = ltrim(trim($benefit), '+- ');
+                                @endphp
+
+                                <li>
+                                    @if($isNegative)
+                                        <i class="fas fa-times text-danger me-2"></i>{{ $text }}
+                                    @else
+                                        <i class="fas fa-check text-success me-2"></i>{{ $text }}
+                                    @endif
+                                </li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <ul class="feature-list flex-grow-1 mb-4">
+                            <li class="text-muted">
+                                <i class="fas fa-times me-2"></i>Belum ada benefit
+                            </li>
+                        </ul>
+                    @endif
+
+                    <div class="mt-auto">
+                        {{-- Gunakan ID dari $item, bukan dari $detail --}}
+                        <a href="{{ route('konsultasi.show', $item->id) }}" 
+                           class="btn btn-consult w-100 text-center d-block">
+                            <span>Pilih Paket Ini</span>
+                        </a>
                     </div>
-                @endforelse
+                </div>
             </div>
+        </div>
+    @empty
+        <div class="col-12">
+            <div class="text-center py-5">
+                <p class="text-muted mb-0">Belum ada layanan konsultasi tersedia saat ini.</p>
+            </div>
+        </div>
+    @endforelse
+</div>
+
 
         </div>
     </section>

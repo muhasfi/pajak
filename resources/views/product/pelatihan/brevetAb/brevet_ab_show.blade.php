@@ -132,6 +132,8 @@ function addToCart(id, type) {
                 icon: 'error',
                 title: 'Oops...',
                 text: data.message
+            }).then(() => {
+                window.location.href = "{{ route('cart') }}";
             });
         }
     })

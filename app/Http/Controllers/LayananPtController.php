@@ -8,8 +8,15 @@ use Illuminate\Http\Request;
 class LayananPtController extends Controller
 {
     public function index()
-{
-    $layanans = ItemLayananPt::with('detail')->latest()->get();
-    return view('product.layanan.corporate-services', compact('layanans'));
-}
+    {
+        $layanans = ItemLayananPt::with('detail')->latest()->get();
+        return view('product.layanan.corporate_service.corporate-services', compact('layanans'));
+    }
+
+    public function show($id)
+    {
+        $layanan = ItemLayananPt::with('detail')->findOrFail($id);
+        return view('product.layanan.corporate_service.corporate_service_show', compact('layanan'));
+    }
+
 }

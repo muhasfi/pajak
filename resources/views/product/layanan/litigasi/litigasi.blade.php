@@ -151,12 +151,9 @@
 
                         {{-- Footer Card - Action Buttons --}}
                         <div class="card-footer">
-                            <button type="button" 
-                                class="btn btn-primary"
-                                onclick="addToCart({{ $item->id }}, 'ItemLitigasi')">
-                                <span>Mulai Layanan</span>
-                            </button>
-                            
+                            <a href="{{ route('litigasi.show', $item->id) }}" class="btn btn-primary">
+                                Pilih Layanan Ini
+                            </a>
                             <a href="{{ route('kontak') }}" class="btn btn-outline">
                                 <span>Detail Layanan</span>
                             </a>

@@ -182,9 +182,9 @@
                                             <i class="fas fa-info-circle"></i>
                                             Detail
                                         </a>
-                                        <button class="btn btn-primary" onclick="addToCart({{ $training->id }}, 'ItemTraining')">
-                                            Request Proposal
-                                        </button>
+                                        <a href="{{ route('training.show', $training->id) }}" class="btn btn-outline">
+                                            Daftar Sekarang
+                                        </a>
                                     </div>
                                 </div>
                             @empty
