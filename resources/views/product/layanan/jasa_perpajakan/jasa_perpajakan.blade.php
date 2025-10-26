@@ -126,11 +126,9 @@
                         </div>
 
                         <div class="card-footer">
-                            <button type="button" 
-                                class="btn btn-primary"
-                                onclick="addToCart({{ $pajak->id }}, 'ItemPajak')">
-                                <span>Mulai pajak</span>
-                            </button>
+                            <a href="{{ route('jasa.perpajakan.show', $pajak->id) }}" class="btn btn-primary">
+                                Pilih Layanan Ini
+                            </a>
                             <a href="/kontak" class="btn btn-outline">
                                 <span>Konsultasi</span>
                             </a>

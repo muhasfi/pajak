@@ -261,9 +261,9 @@ header {
 }
 
 .nav-container {
-    max-width: 1400px;
+    max-width: 1500px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 clamp(0.5rem, 2vw, 2rem); /* Padding yang adaptif */
     height: var(--nav-height);
     display: flex;
     align-items: center;
@@ -1336,7 +1336,7 @@ html {
 
     .login-btn {
         width: 100%;
-        color: var(--text-light) !important;
+        color: #ffffff;
         justify-content: center;
         margin-top: 0;
         padding: 14px 20px;

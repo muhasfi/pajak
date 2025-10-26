@@ -1,9 +1,9 @@
 @extends('layouts.master')
 
-@section('title', 'Litigasi & Sengketa Perpajakan')
+@section('title', 'Layanan Jasa Akuntansi & Pembukuan')
 
 @section('content')
-<section class="litigation-service">
+<section class="service-akuntansi">
     <!-- Hero Section -->
     <div class="modern-hero">
         <div class="hero-background">
@@ -18,16 +18,16 @@
             <div class="hero-content">
                 <div class="hero-text">
                     <h1 class="hero-title">
-                        <span class="title-line">Litigasi &</span>
-                        <span class="title-line highlight">Sengketa Perpajakan</span>
+                        <span class="title-line">Jasa Akuntansi</span>
+                        <span class="title-line highlight">& Pembukuan</span>
                     </h1>
                     <p class="hero-subtitle">
-                        Solusi komprehensif untuk penyelesaian sengketa pajak dengan pendekatan <span class="text-highlight">strategis</span>, 
-                        <span class="text-highlight">profesional</span>, dan <span class="text-highlight">berpengalaman</span>
+                        Solusi lengkap akuntansi untuk bisnis Anda yang <span class="text-highlight">profesional</span>, 
+                        <span class="text-highlight">transparan</span>, dan <span class="text-highlight">sesuai standar</span>
                     </p>
                     <p class="hero-description">
-                        Tim ahli litigasi pajak kami siap mendampingi Anda dalam setiap tahap sengketa perpajakan, 
-                        dari banding hingga pengadilan pajak. Dapatkan perlindungan hukum terbaik untuk hak perpajakan Anda.
+                        Tim ahli kami membantu mengoptimalkan proses keuangan bisnis Anda dengan layanan akuntansi 
+                        yang akurat dan terpercaya. Fokus pada pengembangan bisnis, biarkan kami mengelola pembukuan Anda.
                     </p>
                     <div class="hero-actions">
                         <a href="#services" class="btn btn-primary">
@@ -43,16 +43,16 @@
                 <div class="hero-visual">
                     <div class="floating-cards">
                         <div class="floating-card card-1">
-                            <i class="fas fa-balance-scale"></i>
-                            <span>Pengadilan Pajak</span>
+                            <i class="fas fa-chart-line"></i>
+                            <span>Laporan Real-time</span>
                         </div>
                         <div class="floating-card card-2">
-                            <i class="fas fa-file-contract"></i>
-                            <span>Banding & Gugatan</span>
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Data Aman</span>
                         </div>
                         <div class="floating-card card-3">
-                            <i class="fas fa-user-tie"></i>
-                            <span>Konsultan Hukum</span>
+                            <i class="fas fa-clock"></i>
+                            <span>Tepat Waktu</span>
                         </div>
                     </div>
                 </div>
@@ -64,121 +64,121 @@
     <div id="services" class="services-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Layanan Litigasi Perpajakan</h2>
-                <p class="section-subtitle">Komprehensif solusi hukum untuk setiap tahap sengketa perpajakan</p>
+                <h2 class="section-title">Layanan Kami</h2>
+                <p class="section-subtitle">Berbagai solusi akuntansi lengkap untuk kebutuhan bisnis Anda</p>
             </div>
 
             <div class="services-grid">
-                @foreach ($litigasi as $item)
-                    <div class="service-card">
-                        {{-- Header Card --}}
-                        <div class="card-header">
-                            <div class="service-icon">
-                                @switch($loop->iteration)
-                                    @case(1)
-                                        <i class="fas fa-gavel"></i>
-                                    @break
-                                    
-                                    @case(2)
-                                        <i class="fas fa-balance-scale"></i>
-                                    @break
-                                    
-                                    @case(3)
-                                        <i class="fas fa-handshake"></i>
-                                    @break
-                                    
-                                    @default
-                                        <i class="fas fa-search"></i>
-                                @endswitch
-                            </div>
+                @foreach ($services as $service)
+                    <div class="service-card {{ $loop->iteration == 4 ? 'featured' : '' }}">
+                    @if ($loop->iteration == 4)
+                        <div class="card-badge">Populer</div>
+                    @endif
 
-                            <h3 class="service-title">{{ $item->judul }}</h3>
-                            <h4 class="service-price">
-                                Rp {{ number_format($item->harga, 0, ',', '.') }}
-                            </h4>
+                    <div class="card-header">
+                        <div class="service-icon">
+                            @switch($loop->iteration)
+                                @case(1)
+                                    <i class="fas fa-file-invoice-dollar"></i>
+                                    @break
+                                @case(2)
+                                    <i class="fas fa-chart-line"></i>
+                                    @break
+                                @case(3)
+                                    <i class="fas fa-check-circle"></i>
+                                    @break
+                                @default
+                                    <i class="fas fa-calculator"></i>
+                            @endswitch
                         </div>
 
-                        {{-- Deskripsi --}}
-                        <p class="service-description">
-                            {{ $item->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}
+                        <h3 class="fw-bold">{{ $service->judul }}</h3>
+                        <h4 class="mt-2">
+                            Rp {{ number_format($service->harga, 0, ',', '.') }}
+                        </h4>
+                    </div>
+                    <p class="text-muted text-center mb-4">
+                            {{ $service->detail->deskripsi ?? 'Deskripsi tidak tersedia' }}
                         </p>
 
-                        {{-- Body Card - Benefits --}}
-                        <div class="card-body">
-                            @if (!empty($item->detail->benefit))
-                                <ul class="benefits-list">
-                                    @foreach ($item->detail->benefit as $benefit)
+                    <div class="card-body">
+                        @if (!empty($service->detail->benefit))
+                            <ul class="list-unstyled mt-2">
+                                @foreach ($service->detail->benefit as $benefit)
+                                    @php
+                                        $trimmed = trim($benefit);
+                                    @endphp
+
+                                    @if ($trimmed !== '')
                                         @php
-                                            $trimmed = trim($benefit);
+                                            $isNegative = Str::startsWith($trimmed, '-');
+                                            $text = ltrim($trimmed, '+- ');
                                         @endphp
 
-                                        @if ($trimmed !== '')
-                                            @php
-                                                $isNegative = Str::startsWith($trimmed, '-');
-                                                $text = ltrim($trimmed, '+- ');
-                                            @endphp
-
-                                            <li class="benefit-item">
-                                                <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
-                                                {{ $text }}
-                                            </li>
-                                        @endif
-                                    @endforeach
-                                </ul>
-                            @else
-                                <p class="no-benefits">Benefit belum tersedia.</p>
-                            @endif
-                        </div>
-
-                        {{-- Footer Card - Action Buttons --}}
-                        <div class="card-footer">
-                            <button type="button" 
-                                class="btn btn-primary"
-                                onclick="addToCart({{ $item->id }}, 'ItemLitigasi')">
-                                <span>Mulai Layanan</span>
-                            </button>
-                            
-                            <a href="{{ route('kontak') }}" class="btn btn-outline">
-                                <span>Detail Layanan</span>
-                            </a>
-                        </div>
+                                        <li class="mb-2">
+                                            <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
+                                            {{ $text }}
+                                        </li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        @else
+                            <p class="text-muted fs-5">Benefit belum tersedia.</p>
+                        @endif
                     </div>
+
+                    <div class="card-footer">
+                        <a href="{{ route('jasa.akuntansi.show', $service->id) }}" class="btn btn-primary">
+                            Pilih Layanan Ini
+                        </a>
+                        <a href="/kontak" class="btn btn-outline">
+                            <span>Konsultasi Gratis</span>
+                        </a>
+                    </div>
+                </div>
+
                 @endforeach
             </div>
+
+
         </div>
     </div>
 
-    <!-- Process Section -->
-    <div class="process-section">
+    <!-- Features Section -->
+    <div class="features-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Proses Penanganan Sengketa</h2>
-                <p class="section-subtitle">Tahapan sistematis untuk penyelesaian sengketa perpajakan yang optimal</p>
+                <h2 class="section-title">Mengapa Memilih Kami?</h2>
+                <p class="section-subtitle">Keunggulan layanan yang membuat kami berbeda</p>
             </div>
-            <div class="process-steps">
-                <div class="process-step">
-                    <div class="step-content">
-                        <h4>Konsultasi Awal</h4>
-                        <p>Analisis dokumen dan identifikasi masalah hukum untuk menentukan strategi terbaik</p>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
                     </div>
+                    <h4>Terpercaya & Aman</h4>
+                    <p>Data keuangan Anda aman bersama kami dengan sistem keamanan berlapis dan enkripsi tingkat tinggi</p>
                 </div>
-                <div class="process-step">
-                    <div class="step-content">
-                        <h4>Penyusunan Dokumen</h4>
-                        <p>Pembuatan memorandum banding, gugatan, atau tanggapan hukum yang komprehensif</p>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
                     </div>
+                    <h4>Tepat Waktu</h4>
+                    <p>Laporan disampaikan tepat waktu dengan akurasi yang terjamin dan update real-time</p>
                 </div>
-                <div class="process-step">
-                    <div class="step-content">
-                        <h4>Proses Hukum</h4>
-                        <p>Pendampingan dalam setiap tahap proses hukum dari banding hingga pengadilan</p>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
                     </div>
+                    <h4>Tim Berpengalaman</h4>
+                    <p>Dikelola oleh profesional akuntansi dengan sertifikasi dan pengalaman luas lebih dari 10 tahun</p>
                 </div>
-                <div class="process-step">
-                    <div class="step-content">
-                        <h4>Monitoring & Evaluasi</h4>
-                        <p>Pemantauan berkelanjutan dan evaluasi perkembangan kasus untuk hasil optimal</p>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
                     </div>
+                    <h4>Support 24/7</h4>
+                    <p>Layanan dukungan penuh setiap saat untuk kebutuhan bisnis Anda kapanpun dibutuhkan</p>
                 </div>
             </div>
         </div>
@@ -188,11 +188,11 @@
     <div class="cta-section">
         <div class="container">
             <div class="cta-content">
-                <h3>Hadapi Sengketa Pajak dengan Percaya Diri</h3>
-                <p>Konsultasikan kasus Anda dengan tim litigasi berpengalaman kami dan dapatkan solusi terbaik untuk perlindungan hukum perpajakan Anda</p>
+                <h3>Siap Mengoptimalkan Keuangan Bisnis Anda?</h3>
+                <p>Konsultasikan kebutuhan akuntansi Anda dengan ahli kami dan dapatkan solusi terbaik untuk perkembangan bisnis</p>
                 <div class="cta-buttons">
-                    <a href="/kontak" class="btn btn-light">Konsultasi Gratis</a>
-                    <a href="tel:+62123456789" class="btn btn-outline-light">Hubungi Kami</a>
+                    <a href="/kontak" class="btn btn-light">Konsultasi Sekarang</a>
+                    <a href="tel:+628123456789" class="btn btn-outline-light">Hubungi Kami</a>
                 </div>
             </div>
         </div>
@@ -211,11 +211,9 @@
         --gray-800: #1e293b;
         --gray-600: #475569;
         --gray-400: #94a3b8;
-        --success: #10b981;
-        --warning: #f59e0b;
     }
 
-    .litigation-service {
+    .service-akuntansi {
         min-height: 100vh;
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
@@ -223,7 +221,7 @@
     .container {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 20px;
+        padding: 0 clamp(15px, 3vw, 20px);
     }
 
     /* =========================
@@ -231,7 +229,7 @@
        ========================= */
     .modern-hero {
         min-height: 100vh;
-        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+        background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 50%, var(--dark-blue) 100%);
         color: var(--white);
         position: relative;
         overflow: hidden;
@@ -262,32 +260,32 @@
     }
 
     .shape-1 {
-        width: 300px;
-        height: 300px;
+        width: clamp(150px, 25vw, 300px);
+        height: clamp(150px, 25vw, 300px);
         top: 10%;
         left: 5%;
         animation-delay: 0s;
     }
 
     .shape-2 {
-        width: 200px;
-        height: 200px;
+        width: clamp(100px, 20vw, 200px);
+        height: clamp(100px, 20vw, 200px);
         top: 60%;
         right: 10%;
         animation-delay: 2s;
     }
 
     .shape-3 {
-        width: 150px;
-        height: 150px;
+        width: clamp(80px, 15vw, 150px);
+        height: clamp(80px, 15vw, 150px);
         bottom: 20%;
         left: 20%;
         animation-delay: 4s;
     }
 
     .shape-4 {
-        width: 100px;
-        height: 100px;
+        width: clamp(60px, 10vw, 100px);
+        height: clamp(60px, 10vw, 100px);
         top: 20%;
         right: 20%;
         animation-delay: 1s;
@@ -298,9 +296,9 @@
         z-index: 2;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 4rem;
+        gap: clamp(2rem, 4vw, 4rem);
         align-items: center;
-        padding: 120px 0 80px;
+        padding: clamp(80px, 10vw, 120px) 0 clamp(60px, 8vw, 80px);
     }
 
     .hero-text {
@@ -308,10 +306,10 @@
     }
 
     .hero-title {
-        font-size: clamp(2.5rem, 5vw, 3.5rem);
+        font-size: clamp(2.5rem, 5vw, 4rem);
         font-weight: 800;
         line-height: 1.1;
-        margin-bottom: 1.5rem;
+        margin-bottom: clamp(1rem, 2vw, 1.5rem);
     }
 
     .title-line {
@@ -326,9 +324,9 @@
     }
 
     .hero-subtitle {
-        font-size: clamp(1.1rem, 2vw, 1.3rem);
+        font-size: clamp(1.1rem, 2vw, 1.5rem);
         line-height: 1.6;
-        margin-bottom: 1.5rem;
+        margin-bottom: clamp(1rem, 2vw, 1.5rem);
         opacity: 0.9;
     }
 
@@ -340,13 +338,13 @@
     .hero-description {
         font-size: clamp(1rem, 1.5vw, 1.1rem);
         line-height: 1.7;
-        margin-bottom: 2.5rem;
+        margin-bottom: clamp(2rem, 3vw, 2.5rem);
         opacity: 0.8;
     }
 
     .hero-actions {
         display: flex;
-        gap: 1rem;
+        gap: clamp(0.75rem, 1.5vw, 1rem);
         flex-wrap: wrap;
     }
 
@@ -358,8 +356,8 @@
 
     .floating-cards {
         position: relative;
-        width: 300px;
-        height: 300px;
+        width: clamp(200px, 30vw, 300px);
+        height: clamp(200px, 30vw, 300px);
     }
 
     .floating-card {
@@ -368,7 +366,7 @@
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 20px;
-        padding: 1.5rem;
+        padding: clamp(1rem, 2vw, 1.5rem);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -376,17 +374,17 @@
         color: var(--white);
         animation: float 3s ease-in-out infinite;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        text-align: center;
     }
 
     .floating-card i {
-        font-size: 2rem;
+        font-size: clamp(1.5rem, 3vw, 2rem);
         margin-bottom: 0.5rem;
     }
 
     .floating-card span {
-        font-size: 0.9rem;
+        font-size: clamp(0.8rem, 1.5vw, 0.9rem);
         font-weight: 600;
-        text-align: center;
     }
 
     .card-1 {
@@ -412,17 +410,17 @@
        SERVICES SECTION
        ========================= */
     .services-section {
-        padding: 100px 0;
+        padding: clamp(60px, 8vw, 100px) 0;
         background: var(--gray-50);
     }
 
     .section-header {
         text-align: center;
-        margin-bottom: 4rem;
+        margin-bottom: clamp(2rem, 5vw, 4rem);
     }
 
     .section-title {
-        font-size: clamp(2rem, 4vw, 2.8rem);
+        font-size: clamp(2rem, 4vw, 3rem);
         font-weight: 700;
         margin-bottom: 1rem;
         color: var(--gray-800);
@@ -435,28 +433,24 @@
         color: var(--gray-600);
     }
 
-    /* Services Grid - Responsive dengan jumlah card yang fleksibel */
     .services-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 2rem;
-        justify-items: center;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+        gap: clamp(1.5rem, 3vw, 2rem);
     }
 
-    /* Service Card - Tetap konsisten ukurannya */
     .service-card {
         position: relative;
         overflow: hidden;
-        width: 100%;
-        max-width: 380px;
-        min-height: 500px;
-        padding: 2rem;
-        border-radius: 20px;
+        padding: clamp(1.5rem, 3vw, 2.5rem);
+        border-radius: 24px;
         border: 1px solid var(--gray-100);
         background: var(--white);
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         animation: fadeInUp 0.6s ease-out;
+        width: 100%;
+        margin: 0 auto;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -483,6 +477,24 @@
         transform: scaleX(1);
     }
 
+    .service-card.featured {
+        border: 2px solid var(--primary-blue);
+        background: linear-gradient(135deg, var(--gray-50) 0%, var(--light-blue) 100%);
+    }
+
+    .card-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--white);
+        background: #dc2626;
+        border-radius: 20px;
+        text-transform: uppercase;
+    }
+
     .card-header {
         text-align: center;
         margin-bottom: 1.5rem;
@@ -492,10 +504,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 80px;
-        height: 80px;
+        width: clamp(60px, 8vw, 80px);
+        height: clamp(60px, 8vw, 80px);
         margin: 0 auto 1.5rem;
-        font-size: 2rem;
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
         color: var(--primary-blue);
         border-radius: 20px;
         background: linear-gradient(135deg, var(--light-blue) 0%, #eff6ff 100%);
@@ -508,137 +520,44 @@
         background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
     }
 
-    .service-title {
-        font-size: 1.5rem;
+    .service-card h3 {
+        font-size: clamp(1.25rem, 2vw, 1.5rem);
         font-weight: 700;
-        margin-bottom: 0.5rem;
+        margin-bottom: 1rem;
         color: var(--gray-800);
     }
 
-    .service-price {
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: var(--primary-blue);
-        margin: 0;
-    }
-
-    .service-description {
-        text-align: center;
-        color: var(--gray-600);
+    .card-body p {
         margin-bottom: 1.5rem;
         line-height: 1.6;
+        color: var(--gray-600);
     }
 
-    .card-body {
-        flex-grow: 1;
-        margin-bottom: 1.5rem;
-    }
-
-    .benefits-list {
-        margin: 0;
+    .feature-list {
+        margin: 1.5rem 0;
         padding: 0;
         list-style: none;
     }
 
-    .benefit-item {
-        padding: 0.5rem 0;
-        border-bottom: 1px solid var(--gray-100);
-        font-size: 0.95rem;
-    }
-
-    .benefit-item:last-child {
-        border-bottom: none;
-    }
-
-    .no-benefits {
+    .feature-list li {
+        position: relative;
+        padding: 0.5rem 0 0.5rem 1.5rem;
         color: var(--gray-600);
-        text-align: center;
-        font-style: italic;
+    }
+
+    .feature-list li::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        font-weight: 600;
+        color: #10b981;
     }
 
     .card-footer {
         display: flex;
         flex-direction: column;
         gap: 0.75rem;
-    }
-
-    /* =========================
-       PROCESS SECTION
-       ========================= */
-    .process-section {
-        padding: 100px 0;
-        background: var(--white);
-    }
-
-    .process-steps {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 2rem;
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-
-    .process-step {
-        text-align: center;
-        padding: 2rem;
-        position: relative;
-    }
-
-    .step-number {
-        width: 60px;
-        height: 60px;
-        background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
-        color: var(--white);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin: 0 auto 1.5rem;
-    }
-
-    .step-content h4 {
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-        color: var(--gray-800);
-    }
-
-    .step-content p {
-        line-height: 1.6;
-        color: var(--gray-600);
-    }
-
-    /* =========================
-       CTA SECTION
-       ========================= */
-    .cta-section {
-        padding: 100px 0;
-        background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
-        color: var(--white);
-        text-align: center;
-    }
-
-    .cta-content h3 {
-        font-size: clamp(2rem, 4vw, 2.5rem);
-        font-weight: 700;
-        margin-bottom: 1rem;
-        color: var(--white);
-    }
-
-    .cta-content p {
-        font-size: clamp(1rem, 2vw, 1.2rem);
-        margin: 0 auto 2.5rem;
-        max-width: 600px;
-        opacity: 0.9;
-    }
-
-    .cta-buttons {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 1rem;
+        margin-top: auto;
     }
 
     /* =========================
@@ -649,8 +568,8 @@
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
-        padding: 1rem 2rem;
-        font-size: 1rem;
+        padding: clamp(0.875rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
+        font-size: clamp(0.9rem, 1.5vw, 1rem);
         font-weight: 600;
         text-decoration: none;
         border: 2px solid transparent;
@@ -658,7 +577,7 @@
         cursor: pointer;
         transition: all 0.3s ease;
         text-align: center;
-        min-height: 54px;
+        min-height: 50px;
     }
 
     .btn-primary {
@@ -706,6 +625,90 @@
     }
 
     /* =========================
+       FEATURES SECTION
+       ========================= */
+    .features-section {
+        padding: clamp(60px, 8vw, 100px) 0;
+        background: var(--white);
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+        gap: clamp(2rem, 3vw, 3rem);
+    }
+
+    .feature-item {
+        text-align: center;
+        padding: clamp(1.5rem, 2vw, 2rem) 1rem;
+    }
+
+    .feature-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: clamp(60px, 8vw, 80px);
+        height: clamp(60px, 8vw, 80px);
+        margin: 0 auto 1.5rem;
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
+        color: var(--primary-blue);
+        border-radius: 20px;
+        background: linear-gradient(135deg, var(--light-blue) 0%, #eff6ff 100%);
+        transition: all 0.3s ease;
+    }
+
+    .feature-item:hover .feature-icon {
+        transform: scale(1.1);
+        background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+        color: var(--white);
+    }
+
+    .feature-item h4 {
+        font-size: clamp(1.1rem, 1.5vw, 1.25rem);
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--gray-800);
+    }
+
+    .feature-item p {
+        line-height: 1.6;
+        color: var(--gray-600);
+        font-size: clamp(0.9rem, 1.2vw, 1rem);
+    }
+
+    /* =========================
+       CTA SECTION
+       ========================= */
+    .cta-section {
+        padding: clamp(60px, 8vw, 100px) 0;
+        background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
+        color: var(--white);
+        text-align: center;
+    }
+
+    .cta-content h3 {
+        font-size: clamp(2rem, 4vw, 2.5rem);
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--white);
+    }
+
+    .cta-content p {
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        margin: 0 auto clamp(2rem, 3vw, 2.5rem);
+        max-width: 600px;
+        opacity: 0.9;
+        color: var(--white);
+    }
+
+    .cta-buttons {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    /* =========================
        ANIMATIONS
        ========================= */
     @keyframes float {
@@ -731,46 +734,42 @@
     /* =========================
        RESPONSIVE DESIGN
        ========================= */
-    
-    /* Tablet Landscape dan Desktop Kecil */
     @media (max-width: 1024px) {
         .hero-content {
             grid-template-columns: 1fr;
             gap: 3rem;
             text-align: center;
-            padding: 100px 0 60px;
         }
 
-        .hero-text {
-            max-width: 100%;
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
         }
 
         .floating-cards {
-            width: 250px;
-            height: 250px;
-        }
-
-        .services-grid {
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            width: clamp(180px, 25vw, 250px);
+            height: clamp(180px, 25vw, 250px);
         }
     }
 
-    /* Tablet Portrait */
     @media (max-width: 768px) {
         .modern-hero {
             min-height: 90vh;
         }
 
         .hero-content {
-            padding: 80px 0 40px;
+            padding: clamp(80px, 10vw, 100px) 0 clamp(40px, 6vw, 60px);
         }
 
-        .hero-actions {
-            justify-content: center;
+        .hero-title {
+            font-size: clamp(2rem, 4vw, 2.5rem);
         }
 
-        .services-section {
-            padding: 80px 0;
+        .hero-subtitle {
+            font-size: clamp(1rem, 1.8vw, 1.2rem);
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
         }
 
         .services-grid {
@@ -779,127 +778,55 @@
         }
 
         .service-card {
-            max-width: 100%;
-            min-height: auto;
-            padding: 1.5rem;
+            padding: clamp(1.5rem, 2.5vw, 2rem);
         }
 
-        .process-section {
-            padding: 80px 0;
-        }
-
-        .process-steps {
+        .features-grid {
             grid-template-columns: 1fr;
-            gap: 1.5rem;
+            gap: 2rem;
         }
 
-        .process-step {
-            padding: 1.5rem;
+        .cta-content h3 {
+            font-size: clamp(1.75rem, 3vw, 2rem);
         }
 
-        .cta-section {
-            padding: 80px 0;
+        .hero-actions {
+            justify-content: center;
         }
 
         .btn {
             padding: 0.875rem 1.5rem;
-            min-height: 48px;
+            min-height: 44px;
         }
     }
 
-    /* Mobile Devices */
     @media (max-width: 480px) {
         .container {
-            padding: 0 15px;
+            padding: 0 12px;
         }
 
-        .hero-content {
-            padding: 60px 0 30px;
+        .hero-title {
+            font-size: clamp(1.8rem, 3vw, 2rem);
         }
 
-        .hero-actions {
-            flex-direction: column;
-            align-items: center;
+        .hero-subtitle {
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
         }
 
-        .hero-actions .btn {
-            width: 100%;
-            max-width: 280px;
-        }
-
-        .floating-cards {
-            display: none;
-        }
-
-        .services-section {
-            padding: 60px 0;
-        }
-
-        .section-header {
-            margin-bottom: 2.5rem;
+        .section-title {
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
         }
 
         .service-card {
             padding: 1.25rem;
-            border-radius: 16px;
-        }
-
-        .service-icon {
-            width: 60px;
-            height: 60px;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .service-title {
-            font-size: 1.25rem;
-        }
-
-        .service-price {
-            font-size: 1.1rem;
-        }
-
-        .service-description {
-            font-size: 0.9rem;
-        }
-
-        .benefit-item {
-            font-size: 0.85rem;
-        }
-
-        .card-footer {
-            gap: 0.5rem;
-        }
-
-        .card-footer .btn {
-            width: 100%;
-        }
-
-        .process-section {
-            padding: 60px 0;
-        }
-
-        .process-step {
-            padding: 1rem;
-        }
-
-        .step-number {
-            width: 50px;
-            height: 50px;
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-        }
-
-        .step-content h4 {
-            font-size: 1.1rem;
-        }
-
-        .step-content p {
-            font-size: 0.9rem;
         }
 
         .cta-section {
             padding: 60px 0;
+        }
+
+        .cta-content h3 {
+            font-size: clamp(1.5rem, 2.5vw, 1.75rem);
         }
 
         .cta-buttons {
@@ -907,25 +834,59 @@
             align-items: center;
         }
 
-        .cta-buttons .btn {
+        .btn {
             width: 100%;
             max-width: 280px;
         }
+
+        .floating-cards {
+            display: none;
+        }
+        
+        .hero-actions {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .hero-actions .btn {
+            width: 100%;
+            max-width: 280px;
+        }
+        
+        .card-footer {
+            flex-direction: column;
+        }
+        
+        .card-footer .btn {
+            width: 100%;
+        }
     }
 
-    /* Very Small Mobile Devices */
     @media (max-width: 360px) {
-        .services-grid {
-            grid-template-columns: 1fr;
-        }
-
         .service-card {
             padding: 1rem;
         }
-
+        
+        .hero-title {
+            font-size: 1.6rem;
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+        }
+        
         .btn {
-            padding: 0.75rem 1rem;
-            font-size: 0.9rem;
+            min-height: 42px;
+            font-size: 0.85rem;
+        }
+    }
+
+    /* Improve touch targets on mobile */
+    @media (max-width: 768px) {
+        .service-card .btn,
+        .feature-item,
+        .floating-card {
+            min-height: 44px;
         }
     }
 
@@ -933,16 +894,10 @@
     html {
         scroll-behavior: smooth;
     }
-
-    /* Touch device optimizations */
-    @media (hover: none) {
-        .service-card:hover {
-            transform: none;
-        }
-        
-        .btn:hover {
-            transform: none;
-        }
+    
+    /* Prevent horizontal scroll */
+    body {
+        overflow-x: hidden;
     }
 </style>
 @endsection

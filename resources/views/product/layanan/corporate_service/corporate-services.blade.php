@@ -127,11 +127,9 @@
                         </div>
 
                         <div class="card-footer">
-                            <button type="button" 
-                                    class="btn btn-primary"
-                                    onclick="addToCart({{ $layanan->id }}, 'ItemLayananPt')">
-                                <span>Daftar Sekarang</span>
-                            </button>
+                            <a href="{{ route('corporate.service.show', $layanan->id) }}" class="btn btn-primary">
+                                Pilih Layanan Ini
+                            </a>
                             <a href="/kontak" class="btn btn-outline">
                                 <span>Konsultasi</span>
                             </a>

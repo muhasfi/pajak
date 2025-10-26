@@ -934,10 +934,17 @@ function addToCart(id, type) {
         } else {
             Swal.fire({
                 icon: 'error',
+<<<<<<< HEAD:resources/views/product/pelatihan/brevet_ab_show.blade.php
                 title: 'Pendaftaran Gagal',
                 text: data.message,
                 background: '#fff',
                 confirmButtonColor: '#2563eb'
+=======
+                title: 'Oops...',
+                text: data.message
+            }).then(() => {
+                window.location.href = "{{ route('cart') }}";
+>>>>>>> 57a570d935c2354eaad6227ce1f0de83c30beef7:resources/views/product/pelatihan/brevetAb/brevet_ab_show.blade.php
             });
             
             // Reset button

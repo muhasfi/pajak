@@ -1,29 +1,29 @@
 @extends('layouts.master')
 
-@section('title', 'Webinar Perpajakan')
+@section('title', 'Seminar Perpajakan')
 
 @section('content')
-<section class="webinars-page">
+<section class="seminars-page">
     <!-- Hero Section -->
-    <div class="webinar-hero">
+    <div class="seminar-hero">
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
                     <h1 class="hero-title">
-                        <span class="title-line">Webinar</span>
+                        <span class="title-line">Seminar</span>
                         <span class="title-line highlight">Perpajakan</span>
                     </h1>
                     <p class="hero-subtitle">
-                        Tingkatkan kompetensi perpajakan Anda melalui <span class="text-highlight">webinar online</span> 
-                        dengan pembicara ahli di bidangnya
+                        Tingkatkan kompetensi perpajakan Anda melalui <span class="text-highlight">seminar</span> dan 
+                        <span class="text-highlight"></span> dengan pembicara ahli di bidangnya
                     </p>
                     <p class="hero-description">
-                        Ikuti webinar interaktif seputar regulasi perpajakan terbaru, strategi perencanaan, 
-                        dan best practices langsung dari praktisi berpengalaman.
+                        Dapatkan insight terbaru seputar regulasi perpajakan, strategi perencanaan, 
+                        dan best practices dari praktisi berpengalaman.
                     </p>
                     <div class="hero-actions">
-                        <a href="#webinar-list" class="btn btn-primary">
-                            <span>Lihat Webinar</span>
+                        <a href="#seminar-list" class="btn btn-primary">
+                            <span>Lihat Seminar</span>
                             <i class="fas fa-arrow-down"></i>
                         </a>
                         <a href="#categories" class="btn btn-outline-light">
@@ -35,20 +35,20 @@
                 <div class="hero-visual">
                     <div class="hero-stats">
                         <div class="stat-item">
-                            <span class="stat-number">80+</span>
-                            <span class="stat-label">Webinar Tersedia</span>
+                            <span class="stat-number">150+</span>
+                            <span class="stat-label">Penyelenggaran Seminar</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number">25+</span>
+                            <span class="stat-number">100+</span>
+                            <span class="stat-label">Materi</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">10+</span>
                             <span class="stat-label">Pembicara Expert</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number">95%</span>
+                            <span class="stat-number">98%</span>
                             <span class="stat-label">Kepuasan Peserta</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">100%</span>
-                            <span class="stat-label">Online</span>
                         </div>
                     </div>
                 </div>
@@ -60,166 +60,125 @@
     <div id="categories" class="categories-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Kategori Webinar</h2>
-                <p class="section-subtitle">Pilih webinar sesuai dengan kebutuhan dan minat Anda</p>
+                <h2 class="section-title">Kategori Seminar</h2>
+                <p class="section-subtitle">Pilih seminar sesuai dengan kebutuhan dan minat Anda</p>
             </div>
             <div class="categories-grid">
                 <div class="category-card">
                     <div class="category-icon">
-                        <i class="fas fa-sync-alt"></i>
-                    </div>
-                    <h3>Update Regulasi</h3>
-                    <p>Webinar update terbaru peraturan perpajakan dan implementasinya</p>
-                    <span class="seminar-count">15 Webinar</span>
-                </div>
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-chart-pie"></i>
+                        <i class="fas fa-chart-line"></i>
                     </div>
                     <h3>Tax Planning</h3>
-                    <p>Strategi perencanaan pajak untuk optimalisasi bisnis</p>
-                    <span class="seminar-count">12 Webinar</span>
+                    <p>Strategi perencanaan pajak untuk optimalisasi kewajiban perpajakan</p>
+                    <span class="seminar-count">12 Seminar</span>
                 </div>
                 <div class="category-card">
                     <div class="category-icon">
-                        <i class="fas fa-balance-scale"></i>
+                        <i class="fas fa-file-invoice-dollar"></i>
                     </div>
-                    <h3>Compliance</h3>
-                    <p>Teknik penyusunan laporan dan compliance perpajakan</p>
-                    <span class="seminar-count">18 Webinar</span>
+                    <h3>PPN & PPnBM</h3>
+                    <p>Update regulasi dan implementasi PPN terbaru untuk bisnis</p>
+                    <span class="seminar-count">8 Seminar</span>
                 </div>
                 <div class="category-card">
                     <div class="category-icon">
-                        <i class="fas fa-globe-americas"></i>
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Audit & Compliance</h3>
+                    <p>Teknik audit internal dan penyiapan compliance perpajakan</p>
+                    <span class="seminar-count">15 Seminar</span>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-globe"></i>
                     </div>
                     <h3>International Tax</h3>
-                    <p>Perpajakan internasional dan transfer pricing</p>
-                    <span class="seminar-count">8 Webinar</span>
+                    <p>Perpajakan internasional, transfer pricing, dan tax treaty</p>
+                    <span class="seminar-count">6 Seminar</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Search & Filter Section -->
-    <div class="search-filter-section">
-        <div class="container">
-            <div class="search-container">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="Cari webinar, topik, atau pembicara...">
-                    <button class="search-btn" id="searchButton">
-                        <span>Cari</span>
-                    </button>
-                </div>
-            </div>
-            
-            <div class="filter-tabs">
-                <button class="filter-btn active" data-filter="all">
-                    <i class="fas fa-layer-group"></i>
-                    Semua Webinar
-                </button>
-                <button class="filter-btn" data-filter="premium">
-                    <i class="fas fa-crown"></i>
-                    Premium
-                </button>
-                <button class="filter-btn" data-filter="gratis">
-                    <i class="fas fa-gift"></i>
-                    Gratis
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Webinar List Section -->
-    <div id="webinar-list" class="webinar-list-section">
+    <!-- Seminar List Section -->
+    <div id="seminar-list" class="seminar-list-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Webinar Terbaru</h2>
-                <p class="section-subtitle">Pilih dan daftar webinar yang sesuai dengan jadwal dan kebutuhan Anda</p>
+                <h2 class="section-title">Seminar Terbaru</h2>
+                <p class="section-subtitle">Pilih dan daftar seminar yang sesuai dengan jadwal dan kebutuhan Anda</p>
             </div>
 
-            <!-- Webinar Grid -->
+            <!-- Seminar Grid -->
             <div class="courses-grid">
-                @foreach($webinars as $webinar)
+                @foreach($seminars as $seminar)
                     @php
-                        $isGratis = $webinar->harga == 0;
-                        $hargaFormatted = $isGratis ? 'GRATIS' : 'Rp ' . number_format($webinar->harga, 0, ',', '.');
-                        $detail = $webinar->detail->first();
-                        $kategoriClass = 'webinar';
+                        $detail = $seminar->detail;
+                        $isGratis = $seminar->harga == 0;
+                        $hargaFormatted = $isGratis ? 'GRATIS' : 'Rp ' . number_format($seminar->harga, 0, ',', '.');
+                        $kategoriClass = strtolower($detail->kategori ?? 'seminar');
                     @endphp
 
                     <div class="course-card {{ $isGratis ? 'gratis' : 'premium' }}" data-category="{{ $isGratis ? 'gratis' : 'premium' }}">
                         <div class="course-image">
-                            <img src="{{ $webinar->gambar ? asset('storage/' . $webinar->gambar) : asset('assets/customer/images/webinar-placeholder.jpg') }}" 
-                                 alt="{{ $webinar->judul }}" />
-                            <div class="course-badge badge-{{ $kategoriClass }}">WEBINAR</div>
+                            <img src="{{ asset('storage/' . $seminar->gambar) }}" alt="{{ $seminar->judul }}" />
+                            <div class="course-badge badge-{{ $kategoriClass }}">{{ strtoupper($detail->kategori ?? 'SEMINAR') }}</div>
                             <div class="status-badge {{ $isGratis ? 'status-new' : 'status-hot' }}">
-                                {{ $isGratis ? 'BARU' : 'TERPOPULER' }}
-                            </div>
-                            <div class="online-indicator">
-                                <i class="fas fa-video"></i>
-                                LIVE ONLINE
+                                {{ $isGratis ? 'BARU' : 'HOT' }}
                             </div>
                         </div>
 
                         <div class="course-content">
-                            <h3 class="course-title">{{ $webinar->judul }}</h3>
+                            <h3 class="course-title">{{ $seminar->judul }}</h3>
 
                             <div class="mentor-info">
                                 <img src="{{ asset('assets/customer/images/mentor1.jpeg') }}" alt="Mentor" class="mentor-avatar">
                                 <div class="mentor-details">
-                                    <span class="mentor-name">{{ $detail->pembicara ?? 'Expert Speaker' }}</span>
-                                    <span class="mentor-role">{{ $detail->level ?? 'Professional' }}</span>
+                                    <span class="mentor-name">{{ $detail->pembicara }}</span>
+                                    <span class="mentor-role">{{ $detail->level }}</span>
                                 </div>
                             </div>
 
                             <div class="seminar-details">
                                 <div class="detail-item">
                                     <i class="fas fa-calendar"></i>
-                                    <span>{{ \Carbon\Carbon::parse($webinar->tanggal)->translatedFormat('d M Y') }} • {{ $webinar->waktu_pelaksanaan }} WIB</span>
+                                    <span>{{ \Carbon\Carbon::parse($seminar->tanggal)->format('d M Y') }} • {{ $seminar->waktu_pelaksanaan }} WIB</span>
                                 </div>
                                 <div class="detail-item">
-                                    <i class="fas fa-video"></i>
-                                    <span>{{ $detail->lokasi ?? 'Zoom Meeting' }}</span>
+                                    @if(Str::contains(strtolower($detail->lokasi), ['zoom', 'google', 'meet']))
+                                        <i class="fas fa-video"></i>
+                                    @else
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    @endif
+                                    <span>{{ $detail->lokasi }}</span>
                                 </div>
                                 <div class="detail-item">
                                     <i class="fas fa-clock"></i>
-                                    <span>{{ $detail->fasilitas ?? '2 Jam Sertifikat' }}</span>
+                                    <span>{{ $detail->fasilitas }}</span>
                                 </div>
-                                @if($detail && $detail->kuota_peserta)
-                                <div class="detail-item">
-                                    <i class="fas fa-users"></i>
-                                    <span>Kuota: {{ $detail->kuota_peserta }} Peserta</span>
-                                </div>
-                                @endif
                             </div>
 
                             <div class="course-meta">
                                 <div class="price {{ $isGratis ? 'free' : '' }}">{{ $hargaFormatted }}</div>
-                                @if($detail && $detail->kuota_peserta)
                                 <div class="slot-info">
-                                    <i class="fas fa-user-check"></i>
-                                    <span>{{ $detail->kuota_peserta }} Slot</span>
+                                    <i class="fas fa-users"></i>
+                                    <span>{{ $detail->kuota_peserta }} Peserta</span>
                                 </div>
-                                @endif
                             </div>
 
                             <div class="course-actions">
-                                <button class="btn btn-outline" title="Tambahkan ke kalender">
-                                    <i class="fas fa-calendar-plus"></i>
-                                </button>
+                        <button class="btn btn-outline">
+                            <i class="fas fa-calendar"></i>
+                        </button>
 
-                                <button 
-                                    type="button"
-                                    class="btn {{ $isGratis ? 'btn-free' : 'btn-premium' }}" 
-                                    onclick="addToCart({{ $webinar->id }}, 'ItemWebinar')">
-                                    Daftar Sekarang
-                                </button>
-                            </div>
+                       <a href="{{ route('seminar.show', $seminar->id) }}" 
+                        class="btn {{ $isGratis ? 'btn-free' : 'btn-premium' }}">Daftar
+                        </a>
+                    </div>
                         </div>
                     </div>
                 @endforeach
             </div>
+
 
             <!-- Load More Button -->
             <div class="load-more-container">
@@ -235,51 +194,51 @@
     <div class="benefits-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Keunggulan Webinar Kami</h2>
-                <p class="section-subtitle">Mengapa harus memilih webinar dari kami?</p>
+                <h2 class="section-title">Mengapa Ikut Seminar Kami?</h2>
+                <p class="section-subtitle">Keunggulan yang akan Anda dapatkan dengan mengikuti seminar kami</p>
             </div>
             <div class="benefits-grid">
                 <div class="benefit-card">
                     <div class="benefit-icon">
-                        <i class="fas fa-laptop-house"></i>
+                        <i class="fas fa-user-tie"></i>
                     </div>
-                    <h4>Akses Dari Mana Saja</h4>
-                    <p>Ikuti webinar secara online dari rumah, kantor, atau di mana saja dengan koneksi internet</p>
+                    <h4>Pembicara Berpengalaman</h4>
+                    <p>Belajar langsung dari praktisi dan konsultan pajak dengan pengalaman 10+ tahun</p>
                 </div>
                 <div class="benefit-card">
                     <div class="benefit-icon">
-                        <i class="fas fa-comments"></i>
+                        <i class="fas fa-file-alt"></i>
                     </div>
-                    <h4>Interaktif</h4>
-                    <p>Sesi tanya jawab langsung dengan pembicara dan diskusi dengan peserta lain</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <i class="fas fa-download"></i>
-                    </div>
-                    <h4>Materi Download</h4>
-                    <p>Dapatkan materi presentasi dan rekaman webinar setelah acara</p>
+                    <h4>Materi Update</h4>
+                    <p>Konten selalu diperbarui sesuai regulasi terbaru dan perkembangan industri</p>
                 </div>
                 <div class="benefit-card">
                     <div class="benefit-icon">
                         <i class="fas fa-certificate"></i>
                     </div>
-                    <h4>Sertifikat Digital</h4>
-                    <p>Dapatkan sertifikat partisipasi digital yang dapat diunduh</p>
+                    <h4>Sertifikat</h4>
+                    <p>Dapatkan sertifikat partisipasi yang dapat digunakan untuk pengembangan karir</p>
                 </div>
                 <div class="benefit-card">
                     <div class="benefit-icon">
-                        <i class="fas fa-mobile-alt"></i>
+                        <i class="fas fa-handshake"></i>
                     </div>
-                    <h4>Akses Mobile</h4>
-                    <p>Dapat diakses melalui smartphone, tablet, atau komputer</p>
+                    <h4>Networking</h4>
+                    <p>Jaringan dengan profesional dan praktisi perpajakan dari berbagai perusahaan</p>
                 </div>
                 <div class="benefit-card">
                     <div class="benefit-icon">
-                        <i class="fas fa-reply"></i>
+                        <i class="fas fa-tools"></i>
                     </div>
-                    <h4>Replay Available</h4>
-                    <p>Tidak bisa hadir live? Akses rekaman webinar kapan saja</p>
+                    <h4>Tools & Template</h4>
+                    <p>Dapatkan template dan tools praktis yang langsung dapat diaplikasikan</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h4>After Seminar Support</h4>
+                    <p>Konsultasi gratis setelah seminar untuk implementasi materi</p>
                 </div>
             </div>
         </div>
@@ -289,30 +248,19 @@
     <div class="cta-section">
         <div class="container">
             <div class="cta-content">
-                <h3>Siap Tingkatkan Kompetensi Anda?</h3>
-                <p>Daftar webinar sekarang dan dapatkan insight terbaru seputar perpajakan</p>
-                <div class="cta-buttons">
-                    <a href="#webinar-list" class="btn btn-light">
-                        <span>Lihat Webinar</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
+                <h3>Tunggu Apa Lagi?</h3>
+                <p>Daftar seminar sekarang dan tingkatkan kompetensi perpajakan Anda</p>
             </div>
         </div>
     </div>
 </section>
 
 <style>
-/* =========================
-   BASE STYLES & VARIABLES
-   ========================= */
 :root {
-    --primary-purple: #7c3aed;
-    --secondary-purple: #6d28d9;
-    --dark-purple: #5b21b6;
-    --light-purple: #ddd6fe;
     --primary-blue: #2563eb;
     --secondary-blue: #1d4ed8;
+    --dark-blue: #1e40af;
+    --light-blue: #dbeafe;
     --primary-red: #dc2626;
     --primary-orange: #ea580c;
     --success-green: #059669;
@@ -331,11 +279,20 @@
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-    --border-radius: 12px;
+    --border-radius: 8px;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.webinars-page {
+/* =========================
+   BASE STYLES & RESET
+   ========================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.seminars-page {
     min-height: 100vh;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     line-height: 1.6;
@@ -351,8 +308,8 @@
 /* =========================
    HERO SECTION
    ========================= */
-.webinar-hero {
-    background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 50%, #8b5cf6 100%);
+.seminar-hero {
+    background: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #3b82f6 100%);
     color: var(--white);
     padding: clamp(4rem, 10vw, 8rem) 0 clamp(3rem, 8vw, 5rem);
     position: relative;
@@ -382,7 +339,7 @@
 }
 
 .title-line.highlight {
-    background: linear-gradient(135deg, #c4b5fd, #a78bfa);
+    background: linear-gradient(135deg, #fde68a, #fcd34d);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -397,7 +354,7 @@
 
 .text-highlight {
     font-weight: 600;
-    color: #c4b5fd;
+    color: #fde68a;
 }
 
 .hero-description {
@@ -426,12 +383,6 @@
     border-radius: 16px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: var(--transition);
-}
-
-.stat-item:hover {
-    transform: translateY(-2px);
-    background: rgba(255, 255, 255, 0.15);
 }
 
 .stat-number {
@@ -446,100 +397,6 @@
     font-size: clamp(0.75rem, 1.5vw, 0.9rem);
     font-weight: 500;
     opacity: 0.9;
-    color: var(--white);
-}
-
-/* =========================
-   SEARCH & FILTER SECTION
-   ========================= */
-.search-filter-section {
-    padding: 2rem 0;
-    background: var(--white);
-    border-bottom: 1px solid var(--gray-200);
-}
-
-.search-container {
-    margin-bottom: 1.5rem;
-}
-
-.search-box {
-    display: flex;
-    align-items: center;
-    background: var(--white);
-    border: 2px solid var(--gray-300);
-    border-radius: 50px;
-    padding: 0.5rem;
-    max-width: 600px;
-    margin: 0 auto;
-    transition: var(--transition);
-}
-
-.search-box:focus-within {
-    border-color: var(--primary-purple);
-    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
-}
-
-.search-box i {
-    color: var(--gray-500);
-    margin: 0 1rem;
-    font-size: 1.1rem;
-}
-
-.search-box input {
-    flex: 1;
-    border: none;
-    outline: none;
-    padding: 0.75rem 0;
-    font-size: 1rem;
-    background: transparent;
-}
-
-.search-btn {
-    background: var(--primary-purple);
-    color: var(--white);
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 25px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.search-btn:hover {
-    background: var(--secondary-purple);
-    transform: translateY(-1px);
-}
-
-.filter-tabs {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.filter-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background: var(--white);
-    border: 2px solid var(--gray-300);
-    border-radius: 25px;
-    font-weight: 600;
-    color: var(--gray-600);
-    cursor: pointer;
-    transition: var(--transition);
-    font-size: 0.9rem;
-}
-
-.filter-btn:hover {
-    border-color: var(--primary-purple);
-    color: var(--primary-purple);
-}
-
-.filter-btn.active {
-    background: var(--primary-purple);
-    border-color: var(--primary-purple);
     color: var(--white);
 }
 
@@ -595,7 +452,7 @@
 .category-icon {
     width: clamp(70px, 8vw, 80px);
     height: clamp(70px, 8vw, 80px);
-    background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
     color: var(--white);
     border-radius: 20px;
     display: flex;
@@ -620,8 +477,8 @@
 }
 
 .seminar-count {
-    background: var(--light-purple);
-    color: var(--primary-purple);
+    background: var(--light-blue);
+    color: var(--primary-blue);
     padding: 0.5rem 1rem;
     border-radius: 20px;
     font-size: clamp(0.8rem, 1.5vw, 0.875rem);
@@ -629,13 +486,51 @@
 }
 
 /* =========================
-   WEBINAR LIST SECTION
+   SEMINAR LIST SECTION
    ========================= */
-.webinar-list-section {
+.seminar-list-section {
     padding: clamp(4rem, 8vw, 6rem) 0;
     background: var(--white);
 }
 
+.filter-buttons {
+    display: flex;
+    gap: clamp(0.75rem, 2vw, 1rem);
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.filter-btn {
+    padding: clamp(0.625rem, 1.5vw, 0.75rem) clamp(1.25rem, 2vw, 1.5rem);
+    background: var(--white);
+    border: 2px solid var(--gray-300);
+    border-radius: 25px;
+    font-weight: 600;
+    color: var(--gray-600);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: clamp(0.85rem, 1.5vw, 0.9rem);
+    white-space: nowrap;
+    flex: 1;
+    min-width: fit-content;
+    text-align: center;
+}
+
+.filter-btn:hover {
+    border-color: var(--primary-blue);
+    color: var(--primary-blue);
+}
+
+.filter-btn.active {
+    background: var(--primary-blue);
+    border-color: var(--primary-blue);
+    color: var(--white);
+}
+
+/* =========================
+   COURSES GRID - FIXED SIZE
+   ========================= */
 .courses-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
@@ -644,9 +539,12 @@
     justify-items: center;
 }
 
+/* =========================
+   COURSE CARD STYLES - FIXED SIZE
+   ========================= */
 .course-card {
     background: var(--white);
-    border-radius: 20px;
+    border-radius: 30px;
     overflow: hidden;
     box-shadow: var(--shadow-sm);
     transition: var(--transition);
@@ -660,9 +558,9 @@
 }
 
 .course-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-xl);
-    border-color: var(--primary-purple);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--gray-300);
 }
 
 .course-image {
@@ -694,27 +592,23 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     z-index: 2;
-    background: var(--primary-purple);
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.badge-seminar {
+    background: var(--primary-blue);
     color: var(--white);
 }
 
 .badge-webinar {
-    background: var(--primary-purple);
+    background: var(--success-green);
+    color: var(--white);
 }
 
-.online-indicator {
-    position: absolute;
-    bottom: 1rem;
-    left: 1rem;
-    background: rgba(0, 0, 0, 0.8);
+.badge-workshop {
+    background: var(--primary-orange);
     color: var(--white);
-    padding: 0.25rem 0.75rem;
-    border-radius: 15px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
 }
 
 .status-badge {
@@ -740,16 +634,21 @@
     color: var(--white);
 }
 
+.status-popular {
+    background: var(--primary-orange);
+    color: var(--white);
+}
+
 .course-content {
-    padding: 1.5rem;
+    padding: 2rem;
     flex: 1;
     display: flex;
     flex-direction: column;
 }
 
 .course-title {
-    font-size: 1.2rem;
-    font-weight: 700;
+    font-size: 1.25rem;
+    font-weight: 600;
     color: var(--gray-800);
     margin-bottom: 1rem;
     line-height: 1.4;
@@ -809,19 +708,17 @@
 
 .detail-item {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.5rem;
     margin-bottom: 0.5rem;
-    font-size: 0.8rem;
+    font-size: 0.875rem;
     color: var(--gray-600);
-    line-height: 1.4;
 }
 
 .detail-item i {
-    width: 14px;
+    width: 16px;
     color: var(--gray-500);
     flex-shrink: 0;
-    margin-top: 0.1rem;
 }
 
 .course-meta {
@@ -833,8 +730,8 @@
 }
 
 .price {
-    font-size: 1.25rem;
-    font-weight: 800;
+    font-size: 1.125rem;
+    font-weight: 700;
     color: var(--gray-800);
     white-space: nowrap;
 }
@@ -847,15 +744,20 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.8rem;
+    font-size: 0.875rem;
     color: var(--gray-500);
     white-space: nowrap;
 }
 
 .course-actions {
     display: flex;
-    gap: 0.75rem;
+    gap: 0.5rem;
     margin-top: auto;
+}
+
+.course-actions .btn {
+    flex: 1;
+    min-width: 0;
 }
 
 .btn {
@@ -871,7 +773,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 44px;
+    min-height: 40px;
     gap: 0.5rem;
     text-decoration: none;
     white-space: nowrap;
@@ -879,12 +781,11 @@
 }
 
 .btn-outline {
-    padding: 0.75rem;
+    padding: 0.5rem 1rem;
     background: transparent;
     border-color: var(--gray-300);
     color: var(--gray-600);
     width: auto;
-    flex: 0 0 auto;
 }
 
 .btn-outline:hover {
@@ -894,40 +795,38 @@
 }
 
 .btn-premium {
-    background: var(--primary-purple);
-    border-color: var(--primary-purple);
+    background: var(--primary-red);
+    border-color: var(--primary-red);
     color: var(--white);
-    flex: 1;
 }
 
 .btn-premium:hover {
-    background: var(--secondary-purple);
-    border-color: var(--secondary-purple);
+    background: #b91c1c;
+    border-color: #b91c1c;
     transform: translateY(-1px);
 }
 
 .btn-free {
-    background: var(--success-green);
-    border-color: var(--success-green);
+    background: var(--primary-orange);
+    border-color: var(--primary-orange);
     color: var(--white);
-    flex: 1;
 }
 
 .btn-free:hover {
-    background: #047857;
-    border-color: #047857;
+    background: #c2410c;
+    border-color: #c2410c;
     transform: translateY(-1px);
 }
 
 .btn-primary {
-    background: var(--primary-purple);
-    border-color: var(--primary-purple);
+    background: var(--primary-blue);
+    border-color: var(--primary-blue);
     color: var(--white);
 }
 
 .btn-primary:hover {
-    background: var(--secondary-purple);
-    border-color: var(--secondary-purple);
+    background: var(--secondary-blue);
+    border-color: var(--secondary-blue);
     transform: translateY(-1px);
 }
 
@@ -951,7 +850,7 @@
 
 .btn-outline-light:hover {
     background: var(--white);
-    color: var(--primary-purple);
+    color: var(--primary-blue);
     transform: translateY(-1px);
 }
 
@@ -967,8 +866,8 @@
 }
 
 .load-more:hover {
-    border-color: var(--primary-purple);
-    color: var(--primary-purple);
+    border-color: var(--primary-blue);
+    color: var(--primary-blue);
     background: var(--white);
 }
 
@@ -1004,7 +903,7 @@
 .benefit-icon {
     width: clamp(70px, 8vw, 80px);
     height: clamp(70px, 8vw, 80px);
-    background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
     color: var(--white);
     border-radius: 20px;
     display: flex;
@@ -1033,7 +932,7 @@
    ========================= */
 .cta-section {
     padding: clamp(4rem, 8vw, 6rem) 0;
-    background: linear-gradient(135deg, var(--dark-purple) 0%, var(--primary-purple) 100%);
+    background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
     color: var(--white);
     text-align: center;
 }
@@ -1097,7 +996,7 @@
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     }
 
-    .filter-tabs {
+    .filter-buttons {
         gap: 0.75rem;
     }
 
@@ -1105,28 +1004,11 @@
         flex: 0 1 calc(50% - 0.75rem);
         min-width: 140px;
     }
-
-    .search-box {
-        flex-direction: column;
-        border-radius: 15px;
-        padding: 1rem;
-        gap: 1rem;
-    }
-
-    .search-box input {
-        width: 100%;
-        text-align: center;
-    }
-
-    .search-btn {
-        width: 100%;
-        border-radius: 10px;
-    }
 }
 
 /* Mobile Landscape (576px - 767px) */
 @media (max-width: 767px) {
-    .webinar-hero {
+    .seminar-hero {
         padding: clamp(3rem, 8vw, 4rem) 0 clamp(2rem, 6vw, 3rem);
     }
 
@@ -1139,7 +1021,7 @@
         gap: 1.5rem;
     }
 
-    .filter-tabs {
+    .filter-buttons {
         flex-direction: column;
         align-items: center;
     }
@@ -1220,16 +1102,12 @@
     }
 
     .course-content {
-        padding: 1.25rem;
+        padding: 1.5rem;
     }
 
     .course-title {
         font-size: 1.1rem;
         min-height: auto;
-    }
-
-    .detail-item {
-        font-size: 0.75rem;
     }
 }
 
@@ -1264,8 +1142,7 @@
     }
 
     .course-badge,
-    .status-badge,
-    .online-indicator {
+    .status-badge {
         font-size: 0.5rem;
         padding: 0.2rem 0.6rem;
     }
@@ -1286,7 +1163,44 @@
 }
 
 /* =========================
-   ACCESSIBILITY & PERFORMANCE
+   TOUCH DEVICE OPTIMIZATIONS
+   ========================= */
+@media (hover: none) and (pointer: coarse) {
+    .category-card:hover,
+    .benefit-card:hover,
+    .course-card:hover,
+    .btn:hover {
+        transform: none;
+    }
+
+    .course-card:hover .course-image img {
+        transform: none;
+    }
+
+    .filter-btn:hover {
+        border-color: var(--gray-300);
+        color: var(--gray-600);
+    }
+
+    .filter-btn.active:hover {
+        border-color: var(--primary-blue);
+        color: var(--white);
+    }
+}
+
+/* =========================
+   HIGH DPI SCREENS
+   ========================= */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .category-icon,
+    .benefit-icon {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
    ========================= */
 @media (prefers-reduced-motion: reduce) {
     *,
@@ -1298,14 +1212,85 @@
     }
 }
 
-/* Focus styles for accessibility */
+/* =========================
+   PRINT STYLES
+   ========================= */
+@media print {
+    .seminar-hero,
+    .cta-section,
+    .hero-actions,
+    .course-actions {
+        display: none;
+    }
+
+    .categories-section,
+    .seminar-list-section,
+    .benefits-section {
+        padding: 2rem 0;
+    }
+
+    .section-title {
+        color: #000 !important;
+    }
+
+    .course-card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+}
+
+/* =========================
+   ACCESSIBILITY
+   ========================= */
+@media (prefers-contrast: high) {
+    :root {
+        --primary-blue: #0000ff;
+        --secondary-blue: #0000cd;
+        --primary-red: #8b0000;
+        --primary-orange: #ff4500;
+    }
+}
+
+/* Focus styles */
 button:focus,
 a:focus,
 .filter-btn:focus,
-.btn:focus,
-.search-box input:focus {
-    outline: 2px solid var(--primary-purple);
+.btn:focus {
+    outline: 2px solid var(--primary-blue);
     outline-offset: 2px;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--primary-blue);
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 10000;
+}
+
+.skip-link:focus {
+    top: 6px;
+}
+
+/* =========================
+   SMOOTH SCROLLING & PERFORMANCE
+   ========================= */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Improve rendering performance */
+.category-card,
+.benefit-card,
+.course-card {
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 /* Loading states */
@@ -1315,18 +1300,29 @@ a:focus,
     transform: none !important;
 }
 
-/* High contrast support */
-@media (prefers-contrast: high) {
-    :root {
-        --primary-purple: #0000ff;
-        --secondary-purple: #0000cd;
-    }
+/* Image optimization */
+.course-image img {
+    will-change: transform;
+}
+
+/* Ensure proper text contrast */
+.course-title,
+.category-card h3,
+.benefit-card h4 {
+    color: var(--gray-900);
+}
+
+/* Improve button readability */
+.btn {
+    font-weight: 600;
+    letter-spacing: 0.025em;
 }
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-function addToCart(id, type) {
+
+    function addToCart(id, type) {
     fetch("{{ route('cart.add', [], false) }}", {
         method: "POST",
         headers: {
@@ -1336,28 +1332,27 @@ function addToCart(id, type) {
         body: JSON.stringify({ id: id, type: type }),
     })
     .then(response => response.json())
-    .then(data => {
-        if (data.status === 'success') {
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil',
-                text: data.message,
-                timer: 1500,
-                showConfirmButton: false
+            .then(data => {
+            if (data.status === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: data.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: data.message
+                        });
+                    }
+                })
+        .catch((error) => {
+                console.error('Error:', error);
             });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: data.message
-            });
-        }
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-}
-
+    }
 document.addEventListener('DOMContentLoaded', function() {
     // Filter functionality
     const filterButtons = document.querySelectorAll('.filter-btn');
@@ -1375,7 +1370,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Filter courses
             courseCards.forEach(card => {
                 if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                    card.style.display = 'flex';
+                    card.style.display = 'block';
                 } else {
                     card.style.display = 'none';
                 }
@@ -1383,63 +1378,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Search functionality
-    const searchInput = document.getElementById('searchInput');
-    const searchButton = document.getElementById('searchButton');
-
-    function performSearch() {
-        const searchTerm = searchInput.value.toLowerCase().trim();
-        
-        if (searchTerm === '') {
-            // Show all cards if search is empty
-            courseCards.forEach(card => {
-                card.style.display = 'flex';
-            });
-            return;
-        }
-
-        courseCards.forEach(card => {
-            const title = card.querySelector('.course-title').textContent.toLowerCase();
-            const mentor = card.querySelector('.mentor-name').textContent.toLowerCase();
-            const category = card.querySelector('.course-badge').textContent.toLowerCase();
-            
-            if (title.includes(searchTerm) || mentor.includes(searchTerm) || category.includes(searchTerm)) {
-                card.style.display = 'flex';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    }
-
-    searchButton.addEventListener('click', performSearch);
-    searchInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            performSearch();
-        }
-    });
-
-    // Clear search when input is cleared
-    searchInput.addEventListener('input', function() {
-        if (this.value === '') {
-            performSearch();
-        }
-    });
-
     // Load more functionality
     const loadMoreBtn = document.querySelector('.load-more');
     let visibleCards = 6;
 
-    // Initially hide cards beyond first 6
-    const allCards = document.querySelectorAll('.course-card');
-    Array.from(allCards).slice(6).forEach(card => {
-        card.style.display = 'none';
-    });
-
     loadMoreBtn.addEventListener('click', () => {
+        const allCards = document.querySelectorAll('.course-card');
         const nextCards = Array.from(allCards).slice(visibleCards, visibleCards + 3);
         
         nextCards.forEach(card => {
-            card.style.display = 'flex';
+            card.style.display = 'block';
         });
 
         visibleCards += 3;
@@ -1450,10 +1398,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Update load more button visibility on initial load
-    if (allCards.length <= 6) {
-        loadMoreBtn.style.display = 'none';
-    }
+    // Initially hide cards beyond first 6
+    const allCards = document.querySelectorAll('.course-card');
+    Array.from(allCards).slice(6).forEach(card => {
+        card.style.display = 'none';
+    });
 });
 </script>
 @endsection

@@ -94,6 +94,7 @@
                                                 $text = ltrim($trimmed, '+- ');
                                             @endphp
 
+<<<<<<< HEAD:resources/views/product/layanan/audit.blade.php
                                             <li class="benefit-item">
                                                 <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
                                                 {{ $text }}
@@ -104,6 +105,33 @@
                             @else
                                 <p class="no-benefit">Benefit belum tersedia.</p>
                             @endif
+=======
+                                            @if ($trimmed !== '')
+                                                @php
+                                                    $isNegative = Str::startsWith($trimmed, '-');
+                                                    $text = ltrim($trimmed, '+- ');
+                                                @endphp
+
+                                                <li class="mb-2">
+                                                    <i class="fas fa-{{ $isNegative ? 'times text-danger' : 'check text-success' }} me-2"></i>
+                                                    {{ $text }}
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <p class="text-muted fs-5">Benefit belum tersedia.</p>
+                                @endif
+                            </div>
+                            <div class="card-footer">
+                                <a href="{{ route('audit.show', $audit->id) }}" class="btn btn-primary">
+                                    Pilih Layanan Ini
+                                </a>
+                                <a href="/kontak" class="btn btn-outline">
+                                    <span>Konsultasi</span>
+                                </a>
+                            </div>
+>>>>>>> 57a570d935c2354eaad6227ce1f0de83c30beef7:resources/views/product/layanan/audit/audit.blade.php
                         </div>
                         <div class="card-footer">
                             <button type="button" 

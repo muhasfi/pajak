@@ -16,4 +16,11 @@ class BimbelController extends Controller
 
         return view('product.bimbel.bimbel', compact('bimbels'));
     }
+
+    public function show($id)
+    {
+        $bimbel = ItemBimbel::with('detail')->findOrFail($id);
+        return view('product.bimbel.bimbel_show', compact('bimbel'));
+    }
+
 }

@@ -248,10 +248,12 @@
 
                             {{-- Footer --}}
                             <div class="card-footer bg-transparent p-4">
-                                <button onclick="addToCart('{{ $bimbel->id }}', 'ItemBimbel')" 
-                                        class="btn btn-outline-primary btn-lg w-100 rounded-pill fw-semibold shadow-sm">
-                                    <i class="fa fa-arrow-right me-2"></i> Pilih {{ $bimbel->judul }}
-                                </button>
+                                <div class="card-footer bg-transparent p-4">
+                                    <a href="{{ route('bimbel.show', $bimbel->id) }}" 
+                                    class="btn btn-outline-primary btn-lg w-100 rounded-pill fw-semibold shadow-sm">
+                                        <i class="fa fa-arrow-right me-2"></i> Lihat Detail
+                                    </a>
+                                </div>
                             </div>
 
                         </div>

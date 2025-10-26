@@ -36,14 +36,14 @@ class ItemTrainingController extends Controller
         {
             $request->validate([
                 'judul' => 'required|max:255',
-                'deskripsi' => 'required',
+                'deskripsi' => 'required|max:1000',
                 'tanggal' => 'required|date',
                 'harga' => 'required|numeric',
                 'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-                'materi' => 'required',
-                'instruktur' => 'required',
+                'materi' => 'nullable|max:255',
+                'instruktur' => 'nullable|max:255',
                 'durasi_jam' => 'required|integer',
-                'tempat' => 'required',
+                'tempat' => 'required|max:255',
                 'kuota_peserta' => 'required|integer',
                 'file_path' => 'nullable|string|max:255'
             ]);
@@ -110,12 +110,12 @@ class ItemTrainingController extends Controller
     {
         $request->validate([
             'judul' => 'required|max:255',
-            'deskripsi' => 'required',
+            'deskripsi' => 'required|max:1000',
             'tanggal' => 'required|date',
             'harga' => 'required|numeric',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'materi' => 'required',
-            'instruktur' => 'required',
+            'materi' => 'nullable|max:255',
+            'instruktur' => 'nullable|max:255',
             'durasi_jam' => 'required|integer',
             'tempat' => 'required',
             'kuota_peserta' => 'required|integer',
