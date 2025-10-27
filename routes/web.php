@@ -8,6 +8,7 @@ use App\Http\Controllers\BimbelController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BrevetABController;
 use App\Http\Controllers\BrevetCController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\KertasKerjaController;
 use App\Http\Controllers\KonsultasiController;
 use App\Http\Controllers\LayananPtController;
@@ -105,7 +106,12 @@ Route::view('/order-ppn', 'product.ppn.order_ppn')->name('order.ppn');
 Route::view('/order-spt', 'product.kertas_kerja.order_spt')->name('order.spt');
 Route::view('/order-pph', 'product.kertas_kerja.order_pph')->name('order.pph');
 Route::view('/order-spt-unifikasi', 'product.kertas_kerja.order_spt_uni')->name('order.spt.uni');
-Route::view('/forum', 'product.konsultasi.forum')->name('forum');
+// Route::view('/forum', 'product.konsultasi.forum')->name('forum');
+Route::get('/forum', [CommentController::class, 'index'])->name('forum');
+
+Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+
+Route::post('/comments/{parentId}/reply', [CommentController::class, 'reply'])->name('comments.reply');
 
 require __DIR__.'/auth.php';
 
@@ -124,4 +130,7 @@ Route::middleware(['auth'])->group(function () {
        
     Route::get('/transactions', [SiteController::class, 'transaction'])->name('transactions.transaction');
     Route::get('/transactions/{id}', [SiteController::class, 'show'])->name('transactions.show');
+
+    Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
+    Route::put('/comments/{id}', [CommentController::class, 'update'])->name('comments.update');
 });
