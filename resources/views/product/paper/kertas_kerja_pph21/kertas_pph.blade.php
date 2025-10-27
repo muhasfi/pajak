@@ -364,7 +364,7 @@
                 @foreach($papers as $paper)
                     <div class="service-card">
                         <div class="card-header">
-                            <h3>{{ $paper->name }}</h3>
+                            <h3 class="mt-3">{{ $paper->name }}</h3>
                             <div class="price">
                                 <span class="starting-from">mulai dari</span>
                                 <span class="amount">Rp {{ number_format($paper->price, 0, ',', '.') }}</span>
