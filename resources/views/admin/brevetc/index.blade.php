@@ -1,5 +1,5 @@
 @extends('admin.layouts.master')
-@section('title', 'Daftar Brevet AB')
+@section('title', 'Daftar Brevet C')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets/admin/extensions/simple-datatables/style.css') }}">
@@ -11,7 +11,7 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Daftar Brevet AB</h3>
+                <h3>Daftar Brevet C</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <a href="{{ route('admin.brevetc.create') }}" class="btn btn-primary float-start float-lg-end">

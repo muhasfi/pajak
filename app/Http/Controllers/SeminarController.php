@@ -12,6 +12,17 @@ class SeminarController extends Controller
         // Ambil data seminar beserta detailnya
         $seminars = ItemSeminar::with('detail')->latest()->get();
 
-        return view('product.pelatihan.seminar', compact('seminars'));
+        return view('product.pelatihan.seminar.seminar', compact('seminars'));
+    }
+
+    public function show($id)
+    {
+        // Ambil data seminar beserta relasi detail-nya
+        $seminar = ItemSeminar::with('detail')->findOrFail($id);
+
+        // Ambil 1 detail pertama (jika ada)
+        $detail = $seminar->detail->first();
+
+        return view('product.pelatihan.seminar.seminar_show', compact('seminar', 'detail'));
     }
 }

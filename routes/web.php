@@ -1,14 +1,27 @@
 <?php
 
+use App\Http\Controllers\AccountingServiceController;
 use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\AuditController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BimbelController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BrevetABController;
+use App\Http\Controllers\BrevetCController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\KertasKerjaController;
+use App\Http\Controllers\KonsultasiController;
 use App\Http\Controllers\LayananPtController;
+use App\Http\Controllers\LitigasiController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PajakController;
 use App\Http\Controllers\PelatihanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SeminarController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\TrainingController;
+use App\Http\Controllers\TransferController;
+use App\Http\Controllers\WebinarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,22 +58,29 @@ Route::fallback(function () {
 
 Route::prefix('bimbel')->group(function () {
     Route::get('/', [BimbelController::class, 'index'])->name('bimbel.index');
-    Route::get('/courses', [BimbelController::class, 'courses'])->name('bimbel.courses.index');
-    Route::get('/courses/{id}', [BimbelController::class, 'show'])->name('bimbel.courses.show');
-    Route::post('/courses/{id}/enroll', [BimbelController::class, 'enroll'])->name('bimbel.courses.enroll');
+    // Route::get('/courses', [BimbelController::class, 'courses'])->name('bimbel.courses.index');
+    // Route::get('/courses/{id}', [BimbelController::class, 'show'])->name('bimbel.courses.show');
+    // Route::post('/courses/{id}/enroll', [BimbelController::class, 'enroll'])->name('bimbel.courses.enroll');
 });
 
-// Route::prefix('bimbel')->group(function () {
-//     Route::get('/', [BimbelController::class, 'index'])->name('bimbel.index');
-//     // Route::view('/bimbel/a', 'product.bimbel.bimbel-a')->name('bimbel.a');
-//     // Route::view('/bimbel/b', 'product.bimbel.bimbel-b')->name('bimbel.b');
-//     Route::get('/courses', [BimbelController::class, 'courses'])->name('bimbel.courses.index');
-//     Route::get('/courses/{id}', [BimbelController::class, 'show'])->name('bimbel.courses.show');
-//     Route::post('/courses/{id}/enroll', [BimbelController::class, 'enroll'])->name('bimbel.courses.enroll');
-// });
-
-Route::get('/pelatihan', [App\Http\Controllers\PelatihanController::class, 'index'])->name('pelatihan');
+// Route::get('/pelatihan', [App\Http\Controllers\PelatihanController::class, 'index'])->name('pelatihan');
 Route::view('/kontak', 'kontak')->name('kontak');
+
+Route::get('/paper/{id}', [KertasKerjaController::class, 'show'])->name('product.paper.show');
+Route::get('/book/{id}', [BookController::class, 'show'])->name('product.book.show');
+Route::get('/brevet-ab/{id}', [BrevetABController::class, 'show'])->name('product.brevet_ab.show');
+Route::get('/brevet-c/{id}', [BrevetCController::class, 'show'])->name('product.brevet_c.show');
+Route::get('/webinar/{id}', [WebinarController::class, 'show'])->name('webinar.show');
+Route::get('/seminar/{id}', [SeminarController::class, 'show'])->name('seminar.show');
+Route::get('/training/{id}', [TrainingController::class, 'show'])->name('training.show');
+Route::get('/bimbel/{id}', [BimbelController::class, 'show'])->name('bimbel.show');
+Route::get('/corporate-service/{id}', [LayananPtController::class, 'show'])->name('corporate.service.show');
+Route::get('/jasa-perpajakan/{id}', [PajakController::class, 'show'])->name('jasa.perpajakan.show');
+Route::get('/jasa-akuntansi/{id}', [AccountingServiceController::class, 'show'])->name('jasa.akuntansi.show');
+Route::get('/litigasi/{id}', [LitigasiController::class, 'show'])->name('litigasi.show');
+Route::get('/transfer-pricing/{id}', [TransferController::class, 'show'])->name('transfer.show');
+Route::get('/audit/{id}', [AuditController::class, 'show'])->name('audit.show');
+Route::get('/private/{id}', [KonsultasiController::class, 'show'])->name('konsultasi.show');
 
 Route::get('/pph21', [App\Http\Controllers\KertasKerjaController::class, 'pph21'])->name('pph21');
 Route::get('/ppn', [App\Http\Controllers\KertasKerjaController::class, 'ppn'])->name('ppn');
@@ -86,7 +106,12 @@ Route::view('/order-ppn', 'product.ppn.order_ppn')->name('order.ppn');
 Route::view('/order-spt', 'product.kertas_kerja.order_spt')->name('order.spt');
 Route::view('/order-pph', 'product.kertas_kerja.order_pph')->name('order.pph');
 Route::view('/order-spt-unifikasi', 'product.kertas_kerja.order_spt_uni')->name('order.spt.uni');
-Route::view('/forum', 'product.konsultasi.forum')->name('forum');
+// Route::view('/forum', 'product.konsultasi.forum')->name('forum');
+Route::get('/forum', [CommentController::class, 'index'])->name('forum');
+
+Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+
+Route::post('/comments/{parentId}/reply', [CommentController::class, 'reply'])->name('comments.reply');
 
 require __DIR__.'/auth.php';
 
@@ -105,4 +130,7 @@ Route::middleware(['auth'])->group(function () {
        
     Route::get('/transactions', [SiteController::class, 'transaction'])->name('transactions.transaction');
     Route::get('/transactions/{id}', [SiteController::class, 'show'])->name('transactions.show');
+
+    Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
+    Route::put('/comments/{id}', [CommentController::class, 'update'])->name('comments.update');
 });

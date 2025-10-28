@@ -1,913 +1,773 @@
-{{-- resources/views/forum/consultation.blade.php --}}
 @extends('layouts.master')
 
-@section('title', 'Forum Konsultasi Kasus - Diskusi Profesional')
+@section('title', 'Forum Konsultasi Pajak - Tanya Jawab Profesional')
 
 @section('style')
 <style>
-    /* ===== VARIABLES & RESET ===== */
-    :root {
-        --primary: #2563eb;
-        --primary-dark: #1d4ed8;
-        --secondary: #64748b;
-        --success: #10b981;
-        --warning: #f59e0b;
-        --error: #ef4444;
-        --background: #f8fafc;
-        --surface: #ffffff;
-        --text-primary: #1e293b;
-        --text-secondary: #64748b;
-        --text-muted: #94a3b8;
-        --border: #e2e8f0;
-        --border-light: #f1f5f9;
-        --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        --radius: 8px;
-        --radius-lg: 12px;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
     body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        background-color: var(--background);
-        color: var(--text-primary);
+        background-color: #f8fafc;
+        font-family: 'Poppins', sans-serif;
+        color: #1f2937; /* Default text color untuk kontras lebih baik */
         line-height: 1.6;
-        font-weight: 400;
     }
 
-    /* ===== LAYOUT ===== */
-    .forum-container {
-        min-height: 100vh;
-        padding-bottom: 2rem;
-    }
-
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 1.5rem;
-    }
-
-    /* ===== HEADER ===== */
-    .forum-header {
-        background: linear-gradient(135deg, var(--surface) 0%, #f8fafc 100%);
-        border-bottom: 1px solid var(--border-light);
-        padding: 2rem 0;
-        margin-bottom: 2rem;
+    /* ===== Hero Section ===== */
+    .hero-section {
+        background: url('https://images.unsplash.com/photo-1605902711622-cfb43c4437d0?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
         position: relative;
         overflow: hidden;
+        padding: 80px 0 60px;
     }
 
-    .forum-header::before {
+    /* Overlay agar teks lebih jelas */
+    .hero-section::before {
         content: '';
         position: absolute;
         top: 0;
+        left: 0;
         right: 0;
-        width: 300px;
-        height: 300px;
-        background: radial-gradient(circle, #dbeafe 0%, transparent 70%);
-        opacity: 0.6;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 58, 138, 0.85) 50%, rgba(59, 130, 246, 0.8) 100%);
+        z-index: 1;
     }
 
-    .forum-title {
-        font-size: 2.5rem;
-        font-weight: 700;
-        background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 0.5rem;
+    .hero-content {
         position: relative;
+        z-index: 2;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        text-align: center;
+        color: white;
     }
 
-    .forum-subtitle {
-        font-size: 1.125rem;
-        color: var(--text-secondary);
+    .hero-content h1 {
+        font-size: 2.8rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        color: #ffffff;
+        text-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+        line-height: 1.2;
+    }
+
+    .hero-content p {
+        font-size: 1.1rem;
+        color: #f9fafb;
+        opacity: 0.95;
+        max-width: 700px;
+        margin: 0 auto 30px;
+        line-height: 1.7;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
         font-weight: 400;
     }
 
-    /* ===== STATS BAR ===== */
-    .stats-bar {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1.5rem;
-        margin-bottom: 2rem;
+    .hero-stats {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        margin-top: 40px;
     }
 
-    .stat-card {
-        background: var(--surface);
-        padding: 1.5rem;
-        border-radius: var(--radius-lg);
-        box-shadow: var(--shadow);
-        border: 1px solid var(--border-light);
-        text-align: center;
-        transition: all 0.3s ease;
-    }
-
-    .stat-card:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-lg);
+    .stat-item {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(12px);
+        border-radius: 16px;
+        padding: 20px 30px;
+        min-width: 150px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     }
 
     .stat-number {
-        font-size: 2rem;
+        font-size: 2.2rem;
         font-weight: 700;
-        color: var(--primary);
         display: block;
+        margin-bottom: 5px;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
     }
 
     .stat-label {
-        font-size: 0.875rem;
-        color: var(--text-secondary);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
-
-    /* ===== TOOLBAR ===== */
-    .toolbar {
-        background: var(--surface);
-        border-radius: var(--radius-lg);
-        padding: 1.25rem 1.5rem;
-        margin-bottom: 2rem;
-        box-shadow: var(--shadow);
-        border: 1px solid var(--border-light);
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        position: sticky;
-        top: 1rem;
-        z-index: 10;
-    }
-
-    .toolbar-group {
-        display: flex;
-        align-items: center;
-        gap: 0.25rem;
-    }
-
-    .toolbar-divider {
-        width: 1px;
-        height: 24px;
-        background: var(--border);
-        margin: 0 0.5rem;
-    }
-
-    .toolbar-btn {
-        background: transparent;
-        border: 1px solid transparent;
-        padding: 0.5rem 0.75rem;
-        border-radius: var(--radius);
-        cursor: pointer;
-        font-size: 0.875rem;
+        font-size: 0.9rem;
+        opacity: 0.95;
         font-weight: 500;
-        color: var(--text-secondary);
-        transition: all 0.2s ease;
+    }
+
+    /* ===== Features Banner ===== */
+    .features-banner {
+        background: white;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 40px 0;
+    }
+
+    .features-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+    }
+
+    .feature-card {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .feature-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        min-width: 36px;
-    }
-
-    .toolbar-btn:hover {
-        background: var(--background);
-        border-color: var(--border);
-        color: var(--text-primary);
-    }
-
-    .toolbar-btn.active {
-        background: var(--primary);
+        margin: 0 auto 15px;
+        font-size: 1.5rem;
         color: white;
-        border-color: var(--primary);
     }
 
-    /* ===== COMMENTS SECTION ===== */
-    .comments-section {
-        background: var(--surface);
-        border-radius: var(--radius-lg);
-        box-shadow: var(--shadow);
-        border: 1px solid var(--border-light);
-        overflow: hidden;
-        margin-bottom: 2rem;
-    }
-
-    .comments-header {
-        padding: 1.5rem 2rem;
-        border-bottom: 1px solid var(--border-light);
-        background: linear-gradient(135deg, #f8fafc 0%, var(--surface) 100%);
-    }
-
-    .comments-count {
-        font-size: 1.25rem;
+    .feature-title {
         font-weight: 600;
-        color: var(--text-primary);
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
+        color: #111827;
+        margin-bottom: 8px;
+        font-size: 1.05rem;
     }
 
-    .comments-count::before {
-        content: '';
-        width: 6px;
-        height: 6px;
-        background: var(--primary);
-        border-radius: 50%;
+    .feature-desc {
+        font-size: 0.9rem;
+        color: #4b5563; /* Warna lebih gelap untuk kontras lebih baik */
+        line-height: 1.5;
     }
 
-    /* ===== COMMENT ===== */
+    /* ===== Container ===== */
+    .discussion-container {
+        max-width: 1200px;
+        margin: 50px auto;
+        padding: 0 20px;
+    }
+
+    .content-grid {
+        display: grid;
+        grid-template-columns: 1fr 350px;
+        gap: 30px;
+    }
+
+    /* ===== Main Content ===== */
+    .main-content {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+    }
+
+    .content-header {
+        background: linear-gradient(135deg, #f8fafc, #ffffff);
+        padding: 30px;
+        border-bottom: 2px solid #e5e7eb;
+    }
+
+    .content-header h2 {
+        font-weight: 700;
+        color: #111827;
+        font-size: 1.6rem;
+        margin-bottom: 8px;
+    }
+
+    .content-header p {
+        color: #6b7280;
+        margin: 0;
+        font-size: 0.95rem;
+    }
+
+    .discussion-body {
+        padding: 30px;
+    }
+
     .comment {
-        padding: 1.75rem 2rem;
-        border-bottom: 1px solid var(--border-light);
+        background: #ffffff;
+        border-radius: 14px;
+        padding: 24px;
+        margin-bottom: 25px;
+        border: 1px solid #e5e7eb;
         transition: all 0.3s ease;
-        position: relative;
     }
 
     .comment:hover {
-        background: #fefefe;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+        border-color: #3b82f6;
     }
 
-    .comment:last-child {
-        border-bottom: none;
-    }
-
-    .comment.reply {
-        margin-left: 3rem;
-        border-left: 3px solid var(--border);
-        padding-left: 1.5rem;
-    }
-
-    .comment-header {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        margin-bottom: 1rem;
-    }
-
-    .comment-user-info {
+    .comment .header {
         display: flex;
         align-items: center;
-        gap: 1rem;
+        margin-bottom: 15px;
     }
 
-    .comment-avatar {
-        width: 48px;
-        height: 48px;
-        border-radius: 12px;
-        background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+    .avatar {
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: 600;
-        color: white;
-        font-size: 1.125rem;
-        box-shadow: var(--shadow);
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-right: 15px;
+        box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
     }
 
-    .comment-meta {
+    .meta .name {
+        font-weight: 600;
+        color: #111827;
+        font-size: 1.05rem;
+    }
+
+    .meta .time {
+        font-size: 0.85rem;
+        color: #6b7280;
         display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-    }
-
-    .comment-user {
-        font-weight: 600;
-        color: var(--text-primary);
-        font-size: 1rem;
-    }
-
-    .comment-badge {
-        background: var(--primary);
-        color: white;
-        padding: 0.25rem 0.5rem;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 500;
-    }
-
-    .comment-date {
-        color: var(--text-muted);
-        font-size: 0.875rem;
-    }
-
-    .comment-status {
-        display: inline-flex;
         align-items: center;
-        gap: 0.375rem;
-        background: #fef3c7;
-        color: #d97706;
-        padding: 0.375rem 0.75rem;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 500;
+        gap: 5px;
+        margin-top: 2px;
     }
 
-    .comment-status.approved {
-        background: #d1fae5;
-        color: #059669;
-    }
-
-    .comment-status::before {
-        content: '';
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: currentColor;
-    }
-
-    .comment-content {
-        color: var(--text-primary);
+    .content {
+        font-size: 0.95rem;
+        color: #374151;
+        margin-bottom: 12px;
         line-height: 1.7;
-        margin-left: 4rem;
+        font-weight: 400;
     }
 
-    .comment-actions {
-        margin-left: 4rem;
-        margin-top: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
+    /* ===== Admin Reply ===== */
+    .admin-reply {
+        background: linear-gradient(135deg, #eff6ff, #dbeafe);
+        border-left: 4px solid #3b82f6;
+        border-radius: 12px;
+        padding: 18px 20px;
+        margin-top: 15px;
+        margin-left: 60px;
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
     }
 
-    .comment-action {
-        background: transparent;
-        border: none;
-        color: var(--text-muted);
-        font-size: 0.875rem;
-        cursor: pointer;
-        padding: 0.5rem 0.75rem;
-        border-radius: var(--radius);
-        transition: all 0.2s ease;
+    .admin-reply .name {
+        font-weight: 600;
+        color: #2563eb;
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 6px;
+        font-size: 0.95rem;
+    }
+
+    .admin-badge {
+        background: #3b82f6;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    /* .admin-reply .content {
+        color: #1e40af;
+        font-size: 0.93rem;
+        margin-top: 8px;
+        line-height: 1.7;
+        font-weight: 400;
+    } */
+
+    /* ===== Sidebar ===== */
+    .sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .sidebar-card {
+        background: white;
+        border-radius: 16px;
+        padding: 25px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e5e7eb;
+    }
+
+    .sidebar-card h3 {
+        font-weight: 700;
+        color: #111827;
+        font-size: 1.1rem;
+        margin-bottom: 18px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .quick-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .quick-links li {
+        padding: 12px 0;
+        border-bottom: 1px solid #f3f4f6;
+    }
+
+    .quick-links li:last-child {
+        border-bottom: none;
+    }
+
+    .quick-links a {
+        color: #374151;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s;
         font-weight: 500;
     }
 
-    .comment-action:hover {
-        background: var(--background);
-        color: var(--text-primary);
+    .quick-links a:hover {
+        color: #3b82f6;
+        padding-left: 5px;
     }
 
-    .comment-action.liked {
-        color: var(--error);
+    .quick-links i {
+        color: #3b82f6;
+        font-size: 0.9rem;
     }
 
-    /* ===== REPLY FORM ===== */
-    .reply-form {
-        background: var(--surface);
-        border-radius: var(--radius-lg);
-        box-shadow: var(--shadow-lg);
-        padding: 2rem;
-        border: 1px solid var(--border-light);
+    /* .info-box {
+        background: linear-gradient(135deg, #eff6ff, #dbeafe);
+        border-radius: 12px;
+        padding: 20px;
+        border-left: 4px solid #3b82f6;
     }
 
-    .reply-title {
-        font-size: 1.5rem;
+    .info-box h4 {
+        color: #1e40af;
         font-weight: 600;
-        color: var(--text-primary);
-        margin-bottom: 1.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
+        font-size: 1rem;
+        margin-bottom: 10px;
     }
 
-    .reply-title::before {
-        content: '';
-        width: 4px;
-        height: 20px;
-        background: var(--primary);
-        border-radius: 2px;
+    .info-box p {
+        color: #1e40af;
+        font-size: 0.9rem;
+        margin: 0;
+        line-height: 1.6;
+        font-weight: 400;
+    } */
+
+    /* ===== Form ===== */
+    .ask-form {
+        background: white;
+        border-radius: 16px;
+        padding: 35px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e5e7eb;
+        margin-top: 30px;
     }
 
-    .form-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.5rem;
-        margin-bottom: 1.5rem;
+    .ask-form h3 {
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 8px;
+        font-size: 1.5rem;
     }
 
-    .form-group {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .form-group.full-width {
-        grid-column: 1 / -1;
+    .ask-form .subtitle {
+        color: #6b7280;
+        margin-bottom: 25px;
+        font-size: 0.95rem;
     }
 
     .form-label {
-        font-weight: 500;
-        color: var(--text-primary);
-        font-size: 0.875rem;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 8px;
+        display: block;
     }
 
-    .form-input {
-        padding: 0.875rem 1rem;
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        font-size: 0.875rem;
-        transition: all 0.2s ease;
-        background: var(--surface);
+    .form-control {
+        border-radius: 10px;
+        border: 2px solid #e5e7eb;
+        padding: 12px 16px;
+        transition: all 0.3s;
+        width: 100%;
+        font-size: 0.95rem;
+        color: #1f2937;
     }
 
-    .form-input:focus {
+    .form-control:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 4px rgba(155, 161, 170, 0.1);
         outline: none;
-        border-color: var(--primary);
-        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
     }
 
-    .form-textarea {
-        min-height: 140px;
-        resize: vertical;
-        font-family: inherit;
-        line-height: 1.6;
-    }
-
-    .form-actions {
-        display: flex;
-        justify-content: flex-end;
-        gap: 1rem;
-        margin-top: 1.5rem;
-    }
-
-    .btn {
-        padding: 0.875rem 1.75rem;
-        border: none;
-        border-radius: var(--radius);
-        font-size: 0.875rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .btn-secondary {
-        background: var(--background);
-        color: var(--text-secondary);
-        border: 1px solid var(--border);
-    }
-
-    .btn-secondary:hover {
-        background: #f1f5f9;
-        color: var(--text-primary);
+    .form-control::placeholder {
+        color: #9ca3af;
     }
 
     .btn-primary {
-        background: var(--primary);
-        color: white;
-        box-shadow: var(--shadow);
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        border: none;
+        border-radius: 10px;
+        padding: 12px 28px;
+        font-weight: 600;
+        transition: all 0.3s;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        font-size: 0.95rem;
     }
 
     .btn-primary:hover {
-        background: var(--primary-dark);
-        transform: translateY(-1px);
-        box-shadow: var(--shadow-md);
-    }
-
-    /* ===== SUCCESS MESSAGE ===== */
-    .alert {
-        padding: 1rem 1.5rem;
-        border-radius: var(--radius);
-        margin-bottom: 1.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        animation: slideIn 0.3s ease;
+        background: linear-gradient(135deg, #2563eb, #1e40af);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
     }
 
     .alert-success {
+        border-radius: 12px;
         background: #d1fae5;
+        border: 1px solid #6ee7b7;
         color: #065f46;
-        border: 1px solid #a7f3d0;
+        padding: 15px 20px;
+        margin-bottom: 20px;
+        font-weight: 500;
     }
 
-    @keyframes slideIn {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    /* ===== Empty State ===== */
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
     }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-        .forum-title {
+    .empty-icon {
+        font-size: 4rem;
+        color: #d1d5db;
+        margin-bottom: 20px;
+    }
+
+    .empty-state h4 {
+        color: #6b7280;
+        font-weight: 600;
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+    }
+
+    .empty-state p {
+        color: #9ca3af;
+        font-size: 0.95rem;
+    }
+
+    /* ===== Contact Info ===== */
+    .contact-info p {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        color: #4b5563;
+        font-size: 0.9rem;
+    }
+
+    .contact-info i {
+        color: #3b82f6;
+        width: 20px;
+        margin-right: 10px;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 992px) {
+        .hero-content h1 {
             font-size: 2rem;
         }
-        
-        .form-grid {
+        .stat-item {
+            min-width: 120px;
+            padding: 15px 20px;
+        }
+        .content-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero-section {
+            padding: 60px 0 40px;
+        }
+
+        .hero-content h1 {
+            font-size: 1.8rem;
+        }
+
+        .hero-content p {
+            font-size: 1rem;
+        }
+
+        .discussion-body, .ask-form {
+            padding: 20px;
+        }
+
+        .admin-reply {
+            margin-left: 0;
+        }
+
+        .features-container {
             grid-template-columns: 1fr;
         }
         
-        .comment-header {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 1rem;
-        }
-        
-        .comment-content {
-            margin-left: 0;
-        }
-        
-        .comment-actions {
-            margin-left: 0;
-        }
-        
-        .comment.reply {
-            margin-left: 1rem;
-        }
-        
-        .toolbar {
-            position: static;
+        .content-header {
+            padding: 20px;
         }
     }
 
-    /* ===== LOADING STATES ===== */
-    .loading {
-        opacity: 0.7;
-        pointer-events: none;
-    }
-
-    .skeleton {
-        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-        background-size: 200% 100%;
-        animation: loading 1.5s infinite;
-        border-radius: var(--radius);
-    }
-
-    @keyframes loading {
-        0% {
-            background-position: 200% 0;
+    @media (max-width: 576px) {
+        .hero-content h1 {
+            font-size: 1.6rem;
         }
-        100% {
-            background-position: -200% 0;
+        
+        .hero-stats {
+            gap: 20px;
+        }
+        
+        .stat-item {
+            min-width: 100px;
+            padding: 12px 15px;
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
         }
     }
 </style>
 @endsection
 
 @section('content')
-<div class="forum-container">
-    <!-- Header -->
-    <div class="forum-header">
-        <div class="container">
-            <h1 class="forum-title">Forum Konsultasi Kasus</h1>
-            <p class="forum-subtitle">Diskusikan masalah dan temukan solusi bersama komunitas profesional</p>
-        </div>
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="hero-content">
+        <h1>🎯 Forum Konsultasi Pajak Profesional</h1>
+        <p>Dapatkan jawaban terpercaya dari konsultan pajak bersertifikat. Kami siap membantu Anda memahami segala hal tentang perpajakan dengan mudah dan jelas.</p>
+        
+        {{-- <div class="hero-stats">
+            <div class="stat-item">
+                <span class="stat-number">{{ $comments->count() }}+</span>
+                <span class="stat-label">Pertanyaan</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Dukungan</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Profesional</span>
+            </div>
+        </div> --}}
     </div>
+</div>
 
-    <div class="container">
-
-        <!-- Success Message -->
-        <div id="successMessage" class="alert alert-success" style="display: none;">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-            </svg>
-            Komentar Anda telah berhasil dikirim dan menunggu persetujuan admin.
+<!-- Features Banner -->
+<div class="features-banner">
+    <div class="features-container">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div class="feature-title">Konsultan Bersertifikat</div>
+            <div class="feature-desc">Tim profesional dengan sertifikasi resmi</div>
         </div>
-
-        <!-- Comments Section -->
-        <div class="comments-section">
-            <div class="comments-header">
-                <h2 class="comments-count">20.4K KOMENTAR</h2>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fa-solid fa-clock"></i>
             </div>
-
-            <!-- Comment from David -->
-            <div class="comment">
-                <div class="comment-header">
-                    <div class="comment-user-info">
-                        <div class="comment-avatar">D</div>
-                        <div class="comment-meta">
-                            <div class="comment-user">David <span class="comment-badge">Pengguna Baru</span></div>
-                            <div class="comment-date">2 Oktober 2025 • 02:11</div>
-                        </div>
-                    </div>
-                    <div class="comment-status">Awaiting for approval</div>
-                </div>
-                <div class="comment-content">
-                    <p>Halo Om, jika saya salah input kode faktur yang seharusnya 02 tapi diinput 04, fakturnya bisa diganti atau dibatalkan buatkan faktur baru?</p>
-                </div>
-                <div class="comment-actions">
-                    <button class="comment-action" onclick="likeComment(1)">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M14 6h-4V3a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zM5 3h3v3H5V3zm9 9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7h10v5z"/>
-                        </svg>
-                        Suka
-                    </button>
-                    <button class="comment-action" onclick="replyToComment(1)">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0C3.6 0 0 3.1 0 7s3.6 7 8 7h.1l1.3 2.6c.1.2.4.4.6.4.2 0 .5-.1.6-.4l1.3-2.6H16c4.4 0 8-3.1 8-7s-3.6-7-8-7z"/>
-                        </svg>
-                        Balas
-                    </button>
-                    <button class="comment-action" onclick="shareComment(1)">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M12 10c-.6 0-1.1.2-1.5.6L5.9 8.5c0-.2.1-.3.1-.5s-.1-.3-.1-.5l4.6-2.1c.4.4.9.6 1.5.6 1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2c0 .2.1.3.1.5L5.6 6.6C5.2 6.2 4.7 6 4 6c-1.1 0-2 .9-2 2s.9 2 2 2c.7 0 1.2-.2 1.6-.6l4.5 2.1c0 .2-.1.3-.1.5 0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2z"/>
-                        </svg>
-                        Bagikan
-                    </button>
-                </div>
-            </div>
-
-            <!-- Reply from Sarah -->
-            <div class="comment reply">
-                <div class="comment-header">
-                    <div class="comment-user-info">
-                        <div class="comment-avatar">S</div>
-                        <div class="comment-meta">
-                            <div class="comment-user">Sarah <span class="comment-badge">Ahli Pajak</span></div>
-                            <div class="comment-date">1 Oktober 2025 • 16:30</div>
-                        </div>
-                    </div>
-                    <div class="comment-status approved">Approved</div>
-                </div>
-                <div class="comment-content">
-                    <p>Menurut pengalaman saya, faktur pajak yang sudah terbit tidak bisa diubah. Solusinya adalah dengan membuat faktur pengganti. Pastikan untuk mencantumkan nomor faktur yang diganti pada faktur pengganti tersebut.</p>
-                    
-                    <div style="background: var(--background); padding: 1rem; border-radius: var(--radius); margin-top: 1rem; border-left: 4px solid var(--success);">
-                        <strong>Tips Profesional:</strong> Selalu double-check kode faktur sebelum melakukan upload ke sistem.
-                    </div>
-                </div>
-                <div class="comment-actions">
-                    <button class="comment-action liked" onclick="likeComment(2)">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M14 6h-4V3a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zM5 3h3v3H5V3zm9 9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7h10v5z"/>
-                        </svg>
-                        12
-                    </button>
-                    <button class="comment-action" onclick="replyToComment(2)">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0C3.6 0 0 3.1 0 7s3.6 7 8 7h.1l1.3 2.6c.1.2.4.4.6.4.2 0 .5-.1.6-.4l1.3-2.6H16c4.4 0 8-3.1 8-7s-3.6-7-8-7z"/>
-                        </svg>
-                        Balas
-                    </button>
-                </div>
-            </div>
-
-            <!-- Reply from Admin -->
-            <div class="comment reply">
-                <div class="comment-header">
-                    <div class="comment-user-info">
-                        <div class="comment-avatar">A</div>
-                        <div class="comment-meta">
-                            <div class="comment-user">Admin Support <span class="comment-badge">Tim Resmi</span></div>
-                            <div class="comment-date">1 Oktober 2025 • 17:15</div>
-                        </div>
-                    </div>
-                    <div class="comment-status approved">Approved</div>
-                </div>
-                <div class="comment-content">
-                    <p>Benar seperti yang disampaikan Sarah. Untuk kesalahan penginputan kode faktur, Anda perlu membuat Faktur Pajak Pengganti.</p>
-                    
-                    <div style="background: var(--background); padding: 1.5rem; border-radius: var(--radius); margin: 1rem 0;">
-                        <strong style="display: block; margin-bottom: 0.75rem; color: var(--primary);">Langkah-langkah Pembuatan Faktur Pengganti:</strong>
-                        <ol style="padding-left: 1.5rem; space-y: 0.5rem;">
-                            <li style="margin-bottom: 0.5rem;">Buka menu Faktur Pajak Pengganti</li>
-                            <li style="margin-bottom: 0.5rem;">Pilih faktur yang akan diganti</li>
-                            <li style="margin-bottom: 0.5rem;">Perbaiki kode faktur menjadi 02</li>
-                            <li style="margin-bottom: 0.5rem;">Simpan dan upload ke sistem</li>
-                        </ol>
-                    </div>
-                    
-                    <p>Pastikan juga untuk membatalkan FP yang salah jika memungkinkan.</p>
-                </div>
-                <div class="comment-actions">
-                    <button class="comment-action liked" onclick="likeComment(3)">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M14 6h-4V3a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zM5 3h3v3H5V3zm9 9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7h10v5z"/>
-                        </svg>
-                        24
-                    </button>
-                    <button class="comment-action" onclick="replyToComment(3)">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0C3.6 0 0 3.1 0 7s3.6 7 8 7h.1l1.3 2.6c.1.2.4.4.6.4.2 0 .5-.1.6-.4l1.3-2.6H16c4.4 0 8-3.1 8-7s-3.6-7-8-7z"/>
-                        </svg>
-                        Balas
-                    </button>
-                </div>
-            </div>
+            <div class="feature-title">Respon Cepat</div>
+            <div class="feature-desc">Jawaban dalam 24 jam kerja</div>
         </div>
-
-        <!-- Reply Form -->
-        <div class="reply-form">
-            <h3 class="reply-title">Tambahkan Komentar</h3>
-            <form id="commentForm">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label class="form-label" for="name">Nama Lengkap</label>
-                        <input type="text" id="name" name="name" class="form-input" placeholder="Masukkan nama lengkap Anda" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="email">Email</label>
-                        <input type="email" id="email" name="email" class="form-input" placeholder="nama@email.com" required>
-                    </div>
-                    <div class="form-group full-width">
-                        <label class="form-label" for="comment">Komentar Anda</label>
-                        <textarea id="comment" name="comment" class="form-input form-textarea" placeholder="Tulis komentar profesional Anda di sini..." required></textarea>
-                    </div>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn btn-secondary" onclick="resetForm()">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm4 10.8L10.8 12 8 9.2 5.2 12 4 10.8 6.8 8 4 5.2 5.2 4 8 6.8 10.8 4 12 5.2 9.2 8 12 10.8z"/>
-                        </svg>
-                        Batal
-                    </button>
-                    <button type="submit" class="btn btn-primary">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.5.5 0 0 0-.052.936l3.7 1.5 1.5 3.7a.5.5 0 0 0 .936-.052l5.82-14.547z"/>
-                        </svg>
-                        Kirim Komentar
-                    </button>
-                </div>
-            </form>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <div class="feature-title">Keamanan Terjamin</div>
+            <div class="feature-desc">Data Anda aman dan terlindungi</div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fa-solid fa-comments"></i>
+            </div>
+            <div class="feature-title">Gratis Konsultasi</div>
+            <div class="feature-desc">Tanya jawab tanpa biaya apapun</div>
         </div>
     </div>
 </div>
-@endsection
 
-@section('scripts')
+<!-- Main Discussion Container -->
+<div class="discussion-container">
+
+    <div class="content-grid">
+        <!-- Kolom Utama -->
+        <div class="main-content">
+
+    <!-- Form Pertanyaan -->
+    <div class="ask-form mb-5">
+        @if(session('success'))
+            <div class="alert alert-success">
+                <i class="fa-solid fa-circle-check"></i> {{ session('success') }}
+            </div>
+        @endif
+
+        <h3>✍️ Ajukan Pertanyaan Anda</h3>
+        <p class="subtitle">Isi formulir di bawah ini dengan lengkap dan jelas</p>
+        
+        {{-- Form komentar utama --}}
+        <form action="{{ route('comments.store') }}" method="POST" class="mb-4">
+            @csrf
+
+            {{-- Hanya tampil untuk guest --}}
+            @guest
+                <div class="mb-3">
+                    <label class="form-label">
+                        <i class="fa-solid fa-user"></i> Nama Lengkap
+                    </label>
+                    <input type="text" name="name" class="form-control" placeholder="Masukkan nama lengkap Anda" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        <i class="fa-solid fa-envelope"></i> Email
+                    </label>
+                    <input type="email" name="email" class="form-control" placeholder="alamat@email.com" required>
+                </div>
+            @endguest
+
+            <div class="mb-3">
+                <label class="form-label">
+                    <i class="fa-solid fa-message"></i> Pertanyaan Anda
+                </label>
+                <textarea name="content" class="form-control" rows="5" placeholder="Tulis pertanyaan Anda secara detail di sini..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                <i class="fa-solid fa-paper-plane me-2"></i>
+                Kirim Pertanyaan
+            </button>
+        </form>
+
+    </div>
+
+    <!-- Daftar Diskusi -->
+    <div class="content-header">
+        <h2>💬 Diskusi & Pertanyaan</h2>
+        <p>Lihat pertanyaan dari pengguna lain atau ajukan pertanyaan Anda sendiri</p>
+    </div>
+
+    <div class="discussion-body">
+        @forelse ($comments as $comment)
+            <div class="comment">
+    <div class="header">
+        <div class="avatar">{{ strtoupper(substr($comment->name ?? 'A', 0, 1)) }}</div>
+        <div class="meta">
+            <div class="name">{{ $comment->name ?? 'Anonim' }}</div>
+            <div class="time">
+                <i class="fa-regular fa-clock"></i>
+                {{ $comment->created_at->translatedFormat('d F Y • H:i') }}
+            </div>
+        </div>
+    </div>
+
+    <div class="content">{{ $comment->content }}</div>
+
+    <!-- Tombol Balas -->
+    <button type="button" class="btn btn-outline-secondary btn-sm mt-2" onclick="toggleReplyForm({{ $comment->id }})">
+        <i class="fa-solid fa-reply"></i> Balas
+    </button>
+
+    <!-- Form Balasan -->
+    <div id="reply-form-{{ $comment->id }}" style="display:none; margin-top:15px;">
+        <form action="{{ route('comments.store') }}" method="POST" class="border rounded p-3 bg-light">
+            @csrf
+            <input type="hidden" name="parent_id" value="{{ $comment->id }}">
+
+            @guest
+                <div class="mb-2">
+                    <input type="text" name="name" class="form-control form-control-sm" placeholder="Nama Anda" required>
+                </div>
+                <div class="mb-2">
+                    <input type="email" name="email" class="form-control form-control-sm" placeholder="Email Anda" required>
+                </div>
+            @endguest
+
+            <div class="mb-2">
+                <textarea name="content" class="form-control form-control-sm" rows="2" placeholder="Tulis balasan Anda..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-sm btn-primary">
+                <i class="fa-solid fa-paper-plane"></i> Kirim Balasan
+            </button>
+        </form>
+    </div>
+
+    <!-- Balasan (Nested Replies) -->
+    @if ($comment->replies->count())
+        <div class="replies ms-4 mt-3 border-start ps-3">
+            @foreach ($comment->replies as $reply)
+                {{-- Panggil ulang template yang sama secara rekursif --}}
+                @include('product.konsultasi.partials.comment', ['comment' => $reply])
+            @endforeach
+        </div>
+    @endif
+</div>
+
+        @empty
+            <div class="empty-state">
+                <div class="empty-icon">💭</div>
+                <h4>Belum Ada Pertanyaan</h4>
+                <p>Jadilah yang pertama untuk mengajukan pertanyaan!</p>
+            </div>
+        @endforelse
+    </div>
+</div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <h3><i class="fa-solid fa-link"></i> Tautan Cepat</h3>
+                <ul class="quick-links">
+                    <li><a href="#"><i class="fa-solid fa-book"></i> Panduan Pajak</a></li>
+                    <li><a href="#"><i class="fa-solid fa-calculator"></i> Kalkulator Pajak</a></li>
+                    <li><a href="#"><i class="fa-solid fa-file-invoice"></i> Formulir Pajak</a></li>
+                    <li><a href="#"><i class="fa-solid fa-newspaper"></i> Berita Pajak</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-card info-box">
+                <h4>📌 Informasi Penting</h4>
+                <p>Pastikan pertanyaan Anda jelas dan detail agar tim kami dapat memberikan jawaban yang tepat dan akurat.</p>
+            </div>
+
+            <div class="sidebar-card">
+                <h3><i class="fa-solid fa-headset"></i> Hubungi Kami</h3>
+                <div class="contact-info">
+                    <p><i class="fa-solid fa-envelope"></i> info@pajakpro.com</p>
+                    <p><i class="fa-solid fa-phone"></i> (021) 1234-5678</p>
+                    <p><i class="fa-solid fa-location-dot"></i> Jakarta, Indonesia</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+</div>
+</div>
+
 <script>
-    // Format toolbar functionality
-    document.querySelectorAll('.toolbar-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const format = this.dataset.format;
-            handleFormat(format);
-            
-            // Toggle active state
-            if (format !== 'clear' && format !== 'more') {
-                this.classList.toggle('active');
-            }
-        });
-    });
-
-    function handleFormat(format) {
-        const commentTextarea = document.getElementById('comment');
-        
-        switch(format) {
-            case 'bold':
-                wrapSelection(commentTextarea, '**', '**');
-                break;
-            case 'italic':
-                wrapSelection(commentTextarea, '*', '*');
-                break;
-            case 'underline':
-                wrapSelection(commentTextarea, '<u>', '</u>');
-                break;
-            case 'list':
-                wrapSelection(commentTextarea, '\n- ', '');
-                break;
-            case 'code':
-                wrapSelection(commentTextarea, '`', '`');
-                break;
-            case 'quote':
-                wrapSelection(commentTextarea, '\n> ', '');
-                break;
-            case 'clear':
-                commentTextarea.value = '';
-                break;
-        }
-        
-        commentTextarea.focus();
-    }
-
-    function wrapSelection(textarea, before, after) {
-        const start = textarea.selectionStart;
-        const end = textarea.selectionEnd;
-        const selectedText = textarea.value.substring(start, end);
-        const newText = textarea.value.substring(0, start) + before + selectedText + after + textarea.value.substring(end);
-        
-        textarea.value = newText;
-        textarea.selectionStart = start + before.length;
-        textarea.selectionEnd = end + before.length;
-    }
-
-    // Comment actions
-    function likeComment(commentId) {
-        const btn = event.currentTarget;
-        btn.classList.toggle('liked');
-        
-        if (btn.classList.contains('liked')) {
-            // Simulate API call
-            setTimeout(() => {
-                const currentCount = parseInt(btn.textContent) || 0;
-                btn.innerHTML = `
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                        <path d="M14 6h-4V3a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zM5 3h3v3H5V3zm9 9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7h10v5z"/>
-                    </svg>
-                    ${currentCount + 1}
-                `;
-            }, 300);
-        }
-    }
-
-    function replyToComment(commentId) {
-        const commentForm = document.getElementById('commentForm');
-        const textarea = document.getElementById('comment');
-        textarea.focus();
-        textarea.value = `@${commentId} `;
-    }
-
-    function shareComment(commentId) {
-        // Simulate share functionality
-        if (navigator.share) {
-            navigator.share({
-                title: 'Komentar Forum Konsultasi',
-                text: 'Lihat komentar menarik di forum konsultasi kami',
-                url: window.location.href + `#comment-${commentId}`
-            });
+    function toggleReplyForm(id) {
+        const form = document.getElementById(`reply-form-${id}`);
+        if (form.style.display === "none" || form.style.display === "") {
+            form.style.display = "block";
         } else {
-            alert('Fitur berbagi tidak didukung di browser ini');
+            form.style.display = "none";
         }
     }
-
-    // Form submission
-    document.getElementById('commentForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Validasi form
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const comment = document.getElementById('comment').value.trim();
-        
-        if (!name || !email || !comment) {
-            alert('Harap lengkapi semua field yang diperlukan!');
-            return;
-        }
-        
-        if (!isValidEmail(email)) {
-            alert('Harap masukkan alamat email yang valid!');
-            return;
-        }
-        
-        // Simulate API call
-        const submitBtn = this.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        
-        submitBtn.innerHTML = `
-            <svg class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 22c5.421 0 10-4.579 10-10h-2c0 4.337-3.663 8-8 8s-8-3.663-8-8c0-4.336 3.663-8 8-8V2C6.579 2 2 6.58 2 12c0 5.421 4.579 10 10 10z"/>
-            </svg>
-            Mengirim...
-        `;
-        submitBtn.disabled = true;
-        
-        setTimeout(() => {
-            // Show success message
-            document.getElementById('successMessage').style.display = 'flex';
-            
-            // Reset form
-            this.reset();
-            
-            // Reset button
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-            
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            
-            // Hide success message after 5 seconds
-            setTimeout(() => {
-                document.getElementById('successMessage').style.display = 'none';
-            }, 5000);
-        }, 1500);
-    });
-
-    // Email validation
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
-
-    // Reset form
-    function resetForm() {
-        document.getElementById('commentForm').reset();
-    }
-
-    // Add some interactive effects
-    document.addEventListener('DOMContentLoaded', function() {
-        // Add fade-in animation to comments
-        const comments = document.querySelectorAll('.comment');
-        comments.forEach((comment, index) => {
-            comment.style.opacity = '0';
-            comment.style.transform = 'translateY(20px)';
-            
-            setTimeout(() => {
-                comment.style.transition = 'all 0.5s ease';
-                comment.style.opacity = '1';
-                comment.style.transform = 'translateY(0)';
-            }, index * 100);
-        });
-    });
 </script>
 @endsection

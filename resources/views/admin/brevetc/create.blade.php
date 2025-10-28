@@ -1,11 +1,11 @@
 <!-- resources/views/brevetc/create.blade.php -->
 @extends('admin.layouts.master')
-@section('title', 'Tambah Brevet AB')
+@section('title', 'Tambah Brevet C')
 
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h4>Tambah Brevet AB Baru</h4>
+        <h4>Tambah Brevet C Baru</h4>
     </div>
     <div class="card-body">
         <form action="{{ route('admin.brevetc.store') }}" method="POST" enctype="multipart/form-data">

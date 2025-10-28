@@ -15,4 +15,10 @@ class KonsultasiController extends Controller
         // Kirim ke view product
         return view('product.konsultasi.private', compact('layanan'));
     }
+
+    public function show($id)
+    {
+        $layanan = ItemKonsultasi::with('detail')->findOrFail($id);
+        return view('product.konsultasi.private_show', compact('layanan'));
+    }
 }
