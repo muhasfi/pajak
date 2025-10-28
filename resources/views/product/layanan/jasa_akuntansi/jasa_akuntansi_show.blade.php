@@ -5,15 +5,9 @@
 @section('style')
 <style>
     :root {
-<<<<<<< HEAD
-        --primary: #059669;
-        --primary-light: #10b981;
-        --primary-dark: #047857;
-=======
         --primary: #2563eb;
         --primary-light: #3b82f6;
         --primary-dark: #1d4ed8;
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
         --secondary: #64748b;
         --accent: #f59e0b;
         --success: #059669;
@@ -539,15 +533,9 @@
                             <img src="{{ asset('storage/' . $layanan->gambar) }}" 
                                  class="service-image" 
                                  alt="{{ $layanan->judul }}"
-<<<<<<< HEAD
-                                 onerror="this.onerror=null;this.src='{{ asset('assets/customer/images/accounting-service.jpg') }}'">
-                        @else
-                            <img src="{{ asset('assets/customer/images/accounting-service.jpg') }}" 
-=======
                                  onerror="this.onerror=null;this.src='{{ asset('No_image_available.webp') }}'">
                         @else
                             <img src="{{ asset('No_image_available.webp') }}" 
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                                  class="service-image" 
                                  alt="Jasa Akuntansi">
                         @endif
@@ -618,15 +606,6 @@
                                             $text = ltrim($trimmed, '+- ');
                                             $benefitClass = $isNegative ? 'negative' : '';
                                         @endphp
-
-<<<<<<< HEAD
-                                        <div class="service-item">
-                                            <h4 class="service-item-title">
-                                                <i class="fas fa-{{ $isNegative ? 'times-circle' : 'check-circle' }}"></i>
-                                                {{ $text }}
-                                            </h4>
-                                        </div>
-=======
                                             @if($trimmed !== '')
                                             <div class="service-item">
                                                 <h4 class="service-item-title">
@@ -636,7 +615,6 @@
                                                 </h4>
                                             </div>
                                         @endif
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                                     @endif
                                 @endforeach
                             @else
@@ -646,41 +624,6 @@
                                 </div>
                             @endif
                         </div>
-
-<<<<<<< HEAD
-                        <!-- Additional Services -->
-                        {{-- <div class="additional-services">
-                            <h4>Layanan Tambahan yang Didapatkan</h4>
-                            <div class="benefits-list">
-                                <div class="benefit-item">
-                                    <div class="benefit-icon">
-                                        <i class="fas fa-check"></i>
-                                    </div>
-                                    <span class="benefit-text">Konsultasi gratis mengenai masalah akuntansi</span>
-                                </div>
-                                <div class="benefit-item">
-                                    <div class="benefit-icon">
-                                        <i class="fas fa-check"></i>
-                                    </div>
-                                    <span class="benefit-text">Laporan keuangan berkala (bulanan/triwulan/tahunan)</span>
-                                </div>
-                                <div class="benefit-item">
-                                    <div class="benefit-icon">
-                                        <i class="fas fa-check"></i>
-                                    </div>
-                                    <span class="benefit-text">Analisis laporan keuangan dan rekomendasi</span>
-                                </div>
-                                <div class="benefit-item">
-                                    <div class="benefit-icon">
-                                        <i class="fas fa-check"></i>
-                                    </div>
-                                    <span class="benefit-text">Persiapan dokumen untuk keperluan perpajakan</span>
-                                </div>
-                            </div>
-                        </div> --}}
-
-=======
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                         <!-- Back Button -->
                         <div class="text-center mt-4">
                             <a href="{{ route('jasa.akuntansi') }}" class="btn btn-back">

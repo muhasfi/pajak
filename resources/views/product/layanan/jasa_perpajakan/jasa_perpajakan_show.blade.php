@@ -5,15 +5,9 @@
 @section('style')
 <style>
     :root {
-<<<<<<< HEAD
-        --primary: #dc2626;
-        --primary-light: #ef4444;
-        --primary-dark: #b91c1c;
-=======
         --primary: #2563eb;
         --primary-light: #3b82f6;
         --primary-dark: #1d4ed8;
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
         --secondary: #64748b;
         --accent: #f59e0b;
         --success: #059669;
@@ -43,11 +37,7 @@
         --transition: all 0.3s ease;
     }
 
-<<<<<<< HEAD
-    .tax-service-section {
-=======
     .litigation-service-section {
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
         padding: 1rem 0;
         background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
         min-height: 100vh;
@@ -97,11 +87,7 @@
         box-shadow: var(--shadow-xl);
         overflow: hidden;
         margin-bottom: 2rem;
-<<<<<<< HEAD
-        border: 1px solid rgba(220, 38, 38, 0.1);
-=======
         border: 1px solid rgba(124, 58, 237, 0.1);
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
     }
 
     .image-container {
@@ -151,11 +137,7 @@
         background: linear-gradient(135deg, var(--light) 0%, var(--white) 100%);
         border-radius: var(--radius-lg);
         box-shadow: var(--shadow-sm);
-<<<<<<< HEAD
-        border: 1px solid rgba(220, 38, 38, 0.1);
-=======
         border: 1px solid rgba(124, 58, 237, 0.1);
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
         margin-bottom: 1.5rem;
     }
 
@@ -197,20 +179,12 @@
         width: 100%;
         font-size: 1rem;
         margin-bottom: 1rem;
-<<<<<<< HEAD
-        box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
-=======
         box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
     }
 
     .btn-enroll:hover {
         transform: translateY(-2px);
-<<<<<<< HEAD
-        box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
-=======
         box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
     }
 
     .btn-whatsapp {
@@ -320,11 +294,7 @@
         border-radius: var(--radius);
         padding: 1.5rem;
         box-shadow: var(--shadow);
-<<<<<<< HEAD
-        border: 1px solid rgba(220, 38, 38, 0.1);
-=======
         border: 1px solid rgba(124, 58, 237, 0.1);
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
         transition: var(--transition);
     }
 
@@ -454,11 +424,7 @@
 
     /* Tablet Styles (768px and up) */
     @media (min-width: 768px) {
-<<<<<<< HEAD
-        .tax-service-section {
-=======
         .litigation-service-section {
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
             padding: 2rem 0;
         }
 
@@ -481,11 +447,7 @@
 
     /* Desktop Styles (992px and up) */
     @media (min-width: 992px) {
-<<<<<<< HEAD
-        .tax-service-section {
-=======
         .litigation-service-section {
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
             padding: 3rem 0;
         }
 
@@ -516,11 +478,7 @@
 
     /* Small Mobile Styles (480px and down) */
     @media (max-width: 480px) {
-<<<<<<< HEAD
-        .tax-service-section {
-=======
         .litigation-service-section {
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
             padding: 0.5rem 0;
         }
 
@@ -551,21 +509,12 @@
 @endsection
 
 @section('content')
-<<<<<<< HEAD
-<section class="tax-service-section">
-=======
 <section class="litigation-service-section">
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
     <div class="container">
         <!-- Breadcrumb Navigation -->
         <nav class="breadcrumb-nav">
             <ol class="breadcrumb">
-                {{-- <li class="breadcrumb-item"><a href="{{ route('home') }}">Beranda</a></li> --}}
-<<<<<<< HEAD
-                <li class="breadcrumb-item"><a href="{{ route('jasa.perpajakan') }}">Jasa Perpajakan</a></li>
-=======
                 <li class="breadcrumb-item"><a href="{{ route('litigasi') }}">Layanan Litigasi</a></li>
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                 <li class="breadcrumb-item active">{{ Str::limit($layanan->judul, 30) }}</li>
             </ol>
         </nav>
@@ -582,16 +531,6 @@
                             <img src="{{ asset('storage/' . $layanan->gambar) }}" 
                                  class="service-image" 
                                  alt="{{ $layanan->judul }}"
-<<<<<<< HEAD
-                                 onerror="this.onerror=null;this.src='{{ asset('assets/customer/images/tax-service.jpg') }}'">
-                        @else
-                            <img src="{{ asset('assets/customer/images/tax-service.jpg') }}" 
-                                 class="service-image" 
-                                 alt="Jasa Perpajakan">
-                        @endif
-                        <div class="service-badge">
-                            Jasa Perpajakan
-=======
                                  onerror="this.onerror=null;this.src='{{ asset('No_image_available.webp') }}'">
                         @else
                             <img src="{{ asset('No_image_available.webp') }}" 
@@ -600,7 +539,6 @@
                         @endif
                         <div class="service-badge">
                             Layanan Litigasi
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                         </div>
                     </div>
 
@@ -612,11 +550,7 @@
                                 Deskripsi Layanan
                             </h3>
                             <div class="description-content">
-<<<<<<< HEAD
-                                {{ $layanan->detail->deskripsi ?? 'Layanan konsultasi dan penyelesaian perpajakan profesional untuk memastikan kepatuhan pajak bisnis Anda sesuai regulasi yang berlaku.' }}
-=======
                                 {{ $layanan->detail->deskripsi ?? 'Layanan bantuan hukum dan pendampingan litigasi profesional untuk menyelesaikan sengketa hukum secara efektif dan efisien.' }}
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                             </div>
                         </div>
 
@@ -629,33 +563,16 @@
                             <div class="feature-grid">
                                 <div class="feature-card">
                                     <div class="feature-icon">
-<<<<<<< HEAD
-                                        <i class="fas fa-file-invoice-dollar"></i>
-                                    </div>
-                                    <h4 class="feature-title">Kepatuhan Pajak</h4>
-                                    <p class="feature-description">Memastikan kepatuhan terhadap semua regulasi perpajakan yang berlaku</p>
-                                </div>
-                                <div class="feature-card">
-                                    <div class="feature-icon">
-                                        <i class="fas fa-clock"></i>
-                                    </div>
-                                    <h4 class="feature-title">Tepat Waktu</h4>
-                                    <p class="feature-description">Pelaporan pajak tepat waktu menghindari denda dan sanksi</p>
-=======
                                         <i class="fas fa-gavel"></i>
                                     </div>
                                     <h4 class="feature-title">Ahli Hukum</h4>
                                     <p class="feature-description">Didukung oleh tim ahli hukum yang berpengalaman dalam menangani berbagai kasus litigasi</p>
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                                 </div>
                                 <div class="feature-card">
                                     <div class="feature-icon">
                                         <i class="fas fa-shield-alt"></i>
                                     </div>
                                     <h4 class="feature-title">Perlindungan Hukum</h4>
-<<<<<<< HEAD
-                                    <p class="feature-description">Perlindungan hukum dan representasi dalam hal pemeriksaan pajak</p>
-=======
                                     <p class="feature-description">Perlindungan hukum maksimal untuk kepentingan dan hak-hak klien</p>
                                 </div>
                                 <div class="feature-card">
@@ -664,7 +581,6 @@
                                     </div>
                                     <h4 class="feature-title">Strategi Efektif</h4>
                                     <p class="feature-description">Penyusunan strategi hukum yang tepat untuk mencapai hasil terbaik</p>
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                                 </div>
                             </div>
                         </div>
@@ -688,15 +604,6 @@
                                             $text = ltrim($trimmed, '+- ');
                                             $benefitClass = $isNegative ? 'negative' : '';
                                         @endphp
-
-<<<<<<< HEAD
-                                        <div class="service-item">
-                                            <h4 class="service-item-title">
-                                                <i class="fas fa-{{ $isNegative ? 'times-circle' : 'check-circle' }}"></i>
-                                                {{ $text }}
-                                            </h4>
-                                        </div>
-=======
                                         @if($trimmed !== '')
                                             <div class="service-item">
                                                 <h4 class="service-item-title">
@@ -706,62 +613,18 @@
                                                 </h4>
                                             </div>
                                         @endif
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                                     @endif
                                 @endforeach
                             @else
                                 <div class="text-center py-4">
-<<<<<<< HEAD
-                                    <i class="fas fa-file-invoice-dollar fa-3x text-muted mb-3"></i>
-                                    <p class="text-muted">Detail benefit layanan perpajakan sedang dalam persiapan.</p>
-=======
                                     <i class="fas fa-gavel fa-3x text-muted mb-3"></i>
                                     <p class="text-muted">Detail benefit layanan litigasi sedang dalam persiapan.</p>
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                                 </div>
                             @endif
                         </div>
-
-<<<<<<< HEAD
-                        <!-- Additional Services -->
-                        {{-- <div class="additional-services">
-                            <h4>Layanan Tambahan yang Didapatkan</h4>
-                            <div class="benefits-list">
-                                <div class="benefit-item">
-                                    <div class="benefit-icon">
-                                        <i class="fas fa-check"></i>
-                                    </div>
-                                    <span class="benefit-text">Konsultasi perencanaan pajak yang optimal</span>
-                                </div>
-                                <div class="benefit-item">
-                                    <div class="benefit-icon">
-                                        <i class="fas fa-check"></i>
-                                    </div>
-                                    <span class="benefit-text">Pelaporan SPT Tahunan dan Bulanan</span>
-                                </div>
-                                <div class="benefit-item">
-                                    <div class="benefit-icon">
-                                        <i class="fas fa-check"></i>
-                                    </div>
-                                    <span class="benefit-text">Pendampingan saat pemeriksaan pajak</span>
-                                </div>
-                                <div class="benefit-item">
-                                    <div class="benefit-icon">
-                                        <i class="fas fa-check"></i>
-                                    </div>
-                                    <span class="benefit-text">Update regulasi perpajakan terbaru</span>
-                                </div>
-                            </div>
-                        </div> --}}
-
-                        <!-- Back Button -->
-                        <div class="text-center mt-4">
-                            <a href="{{ route('jasa.perpajakan') }}" class="btn btn-back">
-=======
                         <!-- Back Button -->
                         <div class="text-center mt-4">
                             <a href="{{ route('litigasi') }}" class="btn btn-back">
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                                 <i class="fas fa-arrow-left"></i>
                                 Lihat Layanan Lainnya
                             </a>
@@ -780,21 +643,12 @@
 
                         <button type="button" 
                                 class="btn-enroll"
-<<<<<<< HEAD
-                                onclick="addToCart('{{ $layanan->id }}', 'ItemPajak')">
-                            <i class="fas fa-shopping-cart"></i>
-                            Mulai Pajak
-                        </button>
-
-                        <a href="https://wa.me/6281234567890?text=Halo,%20saya%20tertarik%20dengan%20jasa%20perpajakan%20{{ urlencode($layanan->judul) }}" 
-=======
                                 onclick="addToCart('{{ $layanan->id }}', 'ItemLitigasi')">
                             <i class="fas fa-shopping-cart"></i>
                             Daftar Layanan
                         </button>
 
                         <a href="https://wa.me/6281234567890?text=Halo,%20saya%20tertarik%20dengan%20layanan%20litigasi%20{{ urlencode($layanan->judul) }}" 
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                            class="btn-whatsapp"
                            target="_blank">
                             <i class="fab fa-whatsapp"></i>
@@ -808,51 +662,31 @@
                                     <div class="benefit-icon">
                                         <i class="fas fa-check"></i>
                                     </div>
-<<<<<<< HEAD
-                                    <span class="benefit-text">Konsultasi dengan konsultan pajak berpengalaman</span>
-=======
                                     <span class="benefit-text">Konsultasi dengan pengacara berpengalaman</span>
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                                 </li>
                                 <li class="benefit-item">
                                     <div class="benefit-icon">
                                         <i class="fas fa-check"></i>
                                     </div>
-<<<<<<< HEAD
-                                    <span class="benefit-text">Analisis kewajiban perpajakan bisnis Anda</span>
-=======
                                     <span class="benefit-text">Analisis mendalam terhadap kasus hukum</span>
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                                 </li>
                                 <li class="benefit-item">
                                     <div class="benefit-icon">
                                         <i class="fas fa-check"></i>
                                     </div>
-<<<<<<< HEAD
-                                    <span class="benefit-text">Perhitungan dan pelaporan pajak yang akurat</span>
-=======
                                     <span class="benefit-text">Penyusunan strategi litigasi yang tepat</span>
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                                 </li>
                                 <li class="benefit-item">
                                     <div class="benefit-icon">
                                         <i class="fas fa-check"></i>
                                     </div>
-<<<<<<< HEAD
-                                    <span class="benefit-text">Pendampingan pemeriksaan dan keberatan pajak</span>
-=======
                                     <span class="benefit-text">Pendampingan penuh selama proses hukum</span>
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                                 </li>
                                 <li class="benefit-item">
                                     <div class="benefit-icon">
                                         <i class="fas fa-check"></i>
                                     </div>
-<<<<<<< HEAD
-                                    <span class="benefit-text">Update regulasi perpajakan secara berkala</span>
-=======
                                     <span class="benefit-text">Representasi di pengadilan dan mediasi</span>
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                                 </li>
                             </ul>
                         </div>
@@ -893,11 +727,7 @@ function addToCart(id, type) {
                 timer: 1500,
                 showConfirmButton: false,
                 background: '#fff',
-<<<<<<< HEAD
-                iconColor: '#dc2626'
-=======
                 iconColor: '#7c3aed'
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
             }).then(() => {
                 window.location.href = "{{ route('cart') }}";
             });
@@ -922,11 +752,7 @@ function addToCart(id, type) {
             title: 'Terjadi Kesalahan',
             text: 'Silakan coba lagi nanti',
             background: '#fff',
-<<<<<<< HEAD
-            confirmButtonColor: '#dc2626'
-=======
             confirmButtonColor: '#7c3aed'
->>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
         });
         
         // Reset button
