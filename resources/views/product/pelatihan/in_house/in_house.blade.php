@@ -119,12 +119,6 @@
             </div>
 
             <div class="programs-tabs">
-                <div class="tab-buttons">
-                    <button class="tab-button active" data-tab="tax-programs">Program Perpajakan</button>
-                    <button class="tab-button" data-tab="accounting-programs">Akuntansi & Audit</button>
-                    <button class="tab-button" data-tab="soft-skills">Soft Skills</button>
-                    <button class="tab-button" data-tab="custom-program">Program Kustom</button>
-                </div>
 
                 <div class="tab-content">
                     <!-- Tax Programs -->
@@ -132,9 +126,6 @@
                         <div class="programs-grid">
                             @forelse($trainings as $training)
                                 <div class="program-card {{ $loop->first ? 'featured' : '' }}">
-                                    @if($loop->first)
-                                        <div class="program-badge">Most Popular</div>
-                                    @endif
 
                                     <div class="program-header">
                                         <h3>{{ $training->judul }}</h3>
@@ -178,12 +169,12 @@
                                     </div>
 
                                     <div class="program-footer">
+                                        <a href="{{ route('training.show', $training->id) }}" class="btn btn-primary">
+                                            Daftar Sekarang
+                                        </a>
                                         <a href="" class="btn btn-outline">
                                             <i class="fas fa-info-circle"></i>
                                             Detail
-                                        </a>
-                                        <a href="{{ route('training.show', $training->id) }}" class="btn btn-outline">
-                                            Daftar Sekarang
                                         </a>
                                     </div>
                                 </div>
@@ -663,22 +654,26 @@
 /* Perbaikan utama: Program cards dengan ukuran konsisten */
 .programs-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
+    gap: clamp(1.5rem, 3vw, 2rem);
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 auto clamp(3rem, 6vw, 4rem);
+    justify-content: center;
+    justify-items: center;
 }
 
 .program-card {
-    background: var(--white);
+    display: flex;
+    flex-direction: column;       
+    justify-content: space-between; 
+    background-color: var(--white);
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: var(--shadow-md);
-    transition: var(--transition);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
     position: relative;
-    border: 1px solid var(--gray-200);
-    max-width: 400px; /* Batas maksimum untuk konsistensi */
-    margin: 0 auto; /* Pusatkan card jika hanya ada satu */
+    border: 1px solid #e2e8f0;
+    min-height: 450px;
 }
 
 .program-card:hover {
@@ -710,26 +705,49 @@
 }
 
 .program-header {
-    padding: 2rem 2rem 1rem;
+    width: 100%;
+    padding: 2.5rem 2rem;
     background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
     color: var(--white);
+    border-radius: 1rem; /* sudut melengkung */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* efek bayangan lembut */
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
 }
 
+/* Tambahan efek gradasi lembut */
+.program-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(4px);
+}
+
+/* Gaya judul */
 .program-header h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
+    font-size: 1.8rem;
+    font-weight: 700;
     margin-bottom: 0.5rem;
-    color: var(--white);
+    position: relative;
+    z-index: 1;
+    color: white;
 }
 
-.program-level {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 0.25rem 0.75rem;
-    border-radius: 15px;
-    font-size: 0.8rem;
+/* Gaya level */
+.program-header .program-level {
+    font-size: 1rem;
     font-weight: 500;
-    display: inline-block;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
 }
+
 
 .program-body {
     padding: 1.5rem 2rem;
@@ -787,14 +805,25 @@
     margin-bottom: 1rem;
 }
 
-.program-footer {
-    padding: 0 2rem 2rem;
-    display: flex;
-    gap: 0.75rem;
-}
+    .program-footer {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
 
 .program-footer .btn {
     flex: 1;
+}
+
+.program-footer .btn.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: 1.5px solid #007bff;
+}
+
+.program-footer .btn.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
 }
 
 /* Custom Program */

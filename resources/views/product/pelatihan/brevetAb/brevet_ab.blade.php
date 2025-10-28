@@ -978,22 +978,17 @@
 
 .training-card {
     display: flex;
-    flex-direction: column;       /* header-body-footer vertikal */
-    justify-content: space-between; /* body stretch, footer di bawah */
+    flex-direction: column;       
+    justify-content: space-between; 
     background-color: var(--white);
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     position: relative;
-<<<<<<< HEAD
-    border: 1px solid var(--gray-200);
-    width: 100%;
-    max-width: 400px;
-=======
     border: 1px solid #e2e8f0;
-    min-height: 450px; /* sesuaikan tinggi minimum agar rata */
->>>>>>> 98f4dc16aaafa2ce28596bd298307eb94b2005b8
+    min-height: 450px;
+
 }
 
 .training-card:hover {
