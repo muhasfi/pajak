@@ -194,6 +194,13 @@
                                         <span>Konsultasi Private</span>
                                     </a>
                                 </li>
+
+                                <li class="sidebar-item {{ request()->routeIs('admin.comments.*') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.comments') }}" class='sidebar-link'>
+                                        <i class="bi bi-journal-medical"></i> <!-- Ikon bimbel/siswa -->
+                                        <span>Forum</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 

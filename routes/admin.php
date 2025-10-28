@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ArtikelController;
 use App\Http\Controllers\Admin\BrevetABController;
 use App\Http\Controllers\Admin\BrevetCController;
+use App\Http\Controllers\Admin\CommentAdminController;
 use App\Http\Controllers\Admin\ItemAccountingServiceController;
 use App\Http\Controllers\Admin\ItemAuditController;
 use App\Http\Controllers\Admin\ItemBimbelController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Admin\ItemTrainingController;
 use App\Http\Controllers\Admin\ItemTransferController;
 use App\Http\Controllers\Admin\ItemWebinarController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ReplyController;
 use App\Http\Controllers\Admin\WebinarController;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
@@ -78,6 +80,11 @@ Route::prefix('admin-xtz2025')->group(static function () {
         Route::resource('audits', ItemAuditController::class)->names('admin.audit');
         Route::resource('transfers', ItemTransferController::class)->names('admin.transfer');
         Route::resource('layanan-privasi', ItemKonsultasiController::class)->names('admin.konsultasi');
+
+        Route::get('/comments', [CommentAdminController::class, 'index'])->name('admin.comments');
+        Route::post('/comments/{id}/reply', [CommentAdminController::class, 'reply'])->name('admin.comments.reply');
+        Route::delete('/comments/{id}', [CommentAdminController::class, 'destroy'])->name('admin.comments.destroy');
+        Route::put('/comments/{id}', [CommentAdminController::class, 'update'])->name('admin.comments.update');
 
         // Route::get('/book', [\App\Http\Controllers\Admin\ItemBookController::class, 'index'])->name('book.index');
     });

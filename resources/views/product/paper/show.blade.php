@@ -852,6 +852,11 @@ function addToCart(id, type) {
                 text: data.message,
                 background: '#fff',
                 confirmButtonColor: '#2563eb'
+<<<<<<< HEAD
+=======
+            }).then(() => {
+                window.location.href = "{{ route('cart') }}";
+>>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
             });
             
             // Reset button

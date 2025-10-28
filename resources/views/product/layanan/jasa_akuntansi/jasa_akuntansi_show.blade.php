@@ -5,9 +5,15 @@
 @section('style')
 <style>
     :root {
+<<<<<<< HEAD
         --primary: #059669;
         --primary-light: #10b981;
         --primary-dark: #047857;
+=======
+        --primary: #2563eb;
+        --primary-light: #3b82f6;
+        --primary-dark: #1d4ed8;
+>>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
         --secondary: #64748b;
         --accent: #f59e0b;
         --success: #059669;
@@ -533,9 +539,15 @@
                             <img src="{{ asset('storage/' . $layanan->gambar) }}" 
                                  class="service-image" 
                                  alt="{{ $layanan->judul }}"
+<<<<<<< HEAD
                                  onerror="this.onerror=null;this.src='{{ asset('assets/customer/images/accounting-service.jpg') }}'">
                         @else
                             <img src="{{ asset('assets/customer/images/accounting-service.jpg') }}" 
+=======
+                                 onerror="this.onerror=null;this.src='{{ asset('No_image_available.webp') }}'">
+                        @else
+                            <img src="{{ asset('No_image_available.webp') }}" 
+>>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                                  class="service-image" 
                                  alt="Jasa Akuntansi">
                         @endif
@@ -607,12 +619,24 @@
                                             $benefitClass = $isNegative ? 'negative' : '';
                                         @endphp
 
+<<<<<<< HEAD
                                         <div class="service-item">
                                             <h4 class="service-item-title">
                                                 <i class="fas fa-{{ $isNegative ? 'times-circle' : 'check-circle' }}"></i>
                                                 {{ $text }}
                                             </h4>
                                         </div>
+=======
+                                            @if($trimmed !== '')
+                                            <div class="service-item">
+                                                <h4 class="service-item-title">
+                                                    <i class="fas fa-{{ $isNegative ? 'times-circle' : 'check-circle' }} 
+                                                            {{ $isNegative ? 'text-danger' : 'text-success' }}"></i>
+                                                    {{ $text }}
+                                                </h4>
+                                            </div>
+                                        @endif
+>>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                                     @endif
                                 @endforeach
                             @else
@@ -623,6 +647,7 @@
                             @endif
                         </div>
 
+<<<<<<< HEAD
                         <!-- Additional Services -->
                         {{-- <div class="additional-services">
                             <h4>Layanan Tambahan yang Didapatkan</h4>
@@ -654,6 +679,8 @@
                             </div>
                         </div> --}}
 
+=======
+>>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                         <!-- Back Button -->
                         <div class="text-center mt-4">
                             <a href="{{ route('jasa.akuntansi') }}" class="btn btn-back">

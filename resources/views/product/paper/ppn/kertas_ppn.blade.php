@@ -332,7 +332,7 @@
                         @endif
 
                         <div class="card-header">
-                            <h3>{{ $paper->name }}</h3>
+                            <h3 class="mt-3">{{ $paper->name }}</h3>
                             <div class="price">
                                 <span class="starting-from">mulai dari</span>
                                 <span class="amount">Rp {{ number_format($paper->price, 0, ',', '.') }}</span>
@@ -365,7 +365,7 @@
                             </a>
                         </div>
                         <div class="card-footer">
-                            <a href="https://wa.me/62xxxxxxxxxx" class="btn-outline-kk">Hubungi Kami</a>
+                            <a href="https://wa.me/62xxxxxxxxxx" class="btn-outline-kk mb-3">Hubungi Kami</a>
                         </div>
                     </div>
                 @endforeach

@@ -5,9 +5,15 @@
 @section('style')
 <style>
     :root {
+<<<<<<< HEAD
         --primary: #7c3aed;
         --primary-light: #8b5cf6;
         --primary-dark: #6d28d9;
+=======
+        --primary: #2563eb;
+        --primary-light: #3b82f6;
+        --primary-dark: #1d4ed8;
+>>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
         --secondary: #64748b;
         --accent: #f59e0b;
         --success: #059669;
@@ -606,12 +612,24 @@
                                             $benefitClass = $isNegative ? 'negative' : '';
                                         @endphp
 
+<<<<<<< HEAD
                                         <div class="service-item">
                                             <h4 class="service-item-title">
                                                 <i class="fas fa-{{ $isNegative ? 'times-circle' : 'check-circle' }}"></i>
                                                 {{ $text }}
                                             </h4>
                                         </div>
+=======
+                                         @if($trimmed !== '')
+                                            <div class="service-item">
+                                                <h4 class="service-item-title">
+                                                    <i class="fas fa-{{ $isNegative ? 'times-circle' : 'check-circle' }} 
+                                                            {{ $isNegative ? 'text-danger' : 'text-success' }}"></i>
+                                                    {{ $text }}
+                                                </h4>
+                                            </div>
+                                        @endif
+>>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                                     @endif
                                 @endforeach
                             @else
@@ -622,6 +640,7 @@
                             @endif
                         </div>
 
+<<<<<<< HEAD
                         <!-- Additional Services -->
                         {{-- <div class="additional-services">
                             <h4>Layanan Tambahan yang Didapatkan</h4>
@@ -653,6 +672,8 @@
                             </div>
                         </div> --}}
 
+=======
+>>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                         <!-- Back Button -->
                         <div class="text-center mt-4">
                             <a href="{{ route('litigasi') }}" class="btn btn-back">

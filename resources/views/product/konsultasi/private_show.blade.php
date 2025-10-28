@@ -5,9 +5,15 @@
 @section('style')
 <style>
     :root {
+<<<<<<< HEAD
         --primary: #8b5cf6;
         --primary-light: #a78bfa;
         --primary-dark: #7c3aed;
+=======
+        --primary: #2563eb;
+        --primary-light: #3b82f6;
+        --primary-dark: #1d4ed8;
+>>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
         --secondary: #64748b;
         --accent: #f59e0b;
         --success: #059669;
@@ -634,11 +640,19 @@
                                         $text = ltrim($trimmed, '+- ');
                                         $benefitClass = $isNegative ? 'negative' : '';
                                     @endphp
+<<<<<<< HEAD
 
                                     @if($trimmed !== '')
                                         <div class="service-item">
                                             <h4 class="service-item-title">
                                                 <i class="fas fa-{{ $isNegative ? 'times-circle' : 'check-circle' }}"></i>
+=======
+                                    @if($trimmed !== '')
+                                        <div class="service-item">
+                                            <h4 class="service-item-title">
+                                                <i class="fas fa-{{ $isNegative ? 'times-circle' : 'check-circle' }} 
+                                                        {{ $isNegative ? 'text-danger' : 'text-success' }}"></i>
+>>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                                                 {{ $text }}
                                             </h4>
                                         </div>
@@ -652,6 +666,7 @@
                             @endif
                         </div>
 
+<<<<<<< HEAD
                         <!-- Additional Services -->
                         {{-- <div class="additional-services">
                             <h4>Yang Termasuk dalam Paket</h4>
@@ -683,6 +698,8 @@
                             </div>
                         </div> --}}
 
+=======
+>>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                         <!-- Back Button -->
                         <div class="text-center mt-4">
                             <a href="{{ route('private') }}" class="btn btn-back">

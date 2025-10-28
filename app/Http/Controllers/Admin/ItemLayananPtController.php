@@ -74,7 +74,7 @@ class ItemLayananPtController extends Controller
     public function show(ItemLayananPt $layananPt): View
     {
         $layananPt->load('detail');
-        return view('layanan_pt.show', compact('layananPt'));
+        return view('admin.layanan_pt.show', compact('layananPt'));
     }
 
     public function edit(ItemLayananPt $layananPt): View

@@ -649,12 +649,15 @@
                                     <p class="material-description">
                                         {{ $materi->deskripsi ?? 'Deskripsi materi akan tersedia soon.' }}
                                     </p>
+<<<<<<< HEAD
                                     @if($materi->link)
                                         <a href="{{ $materi->link }}" target="_blank" class="material-link">
                                             <i class="fas fa-external-link-alt"></i>
                                             Akses Materi
                                         </a>
                                     @endif
+=======
+>>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                                 </div>
                             @empty
                                 <div class="text-center py-4">

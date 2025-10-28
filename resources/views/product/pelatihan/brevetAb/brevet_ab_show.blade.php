@@ -796,7 +796,11 @@
                         <div class="info-section">
                             <h3 class="section-title">
                                 <i class="fas fa-list-ul"></i>
+<<<<<<< HEAD
                                 Yang Akan Anda Dapatkan
+=======
+                                Benefit Yang Akan Anda Dapatkan
+>>>>>>> 282c7f73993900f518e507fc512fa517ac6cb2d8
                             </h3>
                             <ul class="description-list">
                                 @foreach(preg_split("/\r\n|\n|\r/", $brevet->deskripsi) as $line)
